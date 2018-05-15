@@ -1,0 +1,10 @@
+@import './tailwind-preflight.css';
+@import './tailwind-utilities.css';
+@import './../../css-gridish/css/o-grid-legacy.css';
+@import './../../templates/_elements/nav/default.css';
+
+html {
+    @apply .leading-normal .text-text;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+}

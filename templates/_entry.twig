@@ -1,0 +1,17 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+
+
+{#  Handler-Template: Entry
+ #
+ #  Handles all the request for individual entry views
+ #   of all sections of the site, except the Hompeage/Single
+ #
+ #}
+
+{% include [
+    "entry/" ~ entry.section.handle ~ "/" ~ entry.type,
+    "entry/" ~ entry.section.handle ~ "/default",
+    "entry/default",
+    "404"
+] %}
+

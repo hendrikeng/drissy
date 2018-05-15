@@ -1,0 +1,57 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{# @var entry \craft\elements\Entry #}
+
+{#
+  Home
+  ------------------------------------------------------------
+#}
+
+{% extends "_layouts/_layout" %}
+
+{# -- inline css -- #}
+{% block _inline_css %}
+    <style>
+        {{source ("index_critical.min.css", ignore_missing=true)}}
+    </style>
+    {# -- end inline css -- #}
+{% endblock %}
+
+{# -- body -- #}
+{% block body %}
+
+    {# -- cache -- #}
+    {% cache globally using key 'home' ~ craft.app.request.pathInfo ~ (craft.app.request.pageNum ? '/p' ~ craft.app.request.pageNum : '') %}
+
+    {# -- header -- #}
+    {% block header %}
+        {{ parent() }}
+
+        {# -- header end -- #}
+    {% endblock %}
+
+    {# -- content -- #}
+    {% block content %}
+        <div class="c-masonry">
+
+            {% paginate craft.entries.section('work')as entries %}
+                {% for entry in entries %}
+                    {% include '_item' %}
+                {% endfor %}
+                {% include '_macros/pagination-alt' %}
+            </div>
+
+            {# -- content end -- #}
+        {% endblock %}
+
+        {# -- footer -- #}
+        {% block footer %}
+            {{ parent() }}
+
+            {# -- footer end -- #}
+        {% endblock %}
+
+        {# -- cache end -- #}
+        {% endcache %}
+
+        {# -- body end -- #}
+    {% endblock %}

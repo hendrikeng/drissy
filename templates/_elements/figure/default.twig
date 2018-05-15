@@ -1,0 +1,7 @@
+{% set opt = opt.classes %}
+<figure class="{{ opt.figure }}">
+    {% block figure %}{% endblock %}
+    <figcaption class="{{ opt.figcaption }}">
+        {% block figcaption %}{% endblock %}
+    </figcaption>
+</figure>

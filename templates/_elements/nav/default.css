@@ -1,0 +1,7 @@
+.c-nav {
+    @apply flex items-center justify-between flex-wrap my-2;
+}
+
+.is-active {
+    @apply text-brand !important;
+}

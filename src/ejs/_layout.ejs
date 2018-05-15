@@ -1,0 +1,149 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{%- minify -%}
+{# -- get compilation hash:8 for cachebusting -- #}
+<% assetHash = compilation.hash.slice(0,7) %>
+    {# -- set assetHash and baseUrl -- #}
+    {% set assetHash = '<%- assetHash %>' %}
+    {% set baseUrl = alias('@baseUrl') ~ '/' %}
+    {% header "Link: <#{baseUrl}>; rel=dns-prefetch;,<#{baseUrl}>; rel=preconnect; crossorigin;" %}
+    <!DOCTYPE html>
+
+    {% set fontsLoaded = getCookie('fonts-loaded') %}
+    {% if fontsLoaded and fontsLoaded == assetHash and not craft.app.config.general.devMode %}
+        <html class="fonts-loaded" lang="{{ craft.app.language |slice(0,2) }}" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+        {% else %}
+
+            {{ setCookie('fonts-loaded', assetHash, now | date_modify("+7 days").timestamp ) }}
+            <html lang="{{ craft.app.language |slice(0,2) }}" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+            {% endif %}
+
+            <head>
+                <link rel="dns-prefetch" href="{{ baseUrl }}">
+                <link rel="preconnect" href="{{ baseUrl }}">
+
+                <!-- Set character encoding for the document -->
+                <meta charset="utf-8">
+                <!-- Viewport for responsive web design -->
+                <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+                {# -- FAVICONS -- #}
+                {% if not craft.app.config.general.devMode %}
+                    <!-- Favicons -->
+                    <link rel="icon" type="image/png" sizes="32x32" href="{{ baseUrl }}assets/favicon-32x32.png">
+                    <link rel="icon" type="image/png" sizes="16x16" href="{{ baseUrl }}assets/favicon-16x16.png">
+                    <link rel="shortcut icon" href="{{ baseUrl }}assets/favicon.ico">
+                    <!-- Apple Web App Meta -->
+                    <link rel="apple-touch-icon" sizes="57x57" href="{{ baseUrl }}assets/apple-touch-icon-57x57.png">
+                    <link rel="apple-touch-icon" sizes="60x60" href="{{ baseUrl }}assets/apple-touch-icon-60x60.png">
+                    <link rel="apple-touch-icon" sizes="72x72" href="{{ baseUrl }}assets/apple-touch-icon-72x72.png">
+                    <link rel="apple-touch-icon" sizes="76x76" href="{{ baseUrl }}assets/apple-touch-icon-76x76.png">
+                    <link rel="apple-touch-icon" sizes="114x114" href="{{ baseUrl }}assets/apple-touch-icon-114x114.png">
+                    <link rel="apple-touch-icon" sizes="120x120" href="{{ baseUrl }}assets/apple-touch-icon-120x120.png">
+                    <link rel="apple-touch-icon" sizes="144x144" href="{{ baseUrl }}assets/apple-touch-icon-144x144.png">
+                    <link rel="apple-touch-icon" sizes="152x152" href="{{ baseUrl }}assets/apple-touch-icon-152x152.png">
+                    <link rel="apple-touch-icon" sizes="180x180" href="{{ baseUrl }}assets/apple-touch-icon-180x180.png">
+                    <meta name="apple-mobile-web-app-capable" content="yes">
+                    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+                    <meta name="apple-mobile-web-app-title" content="drissy">
+                    <!-- Windows Tiles -->
+                    <meta name="msapplication-config" content="{{ baseUrl }}assets/browserconfig.xml">
+                    <meta name="msapplication-TileColor" content="#fff">
+                    <meta name="msapplication-TileImage" content="{{ baseUrl }}assets/mstile-144x144.png">
+                    <!-- Manifest -->
+                    <meta name="mobile-web-app-capable" content="yes">
+                    <meta name="application-name" content="<%= htmlWebpackPlugin.options.title %>">
+                    <meta name="theme-color" content="#fff">
+                    <link rel="manifest" href="{{ baseUrl }}assets/manifest.json">
+                {% endif %}
+
+                {# -- Seomatic -- #}
+                {% if craft.plugin.Seomatic is defined %}
+                    {% hook 'seomaticRender' %}
+                {% else %}
+                    {% block metadata %}
+                        <title><%= htmlWebpackPlugin.options.title %></title>
+                        <!-- Meta Description -->
+                        <meta name="description" content="Description of the page less than 150 characters">
+                    {% endblock %}
+                {% endif %}
+
+                {# -- Tab Handler -- #}
+                <script>
+                    {{ source("_inlinejs/tab-handler.js") }}
+                </script>
+
+                {# -- CRITICAL CSS -- #}
+                {% set criticalCss = getCookie('critical-css') %}
+                {% if criticalCss and criticalCss == assetHash and not craft.app.config.general.devMode %}
+                    <link rel="stylesheet" href="<%= htmlWebpackPlugin.files.css %>">
+                {% else %}
+                 {{ setCookie('critical-css', assetHash, now | date_modify("+7 days").timestamp ) }}
+                    {% block _inline_css %}{% endblock %}
+                    <link rel="preload" href="<%= htmlWebpackPlugin.files.css %>" as="style" onload="this.rel='stylesheet'">
+                    <noscript><link rel="stylesheet" href="<%= htmlWebpackPlugin.files.css %>"></noscript>
+                    <script>
+                        {{ source("_inlinejs/loadCSS.js") }}
+                        {{ source("_inlinejs/cssrelpreload.js") }}
+                    </script>
+                {% endif %}
+
+                {# -- Fontface Observer -- #}
+                <style>
+                    {% include "_inlinecss/_site_fonts.css" %}
+                </style>
+                {% if fontsLoaded and fontsLoaded == assetHash %}
+                {% else %}
+                      <script>
+                        {{ source("_inlinejs/fontfaceobserver.js") }}
+                        {{ source("_inlinejs/load-fonts.js") }}
+                    </script>
+                {% endif %}
+                {% block head %}{% endblock %}
+                {%- endminify -%}
+            </head>
+
+            {%- minify -%}
+            <body class="o-container px-4">
+                {% block body %}
+
+                    {% block header %}
+                        {% include '_components/header/default' with {
+                            opt : {
+                                data: {},
+                                el: {
+                                    nav: true,
+                                    hgroup: false
+                                }
+                            }
+                        }
+                        only %}
+                    {% endblock %}
+
+                    <main itemscope="itemscope" itemprop="mainContentOfPage">
+                        {% block content %}{% endblock %}
+                    </main>
+
+                    {% block footer %}
+                        {% include '_components/footer/default' with {
+                            opt : {
+                                data: contact.globalContact.all()
+                            }
+                        }
+                        only %}
+                    {% endblock %}
+
+                    {% block scripts %}
+                        <% if (htmlWebpackPlugin.options.env.prod) { %>
+                            <script src="<%= htmlWebpackPlugin.files.js[0] %>"></script>
+                        <% } %>
+                    {% endblock %}
+
+                    <script type="text/javascript">
+                        var HoverOnTouch = new HoverOnTouch();
+                    </script>
+
+                {% endblock %}
+            </body>
+            {%- endminify -%}
+
+        </html>

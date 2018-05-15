@@ -1,0 +1,15 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{# @var entry \craft\elements\Entry #}
+
+{# Handler-Template: Item
+    Handles all display of content on a listing page
+    regardless of which section is beeing displayed.
+#}
+
+{% include [
+    "item/" ~ entry.section.handle ~ "/" ~ entry.type,
+    "item/" ~ entry.section.handle ~ "/default",
+    "item/default",
+    "404"
+] %}
+

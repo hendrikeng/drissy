@@ -1,0 +1,36 @@
+$grid-values: (
+  prefix: o,
+  breakpoints: (
+    sm: (
+      breakpoint: 36,
+      columns: 4,
+      gutter: 1rem,
+      margin: 0
+    ),
+    md: (
+      breakpoint: 48,
+      columns: 8,
+      gutter: 1rem,
+      margin: 0
+    ),
+    lg: (
+      breakpoint: 62,
+      columns: 12,
+      gutter: 1rem,
+      margin: 0
+    ),
+    xl: (
+      breakpoint: 75,
+      columns: 12,
+      gutter: 1rem,
+      margin: 0
+    )
+  ),
+  extraArtboards: (
+    large: 90
+  ),
+  rem: 16,
+  rowHeight: 0.5,
+  rows: 1,
+  paths: null
+);

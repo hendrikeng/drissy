@@ -1,0 +1,12 @@
+<div class="entry {{ entry.section.handle }}-{{ entry.type }}">
+
+    {% block itemContent %}
+        {% if entry.body %}
+            <div class="entry content">
+                {% include "_matrix" with {
+                    "matrix" : entry.body
+                } %}
+            </div>
+        {% endif %}
+    {% endblock %}
+</div>

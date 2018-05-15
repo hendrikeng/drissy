@@ -1,0 +1,33 @@
+{% extends "_layouts/_layout" %}
+
+{# -- inline css -- #}
+{% block _inline_css %}
+    <style>
+        {{source ("index_critical.min.css", ignore_missing=true)}}
+    </style>
+    {# -- end inline css -- #}
+{% endblock %}
+
+
+    {% block content %}
+
+        <div class="entry {{ entry.section.handle }}-{{ entry.type }}">
+            {# <h2><a href="{{ entry.url }}">{{ entry.title }}</a></h2>
+	<p class="post-date">{{ entry.postDate | date('M d, Y') }}</p> #}
+    <h1 class="mt-6 text-center">{{ entry.title }}</h1>
+
+            {% block itemContent %}
+
+                {% if entry.body %}
+                    <div class="entry content">
+                        {% include "_matrix" with {
+                            "matrix" : entry.body
+                        } %}
+                    </div>
+                {% endif %}
+            {% endblock %}
+        </div>
+
+        {# -- content end -- #}
+    {% endblock %}
+

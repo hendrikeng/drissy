@@ -1,0 +1,10 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+
+{# Handler-Template: Matrix
+    handles all display of matrix-fields accross the site.
+#}
+
+{% for block in matrix %}
+	{% include ["matrix/" ~ block.type, "matrix/default"] %}
+{% endfor %}
+

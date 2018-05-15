@@ -1,0 +1,21 @@
+<header class="site-header" itemscope="itemscope" itemtype="http://schema.org/WPHeader">
+    {% if opt.el.nav %}
+        {% include '_elements/nav/default' with {
+            opt : {
+                data: navigationMain.globalNavigationMain.all()
+            }
+        }
+        only %}
+    {% endif %}
+    {% if opt.el.hgroup %}
+    {% include '_elements/hgroup/default' with {
+            opt : {
+                data: {
+                    title: 'anpassen',
+                    description: 'anpassen'
+                }
+            }
+        }
+        only %}
+    {% endif %}
+</header>
