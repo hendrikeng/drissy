@@ -1,8 +1,8 @@
 {
     "name": "drissy",
-    "version": "0.4.1",
+    "version": "0.0.9",
     "description": "",
-    "main": "index.js",
+    "main": "webpack.config.js",
     "author": "Hendrikeng <hendrik@wewereyoung.de>",
     "license": "MIT",
     "scripts": {

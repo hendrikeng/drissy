@@ -1,16 +1,16 @@
 {
-    "name": "nystudio107/craft",
-    "description": "nystudio107 Craft 3 CMS scaffolding project",
-    "version": "1.0.15",
-    "keywords": ["craft", "cms", "craftcms", "project"],
+    "name": "hendrikeng/drissy",
+    "description": "WeWereYoung - Craft 3 CMS - Webpack 4 - Tailwind - Vue - scaffolding project",
+    "version": "1.0.0",
+    "keywords": ["craft", "cms", "craftcms", "project", "webpack", "tailwind", "vue"],
     "license": "MIT",
     "homepage": "https://craftcms.com/",
     "type": "project",
     "support": {
-        "email": "info@nystudio107.com",
-        "issues": "https://github.com/nystudio107/craft/issues",
-        "source": "https://github.com/nystudio107/craft",
-        "docs": "https://github.com/nystudio107/craft"
+        "email": "hendrik@wewereyoung.de",
+        "issues": "https://github.com/hendrikeng/drissy/issues",
+        "source": "https://github.com/hendrikeng/drissy",
+        "docs": "https://github.com/hendrikeng/drissy"
     },
     "minimum-stability": "RC",
     "require": {
