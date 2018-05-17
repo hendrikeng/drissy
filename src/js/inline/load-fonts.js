@@ -1,6 +1,4 @@
-"use strict";
-
-// if (document.documentElement.className.indexOf("fonts-loaded") < 0) {
+"use strict"; // if (document.documentElement.className.indexOf("fonts-loaded") < 0) {
 //   var FontA = new FontFaceObserver("Lato");
 //   Promise.all([FontA.load()]).then(function() {
 //     document.documentElement.className += "fonts-loaded";
@@ -11,7 +9,7 @@
 // }
 
 if (document.documentElement.className.indexOf("fonts-loaded") < 0) {
-var font = new FontFaceObserver('Lato');
+  var font = new FontFaceObserver('Lato');
   font.load().then(function () {
     document.documentElement.className += "fonts-loaded";
   });
