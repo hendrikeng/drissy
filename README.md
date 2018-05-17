@@ -1,9 +1,21 @@
 ```
-composer create-project hendrikeng/drissy PATH -s RC
+Install wirth:
+composer create-project hendrikeng/drissy PROJEKTNAME -s RC
 
-cd PATH
+cd PROJEKTNAME
 ./craft setup
 
-cd PATH
+(automatic craft install doesnt work yet, install via browser : projekt.test/admin and import init_DB.sql afterwards)
+
+cd PROJEKTNAME
 ./nys-setup
+
+cd PROJEKTNAME
+yarn dev:init
+
+Start development with:
+yarn dev:all
+
+Start Build:
+yarn build:all
 ```
