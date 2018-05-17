@@ -29,7 +29,7 @@
         "dev:hardsource": "yarn dev --env.plugins=hardsource",
         "dev:all": "yarn dev --env.plugins=hardsource --env.plugins=bundleanalyzer",
         "grid": "css-gridish",
-        "init:tailwind": "./node_modules/.bin/tailwind init ./build-config/tailwind.config.js",
+        "init:tailwind": "rm -rf ./build-config/tailwind.config.js && ./node_modules/.bin/tailwind init ./build-config/tailwind.config.js",
         "postinstall": "npm cache verify",
         "uglify:inlinejs": "node ./build-utils/uglify.js",
         "webpack": "node ./node_modules/webpack/bin/webpack.js ",
