@@ -9,7 +9,7 @@
     <!DOCTYPE html>
 
     {% set fontsLoaded = getCookie('fonts-loaded') %}
-    {% if fontsLoaded and fontsLoaded == assetHash and not craft.app.config.general.devMode %}
+    {% if fontsLoaded and fontsLoaded == assetHash or craft.app.config.general.devMode %}
         <html class="fonts-loaded" lang="{{ craft.app.language |slice(0,2) }}" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
         {% else %}
 
@@ -76,7 +76,7 @@
                 {% set criticalCss = getCookie('critical-css') %}
                 {% if criticalCss and criticalCss == assetHash and not craft.app.config.general.devMode %}
                     <link rel="stylesheet" href="<%= htmlWebpackPlugin.files.css %>">
-                {% else %}
+                {% elseif not craft.app.config.general.devMode %}
                  {{ setCookie('critical-css', assetHash, now | date_modify("+7 days").timestamp ) }}
                     {% block _inline_css %}{% endblock %}
                     <link rel="preload" href="<%= htmlWebpackPlugin.files.css %>" as="style" onload="this.rel='stylesheet'">
@@ -103,7 +103,7 @@
             </head>
 
             {%- minify -%}
-            <body class="o-container px-4">
+            <body>
                 {% block body %}
 
                     {% block header %}
@@ -137,10 +137,6 @@
                             <script src="<%= htmlWebpackPlugin.files.js[0] %>"></script>
                         <% } %>
                     {% endblock %}
-
-                    <script type="text/javascript">
-                        var HoverOnTouch = new HoverOnTouch();
-                    </script>
 
                 {% endblock %}
             </body>

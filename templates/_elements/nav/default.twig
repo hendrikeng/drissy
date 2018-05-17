@@ -1,7 +1,7 @@
 {% import "_macros/_macros.twig" as macro %}
 
 <div class="c-nav">
-    {% include '_pieces/logo/default'%}
+    <div class="ml-4 -mt-4">{% include '_pieces/logo/default'%}</div>
     <nav itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
         <ul class="list-reset flex-grow flex items-x-end w-auto">
             {% for block in opt.data %}
@@ -11,7 +11,7 @@
                     {# -- Set Text -- #}
                     {% set text = block.menuItem.customText != '' ? block.menuItem.customText: block.menuItem.text | default(block.menuItem.url) %}
                     <li>
-                        <a href="{{ block.menuItem.url }}" title="{{ text | trim }}" class="no-underline inline-block hover:text-brand text-text {{ block.segmentPosition ? macro.isActive(segments, block.segmentPosition + 0) | trim : ''}}{# { loop.last ? '' : 'mr-4' } #} mr-4">
+                        <a href="{{ block.menuItem.url }}" title="{{ text | trim }}" class="no-underline inline-block hover:text-brand text-text {{ block.segmentPosition ? macro.isActive(segments, block.segmentPosition + 0) | trim : ''}}{{ loop.last ? '' : 'mr-4' }} mr-4">
                             {{ block.menuItem.customText | trim }}</a>
                     </li>
                 {% endif %}

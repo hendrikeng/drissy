@@ -322,10 +322,10 @@ function installNodePackages()
 {
     $command = '';
     if (shellCommandExists('npm')) {
-        $command = 'npm install';
+        $command = 'npm install && npm run dev:init';
     }
     if (shellCommandExists('yarn')) {
-        $command = 'yarn';
+        $command = 'yarn && yarn dev:init';
     }
 
     outputString(PHP_EOL . 'Installing NodeJS packages via ' . $command . ' (this may take a while)', Console::FG_YELLOW);

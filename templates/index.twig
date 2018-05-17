@@ -16,42 +16,32 @@
     {# -- end inline css -- #}
 {% endblock %}
 
-{# -- body -- #}
-{% block body %}
+{# -- cache -- #}
+{% cache globally using key 'home' ~ craft.app.request.pathInfo ~ (craft.app.request.pageNum ? '/p' ~ craft.app.request.pageNum : '') %}
 
-    {# -- cache -- #}
-    {% cache globally using key 'home' ~ craft.app.request.pathInfo ~ (craft.app.request.pageNum ? '/p' ~ craft.app.request.pageNum : '') %}
+{# -- header -- #}
+{% block header %}
+    {{ parent() }}
 
-    {# -- header -- #}
-    {% block header %}
-        {{ parent() }}
+    {# -- header end -- #}
+{% endblock %}
 
-        {# -- header end -- #}
-    {% endblock %}
+{# -- content -- #}
+{% block content %}
 
-    {# -- content -- #}
-    {% block content %}
-        <div class="c-masonry">
+    {# -- Vue -- #}
+    <div id="app"></div>
 
-            {% paginate craft.entries.section('work')as entries %}
-                {% for entry in entries %}
-                    {% include '_item' %}
-                {% endfor %}
-                {% include '_macros/pagination-alt' %}
-            </div>
 
-            {# -- content end -- #}
-        {% endblock %}
+    {# -- content end -- #}
+{% endblock %}
 
-        {# -- footer -- #}
-        {% block footer %}
-            {{ parent() }}
+{# -- footer -- #}
+{% block footer %}
+    {{ parent() }}
 
-            {# -- footer end -- #}
-        {% endblock %}
+    {# -- footer end -- #}
+{% endblock %}
 
-        {# -- cache end -- #}
-        {% endcache %}
-
-        {# -- body end -- #}
-    {% endblock %}
+{# -- cache end -- #}
+{% endcache %}

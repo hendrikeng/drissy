@@ -7,6 +7,8 @@ public/\workbox*
 web/\workbox*
 public/\precache-manifest*
 web/\precache-manifest*
+web/\sw*
+public/\sw*
 
 # CRAFT
 storage/*
