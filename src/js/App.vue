@@ -1,5 +1,5 @@
 <template>
-    <div class="text-center text-black container bg-green-light">
+    <div class="text-center text-black bg-green-light">
         {{ title }}
     </div>
 </template>
