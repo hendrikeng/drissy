@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-green-lightest">
+    <div class="text-center text-black container bg-green-light">
         {{ title }}
     </div>
 </template>
@@ -8,7 +8,7 @@
 export default {
   data() {
     return {
-      title: 'Hilele',
+      title: 'Hello Vue.js',
     };
   },
 };

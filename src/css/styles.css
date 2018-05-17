@@ -14,7 +14,7 @@
 @import './../../templates/_elements/nav/default.css';
 
 html {
-    @apply .leading-normal .text-text;
+    @apply .leading-normal .text-grey-dark;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
 }
