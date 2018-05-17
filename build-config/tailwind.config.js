@@ -46,9 +46,6 @@ View the full documentation at https://tailwindcss.com.
 let colors = {
     'transparent': 'transparent',
 
-    'brand': '#ff008e',
-    'text': '#3c474c',
-
     'black': '#22292f',
     'grey-darkest': '#3d4852',
     'grey-darker': '#606f7b',
@@ -652,6 +649,7 @@ let colors = {
       '4': '1rem',
       '6': '1.5rem',
       '8': '2rem',
+      '16': '4rem',
     },
 
 
@@ -680,6 +678,7 @@ let colors = {
       '4': '1rem',
       '6': '1.5rem',
       '8': '2rem',
+      '16': '4rem',
     },
 
 
@@ -797,7 +796,6 @@ let colors = {
 
     svgFill: {
       'current': 'currentColor',
-      'brand': colors['brand'],
     },
 
 
@@ -817,7 +815,6 @@ let colors = {
 
     svgStroke: {
       'current': 'currentColor',
-      'brand': colors['brand'],
     },
 
 
@@ -873,8 +870,8 @@ let colors = {
       position: ['responsive'],
       resize: ['responsive'],
       shadows: ['responsive'],
-      svgFill: ['hover'],
-      svgStroke: ['hover'],
+      svgFill: [],
+      svgStroke: [],
       textAlign: ['responsive'],
       textColors: ['responsive', 'hover'],
       textSizes: ['responsive'],
@@ -906,7 +903,7 @@ let colors = {
     plugins: [
       require('tailwindcss/plugins/container')({
         center: true,
-        padding: '10rem',
+        padding: '1rem',
       }),
     ],
 

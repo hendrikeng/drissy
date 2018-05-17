@@ -1,6 +1,16 @@
+
+/* Tailwind Css */
+
 @import './tailwind-preflight.css';
 @import './tailwind-utilities.css';
+@import './tailwind-components.css';
+
+/* Css Gridish */
+
 @import './../../css-gridish/css/o-grid-legacy.css';
+
+/* Components, Elements and Pieces */
+
 @import './../../templates/_elements/nav/default.css';
 
 html {
@@ -8,3 +18,13 @@ html {
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
 }
+
+.fonts-loaded body,
+.fonts-loaded .font-sans {
+    font-family: Lato, Arial, Helvetica, sans-serif;
+}
+
+.fonts-loaded .font-serif {
+    font-family: sans-serif, Arial, Helvetica;
+}
+
