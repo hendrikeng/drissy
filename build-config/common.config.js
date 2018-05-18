@@ -8,8 +8,8 @@ function resolve(dir) {
 module.exports = {
     urls: {
         dev: 'drissy.test',
-        staging: 'https://leonelruben-staging.engereauswahl.de',
-        live: 'https://leonelruben-staging.engereauswahl.de',
+        staging: 'https://drissy.test',
+        live: 'https://drissy.test',
     },
     entry: {
         'assets/app': './src/js/main.js',
@@ -30,7 +30,7 @@ module.exports = {
     htmlWebpackPlugin: {
         template: './src/ejs/_layout.ejs',
         filename: `${resolve('./templates/_layouts/')}_layout.twig`,
-        title: 'Leonelruben',
+        title: 'Drissy',
     },
     purgeCss: {
         paths: [
