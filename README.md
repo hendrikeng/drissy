@@ -19,3 +19,5 @@ yarn dev:all
 Start Build:
 yarn build:all
 ```
+
+All project relevant config (paths etc) is editable in ./build-config/common.config.js
