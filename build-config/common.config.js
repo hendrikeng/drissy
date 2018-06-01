@@ -66,7 +66,6 @@ module.exports = {
     },
     contentBase: ['*', '_components/**/*', '_elements/**/*', '_macros/**/*', '_pieces/**/*', 'entry/**/*', 'item/**/*', 'matrix/**/*'],
     inlineJs: [
-        './node_modules/fg-loadcss/src/loadCSS.js',
         './node_modules/fg-loadcss/src/cssrelpreload.js',
         './node_modules/fontfaceobserver/fontfaceobserver.js',
         './src/js/inline/tab-handler.js',

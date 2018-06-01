@@ -79,10 +79,9 @@
                 {% elseif not craft.app.config.general.devMode %}
                  {{ setCookie('critical-css', assetHash, now | date_modify("+7 days").timestamp ) }}
                     {% block _inline_css %}{% endblock %}
-                    <link rel="preload" href="<%= htmlWebpackPlugin.files.css %>" as="style" onload="this.rel='stylesheet'">
+                    <link rel="preload" href="<%= htmlWebpackPlugin.files.css %>" as="style" onload="this.onload=null;this.rel='stylesheet'">
                     <noscript><link rel="stylesheet" href="<%= htmlWebpackPlugin.files.css %>"></noscript>
                     <script>
-                        {{ source("_inlinejs/loadCSS.js") }}
                         {{ source("_inlinejs/cssrelpreload.js") }}
                     </script>
                 {% endif %}
