@@ -2,5 +2,9 @@
     font-family: Lato;
     font-style: normal;
     font-display: swap;
-    src: local('Lato Regular '), local('Lato-Regular'), url('/assets/fonts/lato-latin-400.woff2') format('woff2'), url('/assets/fonts/lato-latin-400.woff') format('woff');
+    src: local('Lato Regular '),
+        local('Lato-Regular'),
+        url('{{ baseUrl }}assets/fonts/lato-latin-400.woff2') format('woff2'),
+        url('{{ baseUrl }}assets/fonts/lato-latin-400.woff') format('woff');
 }
+
