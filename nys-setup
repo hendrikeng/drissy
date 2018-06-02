@@ -261,6 +261,8 @@ function setupNysCraft()
     installPlugins();
     // Install the NodeJS packages
     installNodePackages();
+    // Initi Pkg
+    initPkg();
     // Initi Project
     initDev();
     // Say goodbye
@@ -375,6 +377,30 @@ function installNodePackages()
 }
 
 /**
+ * Initiliaze pkg.json
+ */
+
+function initPkg()
+{
+    $command = '';
+    if (shellCommandExists('npm')) {
+        $command = 'npm init';
+    }
+    if (shellCommandExists('yarn')) {
+        $command = 'yarn init';
+    }
+
+    outputString(PHP_EOL . 'Initializing package.json via ' . $command . ' (this may take a while)', Console::FG_YELLOW);
+
+    if (!empty($command)) {
+        $result = executeShellCommand($command);
+        outputString($result);
+    } else {
+        outputString('### unable to initialize package.json, yarn/npm not found', Console::FG_RED);
+    }
+}
+
+/**
  * Initiliazie Project
  */
 
@@ -397,6 +423,7 @@ function initDev()
         outputString('### unable to initialize Project, yarn/npm not found', Console::FG_RED);
     }
 }
+
 
 /**
  * Output a string to the console, using optional $args to color it, if supported
