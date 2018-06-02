@@ -18,6 +18,7 @@ const INSTALL_PLUGINS = [
     'cp-field-inspect',
     'cp-css',
     'cookies',
+    'contact-form',
     'craft-gonzo',
     'eagerbeaver',
     'environment-label',
