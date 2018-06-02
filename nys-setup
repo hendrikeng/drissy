@@ -14,12 +14,22 @@ use yii\helpers\Console;
 
 const INSTALL_PLUGINS = [
     'async-queue',
-    'eager-beaver',
-    'minify',
-    'routemap',
-    'typogrify',
+    'child-me',
+    'cp-field-inspect',
+    'cp-css',
     'cookies',
+    'craft-gonzo',
+    'eagerbeaver',
+    'environment-label',
+    'expanded-singles',
+    'imager',
+    'minify',
+    'position-fieldtype',
     'redactor',
+    'splash',
+    'typedlinkfield',
+    'seomatic',
+    'typogrify',
 ];
 
 const CRAFT_SCRIPTS_SETUP = [
@@ -94,12 +104,12 @@ const CRAFT_MULTI_ENVIRONMENT_SETUP = [
         'replacements' => [
         ],
     ],
-    [
-        'srcpath' => 'vendor/nystudio107/craft3-multi-environment/config/volumes.php',
-        'destpath' => 'config/volumes.php',
-        'replacements' => [
-        ],
-    ],
+    // [
+    //     'srcpath' => 'vendor/nystudio107/craft3-multi-environment/config/volumes.php',
+    //     'destpath' => 'config/volumes.php',
+    //     'replacements' => [
+    //     ],
+    // ],
     [
         'srcpath' => 'vendor/nystudio107/craft3-multi-environment/web/index.php',
         'destpath' => 'web/index.php',
@@ -250,6 +260,8 @@ function setupNysCraft()
     installPlugins();
     // Install the NodeJS packages
     installNodePackages();
+    // Initi Project
+    initDev();
     // Say goodbye
     outputString(PHP_EOL . 'Setup complete. Have a nice day!', Console::FG_YELLOW);
 }
@@ -358,6 +370,30 @@ function installNodePackages()
         outputString($result);
     } else {
         outputString('### unable to install NodeJS packages, yarn/npm not found', Console::FG_RED);
+    }
+}
+
+/**
+ * Initiliazie Project
+ */
+
+function initDev()
+{
+    $command = '';
+    if (shellCommandExists('npm')) {
+        $command = 'yarn run dev:init';
+    }
+    if (shellCommandExists('yarn')) {
+        $command = 'npm run dev:init';
+    }
+
+    outputString(PHP_EOL . 'Initializing Project via ' . $command . ' (this may take a while)', Console::FG_YELLOW);
+
+    if (!empty($command)) {
+        $result = executeShellCommand($command);
+        outputString($result);
+    } else {
+        outputString('### unable to initialize Project, yarn/npm not found', Console::FG_RED);
     }
 }
 
