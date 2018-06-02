@@ -1,7 +1,7 @@
 {
     "name": "hendrikeng/drissy",
     "description": "WeWereYoung - Craft 3 CMS - Webpack 4 - Tailwind - Vue - scaffolding project",
-    "version": "1.0.5-alpha",
+    "version": "1.0.6-alpha",
     "keywords": ["craft", "cms", "craftcms", "project", "webpack", "tailwind", "vue"],
     "license": "MIT",
     "homepage": "https://craftcms.com/",
@@ -17,6 +17,7 @@
         "aelvan/imager": "^2.0",
         "benjamminf/craft-embedded-assets": "^1.0",
         "craftcms/cms": "^3.0.0-RC7",
+        "craftcms/contact-form": "^2.1",
         "craftcms/redactor": "2.0.0.1",
         "doublesecretagency/craft-cpcss": "2.1.0",
         "ether/logs": "v3.0.0",
