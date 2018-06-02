@@ -244,6 +244,8 @@ function setupNysCraft()
     setupCraftScripts();
     // Setup Craft 3 Multi-Environment
     setupCraftMultiEnvironment();
+    // import DB
+    importInitDb();
     // Install the default plugins
     installPlugins();
     // Install the NodeJS packages
@@ -254,44 +256,22 @@ function setupNysCraft()
 
 function importInitDb()
 {
-    // Name of the file
-    $filename = 'init_DB.sql';
-    // MySQL host
-    $mysql_host = 'localhost';
-    // MySQL username
-    $mysql_username = 'root';
-    // MySQL password
-    $mysql_password = '';
-    // Database name
-    $mysql_database = 'imp';
+    require_once CRAFT_BASE_PATH . DIRECTORY_SEPARATOR . '.env.php';
+    $database = getenv('CRAFTENV_DB_DATABASE');
 
-    // Connect to MySQL server
-    mysql_connect($mysql_host, $mysql_username, $mysql_password) or die('Error connecting to MySQL server: ' . mysql_error());
-    // Select database
-    mysql_select_db($mysql_database) or die('Error selecting MySQL database: ' . mysql_error());
-
-    // Temporary variable, used to store current query
-    $templine = '';
-    // Read in entire file
-    $lines = file($filename);
-    // Loop through each line
-    foreach ($lines as $line) {
-    // Skip it if it's a comment
-        if (substr($line, 0, 2) == '--' || $line == '') {
-            continue;
-        }
-
-    // Add this line to the current segment
-        $templine .= $line;
-    // If it has a semicolon at the end, it's the end of the query
-        if (substr(trim($line), -1, 1) == ';') {
-            // Perform the query
-            mysql_query($templine) or print('Error performing query \'<strong>' . $templine . '\': ' . mysql_error() . '<br /><br />');
-            // Reset temp variable to empty
-            $templine = '';
-        }
+    $command = '';
+    if (shellCommandExists('mysql')) {
+        $command = 'mysql -u root ' . $database . ' < init_DB.sql';
     }
-    echo "Tables imported successfully";
+
+    outputString(PHP_EOL . 'Importing Init DB to ' . $database, Console::FG_YELLOW);
+
+    if (!empty($command)) {
+        $result = executeShellCommand($command);
+        outputString('- Successfully imported Init DB', Console::FG_GREEN);
+    } else {
+        outputString('### unable to import DB, mysql not found', Console::FG_RED);
+    }
 }
 
 
