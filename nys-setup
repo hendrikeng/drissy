@@ -94,12 +94,12 @@ const CRAFT_MULTI_ENVIRONMENT_SETUP = [
         'replacements' => [
         ],
     ],
-    [
-        'srcpath' => 'vendor/nystudio107/craft3-multi-environment/config/volumes.php',
-        'destpath' => 'config/volumes.php',
-        'replacements' => [
-        ],
-    ],
+    // [
+    //     'srcpath' => 'vendor/nystudio107/craft3-multi-environment/config/volumes.php',
+    //     'destpath' => 'config/volumes.php',
+    //     'replacements' => [
+    //     ],
+    // ],
     [
         'srcpath' => 'vendor/nystudio107/craft3-multi-environment/web/index.php',
         'destpath' => 'web/index.php',
