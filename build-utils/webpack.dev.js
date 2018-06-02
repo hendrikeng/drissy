@@ -100,6 +100,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: commonConfig.htmlWebpackPlugin.template,
             filename: commonConfig.htmlWebpackPlugin.filename,
+            title: commonConfig.htmlWebpackPlugin.title,
             inject: true,
             // minifying html won't work with critical css
             minify: false,

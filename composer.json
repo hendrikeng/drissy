@@ -1,7 +1,7 @@
 {
     "name": "hendrikeng/drissy",
     "description": "WeWereYoung - Craft 3 CMS - Webpack 4 - Tailwind - Vue - scaffolding project",
-    "version": "1.0.6-alpha",
+    "version": "1.0.6-beta",
     "keywords": ["craft", "cms", "craftcms", "project", "webpack", "tailwind", "vue"],
     "license": "MIT",
     "homepage": "https://craftcms.com/",
