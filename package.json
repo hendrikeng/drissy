@@ -1,6 +1,6 @@
 {
     "name": "drissy",
-    "version": "1.0.2-alpha",
+    "version": "1.0.3-alpha",
     "description": "",
     "main": "webpack.config.js",
     "author": "Hendrikeng <hendrik@wewereyoung.de>",
