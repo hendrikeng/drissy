@@ -256,12 +256,15 @@ function setupNysCraft()
 
 function importInitDb()
 {
+    require_once CRAFT_BASE_PATH . DIRECTORY_SEPARATOR . '.env.php';
+    $database = getenv('CRAFTENV_DB_DATABASE');
+
     $command = '';
     if (shellCommandExists('mysql')) {
-        $command = 'mysql -u root imp < init_DB.sql';
+        $command = 'mysql -u root ' . $database . ' < init_DB.sql';
     }
 
-    outputString(PHP_EOL . 'Importing Init DB via ' . $command . ' (this may take a while)', Console::FG_YELLOW);
+    outputString(PHP_EOL . 'Importing Init DB to ' . $database, Console::FG_YELLOW);
 
     if (!empty($command)) {
         $result = executeShellCommand($command);
