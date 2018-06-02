@@ -14,12 +14,22 @@ use yii\helpers\Console;
 
 const INSTALL_PLUGINS = [
     'async-queue',
-    'eager-beaver',
-    'minify',
-    'routemap',
-    'typogrify',
+    'child-me',
+    'cp-field-inspect',
+    'cpcss',
     'cookies',
+    'craft-gonzo',
+    'eagerbeaver',
+    'environment-label',
+    'expanded-singles',
+    'imager',
+    'minify',
+    'position-fieldtype',
     'redactor',
+    'splash',
+    'linkfield',
+    'seomatic',
+    'typogrify',
 ];
 
 const CRAFT_SCRIPTS_SETUP = [
