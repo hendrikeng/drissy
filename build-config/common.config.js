@@ -1,5 +1,6 @@
 
 const path = require('path');
+const pkg = require('../package.json');
 
 function resolve(dir) {
     return path.join(__dirname, '..', dir);
@@ -7,9 +8,9 @@ function resolve(dir) {
 
 module.exports = {
     urls: {
-        dev: 'drissy.test',
-        staging: 'https://leonelruben-staging.engereauswahl.de',
-        live: 'https://leonelruben-staging.engereauswahl.de',
+        dev: `${pkg.name}.test`,
+        staging: `https://${pkg.name}-staging.wewereyoung.de`,
+        live: `https://${pkg.name}.de`,
     },
     entry: {
         'assets/app': './src/js/main.js',
@@ -30,7 +31,7 @@ module.exports = {
     htmlWebpackPlugin: {
         template: './src/ejs/_layout.ejs',
         filename: `${resolve('./templates/_layouts/')}_layout.twig`,
-        title: 'Leonelruben',
+        title: pkg.name,
     },
     purgeCss: {
         paths: [
