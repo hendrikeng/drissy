@@ -205,6 +205,11 @@ if (empty($argv[1])) {
             welcomeNysCraft();
             break;
 
+        case 'init':
+            // Display a welcome message
+            initCraft();
+            break;
+
         case 'update':
             // Display a welcome message
             updateNysCraft();
@@ -229,6 +234,17 @@ function welcomeNysCraft()
 }
 
 /**
+ * Display a welcome message
+ */
+function initCraft()
+{
+    // create security key
+    createSecurityKey();
+    // create DB credentials
+    setupCraftDB();
+}
+
+/**
  * Update our Craft-Scripts symlinks as needed!
  */
 function updateNysCraft()
@@ -250,10 +266,6 @@ function setupNysCraft()
     outputString(PHP_EOL . 'Welcome to nys-setup', Console::FG_YELLOW);
     // Initi Pkg
     initPkg();
-    // create security key
-    createSecurityKey();
-    // create DB credentials
-    setupCraftDB();
     // Set up Craft-Scripts
     setupCraftScripts();
     // Setup Craft 3 Multi-Environment
