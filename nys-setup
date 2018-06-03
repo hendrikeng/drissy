@@ -251,6 +251,12 @@ function setupNysCraft()
 {
     // Say hello
     outputString(PHP_EOL . 'Welcome to nys-setup', Console::FG_YELLOW);
+    // Initi Pkg
+    initPkg();
+    // create security key
+    createSecurityKey();
+    // create DB credentials
+    setupCraftDB();
     // Set up Craft-Scripts
     setupCraftScripts();
     // Setup Craft 3 Multi-Environment
@@ -261,13 +267,38 @@ function setupNysCraft()
     installPlugins();
     // Install the NodeJS packages
     installNodePackages();
-    // Initi Pkg
-    initPkg();
     // Initi Project
     initDev();
+    // set valet to project name
+    setValet();
     // Say goodbye
     outputString(PHP_EOL . 'Setup complete. Have a nice day!', Console::FG_YELLOW);
 }
+
+/**
+ * Install the default plugins
+ */
+function setValet()
+{
+    $str = file_get_contents('package.json');
+    $json = json_decode($str, true);
+    $name = $json['name'];
+    $command = '';
+    if (shellCommandExists('valet')) {
+        $command = 'valet link ' . $name;
+    }
+    outputString(PHP_EOL . 'Link Valet to project name via ' . $command, Console::FG_YELLOW);
+
+    if (!empty($command)) {
+        chdir('web');
+        $result = executeShellCommand($command);
+        outputString($result);
+    } else {
+        outputString('### unable to link project to Valet, Valet not found', Console::FG_RED);
+    }
+
+}
+
 
 function importInitDb()
 {
@@ -356,6 +387,55 @@ function installPlugins()
     }
 }
 
+/**
+ * Create Secuirty Key
+ */
+
+function createSecurityKey()
+{
+    $command = '';
+    if (shellCommandExists('./craft setup')) {
+        $command = './craft setup/security-key';
+    }
+
+
+    outputString(PHP_EOL . 'Generating Craft Securitykey via ' . $command, Console::FG_YELLOW);
+
+    if (!empty($command)) {
+        $result = executeShellCommand($command);
+        outputString($result);
+    } else {
+        outputString('### unable to generate Security key, ./craft setup not found', Console::FG_RED);
+    }
+}
+
+/**
+ * Create Secuirty Key
+ */
+
+function setupCraftDB()
+{
+    $command = '';
+    if (shellCommandExists('./craft setup')) {
+        $command = './craft setup/db';
+    }
+
+
+    outputString(PHP_EOL . 'Setup Craft DB credentials via (DB must exist, been created prior install) ' . $command, Console::FG_YELLOW);
+
+    if (!empty($command)) {
+        $result = passthru($command);
+        outputString($result);
+    } else {
+        outputString('### unable to create Craft DB credentials, ./craft setup not found', Console::FG_RED);
+    }
+}
+
+
+/**
+ * Install Node Packages
+ */
+
 function installNodePackages()
 {
     $command = '';
@@ -386,17 +466,14 @@ function initPkg()
     if (shellCommandExists('npm')) {
         $command = 'npm init';
     }
-    if (shellCommandExists('yarn')) {
-        $command = 'yarn init';
-    }
 
     outputString(PHP_EOL . 'Initializing package.json via ' . $command . ' (this may take a while)', Console::FG_YELLOW);
 
     if (!empty($command)) {
-        $result = executeShellCommand($command);
+        $result = passthru($command);
         outputString($result);
     } else {
-        outputString('### unable to initialize package.json, yarn/npm not found', Console::FG_RED);
+        outputString('### unable to initialize package.json, npm not found', Console::FG_RED);
     }
 }
 

@@ -1,6 +1,6 @@
 {
   "name": "drissy",
-  "version": "1.0.1-beta",
+  "version": "1.1.0-beta",
   "description": "``` Install with: composer create-project hendrikeng/drissy PROJEKTNAME -s RC",
   "main": "webpack.config.js",
   "author": "Hendrikeng <hendrik@wewereyoung.de>",
@@ -76,7 +76,10 @@
     "> 5%",
     "last 2 versions"
   ],
-  "repository": "git+https://github.com/engereauswahl/drissy.git",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/engereauswahl/drissy.git"
+  },
   "devDependencies": {
     "@babel/cli": "^7.0.0-beta.46",
     "@babel/core": "^7.0.0-beta.44",
