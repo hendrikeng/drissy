@@ -4289,9 +4289,9 @@ fastparse@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/fastparse/-/fastparse-1.1.1.tgz#d1e2643b38a94d7583b479060e6c4affc94071f8"
 
-"favicons-webpack-plugin@https://github.com/hendrikeng/favicons-webpack-plugin#pull_theme_start_manifest":
+"favicons-webpack-plugin@git+https://github.com/hendrikeng/favicons-webpack-plugin.git#pull_theme_start_manifest":
   version "0.0.9"
-  resolved "https://github.com/hendrikeng/favicons-webpack-plugin#39ff22e94408d187159923c01cc0ec1ab0c60bc5"
+  resolved "git+https://github.com/hendrikeng/favicons-webpack-plugin.git#39ff22e94408d187159923c01cc0ec1ab0c60bc5"
   dependencies:
     favicons "^4.8.3"
     loader-utils "^0.2.14"
@@ -10840,12 +10840,6 @@ table@^4.0.1, table@^4.0.3:
     lodash "^4.17.4"
     slice-ansi "1.0.0"
     string-width "^2.1.1"
-
-tailwindcss-flexbox-order@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/tailwindcss-flexbox-order/-/tailwindcss-flexbox-order-1.0.0.tgz#e3cdc345400369e596ad031866d408db93ad465d"
-  dependencies:
-    lodash "^4.17.10"
 
 tailwindcss@^0.5.2:
   version "0.5.2"
