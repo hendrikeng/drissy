@@ -1,7 +1,7 @@
 {
     "name": "hendrikeng/drissy",
     "description": "WeWereYoung - Craft 3 CMS - Webpack 4 - Tailwind - Vue - scaffolding project",
-    "version": "1.1.0-beta",
+    "version": "1.1.1-beta",
     "keywords": ["craft", "cms", "craftcms", "project", "webpack", "tailwind", "vue"],
     "license": "MIT",
     "homepage": "https://craftcms.com/",
@@ -48,5 +48,20 @@
         "platform": {
             "php": "7.0"
         }
+    },
+    "scripts": {
+        "post-root-package-install": [
+          "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+          "@php craft setup/welcome",
+          "@php nys-setup welcome"
+        ],
+        "post-update-cmd": [
+          "@php nys-setup update"
+        ],
+        "post-install-cmd": [
+          "@php nys-setup update"
+        ]
+      }
     }
-}
