@@ -1,0 +1,51 @@
+{% extends "matrix/default" %}
+
+{# set defaults #}
+{% set defaults = {
+    imager: {
+        image: 'h-64 md:h-128 lg:h-full w-full' ,
+    },
+    data: block.slide.all(),
+    el: {
+        wrapper: true,
+        image: true,
+        articleImageCaption: true,
+        introHeadline: true,
+        introTeaser: true,
+        linkWrap: false,
+        arrows: true,
+        bullets: true,
+    },
+    cn: {
+        wrapper: 'imageTextSlider py-4',
+        slider: 'js-slider',
+        track: 'glide__track',
+        slides: 'h-auto lg:h-192',
+        linkWrap: 'c-link',
+        container: 'relative lg:absolute pin-t pin-b w-full h-full bg-brand-black lg:bg-transparent',
+        containerInner: 'container w-full h-full relative flex',
+        articleImageCaption: 'ml-4 absolute -mt-6 lg:mt-186 pin-t text-sm text-white ',
+        body: 'articleInner h-auto lg:mt-auto w-full lg:w-2/5 xl:w-1/3 my-auto lg:ml-auto lg:mx-auto lg:mr-32 flex flex-col text-center overflow-hidden lg:bg-white-85 lg:hover:bg-white-95 px-4 py-8 justify-center',
+        introHeadline: 'text-white lg:text-font',
+        introHeadlineSpan: 'text-white lg:text-font',
+        introTeaser: 'text-white lg:text-font',
+        arrows: 'w-full h-full glide__arrow',
+        arrowLeft: 'hidden lg:flex ml-2 lg:ml-8  h-64 lg:h-192 absolute pin-l pin-t pin-b glide__arrow glide__arrow--left',
+        arrowRight: 'hidden lg:flex mr-2 lg:mr-8 h-64 lg:h-192 absolute pin-r pin-t pin-b glide__arrow glide__arrow--right',
+        bullets: 'items-center h-8 mt-64 md:mt-128 lg:mt-192 lg:mb-4 w-full absolute pin-t lg:pin-none lg:pin-b slider__bullets glide__bullets flex justify-center',
+        bullet: 'glide__bullet',
+    },
+} %}
+
+{# -- Merge Default with Options -- #}
+{% set opt = opt is defined? defaults | merge(opt): defaults %}
+
+{% block blockContent %}
+    {% include "_elements/slider/default" with {
+        defaults: {},
+    } %}
+{% endblock %}
+
+
+
+

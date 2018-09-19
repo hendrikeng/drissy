@@ -1,0 +1,11 @@
+{% extends "_layouts/_layout" %}
+
+{% block body %}
+
+    {% include component with {
+        opt : templateOptions.opt | default([])
+    } %}
+
+{% endblock %}
+
+

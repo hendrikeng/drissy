@@ -1,12 +1,193 @@
-<div class="entry {{ entry.section.handle }}-{{ entry.type }}">
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{# @var entry \craft\elements\Entry #}
 
-    {% block itemContent %}
-        {% if entry.body %}
-            <div class="entry content">
-                {% include "_matrix" with {
-                    "matrix" : entry.body
-                } %}
-            </div>
-        {% endif %}
-    {% endblock %}
-</div>
+{% block itemContent %}
+
+    {% if block.layout is defined and not null %}
+
+
+
+        {% switch block.layout %}
+
+            {# -- Aktionsboxen -- #}
+        {% case "layoutA" %}
+            {% include "_elements/article/default" with {
+                opt : {
+                    imager: {
+                        objectFit: true,
+                        objectFitValue: 'cover',
+                        class: 'w-full h-full',
+                    },
+                    data: entry,
+                    el: {
+                        gridElement: true,
+                        articleHeaderLink: false,
+                        articleImageCaption: false,
+                        articleBody: true,
+                        articleLink: true,
+                    },
+                    cn: {
+                        gridElement: 'gridElement lg:w-1/2 mt-4 px-2',
+                        article: 'h-64 sm:h-96 c-link relative w-full overflow-hidden',
+                        articleWrap: 'articleWrap h-64 sm:h-96 absolute pint-t pin-b pin-r pin-l bg-brand-85 w-full c-link-hover:transform-up transform-layoutA hover:transform-up',
+                        articleContainer: 'articleContainer w-full',
+                        articleInner: 'articleInner absolute pin-t flex flex-col text-center overflow-hidden h-full py-3 px-8 text-white c-link-hover:justify-center w-full',
+                        articleHeader: 'uppercase text-white',
+                        articleHeaderSpan: '',
+                        articleHeaderLink: 'link-absolute',
+                        articleBody: 'articleBody',
+                        articleBodyParagraph: 'pt-8',
+                        articleLink: 'mx-auto font-serif no-underline text-brand bg-white px-4 py-2 text-lg link-absolute',
+                    },
+                }
+            } %}
+
+            {# -- Rechtecke -- #}
+        {% case "layoutB" %}
+            {% if loop.length > 2 and loop.index % 3 == 1 %}
+                {% set class = 'w-full' %}
+                {% set fontSize = 'text-2xl sm:text-3xl lg:text-5xl' %}
+            {% else %}
+                {% set class = 'w-full lg:w-1/2' %}
+                {% set fontSize = 'text-2xl sm:text-3xl' %}
+            {% endif %}
+            {% include "_elements/article/default" with {
+                opt : {
+                    imager: {
+                        objectFit: true,
+                        objectFitValue: 'cover',
+                        class: 'w-full h-64 lg:h-96',
+                    },
+                    data: entry,
+                    cta: 'mehr',
+                    el: {
+                        gridElement: true,
+                        articleHeaderLink: true,
+                        articleImageCaption: false,
+                        articleBody: false,
+                        articleLink: false,
+                    },
+                    cn: {
+                        gridElement: 'gridElement py-2 px-2 ' ~ class,
+                        article: 'h-64 lg:h-96 relative overflow-hidden flex flex-col',
+                        articleWrap: 'articleWrap absolute pint-t pin-b h-full w-full',
+                        articleContainer: 'articleContainer w-full',
+                        articleInner: 'articleInner h-64 lg:h-96 articleInner flex flex-col my-auto text-center overflow-hidden p-8 justify-center text-white',
+                        articleHeader: 'word-break inline my-auto mx-auto text-white uppercase ' ~ fontSize,
+                        articleHeaderSpan: 'c-link-hover:bg-shadow',
+                        articleHeaderLink: 'link-absolute c-link cursor-pointer',
+                        articleBody: 'articleBody',
+                        articleBodyParagraph: '',
+                        articleLink: '',
+                    },
+                }
+            } %}
+
+            {# -- Kacheln -- #}
+        {% case "layoutC" %}
+
+            {% if loop.index % 3 == 1 %}
+                {% if not loop.first %}
+                    {% set class = 'h-64 lg:h-128 w-full lg:w-2/3 lg:flex-no-grow lg:flex-no-shrink order-2 py-2 px-2' %}
+                    {% set classInner = 'h-64 lg:h-128 mr-4' %}
+                    {% set fontSize = 'text-2xl sm:text-3xl lg:text-5xl' %}
+                {% else %}
+                    {% set class = 'h-64 lg:h-128 w-full lg:w-2/3 lg:flex-no-grow lg:flex-no-shrink py-2 px-2' %}
+                    {% set classInner = 'h-64 lg:h-128 mr-4' %}
+                    {% set fontSize = 'text-2xl sm:text-3xl lg:text-5xl' %}
+                {% endif %}
+
+                <div class="w-full flex-wrap flex">
+            {% else %}
+                {% if loop.index >= 4 %}
+                    {% set class = 'h-64 w-full lg:flex-no-grow lg:flex-no-shrink py-2 px-2' %}
+                    {% set fontSize = 'text-2xl sm:text-3xl' %}
+                {% else %}
+                    {% set class = 'h-64 w-full lg:flex-no-grow lg:flex-no-shrink py-2 px-2' %}
+                {% endif %}
+                {% set classInner = 'h-64 mr-4' %}
+                {% set fontSize = 'text-2xl sm:text-3xl' %}
+            {% endif %}
+
+            {% if loop.index == 2 or loop.index == 5 %}
+            <div class="w-full lg:w-1/3 flex flex-wrap lg:flex-no-grow lg:flex-no-shrink">
+            {% endif %}
+
+            {% include "_elements/article/default" with {
+                opt : {
+                    imager: {
+                        objectFit: true,
+                        objectFitValue: 'cover',
+                        class: 'w-full h-full',
+                    },
+                    data: entry,
+                    cta: 'mehr',
+                    el: {
+                        gridElement: false,
+                        articleHeaderLink: true,
+                        articleImageCaption: false,
+                        articleBody: false,
+                        articleLink: false,
+                    },
+                    cn: {
+                        article: 'relative overflow-hidden ' ~ class,
+                        articleWrap: 'articleWrap absolute pint-t pin-b h-full w-full',
+                        articleContainer: 'articleContainer',
+                        articleInner: 'articleInner flex flex-col my-auto text-center overflow-hidden p-8 justify-center text-white ' ~ classInner,
+                        articleHeader: 'inline my-auto mx-auto text-white uppercase ' ~ fontSize,
+                        articleHeaderSpan: 'c-link-hover:bg-shadow',
+                        articleHeaderLink: 'link-absolute c-link cursor-pointer',
+                        articleBody: 'articleBody',
+                        articleBodyParagraph: '',
+                        articleLink: '',
+                    },
+                }
+            } %}
+
+            {% if loop.index % 3 == 0 %}
+                </div>
+                </div>
+            {% endif %}
+
+
+
+        {% endswitch %}
+
+    {% else %}
+
+        {# -- Aktionsboxen -- #}
+        {% include "_elements/article/default" with {
+            opt : {
+                imager: {
+                    objectFit: true,
+                    objectFitValue: 'cover',
+                    class: 'w-full h-full',
+                },
+                data: entry,
+                cta: 'mehr',
+                el: {
+                    gridElement: true,
+                    articleHeaderLink: false,
+                    articleImageCaption: false,
+                    articleBody: true,
+                    articleLink: true,
+                },
+                cn: {
+                    gridElement: 'gridElement lg:w-1/2 mt-2 px-2',
+                    article: 'h-64 sm:h-96 c-link relative w-full overflow-hidden',
+                    articleWrap: 'articleWrap h-64 sm:h-96 absolute pint-t pin-b pin-r pin-l bg-brand-85 w-full c-link-hover:transform-up transform-layoutA hover:transform-up',
+                    articleContainer: 'articleContainer w-full',
+                    articleInner: 'articleInner absolute pin-t flex flex-col text-center overflow-hidden h-full py-3 px-8 text-white c-link-hover:justify-center w-full',
+                    articleHeader: 'mt-4  uppercase',
+                    articleHeaderSpan: '',
+                    articleHeaderLink: 'link-absolute',
+                    articleBody: 'articleBody',
+                    articleBodyParagraph: 'mt-8',
+                    articleLink: 'mx-auto font-serif no-underline text-brand bg-white px-4 py-2 text-lg link-absolute',
+                },
+            }
+        } %}
+
+    {% endif %}
+
+{% endblock %}

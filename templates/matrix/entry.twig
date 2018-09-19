@@ -1,0 +1,10 @@
+{% extends "matrix/default" %}
+
+{% block blockContent %}
+
+    <div class="matrixEntry gridWrap mx-auto max-w-3xl justify-center flex flex-wrap py-2 mt-4">
+        {% for entry in block.entry.all() %}
+            {% include '_item' %}
+        {% endfor %}
+    </div>
+{% endblock %}

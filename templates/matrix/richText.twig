@@ -1,0 +1,8 @@
+{% extends "matrix/default" %}
+
+{% block blockContent %}
+
+<div class="gridWrap mx-auto max-w-3xl mx-auto mt-8 px-4 redactor {{ block.style == 'lead' ? ' font-lead text-center' }}">
+{{ block.textContent }}
+</div>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "matrix/default" %}
+
+{% block blockContent %}
+   <div class="gridWrap max-w-3xl mx-auto flex flex-wrap mt-4 px-2">
+      {% for image in block.images.all() %}
+        {% if image %}
+            <figure
+                class="gridElement mt-4 px-2 w-full md:w-1/2 lg:{{- block.columns -}}"
+                itemprop="associatedMedia" itemscope
+                itemtype="http://schema.org/ImageObject">
+                    {% include '_elements/img/default' with {
+                        opt : {
+                            data: image,
+                            imager: {
+                                blurUp: true,
+                                objectFit: true,
+                                ratio: block.ratio,
+                                alt: image.title,
+                            }
+                        }
+                    } only %}
+                {% if block.caption %}
+                    <figcaption
+                        itemprop="caption description" class="mt-2 text-sm">{{ image.caption }}</figcaption>
+                {% endif %}
+            </figure>
+        {% endif %}
+        {% endfor %}
+   </div>
+{% endblock %}

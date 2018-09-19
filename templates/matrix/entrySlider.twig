@@ -1,0 +1,87 @@
+{% extends "matrix/default" %}
+
+{% set slider = {
+    imager: {
+        class: 'w-full h-full',
+    },
+    data: block.entry.all(),
+    el: {
+        wrapper: true,
+        image: true,
+        articleImageCaption: false,
+        introHeadline: true,
+        introTeaser: false,
+        linkWrap: true,
+        arrows: true,
+        bullets: true,
+    },
+    cn: {
+        wrapper: 'entrySlider py-4',
+        slider: 'js-slider',
+        track: 'glide__track',
+        slides: 'h-64 md:h-192',
+        articleImageCaption: '',
+        container: 'absolute pin-t pin-b w-full h-full',
+        containerInner: 'container w-full h-full relative flex',
+        body: 'ml-auto flex my-auto text-center overflow-hidden w-full  justify-center',
+        introHeadline: 'mx-auto text-fluid font-serif text-white cursor-pointer word-break',
+        introHeadlineSpan: 'c-link-hover:bg-shadow',
+        linkWrap: 'c-link',
+        arrows: 'w-full h-full glide__arrows',
+        arrowLeft: 'hidden md:flex ml-8 h-full absolute pin-l pin-t pin-b glide__arrow glide__arrow--left',
+        arrowRight: 'hidden md:flex mr-8 h-full absolute pin-r pin-t pin-b glide__arrow glide__arrow--right',
+        bullets: 'items-center h-8 mb-4 mb:mb-8 w-full absolute pin-b slider__bullets glide__bullets flex justify-center',
+        bullet: 'glide__bullet',
+    },
+} %}
+
+{% set carousel = {
+    imager: {
+        class: 'w-full h-64',
+    },
+    data: block.entry.all(),
+    el: {
+        wrapper: true,
+        image: true,
+        articleImageCaption: false,
+        introHeadline: true,
+        introTeaser: false,
+        linkWrap: true,
+        arrows: true,
+        bullets: false,
+    },
+     cn: {
+        wrapper: 'entryCarousel bg-brand mx-auto pb-4 pt-8',
+        slider: 'lg:max-w-xl xl:max-w-2xl mx-auto js-carousel',
+        track: 'glide__track',
+        slides: 'h-80 w-full',
+        articleImageCaption: '',
+        container: 'absolute pin-t pin-b w-full h-full',
+        containerInner: 'container w-full h-full relative flex',
+        body: 'absolute pin-b flex flex-col text-center overflow-hidden h-16 w-full',
+        introHeadline: 'mx-auto mb-autoA mt-4A my-auto text-xl font-serif text-white cursor-pointer word-break',
+        introHeadlineSpan: 'c-link-hover:bg-shadow',
+        linkWrap: 'c-link',
+        arrows: 'w-full h-full glide__arrows',
+        arrowLeft: '-ml-128 lg:-ml-16 -mt-8 h-full absolute pin-l pin-t pin-b glide__arrow glide__arrow--left',
+        arrowRight: '-mr-128 lg:-mr-16 -mt-8 h-full absolute pin-r pin-t pin-b glide__arrow glide__arrow--right',
+        bullets: 'items-center h-8 mb-4 md:mb-8 w-full absolute pin-b slider__bullets glide__bullets flex justify-center',
+        bullet: 'glide__bullet',
+    },
+} %}
+
+{# check slider layout #}
+{% if block.layout == 'js-carousel' %}
+    {% set defaults = carousel %}
+{% else %}
+    {% set defaults = slider %}
+{% endif %}
+
+{# -- Merge Default with Options -- #}
+{% set opt = opt is defined ? defaults|merge(opt) : defaults %}
+
+{% block blockContent %}
+    {% include "_elements/slider/default" with {
+            defaults: {},
+        } %}
+{% endblock %}

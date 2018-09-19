@@ -1,5 +1,6 @@
-const commonConfig = require('./../build-config/common.config');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const commonConfig = require('./../build-config/common.config');
 
 module.exports = {
     // https://stackoverflow.com/questions/35903246/how-to-create-multiple-output-paths-in-webpack-config
@@ -71,6 +72,7 @@ module.exports = {
         child_process: 'empty',
     },
     plugins: [
+        new VueLoaderPlugin(),
         new StyleLintPlugin({
             configFile: './build-config/stylelint.config.js',
             context: './src/css/',

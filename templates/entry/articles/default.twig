@@ -1,0 +1,58 @@
+{% extends '_layouts/_layout' %}
+
+{# -- inline css -- #}
+{% block _inline_css %}
+    <style>
+        {{source (_self ~ '_critical.min.css', ignore_missing=true)}}
+    </style>
+{% endblock %}
+
+{% block header %}
+
+    {% include '_components/header/default' with {
+        opt : {
+            imager: {
+                lazy: false,
+                class: 'absolute pin-t pin-l w-full h-full object-cover clip-path',
+            },
+            el: {
+                nav: 'default',
+                image: entry.entryImage.one() ?? entry.introImage.one() ?? null,
+                title: false,
+                description: false,
+            }
+        }
+    } only %}
+
+{% endblock %}
+
+{% block content %}
+<div class="mx-auto max-w-3xl text-center">
+    <h1 class="mt-32">{{ entry.title }}</h1>
+    <p class="post-date">{{ entry.postDate | date('M d, Y') }}</p>
+
+    {# show categories/breadcrumps #}
+    {% if entry.category %}
+        <div class="mt-8 flex justify-center">
+            {% set categories = entry.category %}
+            {% for entry in categories.all() %}
+                <a href="{{ entry.url }}" class="hover:bg-red-light hover:text-font text-white align-middle bg-font no-underline rounded-full py-1 px-2 mx-1">
+                    #{{ entry }}
+                </a>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+
+    {% block itemContent %}
+        {% if entry.contentBuilder %}
+            {% include '_matrix' with {
+                matrix : entry.contentBuilder,
+            } only %}
+        {% endif %}
+    {% endblock %}
+
+
+
+
+{% endblock %}

@@ -5,7 +5,8 @@ module.exports = {
         sourceType: 'module',
         allowImportExportEverywhere: false,
     },
-    extends: ['airbnb', 'plugin:vue/essential'],
+    extends: ['airbnb', 'plugin:vue/essential', 'prettier'],
+    plugins: ['prettier'],
     settings: {
         'import/resolver': {
             webpack: {
@@ -28,19 +29,21 @@ module.exports = {
         'react/no-danger': 'off',
         'react/no-unused-prop-types': 'off',
         'react/prefer-stateless-function': 'off',
-        'no-console': 2,
+        'no-console': 'off',
         'linebreak-style': 'off',
         'padded-blocks': 'off',
         'jsx-a11y/href-no-hash': 'off',
         'jsx-a11y/anchor-is-valid': ['warn', { aspects: ['invalidHref'] }],
         indent: ['error', 4],
+        'no-new': 'off',
+        'prettier/prettier': 'error',
     },
     overrides: [
         {
             files: ['*.vue'],
             rules: {
                 indent: 'off',
-                'vue/script-indent': ['error', 2, { baseIndent: 0 }],
+                'vue/script-indent': ['error', 4, { baseIndent: 0 }],
             },
         },
     ],

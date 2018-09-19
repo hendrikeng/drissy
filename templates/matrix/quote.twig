@@ -1,0 +1,31 @@
+{% extends "matrix/default" %}
+
+{% block blockContent %}
+    <div class="container">
+        <blockquote >
+            <figure class="flex items-center px-6 py-4 flex flex-col">
+                {% set image = block.image.one() %}
+                {% if image %}
+                    {% include '_elements/img/default' with {
+                opt : {
+                    data: image,
+                    imager: {
+                        class: 'block h-16 w-16 sm:w-48 sm:h-48 mx-auto mb-4 sm:mb-0 sm:mr-4 sm:ml-0 ' ~ block.style,
+                        alt: image.title,
+                        objectFit: true,
+                        objectFitValue: 'cover',
+                    }
+                }
+            }
+            only %}
+                {% endif %}
+                <p class="mt-4 {{ block.font }} {{ block.fontSize }}">{{ block.quote }}</p>
+                <figcaption class="order-2">
+                    <cite>{{ block.source }}</cite>
+                </figcaption>
+            </figure>
+
+        </blockquote>
+    </div>
+
+{% endblock %}

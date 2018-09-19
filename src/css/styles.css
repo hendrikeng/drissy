@@ -1,41 +1,188 @@
 
 /* Tailwind Css */
-
 @import './tailwind-preflight.css';
 @import './tailwind-utilities.css';
 @import './tailwind-components.css';
 
 /* Css Gridish */
-
-@import './../../css-gridish/css/o-grid-legacy.css';
+/* @import './../../css-gridish/css/o-grid-legacy.css'; */
 
 /* Components, Elements and Pieces */
 
+@import './../../node_modules/@glidejs/glide/dist/css/glide.core.css';
 @import './../../templates/_elements/nav/default.css';
+@import './glide.css';
+@import './cookie.css';
 
 html {
-    @apply .leading-normal;
+    font-size: 100%;
     text-rendering: optimizeLegibility;
-    min-height: 100%;
+    height: 100%;
     overflow-x: hidden;
     overflow-y: scroll;
     -webkit-font-smoothing: antialiased;
+    -webkit-overflow-scrolling: touch;
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+footer {
+    flex-shrink: 0;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    font-style: italic;
+    vertical-align: middle;
+}
+
+/*.box-shadow {*/
+/*@apply shadow-md rounded;*/
+/*position: relative; !* For positioning the pseudo-element *!*/
+/*!*box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);*!*/
+/*}*/
+
+/*.box-shadow::before {*/
+/*@apply shadow-lg rounded;*/
+/*!* Position the pseudo-element. *!*/
+/*content: ' ';*/
+/*position: absolute;*/
+/*top: 0;*/
+/*right: 0;*/
+/*bottom: 0;*/
+/*left: 0;*/
+/*z-index: -1;*/
+
+/*!* Create the box shadow at expanded size. *!*/
+/*!*box-shadow: 0 10px 50px 0 rgba(0, 0, 0, 0.5);*!*/
+
+/*!* Hidden by default. *!*/
+/*opacity: 0;*/
+/*transition: opacity 500ms;*/
+/*}*/
+
+
+/*.box-shadow:hover::before {*/
+/*!* Show the pseudo-element on hover. *!*/
+/*opacity: 1;*/
+/*}*/
+
+
+/*.lazyload,
+.lazyloading {
+    opacity: 0;
+}
+
+.lazyloaded {
+    opacity: 1;
+    transition: opacity .875s cubic-bezier(.215,.61,.355,1) .125s;
+}*/
+
+
+.mediabox {
+    position: relative;
+    display: block;
+    height: auto;
+    width: 100%;
+}
+
+.ls-blur-up-img,
+.mediabox-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.ls-blur-up-img {
+    filter: blur(10px);
+    opacity: 1;
+    transition: opacity 1000ms, filter 1500ms;
+}
+
+.ls-blur-up-img.ls-inview.ls-original-loaded {
+    opacity: 0;
+    filter: blur(5px);
+}
+
+
+[v-cloak] {
+    display: none;
+}
+
+body,
+p {
+    @apply .font-sans .leading-normal .text-font .text-xl ;
+}
+
+p {
+    @apply mt-4;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    @apply .font-serif .leading-tight .text-font;
+}
+
+h1 {
+    @apply .text-6xl;
+}
+
+h2 {
+    @apply .text-5xl;
+}
+
+h3 {
+    @apply .text-4xl;
+}
+
+h4 {
+     @apply .text-3xl;
+ }
+
+h5 {
+    @apply .text-2xl;
+}
+
+h6 {
+    @apply .text-xl;
 }
 
 
 .fonts-loaded body,
+.fonts-loaded p,
 .fonts-loaded .font-sans {
-    font-family: Lato, Arial, Helvetica, sans-serif;
+    font-family: Cabin, Arial, Helvetica, sans-serif;
 }
 
+.fonts-loaded h1,
+.fonts-loaded h2,
+.fonts-loaded h3,
+.fonts-loaded h4,
+.fonts-loaded h5,
+.fonts-loaded h6,
 .fonts-loaded .font-serif {
-    font-family: sans-serif, Arial, Helvetica;
+    font-family: 'Roboto Condensed', Arial, Helvetica, sans-serif;
 }
 
+::selection {
+    @apply .bg-red-light;
+}
 /* -- CSS variables */
 
 :root {
@@ -64,7 +211,9 @@ body {
 /* -- No outline for non-keyboard-inputs elements */
 
 button:focus,
-select:focus {
+select:focus,
+textarea:focus,
+input:focus {
     outline: none;
 }
 
@@ -73,6 +222,19 @@ select:focus {
     outline: 5px auto -webkit-focus-ring-color !important;
 }
 
-.textarea {
-    border-radius: 25px;
+a {
+    @apply .no-underline .text-font;
+}
+
+a:hover {
+    @apply .no-underline .text-red-light;
+}
+
+iframe {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
 }

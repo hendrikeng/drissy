@@ -1,0 +1,26 @@
+/* slider */
+
+.glide__bullet {
+    background-color: rgba(255, 255, 255, 0.5);
+    width: 0.5rem;
+    height: 0.5rem;
+    padding: 0;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    transition: all 150ms ease-in-out;
+    cursor: pointer;
+    line-height: 0;
+    box-shadow: 0 0.25em 0.5em 0 rgba(0, 0, 0, 0.1);
+    margin: 0 0.25em;
+}
+
+.glide__bullet--active {
+    @apply .bg-red;
+    width: 0.75rem;
+    height: 0.75rem;
+}
+
+.glide__bullet:hover, .glide__bullet:focus {
+    border: 2px solid #fff;
+    @apply .bg-red;
+}

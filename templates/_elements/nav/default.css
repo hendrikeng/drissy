@@ -1,7 +1,3 @@
-.c-nav {
-    @apply flex items-center justify-between flex-wrap;
-}
-
-.is-active {
-    @apply .text-red-lighter !important;
+.c-nav .is-active {
+    @apply text-red-light !important;
 }

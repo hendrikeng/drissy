@@ -1,0 +1,23 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{# @var entry \craft\elements\Entry #}
+
+{% block blockContent %}
+
+    {% if block.code %}
+        {% if 'youtube.com' in block.code or 'vimeo.com' in block.code %}
+            {% set video = true %}
+        {% else %}
+            {% set video = false %}
+        {% endif %}
+
+        <div class="gridWrap max-w-3xl mx-auto flex mt-8 px-4">
+            <div class="gridElement relative w-full rounded">
+                <div class=" {{ video ? 'aspect-ratio-16/9' : '' }} ">
+                    {{ block.code|raw }}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock %}
+

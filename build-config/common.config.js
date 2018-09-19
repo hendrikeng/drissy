@@ -1,15 +1,17 @@
-
 const path = require('path');
+const ipAddress = require('../build-utils/get-ip');
 const pkg = require('../package.json');
 
 function resolve(dir) {
     return path.join(__dirname, '..', dir);
 }
 
+const useHttps = false;
+
 module.exports = {
     urls: {
-        dev: `${pkg.name}.test`,
-        staging: `https://${pkg.name}-staging.wewereyoung.de`,
+        dev: useHttps ? `https://${pkg.name}.test` : `http://${pkg.name}.test`,
+        staging: `https://staging-${pkg.name}.wewereyoung.de`,
         live: `https://${pkg.name}.de`,
     },
     entry: {
@@ -19,11 +21,14 @@ module.exports = {
         filename: '[name].[hash:7].js',
         path: resolve('./web/'),
         publicPath: {
-            src: 'http://localhost:8080/',
+            src: useHttps
+                ? `https://${ipAddress}:8080/`
+                : `http://${ipAddress}:8080/`,
             dist: '/',
         },
     },
     devServer: {
+        https: useHttps,
         errorOverlay: true,
         notifyOnErrors: true,
         openBrowser: false,
@@ -39,7 +44,17 @@ module.exports = {
             `${resolve('./src/js')}/**/*.+(vue|js)`,
             `${resolve('./src/ejs')}/**/*.+(ejs)`,
         ],
-        extensions: ['twig', 'html', 'blade', 'jade', 'php', 'vue', 'js', 'ejs', 'svg'],
+        extensions: [
+            'twig',
+            'html',
+            'blade',
+            'jade',
+            'php',
+            'vue',
+            'js',
+            'ejs',
+            'svg',
+        ],
         whitelist: [],
         whitelistPatterns: [/plyr/, /plyr--/, /plyr__/, /cc-/],
     },
@@ -52,20 +67,31 @@ module.exports = {
         skipWaiting: true,
         runtimeCaching: [
             {
-                urlPattern: new RegExp('/offline'),
+                urlPattern: '/',
                 handler: 'staleWhileRevalidate',
             },
             {
-                urlPattern: new RegExp('/'),
+                urlPattern: '/offline',
                 handler: 'staleWhileRevalidate',
             },
         ],
+        navigateFallbackBlacklist: [/admin/, /shop/, /spenden/],
     },
     miniCssExtractPlugin: {
         filename: '[name].[hash:7].css',
         chunkFilename: '[id].[hash:7].css',
     },
-    contentBase: ['*', '_components/**/*', '_elements/**/*', '_macros/**/*', '_pieces/**/*', 'entry/**/*', 'item/**/*', 'matrix/**/*'],
+    contentBase: [
+        '*',
+        '_components/**/*',
+        '_elements/**/*',
+        '_macros/**/*',
+        '_pieces/**/*',
+        'entry/**/*',
+        'item/**/*',
+        'matrix/**/*',
+        'shop/**/*',
+    ],
     inlineJs: [
         './node_modules/fg-loadcss/src/cssrelpreload.js',
         './node_modules/fontfaceobserver/fontfaceobserver.js',
@@ -78,16 +104,20 @@ module.exports = {
             template: 'index',
         },
         {
-            url: 'offline',
+            url: '/offline',
             template: 'offline',
         },
         {
-            url: '404',
+            url: '/404',
             template: '404',
         },
         {
-            url: 'work',
-            template: 'work',
+            url: '/500',
+            template: '500',
+        },
+        {
+            url: '/503',
+            template: '503',
         },
     ],
 };

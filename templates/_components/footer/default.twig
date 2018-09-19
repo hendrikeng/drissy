@@ -1,10 +1,10 @@
 
 {% for block in opt.data %}
-<footer itemscope="itemscope" itemtype="http://schema.org/WPFooter">
-    <div class="flex flex-col items-center flex-wrap my-4 text-center">
-        <p class="copyright">&copy;
-            <span itemprop="copyrightYear">{{ now|date('Y') }}</span>
-            <span itemprop="copyrightHolder" itemscope="itemscope" itemtype="http://schema.org/Organization">
+    <footer itemscope="itemscope" itemtype="http://schema.org/WPFooter">
+        <div class="flex flex-col items-center flex-wrap mt-32 text-center">
+            <p class="copyright">&copy;
+                <span itemprop="copyrightYear">{{ now|date('Y') }}</span>
+                <span itemprop="copyrightHolder" itemscope="itemscope" itemtype="http://schema.org/Organization">
                 <span itemprop="name">{{ block.company }}</span>
                 -
                 <span itemprop="address" itemscope="itemscope" itemtype="http://schema.org/PostalAddress">
@@ -22,15 +22,15 @@
                     <a href="mailto:{{ block.mail }}">{{ block.mail }}</a>
                 </span>
             </span>
-            -
-            <a class="text-text no-underline hover:text-brand" href="imprint">Impressum</a>
-            -
-            <a class="text-text no-underline hover:text-brand" href="data-protection">Datenschutz</a>
+                -
+                <a class="text-text no-underline hover:text-brand" href="imprint">Impressum</a>
+                -
+                <a class="text-text no-underline hover:text-brand" href="data-protection">Datenschutz</a>
 
-        </p>
-        <p class="mb-4 mt-8 c-wwy text-xs text-grey-darker">Made with Love and Caffeine by
-            <span> <a rel="nofollow" title="wewereyoung.de" href="https://wewereyoung.de">{% include '_svg/wwy.svg' %}</a></span></p>
-    </div>
+            </p>
+            <p class="mb-4 mt-8 c-wwy text-xs text-grey-darker">Made with Love and Caffeine by
+                <span> <a rel="nofollow" title="wewereyoung.de" href="https://wewereyoung.de">{% include '_svg/wwy.svg' %}</a></span></p>
+        </div>
 
-</footer>
+    </footer>
 {% endfor %}
