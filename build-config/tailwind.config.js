@@ -45,6 +45,7 @@ View the full documentation at https://tailwindcss.com.
 
 let colors = {
   'transparent': 'transparent',
+  'font': '#333',
 
   'black': '#22292f',
   'grey-darkest': '#3d4852',
@@ -259,6 +260,7 @@ module.exports = {
     '3xl': '1.875rem',  // 30px
     '4xl': '2.25rem',   // 36px
     '5xl': '3rem',      // 48px
+    '6xl': '4rem',      // 64px
   },
 
 
@@ -530,7 +532,10 @@ module.exports = {
     '32': '8rem',
     '48': '12rem',
     '64': '16rem',
+    '128': '32rem',
+    'half': '50%',
     'full': '100%',
+    'half-screen': '50vh',
     'screen': '100vh'
   },
 
@@ -649,6 +654,11 @@ module.exports = {
     '4': '1rem',
     '6': '1.5rem',
     '8': '2rem',
+    '12': '3rem',
+    '14': '3.5rem',
+    '16': '4rem',
+    '24': '6rem',
+    '32': '8rem',
   },
 
 
@@ -677,6 +687,11 @@ module.exports = {
     '4': '1rem',
     '6': '1.5rem',
     '8': '2rem',
+    '12': '3rem',
+    '14': '3.5rem',
+    '16': '4rem',
+    '24': '6rem',
+    '32': '8rem',
   },
 
 
@@ -704,6 +719,11 @@ module.exports = {
     '4': '1rem',
     '6': '1.5rem',
     '8': '2rem',
+    '12': '3rem',
+    '14': '3.5rem',
+    '16': '4rem',
+    '24': '6rem',
+    '32': '8rem',
   },
 
 
@@ -867,7 +887,7 @@ module.exports = {
     pointerEvents: ['responsive'],
     position: ['responsive'],
     resize: ['responsive'],
-    shadows: ['responsive'],
+    shadows: ['responsive', 'hover'],
     svgFill: [],
     svgStroke: [],
     textAlign: ['responsive'],
@@ -900,9 +920,20 @@ module.exports = {
 
   plugins: [
     require('tailwindcss/plugins/container')({
-      // center: true,
+      center: true,
       // padding: '1rem',
     }),
+      require('tailwindcss-aspect-ratio')({
+          ratios: {
+              '1/1': [1, 1],
+              '16/9': [16, 9],
+              '4/3': [4, 3],
+              '4/5': [4, 5],
+              '21/9': [21, 9],
+              'auto': [1, 1],
+          },
+          variants: ['responsive'],
+      }),
   ],
 
 

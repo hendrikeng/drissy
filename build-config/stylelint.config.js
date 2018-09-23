@@ -1,17 +1,8 @@
 module.exports = {
-    plugins: ['stylelint-selector-bem-pattern', /* 'stylelint-scss' */ 'stylelint-order'],
-    // extends: 'stylelint-config-sass-guidelines',
+    plugins: ['stylelint-selector-bem-pattern', 'stylelint-order'],
     rules: {
         'at-rule-empty-line-before': [
-            'always',
-            {
-                except: [
-                    'inside-block',
-                    'blockless-after-same-name-blockless',
-                    'blockless-after-blockless',
-                    'first-nested',
-                ],
-            },
+            'false',
             {
                 ignore: ['after-comment'],
             },
@@ -23,6 +14,7 @@ module.exports = {
             true,
             {
                 ignoreAtRules: [
+                    'apply',
                     'tailwind',
                     'import-normalize',
                     'include',
@@ -37,6 +29,7 @@ module.exports = {
                     'elseif',
                     'error',
                     'content',
+                    'screen',
                 ],
             },
         ],
@@ -57,7 +50,7 @@ module.exports = {
         'color-named': 'never',
         'color-no-invalid-hex': true,
         'comment-empty-line-before': [
-            'always',
+            'false',
             {
                 except: ['first-nested'],
             },
@@ -194,7 +187,8 @@ module.exports = {
             componentName:
                 "(([a-z0-9]+(?!-$)-?)+)(([a-z0-9]+(?!-$)-?)+)(((__|--|-)(([a-z0-9\\[\\]'=]+(?!-$)-?)+))+)?$",
             componentSelectors: {
-                initial: "\\.{componentName}(((__|--|-)(([a-z0-9\\[\\]'=]+(?!-$)-?)+))+)?$",
+                initial:
+                    "\\.{componentName}(((__|--|-)(([a-z0-9\\[\\]'=]+(?!-$)-?)+))+)?$",
             },
             utilitySelectors: '^\\.u-[a-z]+$',
         },

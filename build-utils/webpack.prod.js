@@ -1,8 +1,8 @@
-const commonConfig = require('./../build-config/common.config');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const commonConfig = require('./../build-config/common.config');
 
 module.exports = {
     mode: 'production',
@@ -39,27 +39,29 @@ module.exports = {
         ],
     },
     module: {
-        rules: [{
-            test: /\.css$/,
-            use: [
-                MiniCssExtractPlugin.loader,
-                {
-                    loader: 'css-loader',
-                    options: {
-                        importLoaders: 1,
-                        minimize: true,
-                    },
-                },
-                {
-                    loader: 'postcss-loader',
-                    options: {
-                        config: {
-                            path: './build-config/postcss.config.js',
+        rules: [
+            {
+                test: /\.css$/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            importLoaders: 1,
+                            minimize: true,
                         },
                     },
-                },
-            ],
-        }],
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            config: {
+                                path: './build-config/postcss.config.js',
+                            },
+                        },
+                    },
+                ],
+            },
+        ],
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -72,6 +74,7 @@ module.exports = {
             env: {
                 dev: false,
                 prod: true,
+                debug: false,
             },
         }),
         new MiniCssExtractPlugin(commonConfig.miniCssExtractPlugin),

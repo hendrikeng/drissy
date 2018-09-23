@@ -1,0 +1,147 @@
+{% extends "matrix/default" %}
+
+{% block blockContent %}
+
+{#        {% macro errorList(errors) %}
+            {% if errors %}
+                <ul class="list-reset mb-2 errors">
+                    {% for error in errors %}
+                        <li class="text-red">{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endmacro %}
+
+        {% from _self import errorList %}
+
+
+    {{ errors['form'] is defined ? errorList(errors['form']) }}#}
+
+    <form method="post"
+          accept-charset="UTF-8"
+          enctype="multipart/form-data"
+          id="{{ block.form }}"
+          @submit.prevent="validateForm('{{ block.form }}')"
+          @keyup.enter="validateForm('{{ block.form }}')"
+          data-vv-scope="{{ block.form }}">
+
+        {{ csrfInput() }}
+        <input type="hidden" name="action" value="wheelform/message/send">
+        <input type="hidden" name="form_id" value="{{ block.form }}">
+        <input type="hidden" name="redirect" value="{{ 'danke'|hash }}">
+
+        <div class="gridWrap mt-8 lg:mt-16 container mx-auto flex flex-wrap p-2">
+
+            <div class="gridElement w-full lg:w-1/2 p-2">
+                <label for="from-name">Vorname</label>
+                <input id="from-name" type="text" name="name"
+                       value="{{ values['name'] ?? '' }}" placeholder="Vorname*"
+                       v-validate.disable="'required|alpha_spaces'" data-vv-as="Vorname">
+                <div v-cloak v-show="errors.has('{{ block.form }}.name')" class="text-red">
+                    ${ errors.first('{{ block.form }}.name') }
+                </div>
+            </div>
+
+            <div class="gridElement w-full lg:w-1/2 p-2">
+                <label for="lastName">Nachname</label>
+                <input id="lastName" type="text" name="lastname"
+                       value="{{ values['lastname'] ?? '' }}" placeholder="Nachname*"
+                       v-validate.disable="'required|alpha_spaces'" data-vv-as="Nachname">
+                <div v-cloak v-show="errors.has('{{ block.form }}.lastname')" class="text-red">
+                    ${ errors.first('{{ block.form }}.lastname') }
+                </div>
+            </div>
+
+            <div class="gridElement w-full lg:w-1/2 p-2">
+                <label for="firma">Unternehmen</label>
+                <input id="firma" type="text" name="firma"
+                       value="{{ values['firma'] ?? '' }}" placeholder="Unternehmen">
+            </div>
+
+
+            <div class="gridElement w-full lg:w-1/2 p-2">
+                <label for="from-email">Email</label>
+                <input id="from-email" type="email" name="email"
+                       value="{{ values['email'] ?? '' }}" placeholder="Email*"
+                       v-validate.disable="'required|email'"
+                       data-vv-as="Email Adresse">
+                <div v-cloak v-show="errors.has('{{ block.form }}.email')" class="text-red">
+                    ${ errors.first('{{ block.form }}.email') }
+                </div>
+            </div>
+
+            <div class="gridElement w-full lg:w-1/2 p-2">
+                <label for="phone">Telefon</label>
+                <input id="phone" type="text" name="Telefon"
+                       value="{{ values['phone'] ?? '' }}" placeholder="Telefon">
+            </div>
+
+            <div class="gridElement w-full lg:w-1/2 p-2">
+                <label for="street">Strasse</label>
+                <input id="street" type="text" name="street"
+                       value="{{ values['street'] ?? '' }}" placeholder="Strasse und Hausnummer">
+            </div>
+
+            <div class="gridElement w-full lg:w-1/2 p-2">
+                <label for="postcode">Postleitzahl</label>
+                <input id="postcode" type="text" name="postcode"
+                       value="{{ values['postcode'] ?? '' }}" placeholder="Postleitzahl">
+            </div>
+
+            <div class="gridElement w-full lg:w-1/2 p-2">
+                <label for="city">Stadt</label>
+                <input id="city" type="text" name="city"
+                       value="{{ values['city'] ?? '' }}" placeholder="Stadt">
+            </div>
+
+            <div class="gridElement w-full p-2">
+                <label for="message">Nachricht</label>
+                <textarea
+                    rows="10" cols="40" id="message" name="message"
+                    placeholder="Nachricht">{{ values['message'] ?? '' }}</textarea>
+            </div>
+
+            {# {% if block.form != 1 %}
+              <input type="file" name="image" id="imager">
+            {% endif %} #}
+            <div class="gridElement w-full p-2">
+                <input
+                    class="c-btn font-serif" id="sendmessage"
+                    type="submit" value="Absenden"
+                    @click="validateForm('{{ block.form }}')">
+            </div>
+
+
+            <div class="gridElement w-full p-2">
+                <div class="w-full">
+                    <p class="mt-4">Die Sicherheit Deiner Daten ist uns wichtig. Lese dazu unsere <a
+                            href="/datenschutz"
+                            class="underline text-font hover:text-brand">Datenschutzhinweise</a>.
+                    </p>
+                </div>
+                <div class="w-full flex">
+                    <label class=" checkbox-label mt-5">
+                        <input type="checkbox"
+                               name="form"
+                               id="form"
+                               v-validate.disabled="'required'"
+                               data-vv-as="Datenschutzhinweisen"
+                               >
+                        <span class="checkmark"></span>
+                    </label>
+
+                    <p class="ml-2 mt-4 ">Ich habe die <a
+                            href="/datenschutz"
+                            class="underline text-font hover:text-brand">Datenschutzhinweise</a>
+                        gelesen und akzeptiere
+                        diese.</p>
+                </div>
+                <div v-cloak class="ml-10 mt-2 text-red" v-show="errors.has('{{ block.form }}.form')">Bitte stimme den Datenschutzhinweisen zu.</div>
+            </div>
+
+        </div>
+
+
+    </form>
+
+{% endblock %}

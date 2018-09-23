@@ -1,0 +1,27 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{# @var entry \craft\elements\Entry #}
+
+{#
+  Pages: Default
+  ------------------------------------------------------------
+
+#}
+
+{% extends "entry/default.twig" %}
+
+{% block content %}
+
+    {# -- Cache -- #}
+    {% cache globally using key 'pages-default-' ~ craft.app.request.pathInfo ~ (craft.app.request.pageNum ? '/p' ~ craft.app.request.pageNum : '') %}
+
+        {% block itemContent %}
+            {% if entry.contentBuilder %}
+                {% include "_matrix.twig" with {
+                    "matrix" : entry.contentBuilder,
+                } %}
+            {% endif %}
+        {% endblock %}
+
+        {# -- !Cache -- #}
+    {% endcache %}
+{% endblock %}

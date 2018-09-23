@@ -1,9 +1,19 @@
 {% import "_macros/_macros.twig" as macro %}
 
-<div class="c-nav">
-    <div class="ml-4 -mt-4">{% include '_pieces/logo/default'%}</div>
-    <nav itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
-        <ul class="list-reset flex-grow flex items-x-end w-auto">
+<div
+    class="c-nav js-nav">
+    <div class="c-nav__logo">
+        <a href="{{ url('') }}" title="Homepage">
+            {% include '_svg/wwy.svg' with {
+                opt : {
+                    class: 'align-middle w-8',
+                }
+            } only %}
+        </a>
+    </div>
+    <nav itemscope="itemscope"
+         itemtype="http://schema.org/SiteNavigationElement">
+        <ul class="list-reset flex-grow flex w-auto">
             {% for block in opt.data %}
                 {% if block.isActive %}
                     {# -- Get Position -- #}
@@ -11,7 +21,9 @@
                     {# -- Set Text -- #}
                     {% set text = block.menuItem.customText != '' ? block.menuItem.customText: block.menuItem.text | default(block.menuItem.url) %}
                     <li>
-                        <a href="{{ block.menuItem.url }}" title="{{ text | trim }}" class="no-underline inline-block hover:text-brand text-text {{ block.segmentPosition ? macro.isActive(segments, block.segmentPosition + 0) | trim : ''}}{{ loop.last ? '' : 'mr-4' }} mr-4">
+                        <a href="{{ block.menuItem.url }}"
+                           title="{{ text | trim }}"
+                           class="c-nav__link {{ block.segmentPosition ? macro.isActive(segments, block.segmentPosition + 0) | trim : '' }} {% if loop.index != block|length %}mr-4{% endif %}">
                             {{ block.menuItem.customText | trim }}</a>
                     </li>
                 {% endif %}

@@ -1,0 +1,17 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{# @var entry \craft\elements\Entry #}
+
+{#
+  Matrix: rich text (templates/matrix/richText.twig)
+  ------------------------------------------------------------
+#}
+
+{% extends "matrix/default.twig" %}
+
+{% block blockContent %}
+    <div class="o-wrap">
+        <div class="o-wrap__item">
+            {{ block.textContent }}
+        </div>
+    </div>
+{% endblock %}

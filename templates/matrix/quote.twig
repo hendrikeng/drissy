@@ -1,0 +1,29 @@
+{% extends 'matrix/default.twig' %}
+
+{% block blockContent %}
+
+    <blockquote class="o-wrap">
+        <figure class="o-wrap__item text-center">
+            {% set image = block.image.one() %}
+            {% if image %}
+                {% include '_elements/img/default.twig' with {
+                    opt : {
+                        data: image,
+                        imager: {
+                            class: 'w-64 h-auto',
+                            mediaBox: false,
+                            objectFit: true,
+                            objectFitValue: 'cover',
+                        }
+                    }
+                } only %}
+            {% endif %}
+            <figcaption class="mt-4 flex flex-col text-left">
+                <p class="mt-4">"{{ block.quote }}"</p>
+                <cite class="mt-2">{{ block.source }}</cite>
+            </figcaption>
+        </figure>
+    </blockquote>
+
+{% endblock %}
+

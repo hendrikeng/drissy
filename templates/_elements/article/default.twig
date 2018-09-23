@@ -1,0 +1,148 @@
+{# set defaults #}
+
+{% set defaults = {
+    imager: {},
+    image: entry.introImage.one() ?? entry.images.one() ?? null,
+    data: entry,
+    cta: entry.introCtaText ?? 'more',
+    el: {
+        gridElement: false,
+        article: true,
+        articleImage: true,
+        articleImageCaption: false,
+        articleWrap: true,
+        articleContainer: true,
+        articleInner: true,
+        articleHeader: true,
+        articleHeaderSpan: true,
+        articleHeaderLink: true,
+        articleBody: false,
+        articleLink: false,
+    },
+    cn: {
+        gridElement: 'gridElement w-full md:w-1/2 lg:w-1/4 py-2 px-2',
+        article: 'flex-1 h-64 md:h-128 w-full c-link relative overflow-hidden cursor-pointer',
+        articleImage: 'w-full h-96 md:h-112',
+        articleImageCaption: 'absolute pin-b ml-3 text-white font-bold text-base',
+        articleWrap: 'articleWrap absolute pint-t pin-b cursor-pointer c-link-hover:transform-up c-link-hover:bg-white-90 transform-down-3 hover:transform-up h-64 md:h-128 w-full',
+        articleContainer: 'articleContainer',
+        articleInner: 'articleInner absolute pin-t flex flex-col text-center overflow-hidden h-full w-full py-3 px-8 c-link-hover:justify-center',
+        articleHeader: 'articleHeader font-serif text-lg text-font product',
+        articleHeaderSpan: '',
+        articleHeaderLink: 'link-absolute',
+        articleBody: 'articleBody',
+        articleBodyParagraph: 'text-base text-font mt-6',
+        articleLink: 'mx-auto font-serif no-underline text-white bg-brand px-4 py-2 text-lg link-absolute hover:underline',
+    },
+} %}
+
+
+{# -- Merge Default with Options -- #}
+{% set opt = opt is defined ? defaults | merge(opt): defaults %}
+
+{% if opt.el.gridElement %}
+<div class="{{ opt.cn.gridElement }}">
+    {% endif %}
+    <article class="{{ opt.cn.article }}">
+        {% if opt.image %}
+            {% include '_elements/img/default.twig' with {
+                opt : {
+                    data: opt.image,
+                    imager: opt.imager,
+                }
+            } only %}
+        {% endif %}
+        <div class="{{ opt.cn.articleWrap }}">
+            {% if opt.el.articleImageCaption|length %}
+                <div class="{{ opt.cn.articleImageCaption }}">
+                    {% if opt.image.caption %}
+                        &#9400 {{ opt.image.caption ?? null }}
+                        /
+                    {% endif %}
+                    {% if opt.image.source %}
+                        <a class="text-white hover:underline"
+                           href="{{ opt.image.sourceUrl }}">{{ opt.image.source }}</a>
+                    {% endif %}
+                </div>
+            {% endif %}
+            <div class="{{ opt.cn.articleContainer }}">
+                <div class="{{ opt.cn.articleInner }}">
+                    <header>
+                        {% if opt.el.articleHeaderLink and block.linkToEntry %}
+                        <a href="{{ entry.url }}"
+                           class="{{ opt.cn.articleHeaderLink }}">
+                            {% endif %}
+                            <h3 class="{{ opt.cn.articleHeader }}">
+                                        <span
+                                            class="{{ opt.cn.articleHeaderSpan }}">
+                                            {{ entry.introHeadline ?? entry.title }}
+                                        </span>
+                            </h3>
+                            {% set categories = entry.category %}
+                            {% if categories %}
+                                {% for entry in categories.all() %}
+                                    <a href="{{ entry.url }}"
+                                       class="hover:bg-grey align-middle bg-white no-underline rounded-full py-1 px-2 mx-1 ">
+                                        #{{ entry }}
+                                    </a>
+                                {% endfor %}
+                            {% endif %}
+                            {% if opt.el.articleHeaderLink %}
+                        </a>
+                        {% endif %}
+                    </header>
+                    {% if opt.el.articleBody %}
+                        <div class="{{ opt.cn.articleBody }}">
+                            <div class="{{ opt.cn.articleBodyParagraph }}">
+                                {% if craft.app.request.segment(2) == 'team' %}
+                                    {% set bodyParagraph = entry.partnerType %}
+                                {% else %}
+                                    {% set bodyParagraph = entry.introTeaser %}
+                                {% endif %}
+                                {{ bodyParagraph|length > 115 ? bodyParagraph|slice(0, 115) ~ '...' : bodyParagraph }}
+                            </div>
+                            {% if craft.app.request.segment(1) == 'partner' %}
+                                {% if entry.street | length %}
+                                    <div class="redactor text-base text-font">
+                                        {{ entry.street }}<br>
+                                        {{ entry.postcode }} {{ entry.city }}
+                                    </div>
+                                {% endif %}
+
+                            {% else %}
+
+                                {# {% if entry.body | length %}
+                                     <div class="redactor text-base text-font mt-6">
+                                         {% set body = entry.body %}
+                                         {{ body|length > 115 ? body|slice(0, 115) ~ '...' : body }}
+                                     </div>
+                                 {% endif %}#}
+                            {% endif %}
+                            <div class="redactor text-base text-font mt-3">
+                                {#   {% if entry.phone | length %}
+                                       <a href="tel:{{ entry.phone }}">{{ entry.phone }}</a>
+                                   {% endif %}
+                                   {% if entry.email | length %}<br>
+                                       <a href="mailto:{{ entry.email }}">{{ entry.email }}</a>
+                                   {% endif %}
+                                   {% if entry.partnerUrl | length %}<br>
+                                       <a href="{{ entry.partnerUrl }}" target="_blank" rel="noopener">Website</a>
+                                   {% endif %}#}
+                            </div>
+                            {% if opt.el.articleLink or entry.linkToEntry %}
+                                <div>
+                                    <a href="{{ entry.url }}"
+                                       class="{{ opt.cn.articleLink }}">
+                                        {{ opt.cta }}
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </article>
+    {% if opt.el.gridElement %}
+</div>
+{% endif %}

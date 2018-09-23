@@ -1,28 +1,40 @@
-{% extends "_layouts/_layout" %}
+{% extends '_layouts/_layout.twig' %}
 
 {# -- inline css -- #}
 {% block _inline_css %}
     <style>
-        {{source ("entry_critical.min.css", ignore_missing=true)}}
+        {{source (_self ~ '_critical.min.css', ignore_missing=true)}}
     </style>
-    {# -- end inline css -- #}
 {% endblock %}
 
+{% block header %}
 
-    {% block content %}
+    {% include '_components/header/default.twig' with {
+        opt : {
+            imager: {
+                lazy: false,
+                mediaBox: false,
+                class: 'absolute pin-t pin-l w-full h-full',
+            },
+            el: {
+                nav: 'default',
+                image: entry.entryImage.one() ?? entry.introImage.one() ?? null,
+                title: entry.introHeadline ?? entry.title,
+                description: entry.introText,
+            }
+        }
+    } only %}
 
-            {% block itemContent %}
+{% endblock %}
 
-                {% if entry.body %}
-                    <div class="entry content">
-                        {% include "_matrix" with {
-                            "matrix" : entry.body
-                        } %}
-                    </div>
-                {% endif %}
-            {% endblock %}
-        </div>
+{% block content %}
 
-        {# -- content end -- #}
+    {% block itemContent %}
+        {% if entry.contentBuilder %}
+            {% include '_matrix.twig' with {
+                matrix : entry.contentBuilder,
+            } only %}
+        {% endif %}
     {% endblock %}
 
+{% endblock %}

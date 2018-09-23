@@ -1,0 +1,30 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{# @var entry \craft\elements\Entry #}
+
+{#
+  Matrix: embedded (templates/matrix/embedded.twig)
+  ------------------------------------------------------------
+#}
+
+{% extends "matrix/default.twig" %}
+
+{% block blockContent %}
+
+    {% if block.code %}
+        {% if 'youtube.com' in block.code or 'vimeo.com' in block.code %}
+            {% set video = true %}
+        {% else %}
+            {% set video = false %}
+        {% endif %}
+
+        <div class="o-wrap">
+            <div class="o-wrap__item relative w-full">
+                <div class="embedded {{ video ? 'aspect-ratio-16/9' : '' }} ">
+                    {{ block.code|raw }}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock %}
+

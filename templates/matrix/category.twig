@@ -1,0 +1,40 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{# @var entry \craft\elements\Entry #}
+
+{#
+  Matrix: Category (templates/matrix/category.twig)
+  ------------------------------------------------------------
+  Categories function as Tags, if a category is a child of a parent
+  (parents/top-level-categories should be equal to section handles!)
+  we can get the matching tag using category[category|length-1] on relatedTo.
+#}
+
+{% extends "matrix/default.twig" %}
+
+{% set category = block.category.all() %}
+
+{% if category %}
+
+    {% set entries = craft.entries({
+        section: category[0]|lower,
+        relatedTo: category[category|length-1],
+        orderBy: 'title asc',
+        limit: block.limit
+    } ) %}
+
+{% endif %}
+
+{% block blockContent %}
+
+    {% if category %}
+
+        <div class="o-wrap o-wrap--grid">
+            {% for entry in entries.all() %}
+                {% include '_item.twig' %}
+            {% endfor %}
+        </div>
+
+    {% endif %}
+
+{% endblock %}
+
