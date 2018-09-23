@@ -7,7 +7,7 @@ module.exports = {
             // Your source logo
             logo: './src/images/favicon/logo.png',
             // The prefix for all image files (might be a folder or a name)
-            prefix: 'assets/',
+            prefix: '/',
             // Emit all stats of the generated icons
             emitStats: false,
             // Generate a cache file with control hashes and

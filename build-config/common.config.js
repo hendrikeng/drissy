@@ -15,11 +15,11 @@ module.exports = {
         live: `https://${pkg.name}.de`,
     },
     entry: {
-        'assets/app': './src/js/main.js',
+        app: './src/js/main.js',
     },
     output: {
         filename: '[name].[hash:7].js',
-        path: resolve('./web/'),
+        path: resolve('./web/assets/'),
         publicPath: {
             src: useHttps
                 ? `https://${ipAddress}:8080/`

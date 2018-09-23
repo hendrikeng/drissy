@@ -38,7 +38,7 @@ module.exports = {
                 loader: 'url-loader',
                 options: {
                     limit: 10000,
-                    name: 'file-loader?assets/img/[name].[ext]',
+                    name: 'file-loader?img/[name].[ext]',
                 },
             },
             {
@@ -46,7 +46,7 @@ module.exports = {
                 loader: 'url-loader',
                 options: {
                     limit: 10000,
-                    name: 'file-loader?assets/media/[name].[ext]',
+                    name: 'file-loader?media/[name].[ext]',
                 },
             },
             {
@@ -54,7 +54,7 @@ module.exports = {
                 loader: 'url-loader',
                 options: {
                     limit: 10000,
-                    name: 'assets/fonts/[name].[ext]',
+                    name: 'fonts/[name].[ext]',
                 },
             },
         ],

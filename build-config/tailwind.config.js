@@ -260,7 +260,7 @@ module.exports = {
     '3xl': '1.875rem',  // 30px
     '4xl': '2.25rem',   // 36px
     '5xl': '3rem',      // 48px
-      '6xl': '4rem',   // 64px
+    '6xl': '4rem',      // 64px
   },
 
 
@@ -532,8 +532,10 @@ module.exports = {
     '32': '8rem',
     '48': '12rem',
     '64': '16rem',
-      '128': '32rem',
+    '128': '32rem',
+    'half': '50%',
     'full': '100%',
+    'half-screen': '50vh',
     'screen': '100vh'
   },
 
