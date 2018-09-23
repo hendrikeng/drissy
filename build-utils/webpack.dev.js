@@ -1,4 +1,3 @@
-const commonConfig = require('./../build-config/common.config');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WriteFilePlugin = require('write-file-webpack-plugin');
 const Stylish = require('webpack-stylish');
@@ -7,6 +6,8 @@ const webpack = require('webpack');
 const sane = require('sane');
 const opn = require('opn');
 const path = require('path');
+const ipAddress = require('./get-ip');
+const commonConfig = require('./../build-config/common.config');
 
 /* eslint-disable no-console, no-unused-vars */
 
@@ -16,40 +17,38 @@ module.exports = {
     output: {
         publicPath: commonConfig.output.publicPath.src,
     },
-    devtool: 'eval', // https://webpack.js/configuration/devtool
     cache: true,
     module: {
-        rules: [{
-            test: /\.css/,
-            use: [
-                'style-loader',
-                {
-                    loader: 'css-loader',
-                    options: {
-                        importLoaders: 1,
-                        minimize: false,
-                    },
-                },
-                {
-                    loader: 'postcss-loader',
-                    options: {
-                        config: {
-                            path: './build-config/postcss.config.js',
+        rules: [
+            {
+                test: /\.css/,
+                use: [
+                    'style-loader',
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            importLoaders: 1,
+                            minimize: false,
                         },
                     },
-                },
-            ],
-        }],
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            config: {
+                                path: './build-config/postcss.config.js',
+                            },
+                        },
+                    },
+                ],
+            },
+        ],
     },
     devServer: {
         publicPath: commonConfig.output.publicPath.src,
         clientLogLevel: 'warning',
-        overlay: commonConfig.devServer.errorOverlay ?
-            {
-                warnings: false,
-                errors: true,
-            } :
-            false,
+        overlay: commonConfig.devServer.errorOverlay
+            ? { warnings: false, errors: true }
+            : false,
         contentBase: false,
         watchContentBase: false,
         stats: 'none',
@@ -59,21 +58,23 @@ module.exports = {
             poll: false,
         },
         historyApiFallback: {
-            rewrites: [{
-                from: /.*/,
-                // was dasx
-                to: path.posix.join('../templates/', '404'),
-            }],
+            rewrites: [
+                {
+                    from: /.*/,
+                    // was das?
+                    to: path.posix.join('../templates/', '404'),
+                },
+            ],
         },
-        https: false,
-        host: 'localhost',
+        https: commonConfig.devServer.https,
+        host: ipAddress,
         port: 8080,
         proxy: {
-            // '**': {
-            //     target: commonConfig.urls.dev,
-            //     changeOrigin: true,
-            //     secure: false,
-            // },
+            '**': {
+                target: commonConfig.urls.dev,
+                changeOrigin: true,
+                secure: commonConfig.devServer.https,
+            },
         },
         headers: {
             'Access-Control-Allow-Origin': '*',
@@ -107,6 +108,7 @@ module.exports = {
             env: {
                 dev: true,
                 prod: false,
+                debug: false,
             },
         }),
         new WriteFilePlugin({

@@ -1,0 +1,113 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{# @var entry \craft\elements\Entry #}
+
+{#
+  Matrix: Category Slider (templates/matrix/categorySlider.twig)
+  ------------------------------------------------------------
+  Categories function as Tags, if a category is a child of a parent
+  (parents/top-level-categories should be equal to section handles!)
+  we can get the matching tag using category[category|length-1] on relatedTo.
+#}
+
+{% extends "matrix/default.twig" %}
+
+{% set category = block.category.all() %}
+
+{% if category %}
+
+    {% set entries = craft.entries({
+        section: category[0]|lower,
+        relatedTo: category[category|length-1],
+        orderBy: 'title asc',
+        limit: block.limit
+    } ) %}
+
+{% endif %}
+
+{% set slider = {
+    imager: {
+        class: 'w-full h-full',
+    },
+    data: entries,
+    el: {
+        wrapper: true,
+        image: true,
+        articleImageCaption: false,
+        introHeadline: true,
+        introTeaser: false,
+        linkWrap: true,
+        arrows: true,
+        bullets: true,
+    },
+    cn: {
+        wrapper: 'o-wrap',
+        slider: 'o-wrap--item js-slider',
+        track: 'glide__track',
+        slides: 'h-64 md:h-192',
+        articleImageCaption: '',
+        container: 'absolute pin-t pin-b w-full h-full',
+        containerInner: 'container w-full h-full relative flex',
+        body: 'ml-auto flex my-auto text-center overflow-hidden w-full  justify-center',
+        introHeadline: 'mx-auto text-fluid text-white cursor-pointer word-break',
+        introHeadlineSpan: 'c-link-hover:bg-shadow',
+        linkWrap: 'c-link',
+        arrows: 'w-full h-full glide__arrows',
+        arrowLeft: 'hidden md:flex ml-8 h-full absolute pin-l pin-t pin-b glide__arrow glide__arrow--left',
+        arrowRight: 'hidden md:flex mr-8 h-full absolute pin-r pin-t pin-b glide__arrow glide__arrow--right',
+        bullets: 'items-center h-8 mb-4 md:mb-8 w-full absolute pin-b slider__bullets glide__bullets flex justify-center',
+        bullet: 'glide__bullet',
+    },
+} %}
+
+{% set carousel = {
+    imager: {
+        objectFit: true,
+        mediaBox: true,
+        blurUp: false,
+    },
+    data: entries,
+    el: {
+        wrapper: false,
+        image: true,
+        articleImageCaption: false,
+        introHeadline: true,
+        introTeaser: false,
+        linkWrap: false,
+        arrows: true,
+        bullets: false,
+    },
+    cn: {
+        wrapper: '',
+        slider: 'o-wrap js-carousel',
+        track: 'glide__track',
+        slides: 'o-wrap--item h-full w-auto',
+        articleImageCaption: '',
+        container: 'absolute pin-t pin-b w-full h-full',
+        containerInner: 'w-full h-full relative flex',
+        body: 'absolute pin-b flex flex-col text-center overflow-hidden h-16 w-full',
+        introHeadline: 'm-auto text-white',
+        introHeadlineSpan: '',
+        linkWrap: 'c-link',
+        arrows: 'w-full h-full glide__arrows',
+        arrowLeft: 'pl-2 h-full absolute pin-l pin-t pin-b glide__arrow glide__arrow--left',
+        arrowRight: 'pr-2 h-full absolute pin-r pin-t pin-b glide__arrow glide__arrow--right',
+        bullets: 'items-center h-8 mb-4 absolute pin-b slider__bullets glide__bullets flex justify-center',
+        bullet: 'glide__bullet',
+    },
+} %}
+
+{# check slider layout #}
+{% if block.sliderType == 'js-carousel' %}
+    {% set defaults = carousel %}
+{% else %}
+    {% set defaults = slider %}
+{% endif %}
+
+{# -- Merge Default with Options -- #}
+{% set opt = opt is defined ? defaults|merge(opt) : defaults %}
+
+{% block blockContent %}
+    {% include "_elements/slider/default.twig" with {
+        defaults: {},
+    } %}
+{% endblock %}

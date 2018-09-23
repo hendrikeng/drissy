@@ -1,7 +1,19 @@
 .c-nav {
-    @apply flex items-center justify-between flex-wrap;
+    @apply mx-auto max-w-3xl flex items-center justify-between flex-wrap px-4 mt-4;
 }
 
-.is-active {
-    @apply .text-red-lighter !important;
+.c-nav .is-active {
+    @apply text-red-light !important;
+}
+
+.c-nav__logo {
+    @apply my-auto;
+}
+
+.c-nav__link {
+    @apply no-underline inline-block text-grey-darkest;
+}
+
+.c-nav__link:hover {
+    @apply text-red;
 }

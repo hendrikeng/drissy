@@ -1,0 +1,69 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{# @var entry \craft\elements\Entry #}
+
+{#
+  Taxonomy: default
+  ------------------------------------------------------------
+#}
+
+{% extends "_layouts/_layout" %}
+{% import "_macros/_macros.twig" as macro %}
+{#{% set seomaticMeta = seomaticMeta | merge({'seoTitle': category.group().name ~ ': ' ~ category }) %}#}
+
+{# -- inline css -- #}
+{% block _inline_css %}
+    <style>
+        {{source (_self ~ '_critical.min.css', ignore_missing = true)}}
+    </style>
+{% endblock %}
+
+{# -- Set Query -- #}
+{% set entries = craft.entries({
+    section: ['articles'],
+    relatedTo: craft.categories.slug(category.slug),
+    limit: null
+}) %}
+
+{% paginate entries as pageInfo,
+    pageEntries %}
+
+    {% block head %}
+        {% if pageInfo.prevUrl %}<link rel="prev" href="{{ pageInfo.prevUrl }}">{% endif %}
+        {% if pageInfo.nextUrl %}<link rel="next" href="{{ pageInfo.nextUrl }}">{% endif %}
+    {% endblock %}
+
+    {% block debug %}{% endblock %}
+
+    {% block header %}
+        {{ parent() }}
+{#        {% include '_components/header/default' with {
+            opt : {
+                el: {
+                    nav: true,
+                }
+            }
+        }
+            only %}#}
+    {% endblock %}
+
+
+    {% block content %}
+
+        {# -- Cache -- #}
+        {# {% cache globally using key category.group().handle ~ category ~ craft.app.request.pathInfo ~ (craft.app.request.pageNum ? '/p' ~ craft.app.request.pageNum : '') %} #}
+
+        <div class="container flex flex-wrap text-center justify-around p-4">
+
+            {% for entry in pageEntries %}
+                {% include '_item' %}
+            {% endfor %}
+
+        </div>
+
+        <div class="container text-center mb-8">
+            {{ macro.pagination(pageInfo, craft, {}) }}
+        </div>
+        {# -- Cache End -- #}
+        {# {% endcache %} #}
+    {% endblock %}
+

@@ -1,0 +1,86 @@
+.cc-window {
+    transition: opacity 100ms ease;
+}
+
+.cc-window.cc-invisible {
+    opacity: 0;
+}
+
+.cc-animate.cc-revoke {
+    transition: transform 100ms ease;
+}
+
+.cc-grower {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 100ms;
+}
+
+.cc-link {
+    margin-left: 0.5rem;
+}
+
+.cc-revoke,
+.cc-window {
+    position: fixed;
+    overflow: hidden;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: nowrap;
+    z-index: 9999;
+    bottom: 0;
+    padding: 0.5rem;
+}
+
+.cc-btn,
+.cc-close,
+.cc-link,
+.cc-revoke {
+    cursor: pointer;
+}
+
+.cc-link,
+.cc-revoke:hover {
+    text-decoration: underline;
+}
+
+.cc-window.cc-static {
+    position: static;
+}
+
+.cc-window.cc-banner {
+    padding: 1rem;
+    width: 100%;
+    flex-direction: row;
+}
+
+.cc-banner.cc-bottom {
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.cc-banner .cc-message {
+    flex: 1;
+}
+
+@media print {
+    .cc-revoke,
+    .cc-window {
+        display: none;
+    }
+}
+
+.cc-compliance {
+    @apply my-auto;
+}
+
+.cc-floating.cc-type-info.cc-theme-classic .cc-compliance {
+    text-align: center;
+    display: inline;
+    flex: none;
+}
+
+.cc-btn {
+    @apply mx-auto text-base font-sans no-underline text-white bg-black px-4 py-2 text-lg !important;
+}

@@ -1,0 +1,19 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{# @var entry \craft\elements\Entry #}
+
+{#
+  Matrix: entry (templates/matrix/entry.twig)
+  ------------------------------------------------------------
+#}
+
+{% extends "matrix/default.twig" %}
+
+{% block blockContent %}
+
+    <div class="o-wrap o-wrap--grid">
+        {% for entry in block.entry.all() %}
+            {% include '_item.twig' %}
+        {% endfor %}
+    </div>
+
+{% endblock %}

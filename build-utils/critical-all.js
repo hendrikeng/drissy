@@ -31,10 +31,12 @@ const doSynchronousLoop = (data, processData, done) => {
 };
 
 const createCriticalCSS = (element, i, callback) => {
-    const url = 'http://leonelruben-staging.engereauswahl.de/';
+    const url = commonConfig.urls.staging;
     const criticalSrc = url + element.url;
     const BASE_PATH = './templates/';
-    const criticalDest = `${`${BASE_PATH}${element.template}`}_critical.min.css`;
+    const criticalDest = `${`${BASE_PATH}${
+        element.template
+        }`}_critical.min.css`;
     // eslint-disable-next-line
     console.log(`-> Generating critical CSS:\n${criticalSrc} -> ${criticalDest}`);
 
@@ -44,13 +46,13 @@ const createCriticalCSS = (element, i, callback) => {
             dest: criticalDest,
             css: assetLink,
             inline: false,
-            ignore: ['font-face'],
+            ignore: [],
             minify: true,
-            width: 1300,
-            height: 900,
+            width: 1200,
+            height: 1200,
             extract: false,
             penthouse: {
-                blockJSRequests: true,
+                blockJSRequests: false,
                 strict: true,
             },
         })
@@ -62,7 +64,7 @@ const createCriticalCSS = (element, i, callback) => {
             console.log(output + '\n');
             callback();
         })
-        .error((err) => {
+        .error(err => {
             // eslint-disable-next-line
             console.log(`-> Something went wrong ${err}`);
         });

@@ -1,0 +1,39 @@
+{% extends "matrix/default" %}
+
+{% block blockContent %}
+
+    <div class="relative glide {{ block.sliderType }} o-wrap px-4 mt-8">
+        <div data-glide-el="track" class="glide__track">
+            <div class="glide__slides">
+                {% for image in block.images.all() %}
+                    <div class="glide__slide">
+                        {% if image %}
+                            {% include '_elements/img/default' with {
+                                opt : {
+                                    data: image,
+                                    imager: {
+                                        mediaBox: true,
+                                        ratio: block.ratio,
+                                    }
+                                }
+                            }
+                                only %}
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="mb-14 mt-2 relative w-full h-full glide__arrows bg-green"
+             data-glide-el="controls">
+            <button class="absolute pin-l glide__arrow glide__arrow--left"
+                    data-glide-dir="<">
+                {% include '_svg/iconArrowLeft.svg' %}
+            </button>
+            <button class="absolute pin-r glide__arrow glide__arrow--right"
+                    data-glide-dir=">">
+                {% include '_svg/iconArrowRight.svg' %}
+            </button>
+        </div>
+    </div>
+
+{% endblock %}

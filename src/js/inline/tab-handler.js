@@ -1,10 +1,8 @@
-"use strict"; // Handle tabs gracefully as per https://hackernoon.com/removing-that-ugly-focus-ring-and-keeping-it-too-6c8727fefcd2
-
+// Handle tabs gracefully as per https://hackernoon.com/removing-that-ugly-focus-ring-and-keeping-it-too-6c8727fefcd2
 function handleFirstTab(e) {
   if (e.keyCode === 9) {
     document.documentElement.classList.add("user-is-tabbing");
-    window.removeEventListener("keydown", handleFirstTab); // eslint-disable-next-line
-
+    window.removeEventListener("keydown", handleFirstTab);
     window.addEventListener("mousedown", handleMouseDownOnce);
   }
 }

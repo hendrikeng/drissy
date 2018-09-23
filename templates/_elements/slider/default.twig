@@ -1,0 +1,170 @@
+{# set defaults #}
+{% set slider = {
+    imager: {
+        class: 'w-full h-full',
+    },
+    data: opt.data,
+    el: {
+        wrapper: true,
+        image: true,
+        introHeadline: true,
+        introTeaser: false,
+        articleImageCaption: false,
+        linkWrap: true,
+        arrows: true,
+        bullets: false,
+    },
+    cn: {
+        wrapper: 'py-4',
+        slider: 'js-slider',
+        track: 'glide__track',
+        slides: 'h-64 md:h-192',
+        articleImageCaption: '',
+        container: 'relative md:absolute pin-t pin-b w-full h-full',
+        containerInner: 'container w-full h-full relative flex',
+        body: 'ml-auto flex my-auto text-center overflow-hidden w-full  justify-center',
+        introHeadline: 'mx-auto text-fluid font-serif text-white cursor-pointer word-break',
+        introHeadlineSpan: 'c-link-hover:bg-shadow',
+        linkWrap: 'c-link',
+        arrows: 'w-full h-full glide__arrows',
+        arrowLeft: 'hidden md:flex ml-8 h-full absolute pin-l pin-t pin-b glide__arrow glide__arrow--left',
+        arrowRight: 'hidden md:flex mr-8 h-full absolute pin-r pin-t pin-b glide__arrow glide__arrow--right',
+        bullets: 'h-8 mb-0 mb:mb-8 w-full absolute pin-b slider__bullets glide__bullets flex justify-center',
+        bullet: 'glide__bullet',
+    },
+} %}
+
+{% set carousel = {
+    imager: {
+        class: 'w-full h-64',
+    },
+    data: opt.data,
+    el: {
+        wrapper: true,
+        articleImageCaption: false,
+        image: true,
+        introHeadline: true,
+        introTeaser: false,
+        linkWrap: true,
+        arrows: true,
+        bullets: false,
+    },
+    cn: {
+        wrapper: 'bg-brand max-w-4xl mx-auto py-4',
+        slider: 'js-carousel container',
+        track: 'glide__track',
+        slides: 'h-80 w-full',
+        linkWrap: 'c-link',
+        container: 'relative md:absolute pin-t pin-b w-full h-full',
+        containerInner: 'container w-full h-full relative flex',
+        body: 'absolute pin-b flex flex-col text-center overflow-hidden h-16 w-full',
+        introHeadline: 'mx-auto mb-auto mt-4 text-xl font-serif text-white cursor-pointer word-break',
+        introHeadlineSpan: 'c-link-hover:bg-shadow',
+        arrows: 'w-full h-full glide__arrows',
+        arrowLeft: '-ml-16 h-full absolute pin-l pin-t pin-b glide__arrow glide__arrow--left',
+        arrowRight: '-mr-16 h-full absolute pin-r pin-t pin-b glide__arrow glide__arrow--right',
+        bullets: 'h-8 mb-8 w-full absolute pin-b slider__bullets glide__bullets flex justify-center',
+        bullet: 'glide__bullet',
+    },
+} %}
+
+{# check slider layout #}
+{% if block.layout == 'js-carousel' %}
+    {% set defaults = carousel %}
+{% else %}
+    {% set defaults = slider %}
+{% endif %}
+
+{# -- Merge Default with Options -- #}
+{% set opt = opt is defined ? defaults|merge(opt) : defaults %}
+
+{% if opt.el.wrapper %}
+<div class="{{ opt.cn.wrapper }}">
+    {% endif %}
+    <div class="glide {{ opt.cn.slider }}">
+        <div data-glide-el="track" class="{{ opt.cn.track }}">
+            <div class="glide__slides {{ opt.cn.slides }}">
+                {% for entry in opt.data %}
+                    {% set image = entry.introImage.one() ?? entry.images.one() ?? entry.image.one() ?? null%}
+                    <div class="relative glide__slide">
+                        {% if opt.el.image %}
+                            {% include '_elements/img/default' with {
+                                opt : {
+                                    data: image,
+                                    imager: opt.imager,
+                                }
+                            } only %}
+                        {% endif %}
+                        {% if opt.el.linkWrap %}
+                        <a href="{{ entry.url }}" class="{{ opt.cn.linkWrap }}">
+                            {% endif %}
+                            <div class="{{ opt.cn.container }}">
+                                {% if opt.el.articleImageCaption|length %}
+                                    {% if image.caption|length %}
+                                        <div class="{{ opt.cn.articleImageCaption }}">
+                                            {% if image.caption %}
+                                                {{ image.caption ?? null }}
+                                            {% endif %}
+                                            {% if image.source %}
+                                                /
+                                                <a class="text-white hover:underline"
+                                                   href="{{ image.sourceUrl }}">{{ image.source }}</a>
+                                            {% endif %}
+                                        </div>
+                                    {% endif %}
+                                {% endif %}
+                                <div class="{{ opt.cn.containerInner }}">
+                                    <div class="{{ opt.cn.body }}">
+                                        {% if opt.el.introHeadline %}
+                                            <h3 class="{{ opt.cn.introHeadline }}">
+                                                {% set title = entry.introHeadline ?? entry.title ?? entry.headline %}
+                                                <span class="{{ opt.cn.introHeadlineSpan }}">
+                                                    {{ title | upper }}
+                                                </span>
+                                            </h3>
+                                        {% endif %}
+                                        {% if opt.el.introTeaser %}
+                                            <p class="{{ opt.cn.introTeaser }}">
+                                                {% set text = entry.introTeaser ?? entry.text %}
+                                                {{ text|striptags }}</p>
+                                        {% endif %}
+                                        {# prüfen ob link vorhanden und entfernen #}
+                                        {% if entry.entry|length %}
+                                            <a href="{{ entry.entry.one().getUrl() }}"
+                                               class="mx-auto font-serif no-underline text-white bg-brand px-4 py-2 hover:bg-brand-85 hover:underline text-lg c-link">
+                                                {{ entry.cta ?? entry.entry.title }}
+                                            </a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            {% if opt.el.linkWrap %}
+                        </a>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% if opt.data | length > 1 %}
+            {% if opt.el.arrows %}
+                <div class="{{ opt.cn.arrows }}" data-glide-el="controls">
+                    <button class="{{ opt.cn.arrowLeft }}" data-glide-dir="<" aria-label="Pervious slide">
+                        {% include '_svg/iconArrowLeft.svg' %}
+                    </button>
+                    <button class=" {{ opt.cn.arrowRight }} " data-glide-dir=">" aria-label="Next slide">
+                        {% include '_svg/iconArrowRight.svg' %}
+                    </button>
+                </div>
+            {% endif %}
+            {% if opt.el.bullets %}
+                <div class="{{ opt.cn.bullets }}" data-glide-el="controls[nav]">
+                    {% for entry in opt.data %}
+                        <button class="{{ opt.cn.bullet }}" data-glide-dir="={{ loop.index0 }}" aria-label="select slide"></button>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+    {% if opt.el.wrapper %}
+</div>
+{% endif %}

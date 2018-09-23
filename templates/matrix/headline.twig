@@ -1,0 +1,15 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{# @var entry \craft\elements\Entry #}
+
+{#
+  Matrix: Headline (templates/matrix/headline.twig)
+  ------------------------------------------------------------
+#}
+
+{% extends "matrix/default.twig" %}
+
+{% block blockContent %}
+    <h2 class="o-wrap">
+        <span class="o-wrap__item o-wrap__item--quad js-headline">{{ block.headline }}</span>
+    </h2>
+{% endblock %}

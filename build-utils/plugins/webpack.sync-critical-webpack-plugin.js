@@ -30,7 +30,9 @@ function processArray(array, createCriticalCSS) {
             console.log(createCriticalCSS);
             console.log('Processed critical CSS!');
         })
-        .catch(e => console.error(`processing failed: ${e.name}: ${e.message}`));
+        .catch(e =>
+            console.error(`processing failed: ${e.name}: ${e.message}`),
+        );
 }
 
 // create critical css for each single source  ...hier wohl sync rein
@@ -56,16 +58,22 @@ const createCriticalCSS = (element, i) => {
 SyncCriticalWebpackPlugin.prototype.emit = () => {
     // only pass arrays to process
     passedOptions.src =
-        passedOptions.src instanceof Array ? passedOptions.src : [passedOptions.dest];
+        passedOptions.src instanceof Array
+            ? passedOptions.src
+            : [passedOptions.dest];
 
     passedOptions.dest =
-        passedOptions.dest instanceof Array ? passedOptions.dest : [passedOptions.dest];
+        passedOptions.dest instanceof Array
+            ? passedOptions.dest
+            : [passedOptions.dest];
 
     processArray(passedOptions.src, createCriticalCSS);
 };
 
 // run plugin only after webpack emited all files
-SyncCriticalWebpackPlugin.prototype.apply = function waitForAfterEmit(compiler) {
+SyncCriticalWebpackPlugin.prototype.apply = function waitForAfterEmit(
+    compiler,
+) {
     const self = this;
     compiler.plugin('after-emit', (compilation, callback) => {
         self.emit(compilation, callback);
