@@ -1,6 +1,6 @@
 {
     "name": "drissy",
-    "version": "1.2.0-beta",
+    "version": "1.2.1-beta",
     "description": "``` Install with: composer create-project hendrikeng/drissy PROJEKTNAME -s RC",
     "main": "webpack.config.js",
     "author": "Hendrikeng <hendrik@wewereyoung.de>",
