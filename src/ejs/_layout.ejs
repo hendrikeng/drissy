@@ -121,11 +121,6 @@ Layout: Default
     {% endif %}
     <% } %>
 
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.css">
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/default-skin/default-skin.min.css">
-
     {# -- Fontface Observer -- #}
     <style>
         {% include "_inlinecss/_site_fonts.css" %}
@@ -134,8 +129,15 @@ Layout: Default
     {% if fontsLoaded and fontsLoaded == assetHash %}
     {% else %}
         <script>
-            {{ source('_inlinejs/fontfaceobserver.js') }}
-            {{ source('_inlinejs/load-fonts.js') }}
+            (function() {
+                // Optimization for Repeat Views
+                if (sessionStorage.foftFontsLoaded) {
+                    document.documentElement.className += "fonts-loaded";
+                    return;
+                }
+                {{ source('_inlinejs/fontfaceobserver.js') }}
+                {{ source('_inlinejs/load-fonts.js') }}
+            })();
         </script>
         {{ setCookie('fonts-loaded', assetHash, now | date_modify("+7 days").timestamp ) }}
     {% endif %}
@@ -145,7 +147,6 @@ Layout: Default
     <script>
         {{ source("_inlinejs/tab-handler.js") }}
     </script>
-
 
     {%- endminify -%}
 
@@ -160,51 +161,49 @@ Layout: Default
 
             {# -- Debug -- #}
             <% if (htmlWebpackPlugin.options.env.devA) { %>
-            {% if craft.app.request.getSegment(1) != 'shop' %}
-                {% block debug %}
-                    <div class="container bg-red-lightest pt-2 px-2">
-                        <p class="text-sm text-red font-extrabold mb-2 -mt-2 underline">
-                            DEBUG</p>
-                        <p class="text-sm text-grey-darkest font-extrabold mb-2 -mt-2 ">
-                            entry.slug -
-                            <span
-                                class="text-red font-bold">{{ entry.slug }}</span>
-                        </p>
-                        <p class="text-sm text-grey-darkest font-extrabold mb-2 -mt-2 ">
-                            entry.title -
-                            <span
-                                class="text-red font-bold">{{ entry.title }}</span>
-                        </p>
-                        <p class="text-sm text-grey-darkest font-extrabold mb-2 -mt-2 ">
-                            entry.type -
-                            <span
-                                class="text-red font-bold">{{ entry.type }}</span>
-                        </p>
-                        <p class="text-sm text text-grey-darkest font-extrabold mb-2 -mt-2 ">
-                            section.handle -
-                            <span
-                                class="text-red font-bold">{{ entry.section.handle }}</span>
-                        </p>
-                        <p class="text-sm text-grey-darkest font-extrabold mb-2 -mt-2 ">
-                            app.request.pathInfo -
-                            <span
-                                class="text-red font-bold">{{ craft.app.request.pathInfo }}</span>
-                        </p>
-                        <p class="text-sm text-grey-darkest font-extrabold -mt-2 ">
-                            template path -
-                            <span
-                                class="text-red font-bold">./templates/entry/{{ entry.section.type == 'channel' ? '' : entry.section.handle ~ '/' }}{{ entry.type }}
-                                .twig</span>
-                        </p>
-                    </div>
-                {% endblock %}
-            {% endif %}
+            {% block debug %}
+                <div class="o-grid-wrap flex-col bg-red-lightest">
+                    <p class="text-sm text-red font-extrabold mb-2 -mt-2 underline">
+                        DEBUG</p>
+                    <p class="text-sm text-grey-darkest font-extrabold mb-2 -mt-2 ">
+                        entry.slug -
+                        <span
+                            class="text-red font-bold">{{ entry.slug }}</span>
+                    </p>
+                    <p class="text-sm text-grey-darkest font-extrabold mb-2 -mt-2 ">
+                        entry.title -
+                        <span
+                            class="text-red font-bold">{{ entry.title }}</span>
+                    </p>
+                    <p class="text-sm text-grey-darkest font-extrabold mb-2 -mt-2 ">
+                        entry.type -
+                        <span
+                            class="text-red font-bold">{{ entry.type }}</span>
+                    </p>
+                    <p class="text-sm text text-grey-darkest font-extrabold mb-2 -mt-2 ">
+                        section.handle -
+                        <span
+                            class="text-red font-bold">{{ entry.section.handle }}</span>
+                    </p>
+                    <p class="text-sm text-grey-darkest font-extrabold mb-2 -mt-2 ">
+                        app.request.pathInfo -
+                        <span
+                            class="text-red font-bold">{{ craft.app.request.pathInfo }}</span>
+                    </p>
+                    <p class="text-sm text-grey-darkest font-extrabold -mt-2 ">
+                        template path -
+                        <span
+                            class="text-red font-bold">./templates/entry/{{ entry.section.type == 'channel' ? '' : entry.section.handle ~ '/' }}{{ entry.type }}
+                            .twig</span>
+                    </p>
+                </div>
+            {% endblock %}
             <% } %>
 
             {% block header %}{% endblock %}
 
-            {#{% block cartHeader %}{% endblock %}#}
-            <main itemscope itemprop="mainContentOfPage" itemtype="http://schema.org/mainContentOfPage">
+            <main itemscope itemprop="mainContentOfPage"
+                  itemtype="http://schema.org/mainContentOfPage">
                 {% block content %}{% endblock %}
             </main>
 
@@ -213,26 +212,20 @@ Layout: Default
                     opt : {
                         data: contact.globalContact.all()
                     }
-                }
-                    only %}
+                } only %}
             {% endblock %}
-
 
         {% endblock %}
     </div>
 
     {% block scripts %}
         <script>
-            window.csrfTokenValue = "{{ craft.request.csrfToken|e('js') }}"
+            window.csrfTokenValue = "{{ craft.app.request.csrfToken|e('js') }}"
         </script>
         <% if (htmlWebpackPlugin.options.env.prod) { %>
         <script
             src="{{ baseUrl }}<%= htmlWebpackPlugin.files.js[0] %>"></script>
         <% } %>
-        <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.js"></script>
-        <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe-ui-default.min.js"></script>
     {% endblock %}
 
     </body>

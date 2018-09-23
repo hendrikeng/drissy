@@ -125,7 +125,7 @@ const interval = setInterval(() => {
         /**
          * Cookie warning
          */
-        import(/* webpackChunkName: "cookieconsent" */ './modules/cookie.js');
+        // import(/* webpackChunkName: "cookieconsent" */ './modules/cookie.js');
 
         /**
          * Slider
@@ -148,9 +148,11 @@ const interval = setInterval(() => {
         /**
          * Image Gallery
          */
-        if (document.getElementsByClassName('my-gallery').length) {
+        if (document.getElementsByClassName('js-gallery').length) {
             console.log('selector found');
-            import(/* webpackChunkName: "cookieconsent" */ './modules/photoswipe.js');
+            import(/* webpackChunkName: "photoswipe" */ './modules/photoswipe.js')
+                .then(photoswipe => photoswipe.default.init('.js-gallery'))
+                .catch(e => console.error(`${e.name} : ${e.message}`));
         }
     }
 }, 100);

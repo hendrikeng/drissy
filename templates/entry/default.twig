@@ -1,4 +1,4 @@
-{% extends '_layouts/_layout' %}
+{% extends '_layouts/_layout.twig' %}
 
 {# -- inline css -- #}
 {% block _inline_css %}
@@ -9,12 +9,12 @@
 
 {% block header %}
 
-    {% include '_components/header/default' with {
+    {% include '_components/header/default.twig' with {
         opt : {
             imager: {
                 lazy: false,
                 mediaBox: false,
-                class: 'w-full h-full',
+                class: 'absolute pin-t pin-l w-full h-full',
             },
             el: {
                 nav: 'default',
@@ -31,7 +31,7 @@
 
     {% block itemContent %}
         {% if entry.contentBuilder %}
-            {% include '_matrix' with {
+            {% include '_matrix.twig' with {
                 matrix : entry.contentBuilder,
             } only %}
         {% endif %}

@@ -1,7 +1,20 @@
-{% extends "matrix/default" %}
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{# @var entry \craft\elements\Entry #}
+
+{#
+  Matrix: separator (templates/matrix/separator.twig)
+  ------------------------------------------------------------
+#}
+
+{% extends "matrix/default.twig" %}
 
 {% block blockContent %}
-        <div class="gridWrap container py-4 px-4">
-            <hr class="bg-grey-darkest h-px opacity-25 w-3/5 mb-0 mt-0">
+
+    <div class="o-wrap">
+        <div class="o-wrap__item o-wrap__item--quad w-full flex justify-center">
+            <hr class="bg-grey-darkest h-px opacity-25 w-1/6 m-0">
         </div>
+    </div>
+
+
 {% endblock %}

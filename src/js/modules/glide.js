@@ -10,12 +10,23 @@ export const slider = {
         type: 'slider',
         // hoverpause: true,
         // autoplay: 2000,
+        bound: true,
+        gap: 16,
+        perView: 3,
+        breakpoints: {
+            1024: {
+                perView: 2,
+            },
+            600: {
+                perView: 1,
+            },
+        },
     },
 
     init() {
         this.selector.forEach.call(this.selector, (item, i) => {
             this.slider = new Glide(item, this.options);
-            this.slider.mount({ Controls, Swipe });
+            this.slider.mount({ Controls, Swipe, Breakpoints });
             this.slider = true;
             console.log(`Slider ${i} ${this.slider}`);
         });

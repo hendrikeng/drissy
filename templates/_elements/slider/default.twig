@@ -85,7 +85,7 @@
         <div data-glide-el="track" class="{{ opt.cn.track }}">
             <div class="glide__slides {{ opt.cn.slides }}">
                 {% for entry in opt.data %}
-                    {% set image = entry.introImage.one() ?? entry.images.one() ?? entry.image.one() %}
+                    {% set image = entry.introImage.one() ?? entry.images.one() ?? entry.image.one() ?? null%}
                     <div class="relative glide__slide">
                         {% if opt.el.image %}
                             {% include '_elements/img/default' with {

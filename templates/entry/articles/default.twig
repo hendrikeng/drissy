@@ -1,4 +1,4 @@
-{% extends '_layouts/_layout' %}
+{% extends '_layouts/_layout.twig' %}
 
 {# -- inline css -- #}
 {% block _inline_css %}
@@ -9,11 +9,12 @@
 
 {% block header %}
 
-    {% include '_components/header/default' with {
+    {% include '_components/header/default.twig' with {
         opt : {
             imager: {
                 lazy: false,
-                class: 'absolute pin-t pin-l w-full h-full object-cover clip-path',
+                mediaBox: false,
+                class: 'absolute pin-t pin-l w-full h-full',
             },
             el: {
                 nav: 'default',
@@ -27,17 +28,21 @@
 {% endblock %}
 
 {% block content %}
-<div class="mx-auto max-w-3xl text-center">
-    <h1 class="mt-32">{{ entry.title }}</h1>
-    <p class="post-date">{{ entry.postDate | date('M d, Y') }}</p>
+<div class="o-wrap flex-col items-center">
+    <h1 class="o-wrap__item o-wrap__item--quad">{{ entry.title }}</h1>
+    <time class="o-wrap__item o-wrap__item--half"
+          itemprop="datePublished"
+          itemtype="http://schema.org/datePublished"
+          datetime="{{ entry.postDate | date('M d, Y') }}">
+        {{ entry.postDate | date('M d, Y') }}</time>
 
     {# show categories/breadcrumps #}
     {% if entry.category %}
-        <div class="mt-8 flex justify-center">
+        <div class="o-wrap__item o-wrap__item--half">
             {% set categories = entry.category %}
             {% for entry in categories.all() %}
-                <a href="{{ entry.url }}" class="hover:bg-red-light hover:text-font text-white align-middle bg-font no-underline rounded-full py-1 px-2 mx-1">
-                    #{{ entry }}
+                <a href="{{ entry.url }}" class="hover:bg-red-light hover:text-font text-white align-middle bg-font no-underline rounded py-1 px-4 mx-2">
+                    {{ entry }}
                 </a>
             {% endfor %}
         </div>

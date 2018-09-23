@@ -6,7 +6,7 @@
   ------------------------------------------------------------
 #}
 
-{% extends "entry/default" %}
+{% extends "entry/default.twig" %}
 {% import "_macros/_macros.twig" as macro %}
 
 {% set entries = craft.entries({
@@ -14,8 +14,7 @@
     relatedTo: null,
     limit: 4,
     offset: null
-})
-%}
+}) %}
 
 {% paginate entries as pageInfo, pageEntries %}
 
@@ -33,18 +32,16 @@
         {% block itemContent %}
             {{ parent() }}
         {% endblock %}
-
         {# -- Cache -- #}
         {% cache globally using key 'articles-archive-' ~ craft.app.request.pathInfo ~ (craft.app.request.pageNum ? '/p' ~ craft.app.request.pageNum : '') %}
 
-            <div class="gridWrap mx-auto max-w-3xl mt-32 flex flex-wrap justify-center">
+            <div class="o-wrap o-wrap--grid">
                 {% for entry in pageEntries %}
-                    {% include '_item' %}
+                    {% include '_item.twig' %}
                 {% endfor %}
-
             </div>
 
-            <div class="container text-center mt-8">
+            <div class="o-wrap">
                 {{ macro.pagination(pageInfo, craft, {}) }}
             </div>
             {# -- Cache End -- #}

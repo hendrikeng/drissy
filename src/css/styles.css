@@ -4,10 +4,12 @@
 @import './tailwind-utilities.css';
 @import './tailwind-components.css';
 
-/* Css Gridish */
-/* @import './../../css-gridish/css/o-grid-legacy.css'; */
-
 /* Components, Elements and Pieces */
+
+/* <link rel="stylesheet"*/
+/* href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.css"> */
+/* <link rel="stylesheet" */
+/* href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/default-skin/default-skin.min.css"> */
 
 @import './../../node_modules/@glidejs/glide/dist/css/glide.core.css';
 @import './../../templates/_elements/nav/default.css';
@@ -44,38 +46,6 @@ img {
     font-style: italic;
     vertical-align: middle;
 }
-
-/*.box-shadow {*/
-/*@apply shadow-md rounded;*/
-/*position: relative; !* For positioning the pseudo-element *!*/
-/*!*box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);*!*/
-/*}*/
-
-/*.box-shadow::before {*/
-/*@apply shadow-lg rounded;*/
-/*!* Position the pseudo-element. *!*/
-/*content: ' ';*/
-/*position: absolute;*/
-/*top: 0;*/
-/*right: 0;*/
-/*bottom: 0;*/
-/*left: 0;*/
-/*z-index: -1;*/
-
-/*!* Create the box shadow at expanded size. *!*/
-/*!*box-shadow: 0 10px 50px 0 rgba(0, 0, 0, 0.5);*!*/
-
-/*!* Hidden by default. *!*/
-/*opacity: 0;*/
-/*transition: opacity 500ms;*/
-/*}*/
-
-
-/*.box-shadow:hover::before {*/
-/*!* Show the pseudo-element on hover. *!*/
-/*opacity: 1;*/
-/*}*/
-
 
 /*.lazyload,
 .lazyloading {
@@ -130,6 +100,10 @@ p {
     @apply mt-4;
 }
 
+p:first-of-type {
+    @apply mt-0;
+}
+
 h1,
 h2,
 h3,
@@ -165,8 +139,7 @@ h6 {
 
 
 .fonts-loaded body,
-.fonts-loaded p,
-.fonts-loaded .font-sans {
+.fonts-loaded p {
     font-family: Cabin, Arial, Helvetica, sans-serif;
 }
 
@@ -176,17 +149,8 @@ h6 {
 .fonts-loaded h4,
 .fonts-loaded h5,
 .fonts-loaded h6,
-.fonts-loaded .font-serif {
+.fonts-loaded {
     font-family: 'Roboto Condensed', Arial, Helvetica, sans-serif;
-}
-
-::selection {
-    @apply .bg-red-light;
-}
-/* -- CSS variables */
-
-:root {
-    --outlineColor: #5db7a5;
 }
 
 /* -- For screen readers */
@@ -200,6 +164,17 @@ h6 {
     overflow: hidden;
     clip: rect(0, 0, 0, 0);
     border: 0;
+}
+
+/* elements */
+
+::selection {
+    @apply .bg-red-light;
+}
+/* -- CSS variables */
+
+:root {
+    --outlineColor: #5db7a5;
 }
 
 /* -- A subtle focus style for keyboard-input elements */
@@ -230,7 +205,7 @@ a:hover {
     @apply .no-underline .text-red-light;
 }
 
-iframe {
+.embedded iframe {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -238,3 +213,32 @@ iframe {
     height: 100%;
     width: 100%;
 }
+
+/* components */
+
+.o-wrap {
+     @apply mx-auto max-w-3xl justify-center content-center flex flex-wrap;
+ }
+
+.o-wrap--grid {
+    @apply mt-4 px-2;
+}
+
+.o-wrap__item {
+    @apply mt-8 mx-4 px-0;
+}
+
+.o-wrap__item--grid {
+    @apply mt-4 px-2 mx-0;
+}
+
+.o-wrap__item--half {
+    @apply mt-4;
+}
+
+.o-wrap__item--quad {
+    @apply mt-32;
+}
+
+
+

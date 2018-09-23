@@ -17,11 +17,11 @@
 {% endblock %}
 
 {# -- cache -- #}
-{% cache globally using key 'homepage' ~ craft.app.request.pathInfo ~ (craft.app.request.pageNum ? '/p' ~ craft.app.request.pageNum : '') %}
+{% cache globally using key 'homepage' ~ (craft.imager.clientSupportsWebp ? "-with-webp") ~ craft.app.request.pathInfo ~ (craft.app.request.pageNum ? '/p' ~ craft.app.request.pageNum : '') %}
 
     {# -- header -- #}
     {% block header %}
-        {% include '_components/header/default' with {
+        {% include '_components/header/default.twig' with {
             opt : {
                 imager: {
                     lazy: false,
@@ -31,8 +31,8 @@
                 el: {
                     nav: 'default',
                     image: entry.entryImage.one() ?? entry.introImage.one() ?? null,
-                    title: entry.introHeadline ?? entry.title,
-                    description: entry.introText,
+                    title: entry.introHeadline ?? entry.title ?? null,
+                    description: entry.introText ?? null,
                 }
             }
         } only %}
@@ -43,7 +43,7 @@
     {% block content %}
         {# -- itemContent -- #}
         {% block itemContent %}
-            {% include '_matrix' with {
+            {% include '_matrix.twig' with {
                 matrix: entry.contentBuilder
             } only %}
         {% endblock %}

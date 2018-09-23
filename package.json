@@ -23,12 +23,11 @@
         "critical": "node ./build-utils/critical-all.js",
         "debug": "node --inspect-brk ./node_modules/webpack/bin/webpack.js",
         "dev": "yarn webpack-dev-server --env.env=dev",
-        "dev:init": "yarn clean && yarn grid && yarn babel:inlinejs && yarn uglify:inlinejs",
+        "dev:init": "yarn clean && yarn babel:inlinejs && yarn uglify:inlinejs",
         "dev:bundleanalyzer": "yarn dev --env.plugins=bundleanalyzer",
         "dev:workbox": "yarn dev --env.plugins=workbox",
         "dev:hardsource": "yarn dev --env.plugins=hardsource",
         "dev:all": "yarn dev --env.plugins=hardsource --env.plugins=bundleanalyzer",
-        "grid": "css-gridish",
         "init:tailwind": "rm -rf ./build-config/tailwind.config.js && ./node_modules/.bin/tailwind init ./build-config/tailwind.config.js",
         "postinstall": "npm cache verify",
         "uglify:inlinejs": "node ./build-utils/uglify.js",
@@ -78,18 +77,6 @@
             "./build-config/eslint.config.js"
         ]
     },
-    "eslintIgnore": [
-        "node_modules/**/*",
-        "modules/**/*",
-        "storage/**/*",
-        "vendor/**/*",
-        "src/fonts/**/*",
-        "src/vendor/**/*",
-        "src/js/inline/**/*",
-        "templates/_inlinejs/**/*",
-        "web/**/*",
-        "build-config/tailwind.config.js"
-    ],
     "babel": {
         "extends": "./build-config/babel.config.js"
     },
@@ -112,7 +99,6 @@
         "babel-plugin-syntax-object-rest-spread": "^6.13.0",
         "compression-webpack-plugin": "^1.1.11",
         "critical": "^1.2.2",
-        "css-gridish-grid": "^1.0.4",
         "css-loader": "^0.28.11",
         "eslint": "^5.3.0",
         "eslint-config-airbnb": "17.1.0",
@@ -171,9 +157,9 @@
         "@glidejs/glide": "^3.0.4",
         "axios": "^0.18.0",
         "cookieconsent": "^3.1.0",
-        "css-gridish": "^2.0.0",
         "fg-loadcss": "^2.0.1",
         "fontfaceobserver": "^2.0.13",
+        "gsap": "^2.0.2",
         "lazysizes": "^4.0.2",
         "photoswipe": "^4.1.2",
         "typeface-cabin": "^0.0.54",

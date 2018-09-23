@@ -6,18 +6,15 @@
 
 {% set defaults = {
     sizes: [
-        { width: 1920 },
-        { width: 1366 },
-        { width: 1200 },
-        { width: 992 },
-        { width: 768 },
-        { width: 576 }
+        { width: 1440 },
+        { width: 900 },
+        { width: 600 }
     ],
     allowUpscale: false,
-    alt: image.title,
-    background: false,
+    alt: image.title ?? null,
     blurUp: false,
     class: false,
+    dataSizes: 'auto',
     dominantColor: true,
     format: 'jpg',
     interlace: true,
@@ -26,12 +23,9 @@
     mode: 'crop',
     objectFit: true,
     objectFitValue: 'cover',
-    openDiv: false,
-    position: false,
     preload: false,
-    quality: 85,
-    ratio: false,
-    dataSizes: 'auto',
+    quality: 80,
+    ratio: 'auto',
     watermark: false,
 } %}
 
@@ -41,20 +35,15 @@
  {% if image %}
 
      {# Set Ratio #}
-     {% if options.ratio %}
-         {% set base64Ratio = options.ratio|split(':') %}
-         {% set ratio = options.ratio ? options.ratio|replace({":": "/"}) : '' %}
+     {% if options.ratio != 'auto' %}
+         {% set ratio = options.ratio %}
      {% else %}
-         {% set imageSize = image.getWidth ~ ':' ~ image.getHeight %}
-         {% set base64Ratio = imageSize|split(':') %}
-         {% set ratio = imageSize ? imageSize|replace({":": "/"}) : '' %}
+         {% set ratio = image.getWidth() ~ '/' ~ image.getHeight() %}
      {% endif %}
 
      {# Set Position #}
-     {% if options.position %}
-         {% set position = options.position %}
-     {% elseif image.hasFocalPoint %}
-         {% set position = (image.focalPoint.x * 100) ~ '% ' ~ (image.focalPoint.y * 100) ~ '%' %}
+     {% if image.hasFocalPoint %}
+         {% set position = image.getFocalPoint() %}
      {% else %}
          {% set position = '50% 50%' %}
      {% endif %}
@@ -81,7 +70,13 @@
      } %}
 
      {#Get Dominant Color#}
-     {% set dominantColor = craft.imager.getDominantColor(image) %}
+
+     {% if options.dominantColor and not craft.app.config.general.devMode %}
+         {% set dominantColor = craft.imager.getDominantColor(image) %}
+     {% else %}
+         {% set dominantColor = '#333' %}
+     {% endif %}
+
      {# Setup Image Transforms #}
      {% set images = craft.imager.transformImage(image, options.sizes, imageSettings) %}
 
@@ -90,119 +85,47 @@
          {% set imagesWebp = craft.imager.transformImage(image, options.sizes, imageSettingsWebp) %}
      {% endif %}
 
-
-     <div{% if options.mediaBox %} class="mediabox aspect-ratio-{{- ratio -}}"{% endif %}  {% if options.dominantColor %}style="{{- 'background-color: ' ~ dominantColor ?? '' -}}"{% endif %}>
-
-
-         {# Background Image #}
-         {% if options.background %}
+     {% if options.mediaBox %}
          <div
-             class="{{ options.class }} {{ options.ratio ? 'o-ratio  o-ratio--' ~ options.ratio|replace({":": "-"}) : '' }}{% if options.lazy %} lazyload{% endif %}"
-             style="background-image: url('{{ craft.imager.base64Pixel(base64Ratio|first, base64Ratio|last) }}');background-position: {{ position|trim("'") }};"
-             {% if options.lazy %}
-             data-{% endif %}bgset="{{ craft.imager.srcset(images) }}"
-             {% if options.lazy %}
-             data-{% endif %}sizes="{{ options.dataSizes }}">
-             {% if not options.openDiv %}
-                 </div>
-             {% endif %}
+         class="{{ 'mediabox aspect-ratio-' ~ options.ratio }}"
+         style="{{ options.dominantColor ? 'background-color:' ~ dominantColor ~ ';' }}">
+     {% endif %}
 
-             {# LazyLoaded Image #}
-         {% elseif options.lazy %}
-             <picture>
-                 {% if craft.imager.serverSupportsWebp() %}
-                     <source data-sizes="{{ options.dataSizes }}"
-                             data-srcset="{{ craft.imager.srcset(imagesWebp) }}"
-                         {% if options.blurUp %}
-                             data-lowsrc="{{ imagesWebp|last.url }}"
-                         {% endif %}
-                             type="image/webp">
-                 {% endif %}
-                 <img
-                     class="{{ options.class }} lazyload {% if options.preload %}lazypreload {% endif %}{% if options.mediaBox %}mediabox-img{% endif %}"
-                     src="{{ craft.imager.base64Pixel(base64Ratio|first, base64Ratio|last) }}"
-                     data-sizes="{{ options.dataSizes }}"
-                     data-srcset="{{ craft.imager.srcset(images) }}"
-                     {% if options.blurUp %}
-                         data-lowsrc="{{ images|last.url }}"
-                     {% endif %}
-                     alt="{{ options.alt }}"
-                     {% if options.objectFit %}
-                         style="object-fit:{{ options.objectFitValue }};object-position:{{ position|trim("'") }};font-family:'object-fit:{{ options.objectFitValue }};object-position:{{ position|trim("'") }};'"
-                         height="100%" width="100%"
-                     {% endif %}
-                     {% if not options.objectFit %}
-                         height="auto" width="100%"
-                     {% endif %}
-                 />
-             </picture>
-
-             {# objectFit Image #}
-         {% elseif options.objectFit %}
-             <picture>
-                 {% if craft.imager.serverSupportsWebp() %}
-                     <source sizes="{{ options.dataSizes }}"
-                             srcset="{{ craft.imager.srcset(imagesWebp) }}"
-                         {% if options.blurUp %}
-                             data-lowsrc="{{ imagesWebp|last.url }}"
-                         {% endif %}
-                             type="image/webp">
-                 {% endif %}
-                 <img
-                     class="{{ options.class }} {% if options.lazy %}lazyload {% endif %}{% if options.preload %}lazypreload {% endif %}{% if options.mediaBox %}mediabox-img{% endif %}"
-                     src="{{ craft.imager.base64Pixel(base64Ratio|first, base64Ratio|last) }}"
-                     sizes="{{ options.dataSizes }}"
-                     srcset="{{ craft.imager.srcset(images) }}"
-                     {% if options.blurUp %}
-                         data-lowsrc="{{ images|last.url }}"
-                     {% endif %}
-                     alt="{{ options.alt }}"
-                     style="object-fit:{{ options.objectFitValue }};object-position:{{ position|trim("'") }};font-family:'object-fit:{{ options.objectFitValue }};object-position:{{ position|trim("'") }};'"
-                     height="100%" width="100%"/>
-             </picture>
-             {# normal Image #}
-         {% else %}
-             <picture>
-                 {% if craft.imager.serverSupportsWebp() %}
-                     <source sizes="{{ options.dataSizes }}"
-                             srcset="{{ craft.imager.srcset(imagesWebp) }}"
-                             type="image/webp">
-                 {% endif %}
-                 <img class="{{ options.class }}"
-                      src="{{ craft.imager.base64Pixel(base64Ratio|first, base64Ratio|last) }}"
-                      sizes="{{ options.dataSizes }}"
-                      srcset="{{ craft.imager.srcset(images) }}"
-                      alt="{{ options.alt }}"
-                      height="auto" width="100%"/>
-             </picture>
+     <picture>
+         {% if craft.imager.serverSupportsWebp() %}
+             <source
+                 {% if options.lazy %}data-{% endif %}sizes="{{ options.dataSizes }}"
+                 {% if options.lazy %}data-{% endif %}srcset="{{ craft.imager.srcset(imagesWebp) }}"
+                 {% if options.blurUp %} data-lowsrc="{{ imagesWebp|last.url }}"{% endif %}
+                 type="image/webp">
          {% endif %}
-     </div>
- {% endif %}
+         <img
+             class="{{- options.class -}}
+                     {% if options.lazy %} lazyload {% endif %}
+                     {% if options.preload %} lazypreload {% endif %}
+                     {% if options.mediaBox %} mediabox-img{% endif %}"
+             src="{{ craft.imager.placeholder() }}"
+             {% if options.lazy %}data-{% endif %}sizes="{{ options.dataSizes }}"
+             {% if options.lazy %}data-{% endif %}srcset="{{ craft.imager.srcset(images) }}"
+             {% if options.blurUp and options.lazy %}
+                 data-lowsrc="{{ images|last.url }}"
+             {% endif %}
+             alt="{{ options.alt }}"
+             {% if options.objectFit %}
+                 style="object-fit:{{ options.objectFitValue }};object-position:{{ position|join(" ") }};font-family:'object-fit:{{ options.objectFitValue }};object-position:{{ position|join(" ") }};'"
+                 {#height="100%" width="100%"#}
+             {% endif %}
+             {% if not options.objectFit %}
+                 {#height="auto" width="100%"#}
+             {% endif %}
+         />
+         <noscript>
+             <img src="{{ images|first.url }}"
+                  alt="{{ options.alt }}">
+         </noscript>
+     </picture>
+     {% if options.mediaBox %}
+         </div>
+     {% endif %}
 
-  {# -- Image -- #}
-  {# <picture class="{{ opt.cn }}
-                  {% for modifier in opt.modifiers %}
-                    {{ modifier | length ? '  ' ~ opt.cn ~ '--' ~ modifier }}
-                  {% endfor %}
-                  {% for customClass in opt.customClasses %}
-                    {{ customClass | length ? '  ' ~ customClass }}
-                  {% endfor %}"
-                  {% for key, value in opt.data %}
-                    {{ 'data-' ~ key ~ '=' ~ value }}
-                  {% endfor %}
-           {% if opt.dominantColor %}style="{{ 'background-color: ' ~ opt.image.pluginOptimizedImagesSquare.colorPalette[0] ?? 'black' }}"{% endif %}>
-    <source srcset="{{ opt.maxWidth ? imageSrcsetMaxWidthWebP : imageSrcsetWebP }}"
-            sizes="100vw"
-            type="image/webp"/>
-    <img class="{{ opt.cn ~ '__image' }}  lazyload"
-      {% if opt.objectFit %}
-        style="object-fit: {{ opt.objectFit }}; object-position: {{ focalpoint }}; font-size: 'object-fit: {{ opt.objectFit }};';"
-      {% endif %}
-         src="{{ imagePlaceholderBox }}"
-         srcset="{{ opt.maxWidth ? imageSrcsetMaxWidth : imageSrcset }}"
-         sizes="100vw"
-         width="{{ imageMaxWidth }}"
-         height="auto"
-         alt="{{ opt.image.title }}"/>
-    <noscript><img src="{{ imageSrc }}" alt="{{ opt.image.title }}"></noscript>
-  </picture> #}
+ {% endif %}

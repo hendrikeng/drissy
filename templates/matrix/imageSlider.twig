@@ -2,35 +2,35 @@
 
 {% block blockContent %}
 
-        <div class="relative glide {{ block.layout }} container">
+    <div class="relative glide {{ block.sliderType }} o-wrap px-4 mt-8">
         <div data-glide-el="track" class="glide__track">
             <div class="glide__slides">
                 {% for image in block.images.all() %}
-                        <div class="glide__slide">
-                                {% if image %}
-                                    {% include '_elements/img/default' with {
-                                        opt : {
-                                            data: image,
-                                            imager: {
-                                                lazy: false,
-                                                objectFit: true,
-                                                objectFitValue: 'cover',
-                                                class: 'w-full h-140',
-                                                alt: image.title
-                                            }
-                                        }
+                    <div class="glide__slide">
+                        {% if image %}
+                            {% include '_elements/img/default' with {
+                                opt : {
+                                    data: image,
+                                    imager: {
+                                        mediaBox: true,
+                                        ratio: block.ratio,
                                     }
-                                    only %}
-                                {% endif %}
-                        </div>
+                                }
+                            }
+                                only %}
+                        {% endif %}
+                    </div>
                 {% endfor %}
             </div>
         </div>
-        <div class="w-full absolute h-full glide__arrows" data-glide-el="controls">
-            <button class="-mt-80 absolute pin-l glide__arrow glide__arrow--left" data-glide-dir="<">
+        <div class="mb-14 mt-2 relative w-full h-full glide__arrows bg-green"
+             data-glide-el="controls">
+            <button class="absolute pin-l glide__arrow glide__arrow--left"
+                    data-glide-dir="<">
                 {% include '_svg/iconArrowLeft.svg' %}
             </button>
-            <button class="-mt-80 absolute pin-r glide__arrow glide__arrow--right" data-glide-dir=">">
+            <button class="absolute pin-r glide__arrow glide__arrow--right"
+                    data-glide-dir=">">
                 {% include '_svg/iconArrowRight.svg' %}
             </button>
         </div>

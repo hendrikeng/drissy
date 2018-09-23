@@ -1,6 +1,13 @@
 {# @var craft \craft\web\twig\variables\CraftVariable #}
 {# @var entry \craft\elements\Entry #}
 
+{#
+  Matrix: embedded (templates/matrix/embedded.twig)
+  ------------------------------------------------------------
+#}
+
+{% extends "matrix/default.twig" %}
+
 {% block blockContent %}
 
     {% if block.code %}
@@ -10,9 +17,9 @@
             {% set video = false %}
         {% endif %}
 
-        <div class="gridWrap max-w-3xl mx-auto flex mt-8 px-4">
-            <div class="gridElement relative w-full rounded">
-                <div class=" {{ video ? 'aspect-ratio-16/9' : '' }} ">
+        <div class="o-wrap">
+            <div class="o-wrap__item relative w-full">
+                <div class="embedded {{ video ? 'aspect-ratio-16/9' : '' }} ">
                     {{ block.code|raw }}
                 </div>
             </div>

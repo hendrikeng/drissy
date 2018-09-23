@@ -1,9 +1,15 @@
-{% extends "matrix/default" %}
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{# @var entry \craft\elements\Entry #}
+
+{#
+  Matrix: Headline (templates/matrix/headline.twig)
+  ------------------------------------------------------------
+#}
+
+{% extends "matrix/default.twig" %}
 
 {% block blockContent %}
-    <div class="gridWrap mx-auto max-w-3xl mt-16 md:mt-32 px-4">
-        <h2 class="hover text-center">
-            <span class="h2-border border-t-6 border-b-6 hover:border-bottom border-transparent js-step">{{ block.headline }}</span>
-        </h2>
-    </div>
+    <h2 class="o-wrap">
+        <span class="o-wrap__item o-wrap__item--quad js-headline">{{ block.headline }}</span>
+    </h2>
 {% endblock %}

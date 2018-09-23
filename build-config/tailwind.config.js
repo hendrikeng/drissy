@@ -45,7 +45,7 @@ View the full documentation at https://tailwindcss.com.
 
 let colors = {
   'transparent': 'transparent',
-    'font': '#333',
+  'font': '#333',
 
   'black': '#22292f',
   'grey-darkest': '#3d4852',
@@ -652,8 +652,11 @@ module.exports = {
     '4': '1rem',
     '6': '1.5rem',
     '8': '2rem',
-      '16': '4rem',
-      '32': '8rem',
+    '12': '3rem',
+    '14': '3.5rem',
+    '16': '4rem',
+    '24': '6rem',
+    '32': '8rem',
   },
 
 
@@ -682,8 +685,11 @@ module.exports = {
     '4': '1rem',
     '6': '1.5rem',
     '8': '2rem',
-      '16': '4rem',
-      '32': '8rem',
+    '12': '3rem',
+    '14': '3.5rem',
+    '16': '4rem',
+    '24': '6rem',
+    '32': '8rem',
   },
 
 
@@ -711,8 +717,11 @@ module.exports = {
     '4': '1rem',
     '6': '1.5rem',
     '8': '2rem',
-      '16': '4rem',
-      '32': '8rem',
+    '12': '3rem',
+    '14': '3.5rem',
+    '16': '4rem',
+    '24': '6rem',
+    '32': '8rem',
   },
 
 
@@ -919,6 +928,7 @@ module.exports = {
               '4/3': [4, 3],
               '4/5': [4, 5],
               '21/9': [21, 9],
+              'auto': [1, 1],
           },
           variants: ['responsive'],
       }),

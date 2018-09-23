@@ -7,9 +7,9 @@
         } only %}
     {% endif %}
     {% block headerContent %}
-        <div class="w-full max-w-3xl mx-auto px-4 mt-4">
+        <div class="o-wrap">
             {% if opt.el.image %}
-                <div class="relative h-64 md:h-128 w-full text-center flex flex-col justify-center">
+                <div class="o-wrap__item o-wrap__item--half relative w-full h-64">
                     {% include '_elements/img/default' with {
                         opt : {
                             data: opt.el.image,
@@ -17,7 +17,7 @@
                         }
                     } only %}
                     {% if opt.el.image.caption %}
-                        <div class="ml-4 absolute pin-b mt-4 text-white text-sm ">
+                        <div class="absolute pin-b text-white text-sm">
                             {{ opt.el.image.caption }}
                             {% if opt.el.image.source %}
                                 /
@@ -29,12 +29,12 @@
                 </div>
             {% endif %}
             {% if opt.el.title %}
-                <h1 class="mt-32 text-center" itemprop="headline">
-                    {{ opt.el.title }}
-                </h1>
+            <h1 class="o-wrap__item o-wrap__item--quad mb-8" itemprop="headline">
+                <span class="js-headline">{{ opt.el.title }}</span>
+            </h1>
             {% endif %}
             {% if opt.el.description %}
-                <p class="mt-8" itemprop="description">
+                <p class="o-wrap__item" itemprop="description">
                     {{ opt.el.description|striptags }}
                 </p>
             {% endif %}

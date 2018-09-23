@@ -1,8 +1,17 @@
-{% extends "matrix/default" %}
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{# @var entry \craft\elements\Entry #}
+
+{#
+  Matrix: rich text (templates/matrix/richText.twig)
+  ------------------------------------------------------------
+#}
+
+{% extends "matrix/default.twig" %}
 
 {% block blockContent %}
-
-<div class="gridWrap mx-auto max-w-3xl mx-auto mt-8 px-4 redactor {{ block.style == 'lead' ? ' font-lead text-center' }}">
-{{ block.textContent }}
-</div>
+    <div class="o-wrap">
+        <div class="o-wrap__item">
+            {{ block.textContent }}
+        </div>
+    </div>
 {% endblock %}

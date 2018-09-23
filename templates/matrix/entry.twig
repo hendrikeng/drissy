@@ -1,10 +1,19 @@
-{% extends "matrix/default" %}
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{# @var entry \craft\elements\Entry #}
+
+{#
+  Matrix: entry (templates/matrix/entry.twig)
+  ------------------------------------------------------------
+#}
+
+{% extends "matrix/default.twig" %}
 
 {% block blockContent %}
 
-    <div class="matrixEntry gridWrap mx-auto max-w-3xl justify-center flex flex-wrap py-2 mt-4">
+    <div class="o-wrap o-wrap--grid">
         {% for entry in block.entry.all() %}
-            {% include '_item' %}
+            {% include '_item.twig' %}
         {% endfor %}
     </div>
+
 {% endblock %}

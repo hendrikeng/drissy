@@ -1,14 +1,10 @@
 {# set defaults #}
 
 {% set defaults = {
-    imager: {
-        objectFit: true,
-        objectFitValue: 'cover',
-        class: 'w-full h-96 md:h-112',
-    },
+    imager: {},
     image: entry.introImage.one() ?? entry.images.one() ?? null,
     data: entry,
-    cta: entry.introCtaText ?? 'mehr',
+    cta: entry.introCtaText ?? 'more',
     el: {
         gridElement: false,
         article: true,
@@ -49,7 +45,7 @@
     {% endif %}
     <article class="{{ opt.cn.article }}">
         {% if opt.image %}
-            {% include '_elements/img/default' with {
+            {% include '_elements/img/default.twig' with {
                 opt : {
                     data: opt.image,
                     imager: opt.imager,
@@ -73,19 +69,24 @@
                 <div class="{{ opt.cn.articleInner }}">
                     <header>
                         {% if opt.el.articleHeaderLink and block.linkToEntry %}
-                        <a href="{{ entry.url }}" class="{{ opt.cn.articleHeaderLink }}">
+                        <a href="{{ entry.url }}"
+                           class="{{ opt.cn.articleHeaderLink }}">
                             {% endif %}
                             <h3 class="{{ opt.cn.articleHeader }}">
-                                        <span class="{{ opt.cn.articleHeaderSpan }}">
+                                        <span
+                                            class="{{ opt.cn.articleHeaderSpan }}">
                                             {{ entry.introHeadline ?? entry.title }}
                                         </span>
                             </h3>
                             {% set categories = entry.category %}
-                            {% for entry in categories.all() %}
-                                <a href="{{ entry.url }}" class="hover:bg-grey align-middle bg-white no-underline rounded-full py-1 px-2 mx-1 ">
-                                    #{{ entry }}
-                                </a>
-                            {% endfor %}
+                            {% if categories %}
+                                {% for entry in categories.all() %}
+                                    <a href="{{ entry.url }}"
+                                       class="hover:bg-grey align-middle bg-white no-underline rounded-full py-1 px-2 mx-1 ">
+                                        #{{ entry }}
+                                    </a>
+                                {% endfor %}
+                            {% endif %}
                             {% if opt.el.articleHeaderLink %}
                         </a>
                         {% endif %}
@@ -110,27 +111,28 @@
 
                             {% else %}
 
-                               {# {% if entry.body | length %}
-                                    <div class="redactor text-base text-font mt-6">
-                                        {% set body = entry.body %}
-                                        {{ body|length > 115 ? body|slice(0, 115) ~ '...' : body }}
-                                    </div>
-                                {% endif %}#}
+                                {# {% if entry.body | length %}
+                                     <div class="redactor text-base text-font mt-6">
+                                         {% set body = entry.body %}
+                                         {{ body|length > 115 ? body|slice(0, 115) ~ '...' : body }}
+                                     </div>
+                                 {% endif %}#}
                             {% endif %}
                             <div class="redactor text-base text-font mt-3">
-                             {#   {% if entry.phone | length %}
-                                    <a href="tel:{{ entry.phone }}">{{ entry.phone }}</a>
-                                {% endif %}
-                                {% if entry.email | length %}<br>
-                                    <a href="mailto:{{ entry.email }}">{{ entry.email }}</a>
-                                {% endif %}
-                                {% if entry.partnerUrl | length %}<br>
-                                    <a href="{{ entry.partnerUrl }}" target="_blank" rel="noopener">Website</a>
-                                {% endif %}#}
+                                {#   {% if entry.phone | length %}
+                                       <a href="tel:{{ entry.phone }}">{{ entry.phone }}</a>
+                                   {% endif %}
+                                   {% if entry.email | length %}<br>
+                                       <a href="mailto:{{ entry.email }}">{{ entry.email }}</a>
+                                   {% endif %}
+                                   {% if entry.partnerUrl | length %}<br>
+                                       <a href="{{ entry.partnerUrl }}" target="_blank" rel="noopener">Website</a>
+                                   {% endif %}#}
                             </div>
                             {% if opt.el.articleLink or entry.linkToEntry %}
                                 <div>
-                                    <a href="{{ entry.url }}" class="{{ opt.cn.articleLink }}">
+                                    <a href="{{ entry.url }}"
+                                       class="{{ opt.cn.articleLink }}">
                                         {{ opt.cta }}
                                     </a>
                                 </div>

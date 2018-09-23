@@ -2,193 +2,39 @@
 {# @var entry \craft\elements\Entry #}
 
 {#
-  Matrix: Category
+  Matrix: Category (templates/matrix/category.twig)
   ------------------------------------------------------------
+  Categories function as Tags, if a category is a child of a parent
+  (parents/top-level-categories should be equal to section handles!)
+  we can get the matching tag using category[category|length-1] on relatedTo.
 #}
 
-{% extends "matrix/default" %}
-{% import "_macros/_macros.twig" as macro %}
+{% extends "matrix/default.twig" %}
 
 {% set category = block.category.all() %}
 
-{% if category | length <= 1 %}
-    {% set relatedTo = null %}
-{% else %}
-    {% set relatedTo = category[1] %}
+{% if category %}
+
+    {% set entries = craft.entries({
+        section: category[0]|lower,
+        relatedTo: category[category|length-1],
+        orderBy: 'title asc',
+        limit: block.limit
+    } ) %}
+
 {% endif %}
 
-{# custom #}
-{% if category[0].slug == 'team' or 'wasserwissen' %}
-    {% set orderBy = false %}
-{% else %}
-    {% set orderBy = 'title asc' %}
-{% endif %}
+{% block blockContent %}
 
+    {% if category %}
 
-{% set entries = craft.entries({
-    section: category[0].slug,
-    relatedTo: relatedTo,
-    orderBy: orderBy,
-    limit: 30
-}
-    ) %}
+        <div class="o-wrap o-wrap--grid">
+            {% for entry in entries.all() %}
+                {% include '_item.twig' %}
+            {% endfor %}
+        </div>
 
-{# Paginate if there are more than 8 entries #}
-{# {% if entries | length >= 8 %} #}
+    {% endif %}
 
-{% paginate entries as pageInfo, pageEntries %}
+{% endblock %}
 
-    {% block head %}
-        {% if pageInfo.prevUrl %}
-            <link rel="prev" href="{{ pageInfo.prevUrl }}">{% endif %}
-        {% if pageInfo.nextUrl %}
-            <link rel="next" href="{{ pageInfo.nextUrl }}">{% endif %}
-    {% endblock %}
-    {# {% endif %} #}
-
-    {% block blockContent %}
-
-        {% if craft.app.request.segment(2) == 'gastro' %}
-
-
-            <div class="container mt-16 px-4 md:px-2">
-                <form class="matrixCategory w-full flex flex-col justify-arround items-center mx-auto"
-                      action="{{ url('partner/gastro/') }}" method="get">
-
-                    {# {% set firstEntry = craft.entries({section: category[0].slug, relatedTo: relatedTo, limit: 15}).first() %}
-                    {% set lastEntry = craft.entries({section: category[0].slug, relatedTo: relatedTo, limit: 15}).last() %} #}
-
-                    {# Konzept #}
-
-                    <div class="mx-auto w-full md:w-1/2 px-0 md:px-2">
-                        <select name="category" class="bg-brand text-white font-bold" title="Konzept auswählen">
-                            <option value="">Konzept auswählen</option>
-                            {% set categories = craft.categories.group('category') %}
-                            {% for category in categories %}
-                                {% set thisIsActiveCategory = (category.slug == craft.app.request.segment(2)) %}
-                                {% if thisIsActiveCategory %}
-                                    {% set subCategories = craft.categories.descendantOf(category) %}
-                                    {% for subCat in subCategories %}
-                                        <option value="{{ subCat.slug }}">{{ subCat.title }}</option>
-                                    {% endfor %}
-                                {% endif %}
-                            {% endfor %}
-                        </select>
-                    </div>
-                    {# Kanton #}
-                    {# {% for item in craft.entries({section: category[0].slug, relatedTo: relatedTo, limit: null})  %}
-                    {% set item.kanton = item.kanton|merge([kanton]) %}
-                        {{ item.kanton }}
-                    {% endfor %}
-                    <select name="kanton" class="mt-6 mx-auto w-full md:w-1/3 mx-4 mr-0 md:mr-8">
-
-                        <option value="">Kanton auswählen</option>
-                        <option value="Zürich">Zürich</option>
-                    </select> #}
-
-                    {# search field #}
-                    <div class="mx-auto w-full md:w-1/2 px-0 md:px-2 mt-4 md:mt-4">
-                        <input type="search" name="q" class="font-bold text-brand w-full"
-                               placeholder="Bestimmten Gastro-Betrieb suchen...">
-                    </div>
-                    <input type="submit" value="suchen"
-                           class="c-btn font-serif mt-4">
-                </form>
-            </div>
-            {# build our query object
-                - Default parameters
-                - If a year has been chosen: add 'before' and 'after' parameters to the query
-                - If one or more categories have been chosen: build an empty array and use it to build a 'relatedTo' parameter that we can add to the query
-                - If a category has been chosen: add 'relatedTo' parameter to the query
-                - If a search term has been entered: add 'search' parameter to the query
-                #}
-
-            {# defaults #}
-            {% set queryParams = {
-                section: category[0].slug,
-                relatedTo: relatedTo,
-                orderBy: 'title asc',
-                limit: 30
-            } %}
-
-            {# Build a category array beginning with 'and' and add targetElement objects with selected categories Ids to it #}
-            {% set categoriesArray = ['and'] %}
-
-            {% set searchTheme = craft.request.getParam('category') %}
-            {% if searchTheme is not empty %}
-                {% set searchThemeCat = craft.categories.slug(searchTheme).ids() %}
-                {% set categoriesArray = categoriesArray | merge([
-                    {
-                        targetElement: searchThemeCat
-                    }
-                ]) %}
-            {% endif %}
-
-            {# multiple vs single categories
-- If there is more than just the "and" in the categoriesArray, use relatedTo and the categoriesArray to build the last part of our query
-#}
-            {% if categoriesArray | length > 1 %}
-
-                {% set queryParams = queryParams | merge({relatedTo: categoriesArray}) %}
-
-            {% endif %}
-
-            {# search #}
-            {% set searchQ = craft.request.getParam('q') %}
-            {% if searchQ is not empty %}
-                {% set queryParams = queryParams | merge({
-                    search: {
-                        query: searchQ,
-                        subLeft: true,
-                        subRight: true
-                    }
-                }) %}
-            {% endif %}
-
-            {# number of items found #}
-            {# {% set totalEntries = craft.entries(queryParams).total() %} #}
-            {# <div class="matrixCategory gridWrap mx-auto md:flex md:content-center md:justify-center md:flex-wrap py-2 px-2 container mt-4 md:mt-16 flex-grid">
-                <p>{{ totalEntries }}
-                    found in our database</p>
-            </div> #}
-            {# paginated blogposts #}
-            {% set blogEntries = craft.entries(queryParams) %}
-            {% paginate blogEntries as paginate,
-                blogposts %}
-
-            {# entries loop #}
-            <div
-                class="matrixCategory gridWrap mx-auto sm:flex sm:content-center sm:justify-center sm:flex-wrap py-2 px-2 container mt-4 md:mt-16 flex-grid">
-                {% for entry in blogposts %}
-
-                    {% include '_item' %}
-
-                {% else %}
-
-                    <p>No blogpost found</p>
-
-                {% endfor %}
-            </div>
-            {% if craft.entries({section: category[0].slug, relatedTo: relatedTo, limit: null}) | length > 16 %}
-                <div class="container text-center py-2 px-2 ">
-                    {{ macro.pagination(pageInfo, craft, {}) }}
-                </div>
-            {% endif %}
-
-        {% else %}
-            <div
-                class="matrixCategory gridWrap mx-auto sm:flex sm:content-center sm:flex-wrap sm:justify-center py-2 px-2 container mt-4 md:mt-16 flex-grid">
-
-                {% for entry in pageEntries %}
-                    {% include '_item' %}
-                {% endfor %}
-            </div>
-            {% if craft.entries({section: category[0].slug, relatedTo: relatedTo, limit: null}) | length > 16 %}
-                <div class="container text-center py-2 px-2 ">
-                    {{ macro.pagination(pageInfo, craft, {}) }}
-                </div>
-            {% endif %}
-
-        {% endif %}
-
-    {% endblock %}
