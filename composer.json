@@ -35,6 +35,7 @@
         "nystudio107/craft-typogrify": "^1.1.1",
         "nystudio107/craft3-multi-environment": "^1.0.5",
         "ostark/craft-async-queue": "^1.3.0",
+        "pennebaker/craft-architect": "2.2.10",
         "rias/craft-position-fieldtype": "^1.0",
         "sebastianlenz/linkfield": "1.0.8",
         "topshelfcraft/environment-label": "^3.1",
