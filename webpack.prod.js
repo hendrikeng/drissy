@@ -12,7 +12,8 @@ const webpack = require('webpack');
 
 // webpack plugins
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
 const CreateSymlinkPlugin = require('create-symlink-webpack-plugin');
 const CriticalCssPlugin = require('critical-css-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -25,6 +26,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const WebappWebpackPlugin = require('webapp-webpack-plugin');
 const WhitelisterPlugin = require('purgecss-whitelister');
 const WorkboxPlugin = require('workbox-webpack-plugin');
+const zopfli = require('@gfx/zopfli');
 
 // config files
 const common = require('./webpack.common.js');
@@ -76,6 +78,24 @@ const configureBundleAnalyzer = (buildType) => {
     }
 };
 
+// Configure Compression webpack plugin
+const configureCompression = () => {
+    return {
+        filename: '[path].gz[query]',
+        test: /\.(js|css|html|svg)$/,
+        threshold: 10240,
+        minRatio: 0.8,
+        deleteOriginalAssets: false,
+        compressionOptions: {
+            numiterations: 15,
+            level: 9
+        },
+        algorithm(input, compressionOptions, callback) {
+            return zopfli.gzip(input, compressionOptions, callback);
+        }
+    };
+};
+
 // Configure Critical CSS
 const configureCriticalCss = () => {
     return (settings.criticalCssConfig.pages.map((row) => {
@@ -106,7 +126,7 @@ const configureCriticalCss = () => {
 // Configure Clean webpack
 const configureCleanWebpack = () => {
     return {
-        root: path.resolve(__dirname, settings.paths.dist.base),
+        cleanOnceBeforeBuildPatterns: settings.paths.dist.clean,
         verbose: true,
         dry: false
     };
@@ -324,9 +344,6 @@ module.exports = [
                 ],
             },
             plugins: [
-                new CleanWebpackPlugin(settings.paths.dist.clean,
-                    configureCleanWebpack()
-                ),
                 new MiniCssExtractPlugin({
                     path: path.resolve(__dirname, settings.paths.dist.base),
                     filename: path.join('./css', '[name].[chunkhash].css'),
@@ -349,6 +366,9 @@ module.exports = [
                 ),
                 new SaveRemoteFilePlugin(
                     settings.saveRemoteFileConfig
+                ),
+                new CompressionPlugin(
+                    configureCompression()
                 ),
                 new BundleAnalyzerPlugin(
                     configureBundleAnalyzer(LEGACY_CONFIG),
@@ -374,13 +394,18 @@ module.exports = [
                 ],
             },
             plugins: [
-                new webpack.optimize.ModuleConcatenationPlugin(),
+                new CleanWebpackPlugin(
+                    configureCleanWebpack()
+                ),
                 new webpack.BannerPlugin(
                     configureBanner()
                 ),
                 new ImageminWebpWebpackPlugin(),
                 new WorkboxPlugin.GenerateSW(
                     configureWorkbox()
+                ),
+                new CompressionPlugin(
+                    configureCompression()
                 ),
                 new BundleAnalyzerPlugin(
                     configureBundleAnalyzer(MODERN_CONFIG),

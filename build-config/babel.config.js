@@ -1,13 +1,22 @@
 module.exports = {
+    cacheDirectory: true,
     presets: [
         [
-            '@babel/preset-env',
-            {
+            '@babel/preset-env', {
                 modules: false,
+                corejs:  {
+                    version: 3,
+                    proposals: true
+                },
                 useBuiltIns: 'usage',
-                debug: false,
-            },
+                targets: {
+                    browsers: browserList,
+                },
+            }
         ],
     ],
-    plugins: ['syntax-dynamic-import', 'syntax-object-rest-spread'],
+    plugins: [
+        '@babel/plugin-syntax-dynamic-import',
+        '@babel/plugin-transform-runtime',
+    ],
 };

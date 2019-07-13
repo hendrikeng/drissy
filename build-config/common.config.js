@@ -1,131 +1,137 @@
-// webpack.settings.js - webpack settings config
+const path = require('path');
+const ipAddress = require('../build-utils/get-ip');
+const pkg = require('../package.json');
 
-// node modules
-require('dotenv').config();
+function resolve(dir) {
+    return path.join(__dirname, '..', dir);
+}
 
-// Webpack settings exports
-// noinspection WebpackConfigHighlighting
+const useHttps = false;
+
 module.exports = {
-    name: "Example Project",
-    copyright: "Example Company, Inc.",
-    paths: {
-        src: {
-            base: "./src/",
-            css: "./src/css/",
-            js: "./src/js/"
-        },
-        dist: {
-            base: "./web/dist/",
-            clean: [
-                "./img",
-                "./criticalcss",
-                "./css",
-                "./js"
-            ]
-        },
-        templates: "./templates/"
-    },
     urls: {
-        live: "https://example.com/",
-        local: "http://example.test/",
-        critical: "http://example.test/",
-        publicPath: "/dist/"
+        dev: useHttps ? `https://${pkg.name}.test` : `http://${pkg.name}.test`,
+        staging: `https://staging.${pkg.name}.ch`,
+        live: `https://${pkg.name}.ch`,
     },
-    vars: {
-        cssName: "styles"
+    entry: {
+        app: ['core-js/modules/es.array.iterator', './src/js/main.js'],
     },
-    entries: {
-        "app": "app.js"
+    output: {
+        // [chunkhash]
+        filename: '[name].[hash:7].js',
+        path: resolve('./web/assets'),
+        publicPath: {
+            src: useHttps
+                ? `https://${ipAddress}:8080/`
+                : `http://${ipAddress}:8080/`,
+            dist: '/assets/',
+        },
     },
-    copyWebpackConfig: [
-        {
-            from: "./src/js/workbox-catch-handler.js",
-            to: "js/[name].[ext]"
-        }
-    ],
-    criticalCssConfig: {
-        base: "./web/dist/criticalcss/",
-        suffix: "_critical.min.css",
-        criticalHeight: 1200,
-        criticalWidth: 1200,
-        ampPrefix: "amp_",
-        ampCriticalHeight: 19200,
-        ampCriticalWidth: 600,
-        pages: [
-            {
-                url: "",
-                template: "index"
-            }
-        ]
+    devServer: {
+        https: useHttps,
+        errorOverlay: true,
+        notifyOnErrors: true,
+        openBrowser: false,
     },
-    devServerConfig: {
-        public: () => process.env.DEVSERVER_PUBLIC || "http://localhost:8080",
-        host: () => process.env.DEVSERVER_HOST || "localhost",
-        poll: () => process.env.DEVSERVER_POLL || false,
+    htmlWebpackPlugin: {
+        main: {
+            template: './src/ejs/_layout.ejs',
+            filename: `${resolve('./templates/_layouts/')}_layout.twig`,
+            title: pkg.name,
+        },
     },
-    manifestConfig: {
-        basePath: ""
-    },
-    purgeCssConfig: {
+    purgeCss: {
         paths: [
-            "./templates/**/*.{twig,html}",
-            "./src/vue/**/*.{vue,html}"
+            `${resolve('./templates')}/**/*.+(twig|html|blade|js|jade|php|svg)`,
+            `${resolve('./src/js')}/**/*.+(vue|js)`,
+            `${resolve('./src/ejs')}/**/*.+(ejs)`,
         ],
-        whitelist: [
-            "./src/css/components/**/*.{css,pcss}"
-        ],
-        whitelistPatterns: [],
         extensions: [
-            "html",
-            "js",
-            "twig",
-            "vue"
-        ]
+            'twig',
+            'html',
+            'blade',
+            'jade',
+            'php',
+            'vue',
+            'js',
+            'ejs',
+            'svg',
+        ],
+        whitelist: ['iframe', 'embedded'],
+        whitelistPatterns: [
+            /plyr/,
+            /plyr--/,
+            /plyr__/,
+            /cc-/,
+            /aspect-ratio/,
+            /embedded/,
+            /flash__message/,
+            /glide/,
+        ],
+        whitelistPatternsChildren: [/embedded$/, /flash__message$/, /glide$/],
     },
-    saveRemoteFileConfig: [
-        {
-            url: "https://www.google-analytics.com/analytics.js",
-            filepath: "js/analytics.js"
-        }
-    ],
-    createSymlinkConfig: [
-        {
-            origin: "img/favicons/favicon.ico",
-            symlink: "../favicon.ico"
-        }
-    ],
-    webappConfig: {
-        logo: "./src/img/favicon-src.png",
-        prefix: "img/favicons/"
+    src: {
+        js: resolve('./src/js/'),
     },
-    workboxConfig: {
-        swDest: "../sw.js",
-        precacheManifestFilename: "js/precache-manifest.[manifestHash].js",
-        importScripts: [
-            "/dist/workbox-catch-handler.js"
-        ],
-        exclude: [
-            /\.(png|jpe?g|gif|svg|webp)$/i,
-            /\.map$/,
-            /^manifest.*\\.js(?:on)?$/,
-        ],
-        globDirectory: "./web/",
-        globPatterns: [
-            "offline.html",
-            "offline.svg"
-        ],
-        offlineGoogleAnalytics: true,
+    workboxPlugin: {
+        swDest: 'sw.js',
+        clientsClaim: true,
+        skipWaiting: true,
         runtimeCaching: [
             {
-                urlPattern: /\.(?:png|jpg|jpeg|svg|webp)$/,
-                handler: "cacheFirst",
-                options: {
-                    cacheName: "images",
-                    expiration: {
-                        maxEntries: 20
-                    }
-                }
-            }
-        ]
-    }
+                urlPattern: '/',
+                handler: 'staleWhileRevalidate',
+            },
+            {
+                urlPattern: '/offline',
+                handler: 'staleWhileRevalidate',
+            },
+        ],
+        navigateFallbackBlacklist: [/admin/, /shop/, /spenden/],
+    },
+    miniCssExtractPlugin: {
+        filename: '[name].[hash:7].css',
+        // chunkFilename: '[name].[hash:7].css',
+    },
+    contentBase: [
+        '*',
+        '_components/**/*',
+        '_elements/**/*',
+        '_macros/**/*',
+        '_pieces/**/*',
+        'entry/**/*',
+        'item/**/*',
+        'matrix/**/*',
+        'shop/**/*',
+    ],
+    inlineJs: [
+        './node_modules/fg-loadcss/src/cssrelpreload.js',
+        './node_modules/fontfaceobserver/fontfaceobserver.js',
+        './src/js/inline/tab-handler.js',
+        './src/js/inline/load-fonts.js',
+        './src/js/inline/service-worker.js',
+    ],
+    criticalCss: [
+        {
+            url: '',
+            template: 'index',
+        },
+        {
+            url: '/offline',
+            template: 'offline',
+        },
+        {
+            url: '/404',
+            template: '404',
+        },
+        {
+            url: '/500',
+            template: '500',
+        },
+        {
+            url: '/503',
+            template: '503',
+        },
+    ],
 };

@@ -97,7 +97,7 @@
 } %}
 
 {# check slider layout #}
-{% if block.sliderType == 'js-carousel' %}
+{% if block.layout == 'js-carousel' %}
     {% set defaults = carousel %}
 {% else %}
     {% set defaults = slider %}

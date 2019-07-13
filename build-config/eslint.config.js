@@ -32,8 +32,6 @@ module.exports = {
         'no-console': 'off',
         'linebreak-style': 'off',
         'padded-blocks': 'off',
-        'jsx-a11y/href-no-hash': 'off',
-        'jsx-a11y/anchor-is-valid': ['warn', { aspects: ['invalidHref'] }],
         indent: ['error', 4],
         'no-new': 'off',
         'prettier/prettier': 'error',
@@ -44,6 +42,12 @@ module.exports = {
             rules: {
                 indent: 'off',
                 'vue/script-indent': ['error', 4, { baseIndent: 0 }],
+                'vue/no-use-v-if-with-v-for': [
+                    'warn',
+                    {
+                        allowUsingIterationVar: false,
+                    },
+                ],
             },
         },
     ],

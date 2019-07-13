@@ -15,35 +15,16 @@ const WebpackNotifierPlugin = require('webpack-notifier');
 // config files
 const pkg = require('./package.json');
 const settings = require('./webpack.settings.js');
+const babelConfig = require('./build-config/babel.config.js');
 
 // Configure Babel loader
 const configureBabelLoader = (browserList) => {
     return {
         test: /\.js$/,
-        exclude: /node_modules/,
+        exclude: settings.babelLoaderConfig.exclude,
         use: {
             loader: 'babel-loader',
-            options: {
-                presets: [
-                    [
-                        '@babel/preset-env', {
-                        modules: false,
-                        useBuiltIns: 'entry',
-                        targets: {
-                            browsers: browserList,
-                        },
-                    }
-                    ],
-                ],
-                plugins: [
-                    '@babel/plugin-syntax-dynamic-import',
-                    [
-                        "@babel/plugin-transform-runtime", {
-                        "regenerator": true
-                    }
-                    ]
-                ],
-            },
+            options: babelConfig,
         },
     };
 };
@@ -99,7 +80,7 @@ const baseConfig = {
     entry: configureEntries(),
     output: {
         path: path.resolve(__dirname, settings.paths.dist.base),
-        publicPath: settings.urls.publicPath
+        publicPath: settings.urls.publicPath()
     },
     resolve: {
         alias: {
@@ -152,12 +133,18 @@ const modernConfig = {
 // Common module exports
 // noinspection WebpackConfigHighlighting
 module.exports = {
-    'legacyConfig': merge(
+    'legacyConfig': merge.strategy({
+        module: 'prepend',
+        plugins: 'prepend',
+    })(
+        baseConfig,
         legacyConfig,
-        baseConfig,
     ),
-    'modernConfig': merge(
-        modernConfig,
+    'modernConfig': merge.strategy({
+        module: 'prepend',
+        plugins: 'prepend',
+    })(
         baseConfig,
+        modernConfig,
     ),
 };
