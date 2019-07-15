@@ -8,10 +8,12 @@ const path = require('path');
 const webpack = require('webpack');
 
 function resolve(dir) {
-    return path.join(__dirname, '..', dir);
+    return path.join(__dirname, './', dir);
 }
 
 // webpack plugins
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const WriteFilePlugin = require('write-file-webpack-plugin');
 
 // config files
 const common = require('./webpack.common.js');
@@ -149,6 +151,11 @@ module.exports = [
                 new HtmlWebpackPlugin(
                     configureHtml()
                 ),
+                new WriteFilePlugin({
+                    // write ejs template from memory to twig
+                    test: /\.twig$/,
+                    useHashIndex: false,
+                }),
                 new webpack.HotModuleReplacementPlugin(),
             ],
         }
