@@ -22,39 +22,34 @@ const main = async () => {
     const vm = new Vue({
         el: '#app',
         components: {
-            confetti: () =>
-                import(
-                    /* webpackChunkName: "confetti" */ '../vue/Confetti.vue'
-                ),
+            //     confetti: () =>
+            //       import(
+            //         /* webpackChunkName: "confetti" */ '../vue/Confetti.vue'
+            //   ),
         },
         data: {},
         methods: {},
         mounted() {},
     });
+    // load slider async
+    if (document.getElementsByClassName('js-slider').length) {
+        await import(/* webpackChunkName: "slider" */ './modules/glide.js')
+            .then(glide => glide.slider.init())
+            .catch(e => console.error(`${e.name} : ${e.message}`));
+    }
+
+    // load slider async
+    if (document.getElementsByClassName('js-carousel').length) {
+        await import(/* webpackChunkName: "glide" */ './modules/glide.js')
+            .then(glide => glide.carousel.init())
+            .catch(e => console.error(`${e.name} : ${e.message}`));
+    }
 
     return vm;
 };
 
 // Execute async function
-main().then(vm => {
-    /**
-     * Slider
-     */
-    if (document.getElementsByClassName('js-slider').length) {
-        import(/* webpackChunkName: "slider" */ './modules/glide.js')
-            .then(glide => glide.slider.init())
-            .catch(e => console.error(`${e.name} : ${e.message}`));
-    }
-    /**
-     * Carousel
-     */
-    if (document.getElementsByClassName('js-carousel').length) {
-        import(/* webpackChunkName: "glide" */ './modules/glide.js')
-            .then(glide => glide.carousel.init())
-            .catch(e => console.error(`${e.name} : ${e.message}`));
-    }
-});
-
+main().then(vm => {});
 
 // accept HMR in dev
 if (process.env.NODE_ENV !== 'production') {
