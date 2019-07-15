@@ -7,6 +7,7 @@ const merge = require('webpack-merge');
 const path = require('path');
 const webpack = require('webpack');
 
+// resolve function
 function resolve(dir) {
     return path.join(__dirname, './', dir);
 }

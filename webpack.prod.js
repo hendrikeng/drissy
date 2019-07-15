@@ -10,6 +10,11 @@ const moment = require('moment');
 const path = require('path');
 const webpack = require('webpack');
 
+// resolve function
+function resolve(dir) {
+    return path.join(__dirname, './', dir);
+}
+
 // webpack plugins
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
@@ -135,9 +140,17 @@ const configureCleanWebpack = () => {
 // Configure Html webpack
 const configureHtml = () => {
     return {
-        templateContent: '',
-        filename: 'webapp.html',
+        template: './src/ejs/_layout.ejs',
+        filename: `${resolve('./templates/_layouts/')}_layout.twig`,
+        title: pkg.name,
         inject: false,
+        // minifying html won't work with critical css
+        minify: false,
+        env: {
+            dev: false,
+            prod: true,
+            debug: false,
+        },
     };
 };
 
@@ -373,9 +386,10 @@ module.exports = [
                 new BundleAnalyzerPlugin(
                     configureBundleAnalyzer(LEGACY_CONFIG),
                 ),
-            ].concat(
-                configureCriticalCss()
-            )
+            ]
+            //.concat(
+            //    configureCriticalCss()
+            // )
         }
     ),
     merge(
