@@ -101,29 +101,18 @@ Layout: Default
     <% if (htmlWebpackPlugin.options.env.prod) { %>
     {% set criticalCss = getCookie('critical-css') %}
     {% if criticalCss and criticalCss == assetHash %}
-        <link rel="stylesheet"
-              href="{{ baseUrl }}<%= htmlWebpackPlugin.files.css %>">
+        {{ craft.twigpack.includeCssModule("style.css") }}
     {% else %}
         {{ setCookie('critical-css', assetHash, now | date_modify("+7 days").timestamp ) }}
-        {% block _inline_css %}{% endblock %}
-    <link rel="preload"
-          href="{{ baseUrl }}<%= htmlWebpackPlugin.files.css %>"
-          as="style"
-          onload="this.onload=null;this.rel='stylesheet'">
-        <noscript>
-            <link rel="stylesheet"
-                  href="{{ baseUrl }}<%= htmlWebpackPlugin.files.css %>">
-        </noscript>
-        <script>
-            {#{{ source("_inlinejs/loadCSS.min.js") }}#}
-            {{ source('_inlinejs/cssrelpreload.js') }}
-        </script>
+        {{ craft.twigpack.includeCriticalCssTags() }}
+        {{ craft.twigpack.includeCssModule("style.css", true) }}
+        {{ craft.twigpack.includeCssRelPreloadPolyfill() }}
     {% endif %}
     <% } %>
 
     {# -- Fontface Observer -- #}
     <style>
-        {% include "_inlinecss/_site_fonts.css" %}
+        {{ craft.twigpack.includeFile("_inlinecss/_site_fonts.css") }}
     </style>
     <% if (htmlWebpackPlugin.options.env.prod) { %>
     {% if fontsLoaded and fontsLoaded == assetHash %}
@@ -135,8 +124,8 @@ Layout: Default
                     document.documentElement.className += "fonts-loaded";
                     return;
                 }
-                {{ source('_inlinejs/fontfaceobserver.js') }}
-                {{ source('_inlinejs/load-fonts.js') }}
+                {{ craft.twigpack.includeFile("_inlinejs/fontfaceobserver.js") }}
+                {{ craft.twigpack.includeFile("_inlinejs/load-fonts.js") }}
             })();
         </script>
         {{ setCookie('fonts-loaded', assetHash, now | date_modify("+7 days").timestamp ) }}
@@ -145,7 +134,7 @@ Layout: Default
 
     {# -- Tab Handler -- #}
     <script>
-        {{ source("_inlinejs/tab-handler.js") }}
+        {{ craft.twigpack.includeFile("_inlinejs/tab-handler.js") }}
     </script>
 
     {%- endminify -%}
@@ -222,11 +211,10 @@ Layout: Default
         <script>
             window.csrfTokenValue = "{{ craft.app.request.csrfToken|e('js') }}"
         </script>
-        <% if (htmlWebpackPlugin.options.env.prod) { %>
-        <script
-            src="{{ baseUrl }}<%= htmlWebpackPlugin.files.js[0] %>"></script>
-        <% } %>
     {% endblock %}
+
+    {{ craft.twigpack.includeSafariNomoduleFix() }}
+    {{ craft.twigpack.includeJsModule("app.js", true) }}
 
     </body>
     <% if (htmlWebpackPlugin.options.env.prod) { %>

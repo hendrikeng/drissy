@@ -99,9 +99,9 @@ module.exports = {
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NamedModulesPlugin(),
         new HtmlWebpackPlugin({
-            template: commonConfig.htmlWebpackPlugin.template,
-            filename: commonConfig.htmlWebpackPlugin.filename,
-            title: commonConfig.htmlWebpackPlugin.title,
+            template: './src/ejs/_layout.ejs',
+            filename: `${resolve('./templates/_layouts/')}_layout.twig`,
+            title: pkg.name,
             inject: true,
             // minifying html won't work with critical css
             minify: false,

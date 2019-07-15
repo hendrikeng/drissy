@@ -7,6 +7,10 @@ const merge = require('webpack-merge');
 const path = require('path');
 const webpack = require('webpack');
 
+function resolve(dir) {
+    return path.join(__dirname, '..', dir);
+}
+
 // webpack plugins
 
 // config files
@@ -32,6 +36,23 @@ const configureDevServer = (buildType) => {
         },
         headers: {
             'Access-Control-Allow-Origin': '*'
+        },
+    };
+};
+
+// Configure Html webpack
+const configureHtml = () => {
+    return {
+        template: './src/ejs/_layout.ejs',
+        filename: `${resolve('./templates/_layouts/')}_layout.twig`,
+        title: pkg.name,
+        inject: false,
+        // minifying html won't work with critical css
+        minify: false,
+        env: {
+            dev: true,
+            prod: false,
+            debug: false,
         },
     };
 };
@@ -125,6 +146,9 @@ module.exports = [
                 ],
             },
             plugins: [
+                new HtmlWebpackPlugin(
+                    configureHtml()
+                ),
                 new webpack.HotModuleReplacementPlugin(),
             ],
         }
