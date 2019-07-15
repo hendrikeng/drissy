@@ -15,11 +15,11 @@
     blurUp: false,
     class: false,
     dataSizes: 'auto',
-    dominantColor: true,
+    dominantColor: false,
     format: 'jpg',
     interlace: true,
     lazy: true,
-    mediaBox: true,
+    mediaBox: false,
     mode: 'crop',
     objectFit: true,
     objectFitValue: 'cover',
@@ -27,105 +27,125 @@
     quality: 80,
     ratio: 'auto',
     watermark: false,
+    wrapper: false,
+    svg: false,
+    noscript: true,
 } %}
 
 {# Merge Attr with Defaults #}
 {% set options = options ? defaults | merge(options): defaults %}
 
- {% if image %}
+{% if image and image.extension == 'svg' %}
 
-     {# Set Ratio #}
-     {% if options.ratio != 'auto' %}
-         {% set ratio = options.ratio %}
-     {% else %}
-         {% set ratio = image.getWidth() ~ '/' ~ image.getHeight() %}
-     {% endif %}
+    {% if options.svg %}
+        <div class="{{ options.svg }}">
+    {% endif %}
 
-     {# Set Position #}
-     {% if image.hasFocalPoint %}
-         {% set position = image.getFocalPoint() %}
-     {% else %}
-         {% set position = '50% 50%' %}
-     {% endif %}
+    {{ svg(image) }}
 
-     {# Define global variables #}
-     {% set imageSettings = {
-         allowUpscale: options.allowUpscale,
-         format: options.format,
-         interlace: options.interlace,
-         jpegQuality: options.quality,
-         mode: options.mode,
-         position: position,
-         ratio: ratio,
-     } %}
+    {% if options.svg %}
+        </div>
+    {% endif %}
 
-     {% set imageSettingsWebp = {
-         allowUpscale: options.allowUpscale,
-         format: 'webp',
-         interlace: options.interlace,
-         webpQuality: options.quality,
-         mode: options.mode,
-         position: position,
-         ratio: ratio,
-     } %}
+{% elseif image %}
 
-     {#Get Dominant Color#}
+    {# Set Ratio #}
+    {% if options.ratio != 'auto' %}
+        {% set ratio = options.ratio %}
+    {% elseif options.ratio %}
+        {% set ratio = image.getWidth() ~ '/' ~ image.getHeight() %}
+    {% endif %}
 
-     {% if options.dominantColor and not craft.app.config.general.devMode %}
-         {% set dominantColor = craft.imager.getDominantColor(image) %}
-     {% else %}
-         {% set dominantColor = '#333' %}
-     {% endif %}
+    {# Set Position #}
+    {% if image.hasFocalPoint %}
+        {% set position = image.getFocalPoint() %}
+        {% set position = position|merge({
+            x: position.x * 100 ~ '%',
+            y: position.y * 100 ~ '%',
+        }) %}
+        {% set position = position|join(" ") %}
+    {% else %}
+        {% set position = '50% 50%' %}
+    {% endif %}
 
-     {# Setup Image Transforms #}
-     {% set images = craft.imager.transformImage(image, options.sizes, imageSettings) %}
+    {# Define global variables #}
+    {% set imageSettings = {
+        allowUpscale: options.allowUpscale,
+        format: options.format,
+        interlace: options.interlace,
+        jpegQuality: options.quality,
+        mode: options.mode,
+        position: position,
+        ratio: ratio,
+    } %}
 
-     {# If the server has support for WebP, create transforms #}
-     {% if craft.imager.serverSupportsWebp() %}
-         {% set imagesWebp = craft.imager.transformImage(image, options.sizes, imageSettingsWebp) %}
-     {% endif %}
+    {% set imageSettingsWebp = {
+        allowUpscale: options.allowUpscale,
+        format: 'webp',
+        interlace: options.interlace,
+        webpQuality: options.quality,
+        mode: options.mode,
+        position: position,
+        ratio: ratio,
+    } %}
 
-     {% if options.mediaBox %}
-         <div
-         class="{{ 'mediabox aspect-ratio-' ~ options.ratio }}"
-         style="{{ options.dominantColor ? 'background-color:' ~ dominantColor ~ ';' }}">
-     {% endif %}
+    {#Get Dominant Color#}
+    {% if options.dominantColor and not craft.app.config.general.devMode %}
+        {% set dominantColor = craft.imager.getDominantColor(image) %}
+    {% else %}
+        {% set dominantColor = '#e0e0e026' %}
+    {% endif %}
 
-     <picture>
-         {% if craft.imager.serverSupportsWebp() %}
-             <source
-                 {% if options.lazy %}data-{% endif %}sizes="{{ options.dataSizes }}"
-                 {% if options.lazy %}data-{% endif %}srcset="{{ craft.imager.srcset(imagesWebp) }}"
-                 {% if options.blurUp %} data-lowsrc="{{ imagesWebp|last.url }}"{% endif %}
-                 type="image/webp">
-         {% endif %}
-         <img
-             class="{{- options.class -}}
+    {# Setup Image Transforms #}
+    {% set images = craft.imager.transformImage(image, options.sizes, imageSettings) %}
+
+    {# If the server has support for WebP, create transforms #}
+    {% if craft.imager.serverSupportsWebp() %}
+        {% set imagesWebp = craft.imager.transformImage(image, options.sizes, imageSettingsWebp) %}
+    {% endif %}
+
+    {% if options.wrapper %}
+        <div
+        class="{{ options.mediaBox ? 'mediabox aspect-ratio-' ~ options.ratio : '' }} {{ options.wrapper }}"
+        style="{{ options.dominantColor ? 'background-color:' ~ dominantColor ~ ';' }}">
+    {% endif %}
+
+    <picture>
+        {% if craft.imager.serverSupportsWebp() %}
+            <source
+                {% if options.lazy %}data-{% endif %}sizes="{{ options.dataSizes }}"
+                {% if options.lazy %}data-{% endif %}srcset="{{ craft.imager.srcset(imagesWebp) }}"
+                {% if options.blurUp %} data-lowsrc="{{ imagesWebp|last.url }}"{% endif %}
+                type="image/webp">
+        {% endif %}
+        <img class="{{- options.class -}}
                      {% if options.lazy %} lazyload {% endif %}
                      {% if options.preload %} lazypreload {% endif %}
                      {% if options.mediaBox %} mediabox-img{% endif %}"
-             src="{{ craft.imager.placeholder() }}"
-             {% if options.lazy %}data-{% endif %}sizes="{{ options.dataSizes }}"
-             {% if options.lazy %}data-{% endif %}srcset="{{ craft.imager.srcset(images) }}"
-             {% if options.blurUp and options.lazy %}
-                 data-lowsrc="{{ images|last.url }}"
-             {% endif %}
-             alt="{{ options.alt }}"
-             {% if options.objectFit %}
-                 style="object-fit:{{ options.objectFitValue }};object-position:{{ position|join(" ") }};font-family:'object-fit:{{ options.objectFitValue }};object-position:{{ position|join(" ") }};'"
-                 {#height="100%" width="100%"#}
-             {% endif %}
-             {% if not options.objectFit %}
-                 {#height="auto" width="100%"#}
-             {% endif %}
-         />
-         <noscript>
-             <img src="{{ images|first.url }}"
-                  alt="{{ options.alt }}">
-         </noscript>
-     </picture>
-     {% if options.mediaBox %}
-         </div>
-     {% endif %}
+            src="{{ craft.imager.placeholder() }}"
+            {% if options.lazy %}data-{% endif %}sizes="{{ options.dataSizes }}"
+            {% if options.lazy %}data-{% endif %}srcset="{{ craft.imager.srcset(images) }}"
+            {% if options.blurUp and options.lazy %}
+                data-lowsrc="{{ images|last.url }}"
+            {% endif %}
+            alt="{{ options.alt }}"
+            {% if options.objectFit %}
+                style="
+                    object-fit:{{ options.objectFitValue }};
+                    object-position:{{ position }};
+                    font-family:'{{ 'object-fit: ' ~ options.objectFitValue }}, {{ 'object-position: ' ~ position  }}';
+                    "
+            {% endif %}
+        />
+    </picture>
+    {% if options.noscript %}
+        <noscript>
+            <img src="{{ images|last.url }}"
+                 alt="{{ options.alt }}">
+        </noscript>
+    {% endif %}
+    {% if options.wrapper %}
+        </div>
+    {% endif %}
 
- {% endif %}
+{% endif %}
