@@ -1,10 +1,18 @@
 module.exports = {
-  theme: {
-    // Extend the default Tailwind config here
-    extend: {
+    theme: {
+        aspectRatio: {
+            '1/1': [1, 1],
+            '16/9': [16, 9],
+            '4/3': [4, 3],
+            '4/5': [4, 5],
+            '21/9': [21, 9],
+            auto: [1, 1],
+        },
     },
-    // Replace the default Tailwind config here
-  },
-  corePlugins: {},
-  plugins: [],
+    variants: {
+      aspectRatio: ['responsive'],
+    },
+    plugins: [
+      require('tailwindcss-aspect-ratio')(),
+    ],
 };

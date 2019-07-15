@@ -102,14 +102,14 @@ Layout: Default
 {%- minify -%}
     <% } %>
     <body itemscope itemtype="http://schema.org/WebPage">
-    <div id="app">
-        <confetti></confetti>
+   
+
         {% block body %}
 
             {# -- Debug -- #}
             <% if (htmlWebpackPlugin.options.env.dev) { %>
             {% block debug %}
-                <div class="o-grid-wrap flex-col bg-red-lightest">
+                <div class="o-grid-wrap flex-col bg-red-lightest" id="debug">
                     <p class="text-sm text-red font-extrabold mb-2 -mt-2 underline">
                         DEBUG</p>
                     <p class="text-sm text-grey-darkest font-extrabold mb-2 -mt-2 ">
@@ -150,7 +150,9 @@ Layout: Default
             {% block header %}{% endblock %}
 
             <main itemscope itemprop="mainContentOfPage"
-                  itemtype="http://schema.org/mainContentOfPage">
+                  itemtype="http://schema.org/mainContentOfPage"
+                  id="app">
+                  <confetti></confetti>
                 {% block content %}{% endblock %}
             </main>
 
@@ -163,7 +165,7 @@ Layout: Default
             {% endblock %}
 
         {% endblock %}
-    </div>
+
 
     {% block scripts %}
         <script>
