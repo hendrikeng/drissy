@@ -15,7 +15,7 @@ function resolve(dir) {
 // webpack plugins
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WriteFilePlugin = require('write-file-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
+
 
 // config files
 const common = require('./webpack.common.js');

@@ -69,7 +69,7 @@ Layout: Default
 
     {# -- Fontface Observer -- #}
     <style>
-        {{ craft.twigpack.includeFile("@webroot/../templates/_inlinecss/_site_fonts.css") }}
+        {{ craft.twigpack.includeFile("@webroot/dist/css/webfonts.css") }}
     </style>
     <% if (htmlWebpackPlugin.options.env.prod) { %>
     {% if fontsLoaded and fontsLoaded == assetHash %}
@@ -81,8 +81,8 @@ Layout: Default
                     document.documentElement.className += "fonts-loaded";
                     return;
                 }
-                {{ craft.twigpack.includeFile("@webroot/../templates/_inlinejs/fontfaceobserver.js") }}
-                {{ craft.twigpack.includeFile("@webroot/../templates/_inlinejs/load-fonts.js") }}
+                {{ craft.twigpack.includeFile("@webroot/dist/js/fontfaceobserver.js") }}
+                {{ craft.twigpack.includeFile("@webroot/dist/js/load-fonts.js") }}
             })();
         </script>
         {{ setCookie('fonts-loaded', assetHash, now | date_modify("+7 days").timestamp ) }}
@@ -91,7 +91,7 @@ Layout: Default
 
     {# -- Tab Handler -- #}
     <script>
-        {{ craft.twigpack.includeFile("@webroot/../templates/_inlinejs/tab-handler.js") }}
+        {{ craft.twigpack.includeFile("@webroot/dist/js/tab-handler.js") }}
     </script>
 
     {%- endminify -%}

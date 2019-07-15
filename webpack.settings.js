@@ -2,6 +2,9 @@
 
 // node modules
 require('dotenv').config();
+const Terser = require('terser');
+const Postcss = require('postcss');
+const Cssnano = require('cssnano');
 
 // Webpack settings exports
 // noinspection WebpackConfigHighlighting
@@ -40,22 +43,42 @@ module.exports = {
             from: './src/js/workbox-catch-handler.js',
             to: 'js/[name].[ext]',
         },
+        // copy fontfaceobsever from node modules
+        {
+            from: './node_modules/fontfaceobserver/fontfaceobserver.js',
+            to: 'js/[name].[ext]',
+            transform: function(content, path) {
+                return content;
+            },
+        },
+        // copy and minify inlineJs
         {
             from: './src/inlineJs/load-fonts.js',
             to: 'js/[name].[ext]',
             transform: function(content, path) {
-                // add transform()
-                return TerserPlugin.minify(content.toString()).code; // use uglify
-            }, // (no args = mangle+compress)
+                return Terser.minify(content.toString()).code;
+            },
         },
+        // copy and minify inlineJs
         {
-           
-            from: "./src/inlineJs/tab-handler.js",
-            to: "js/[name].[ext]",
-            transform: function (content, path) {               // add transform()
-              return TerserPlugin.minify(content.toString()).code;  // use uglify
-            },                                                  // (no args = mangle+compress)
-          }
+            from: './src/inlineJs/tab-handler.js',
+            to: 'js/[name].[ext]',
+            transform: function(content, path) {
+                return Terser.minify(content.toString()).code;
+            },
+        },
+        // copy and minify webfonts css
+        {
+            from: './src/css/components/webfonts.pcss',
+            to: 'css/[name].css',
+            transform: function(content, path) {
+                return Postcss([Cssnano])
+                    .process(content.toString())
+                    .then(result => {
+                        return result.css;
+                    });
+            },
+        },
     ],
     criticalCssConfig: {
         base: './web/dist/criticalcss/',
