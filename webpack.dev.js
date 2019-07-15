@@ -15,6 +15,7 @@ function resolve(dir) {
 // webpack plugins
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WriteFilePlugin = require('write-file-webpack-plugin');
+const DashboardPlugin = require('webpack-dashboard/plugin');
 
 
 // config files
@@ -180,6 +181,7 @@ module.exports = [
             },
             plugins: [
                 new webpack.HotModuleReplacementPlugin(),
+                new DashboardPlugin(),
             ],
         }
     ),

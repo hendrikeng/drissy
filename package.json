@@ -28,7 +28,8 @@
   },
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --config webpack.dev.js",
+    "debug": "webpack-dev-server --config webpack.dev.js",
+    "dev": "webpack-dashboard -- webpack-dev-server --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js --progress --hide-modules"
   },
   "browserslist": {
@@ -175,6 +176,7 @@
     "webpack": "^4.35.3",
     "webpack-bundle-analyzer": "^3.3.2",
     "webpack-cli": "^3.3.5",
+    "webpack-dashboard": "^3.0.7",
     "webpack-dev-server": "^3.7.2",
     "webpack-manifest-plugin": "^2.0.4",
     "webpack-merge": "^4.2.1",

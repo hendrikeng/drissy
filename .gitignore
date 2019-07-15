@@ -17,6 +17,11 @@ storage/logs/*
 storage/runtime/*
 scripts/*
 config/license.key
+./craft
+craft.sh
+craft.bat
+nys-setup
+
 
 # generated
 templates/_inlinejs/*.js
@@ -54,7 +59,6 @@ web/uploads/downloads/*
 !web/uploads/downloads/.gitkeep
 
 
-#
 # IMAGER TRANSFORMS
 public/imager/*
 !public/imager/.gitkeep
