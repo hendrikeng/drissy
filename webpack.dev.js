@@ -8,7 +8,6 @@ const path = require('path');
 const webpack = require('webpack');
 
 // webpack plugins
-const DashboardPlugin = require('webpack-dashboard/plugin');
 
 // config files
 const common = require('./webpack.common.js');
@@ -148,7 +147,6 @@ module.exports = [
             },
             plugins: [
                 new webpack.HotModuleReplacementPlugin(),
-                new DashboardPlugin(),
             ],
         }
     ),

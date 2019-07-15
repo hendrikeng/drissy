@@ -10,12 +10,10 @@ const merge = require('webpack-merge');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
-const WebpackNotifierPlugin = require('webpack-notifier');
 
 // config files
 const pkg = require('./package.json');
 const settings = require('./webpack.settings.js');
-const babelConfig = require('./build-config/babel.config.js');
 
 // Configure Babel loader
 const configureBabelLoader = (browserList) => {
@@ -24,7 +22,28 @@ const configureBabelLoader = (browserList) => {
         exclude: settings.babelLoaderConfig.exclude,
         use: {
             loader: 'babel-loader',
-            options: babelConfig,
+            options: {
+                cacheDirectory: true,
+                presets: [
+                    [
+                        '@babel/preset-env', {
+                            modules: false,
+                            corejs:  {
+                                version: 3,
+                                proposals: true
+                            },
+                            useBuiltIns: 'usage',
+                            targets: {
+                                browsers: browserList,
+                            },
+                        }
+                    ],
+                ],
+                plugins: [
+                    '@babel/plugin-syntax-dynamic-import',
+                    '@babel/plugin-transform-runtime',
+                ],
+            },
         },
     };
 };
@@ -94,7 +113,6 @@ const baseConfig = {
         ],
     },
     plugins: [
-        new WebpackNotifierPlugin({title: 'Webpack', excludeWarnings: true, alwaysNotify: true}),
         new VueLoaderPlugin(),
     ]
 };
