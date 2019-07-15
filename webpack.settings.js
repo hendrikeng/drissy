@@ -115,8 +115,8 @@ module.exports = {
         ],
         globDirectory: "./web/",
         globPatterns: [
-            "offline.html",
-            "offline.svg"
+            "offline.twig",
+            // "offline.svg"
         ],
         offlineGoogleAnalytics: true,
         runtimeCaching: [
