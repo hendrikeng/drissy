@@ -71,11 +71,11 @@
     "/src/js/inline/**",
     "/templates/_inlinejs/**",
     "/web/**",
-    "/build-config/tailwind.config.js"
+    "./tailwind.config.js"
   ],
   "stylelint": {
     "extends": [
-      "./build-config/stylelint.config.js"
+      "./stylelint.config.js"
     ],
     "ignoreFiles": [
       "node_modules/**/*",
