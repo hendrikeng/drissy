@@ -16,10 +16,10 @@
     class: false,
     dataSizes: 'auto',
     dominantColor: false,
-    format: 'jpg',
+    format: null,
     interlace: true,
     lazy: true,
-    mediaBox: false,
+    mediaBox: true,
     mode: 'crop',
     objectFit: true,
     objectFitValue: 'cover',
@@ -27,7 +27,7 @@
     quality: 80,
     ratio: 'auto',
     watermark: false,
-    wrapper: false,
+    wrapper: true,
     svg: false,
     noscript: true,
 } %}
@@ -35,15 +35,14 @@
 {# Merge Attr with Defaults #}
 {% set options = options ? defaults | merge(options): defaults %}
 
-{% if image and image.extension == 'svg' %}
+    {% if image and image.extension == 'svg' %}
 
-    {% if options.svg %}
-        <div class="{{ options.svg }}">
-    {% endif %}
+        {% if options.svg %}
+        <div class="{{ options.svg }}"> {% endif %}
 
-    {{ svg(image) }}
+        {{ svg(image) }}
 
-    {% if options.svg %}
+        {% if options.svg %}
         </div>
     {% endif %}
 
@@ -105,46 +104,25 @@
     {% endif %}
 
     {% if options.wrapper %}
-        <div
-        class="{{ options.mediaBox ? 'mediabox aspect-ratio-' ~ options.ratio : '' }} {{ options.wrapper }}"
-        style="{{ options.dominantColor ? 'background-color:' ~ dominantColor ~ ';' }}">
-    {% endif %}
-
-    <picture>
-        {% if craft.imager.serverSupportsWebp() %}
-            <source
-                {% if options.lazy %}data-{% endif %}sizes="{{ options.dataSizes }}"
-                {% if options.lazy %}data-{% endif %}srcset="{{ craft.imager.srcset(imagesWebp) }}"
-                {% if options.blurUp %} data-lowsrc="{{ imagesWebp|last.url }}"{% endif %}
-                type="image/webp">
+        <div class="{{ options.mediaBox ? 'mediabox aspect-ratio-' ~ options.ratio : '' }} {{ options.wrapper }}" style="{{ options.dominantColor ? 'background-color:' ~ dominantColor ~ ';' }}">
         {% endif %}
-        <img class="{{- options.class -}}
-                     {% if options.lazy %} lazyload {% endif %}
-                     {% if options.preload %} lazypreload {% endif %}
-                     {% if options.mediaBox %} mediabox-img{% endif %}"
-            src="{{ craft.imager.placeholder() }}"
-            {% if options.lazy %}data-{% endif %}sizes="{{ options.dataSizes }}"
-            {% if options.lazy %}data-{% endif %}srcset="{{ craft.imager.srcset(images) }}"
-            {% if options.blurUp and options.lazy %}
-                data-lowsrc="{{ images|last.url }}"
+
+        <picture>
+            {% if craft.imager.serverSupportsWebp() %}
+                <source {% if options.lazy %} data- {% endif %} sizes="{{ options.dataSizes }}" {% if options.lazy %} data- {% endif %} srcset="{{ craft.imager.srcset(imagesWebp) }}" {% if options.blurUp %} data-lowsrc="{{ imagesWebp|last.url }}" {% endif %} type="image/webp">
             {% endif %}
-            alt="{{ options.alt }}"
-            {% if options.objectFit %}
-                style="
-                    object-fit:{{ options.objectFitValue }};
-                    object-position:{{ position }};
-                    font-family:'{{ 'object-fit: ' ~ options.objectFitValue }}, {{ 'object-position: ' ~ position  }}';
-                    "
-            {% endif %}
-        />
-    </picture>
-    {% if options.noscript %}
-        <noscript>
-            <img src="{{ images|last.url }}"
-                 alt="{{ options.alt }}">
-        </noscript>
-    {% endif %}
-    {% if options.wrapper %}
+            <img class="{{- options.class -}} {% if options.lazy %} lazyload {% endif %} {% if options.preload %} lazypreload {% endif %} {% if options.mediaBox %} mediabox-img{% endif %}" src="{{ craft.imager.placeholder() }}" {% if options.lazy %} data- {% endif %} sizes="{{ options.dataSizes }}" {% if options.lazy %} data- {% endif %} srcset="{{ craft.imager.srcset(images) }}" {% if options.blurUp and options.lazy %} data-lowsrc="{{ images|last.url }}" {% endif %} alt="{{ options.alt }}" {% if options.objectFit %} style="
+                                    object-fit:{{ options.objectFitValue }};
+                                    object-position:{{ position }};
+                                    font-family:'{{ 'object-fit: ' ~ options.objectFitValue }}, {{ 'object-position: ' ~ position  }}';
+                                    " {% endif %}/>
+        </picture>
+        {% if options.noscript %}
+            <noscript>
+                <img src="{{ images|last.url }}" alt="{{ options.alt }}">
+            </noscript>
+        {% endif %}
+        {% if options.wrapper %}
         </div>
     {% endif %}
 
