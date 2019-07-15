@@ -112,11 +112,11 @@ Layout: Default
             {% if craft.app.config.general.devMode %}
                 <div id="debug">
                     <div
-                            class="mb-2 ml-2 fixed pin-b pin-l rounded-full bg-grey px-4 py-2 font-extrabold z-50 cursor-pointer"
+                            class="mb-2 ml-2 fixed bottom-0 left-0 rounded-full bg-grey px-4 py-2 font-extrabold z-50 cursor-pointer"
                             v-on:click="openDebug()">D
                     </div>
                     <div
-                            class="hidden fixed z-30 opacity-100 pin-x pin-b bg-red-lightest p-4"
+                            class="hidden fixed z-30 opacity-100 pin-x bottom-0 bg-red-lightest p-4"
                             ref="debugMode">
                         <p class="text-sm text-red font-extrabold underline text-center">
                             DEBUG</p>
@@ -191,7 +191,6 @@ Layout: Default
             <main itemscope itemprop="mainContentOfPage"
                   itemtype="http://schema.org/mainContentOfPage"
                   id="app">
-                  <confetti></confetti>
                 {% block content %}{% endblock %}
             </main>
 
