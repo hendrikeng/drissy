@@ -6,8 +6,8 @@
     src:
         local('Roboto Condensed Bold '),
         local('Roboto Condensed-Bold'),
-        url('/assets/fonts/roboto-condensed-latin-700.woff2') format('woff2'),
-        url('/assets/fonts/roboto-condensed-latin-700.woff') format('woff');
+        url('/dist/fonts/roboto-condensed-latin-700.woff2') format('woff2'),
+        url('/dist/fonts/roboto-condensed-latin-700.woff') format('woff');
 }
 
 @font-face {
@@ -18,6 +18,6 @@
     src:
         local('Cabin Regular '),
         local('Cabin-Regular'),
-        url('/assets/fonts/cabin-latin-400.woff2') format('woff2'),
-        url('/assets/fonts/cabin-latin-400.woff') format('woff');
+        url('/dist/fonts/cabin-latin-400.woff2') format('woff2'),
+        url('/dist/fonts/cabin-latin-400.woff') format('woff');
 }

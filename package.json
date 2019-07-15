@@ -197,6 +197,8 @@
     "tailwindcss-aspect-ratio": "^2.0.0",
     "tailwindcss-fluid": "^0.2.0",
     "tailwindcss-grid": "^1.2.1",
+    "typeface-cabin": "^0.0.72",
+    "typeface-roboto-condensed": "^0.0.54",
     "vue": "^2.6.10",
     "vue-confetti": "^2.0.1",
     "vuex": "^3.1.1"

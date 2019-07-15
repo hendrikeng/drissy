@@ -54,8 +54,6 @@ Layout: Default
         {% endblock %}
     {% endif %}
 
-    {{ craft.twigpack.includeCssModule("style.css") }}
-
     {# -- CRITICAL CSS -- #}
     <% if (htmlWebpackPlugin.options.env.prod) { %>
         {% set criticalCss = getCookie('critical-css') %}
@@ -71,7 +69,7 @@ Layout: Default
 
     {# -- Fontface Observer -- #}
     <style>
-        {{ craft.twigpack.includeFile("_inlinecss/_site_fonts.css") }}
+        {{ craft.twigpack.includeFile("@webroot/../templates/_inlinecss/_site_fonts.css") }}
     </style>
     <% if (htmlWebpackPlugin.options.env.prod) { %>
     {% if fontsLoaded and fontsLoaded == assetHash %}
@@ -83,8 +81,8 @@ Layout: Default
                     document.documentElement.className += "fonts-loaded";
                     return;
                 }
-                {{ craft.twigpack.includeFile("_inlinejs/fontfaceobserver.js") }}
-                {{ craft.twigpack.includeFile("_inlinejs/load-fonts.js") }}
+                {{ craft.twigpack.includeFile("@webroot/../templates/_inlinejs/fontfaceobserver.js") }}
+                {{ craft.twigpack.includeFile("@webroot/../templates/_inlinejs/load-fonts.js") }}
             })();
         </script>
         {{ setCookie('fonts-loaded', assetHash, now | date_modify("+7 days").timestamp ) }}
@@ -93,7 +91,7 @@ Layout: Default
 
     {# -- Tab Handler -- #}
     <script>
-        {{ craft.twigpack.includeFile("_inlinejs/tab-handler.js") }}
+        {{ craft.twigpack.includeFile("@webroot/../templates/_inlinejs/tab-handler.js") }}
     </script>
 
     {%- endminify -%}
@@ -109,7 +107,7 @@ Layout: Default
         {% block body %}
 
             {# -- Debug -- #}
-            <% if (htmlWebpackPlugin.options.env.devA) { %>
+            <% if (htmlWebpackPlugin.options.env.dev) { %>
             {% block debug %}
                 <div class="o-grid-wrap flex-col bg-red-lightest">
                     <p class="text-sm text-red font-extrabold mb-2 -mt-2 underline">

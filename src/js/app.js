@@ -1,5 +1,9 @@
 // Import our CSS
-import '../css/app.pcss';
+import styles from '../css/app.pcss';
+
+// import our fonts
+import 'typeface-roboto-condensed';
+import 'typeface-cabin';
 
 // App main
 const main = async () => {
