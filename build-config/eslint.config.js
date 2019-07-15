@@ -9,6 +9,7 @@ module.exports = {
     plugins: ['prettier'],
     settings: {
         'import/resolver': {
+            // check 
             webpack: {
                 config: './webpack.config.js',
             },

@@ -14,10 +14,14 @@ module.exports = {
     optimization: {
         minimizer: [
             new UglifyJsPlugin({
+                extractComments: true,
                 cache: true,
                 parallel: true,
                 sourceMap: false,
                 uglifyOptions: {
+                    mangle: true,
+                    keep_fnames: false,
+                    ie8: false,
                     compress: {
                         warnings: false,
                         drop_console: false,

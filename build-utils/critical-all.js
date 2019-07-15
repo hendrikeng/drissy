@@ -3,7 +3,7 @@ const fs = require('fs');
 const commonConfig = require('./../build-config/common.config');
 
 const json = JSON.parse(fs.readFileSync('compilation-stats.json'));
-const assetLink = [`web/${json.assetsByChunkName['assets/app'][0]}`];
+const assetLink = [`web/assets/${json.assetsByChunkName.styles[0]}`];
 const source = assetLink.toString();
 // eslint-disable-next-line
 console.log(`\nGenerating critical CSS from:\n${source}:\n`);
@@ -38,7 +38,9 @@ const createCriticalCSS = (element, i, callback) => {
         element.template
         }`}_critical.min.css`;
     // eslint-disable-next-line
-    console.log(`-> Generating critical CSS:\n${criticalSrc} -> ${criticalDest}`);
+    console.log(
+        `-> Generating critical CSS:\n${criticalSrc} -> ${criticalDest}`,
+    );
 
     critical
         .generate({
@@ -59,7 +61,11 @@ const createCriticalCSS = (element, i, callback) => {
         // eslint-disable-next-line
         .then(output => {
             // eslint-disable-next-line
-            console.log(`-> Critical CSS generated: ${element.template}_critical.min.css \n`);
+            console.log(
+                `-> Critical CSS generated: ${
+                    element.template
+                    }_critical.min.css \n`,
+            );
             // eslint-disable-next-line
             console.log(output + '\n');
             callback();

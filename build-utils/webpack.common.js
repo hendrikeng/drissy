@@ -15,6 +15,29 @@ module.exports = {
             '@': commonConfig.src.js,
         },
     },
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                node_vendors: {
+                    test: /[\\/]node_modules[\\/]/,
+                    chunks: 'all',
+                    priority: -10,
+                    // minSize: 0,
+                },
+                helpers: {
+                    test: /[\\/]src[\\/]js[\\/]helpers[\\/]/,
+                    chunks: 'all',
+                    // minSize: 0,
+                },
+                styles: {
+                    name: 'styles',
+                    test: /\.s?css$/,
+                    chunks: 'all',
+                    enforce: true,
+                },
+            },
+        },
+    },
     module: {
         rules: [
             {

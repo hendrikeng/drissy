@@ -6,7 +6,7 @@ function resolve(dir) {
     return path.join(__dirname, '..', dir);
 }
 
-const useHttps = false;
+const useHttps = true;
 
 module.exports = {
     urls: {
@@ -15,7 +15,7 @@ module.exports = {
         live: `https://${pkg.name}.ch`,
     },
     entry: {
-        app: ['core-js/modules/es.array.iterator', './src/js/main.js'],
+        app: './src/js/main.js',
     },
     output: {
         // [chunkhash]
@@ -35,11 +35,9 @@ module.exports = {
         openBrowser: false,
     },
     htmlWebpackPlugin: {
-        main: {
-            template: './src/ejs/_layout.ejs',
-            filename: `${resolve('./templates/_layouts/')}_layout.twig`,
-            title: pkg.name,
-        },
+        template: './src/ejs/_layout.ejs',
+        filename: `${resolve('./templates/_layouts/')}_layout.twig`,
+        title: pkg.name,
     },
     purgeCss: {
         paths: [
@@ -58,18 +56,8 @@ module.exports = {
             'ejs',
             'svg',
         ],
-        whitelist: ['iframe', 'embedded'],
-        whitelistPatterns: [
-            /plyr/,
-            /plyr--/,
-            /plyr__/,
-            /cc-/,
-            /aspect-ratio/,
-            /embedded/,
-            /flash__message/,
-            /glide/,
-        ],
-        whitelistPatternsChildren: [/embedded$/, /flash__message$/, /glide$/],
+        whitelist: [],
+        whitelistPatterns: [/plyr/, /plyr--/, /plyr__/, /cc-/],
     },
     src: {
         js: resolve('./src/js/'),
@@ -92,7 +80,7 @@ module.exports = {
     },
     miniCssExtractPlugin: {
         filename: '[name].[hash:7].css',
-        // chunkFilename: '[name].[hash:7].css',
+        chunkFilename: '[id].[hash:7].css',
     },
     contentBase: [
         '*',

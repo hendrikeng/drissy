@@ -6,6 +6,7 @@ module.exports = {
             ]
         }),
         require('tailwindcss')('./tailwind.config.js'),
+        require('postcss-fixes'),
         require('postcss-preset-env')({
             autoprefixer: { grid: true },
             features: {
