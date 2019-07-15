@@ -17,10 +17,6 @@ storage/logs/*
 storage/runtime/*
 scripts/*
 config/license.key
-./craft
-craft.sh
-craft.bat
-nys-setup
 
 
 # generated
