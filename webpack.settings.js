@@ -166,7 +166,7 @@ module.exports = {
         // globDirectory: './web/',
         // globPatterns: ['offline.html', 'offline.svg'],
         offlineGoogleAnalytics: true,
-        navigateFallbackBlacklist: [/admin/], //new
+        // navigateFallbackBlacklist: [/admin/], //new
         runtimeCaching: [
             {
                 urlPattern: /\.(?:png|jpg|jpeg|svg|webp)$/,
@@ -177,14 +177,6 @@ module.exports = {
                         maxEntries: 20,
                     },
                 },
-            },
-            { // new
-                urlPattern: '/',
-                handler: 'StaleWhileRevalidate',
-            },
-            { //new
-                urlPattern: '/offline',
-                handler: 'StaleWhileRevalidate',
             },
         ],
     },

@@ -24,6 +24,12 @@ workbox.routing.setCatchHandler(({event, request, url}) => {
     }
 });
 
+// dont cache admin
+workbox.routing.registerRoute(
+    new RegExp('/admin/'),
+    new workbox.strategies.NetworkOnly()
+  );
+
 // Use a stale-while-revalidate strategy for all other requests.
 workbox.routing.setDefaultHandler(
     workbox.strategies.staleWhileRevalidate()
