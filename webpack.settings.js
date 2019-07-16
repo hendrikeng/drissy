@@ -154,39 +154,39 @@ module.exports = {
     },
     workboxConfig: {
         swDest: '../sw.js',
-        clientsClaim: true, //new
-        skipWaiting: true, //new
+        // clientsClaim: true, //new
+        // skipWaiting: true, //new
         precacheManifestFilename: 'js/precache-manifest.[manifestHash].js',
-        // importScripts: ['/dist/workbox-catch-handler.js'],
-        // exclude: [
-        //     /\.(png|jpe?g|gif|svg|webp)$/i,
-        //     /\.map$/,
-        //     /^manifest.*\\.js(?:on)?$/,
-        // ],
+        importScripts: ['/dist/workbox-catch-handler.js'],
+        exclude: [
+            /\.(png|jpe?g|gif|svg|webp)$/i,
+            /\.map$/,
+            /^manifest.*\\.js(?:on)?$/,
+        ],
         // globDirectory: './web/',
         // globPatterns: ['offline.html', 'offline.svg'],
-        // offlineGoogleAnalytics: true,
-        // runtimeCaching: [
-        //     {
-        //         urlPattern: new RegExp('https://drissy-stag.wewereyoung.de/'),
-        //         handler: 'NetworkOnly',
-        //    },
-        //     {
-        //         urlPattern: new RegExp(
-        //             'https://drissy-stag.wewereyoung.de/admin/',
-        //         ),
-        //         handler: 'NetworkOnly',
-        //     },
-        //     {
-        //         urlPattern: /\.(?:png|jpg|jpeg|svg|webp)$/,
-        //         handler: 'CacheFirst',
-        //        options: {
-        //            cacheName: 'images',
-        //             expiration: {
-        //                 maxEntries: 20,
-        //             },
-        //         },
-        //     },
-        // ],
+        offlineGoogleAnalytics: true,
+        runtimeCaching: [
+            //     {
+            //         urlPattern: new RegExp('https://drissy-stag.wewereyoung.de/'),
+            //         handler: 'NetworkOnly',
+            //    },
+            //     {
+            //         urlPattern: new RegExp(
+            //             'https://drissy-stag.wewereyoung.de/admin/',
+            //         ),
+            //         handler: 'NetworkOnly',
+            //     },
+            {
+                urlPattern: /\.(?:png|jpg|jpeg|svg|webp)$/,
+                handler: 'CacheFirst',
+                options: {
+                    cacheName: 'images',
+                    expiration: {
+                        maxEntries: 20,
+                    },
+                },
+            },
+        ],
     },
 };

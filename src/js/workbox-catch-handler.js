@@ -1,6 +1,9 @@
 // fallback URLs
-const FALLBACK_HTML_URL = '/offline.html';
+// const FALLBACK_HTML_URL = '/offline.html';
+// const FALLBACK_IMAGE_URL = '/offline.svg';
+const FALLBACK_HTML_URL = '/offline';
 const FALLBACK_IMAGE_URL = '/offline.svg';
+
 
 // This "catch" handler is triggered when any of the other routes fail to
 // generate a response.
