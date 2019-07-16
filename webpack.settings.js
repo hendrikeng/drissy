@@ -157,22 +157,26 @@ module.exports = {
         clientsClaim: true, //new
         skipWaiting: true, //new
         precacheManifestFilename: 'js/precache-manifest.[manifestHash].js',
-        importScripts: ['/dist/workbox-catch-handler.js'],
+        // importScripts: ['/dist/workbox-catch-handler.js'], breaks
         exclude: [
             /\.(png|jpe?g|gif|svg|webp)$/i,
             /\.map$/,
             /^manifest.*\\.js(?:on)?$/,
         ],
-        // globDirectory: './web/',
-        // globPatterns: ['offline.html', 'offline.svg'],
+        // globDirectory: './web/', //deprecated v4
+        // globPatterns: ['offline.html', 'offline.svg'], //deprecated v4
         offlineGoogleAnalytics: true,
         runtimeCaching: [
             {
-                urlPattern: /^(.*(api|admin).*)/,
+                urlPattern: new RegExp('/'),
+                handler: 'StaleWhileRevalidate',
+            },
+            {
+                urlPattern: new RegExp('^(.*(api|admin).*)'),
                 handler: 'NetworkOnly',
             },
             {
-                urlPattern: /\.(?:png|jpg|jpeg|svg|webp)$/,
+                urlPattern: new RegExp('\.(?:png|jpg|jpeg|svg|webp)$'),
                 handler: 'CacheFirst',
                 options: {
                     cacheName: 'images',

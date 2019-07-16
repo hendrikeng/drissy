@@ -1,5 +1,4 @@
-// fallback URLs
-/* 
+// fallback URLs 
 const FALLBACK_HTML_URL = '/offline.html';
 const FALLBACK_IMAGE_URL = '/offline.svg';
 
@@ -24,7 +23,7 @@ workbox.routing.setCatchHandler(({event, request, url}) => {
             // If we don't have a fallback, just return an error response.
             return Response.error();
     }
-}); */
+});
 
 // Use a stale-while-revalidate strategy for all other requests.
 workbox.routing.setDefaultHandler(workbox.strategies.staleWhileRevalidate());
