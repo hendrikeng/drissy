@@ -25,8 +25,9 @@ module.exports = {
     },
     urls: {
         live: 'https://example.com/',
-        local: 'http://example.test/',
-        critical: 'http://example.test/',
+        staging: 'http://example.test/',
+        local: 'http://drissy.test/',
+        critical: 'http://drissy.test/',
         publicPath: () => process.env.PUBLIC_PATH || '/dist/',
     },
     vars: {
@@ -92,6 +93,22 @@ module.exports = {
             {
                 url: '',
                 template: 'index',
+            },
+            {
+                url: 'offline',
+                template: 'offline',
+            },
+            {
+                url: '404',
+                template: '404',
+            },
+            {
+                url: '500',
+                template: '500',
+            },
+            {
+                url: '503',
+                template: '503',
             },
         ],
     },
