@@ -68,14 +68,14 @@ module.exports = {
                 return Terser.minify(content.toString()).code;
             },
         },
-                // copy and minify inlineJs
-                {
-                    from: './src/inlineJs/service-worker.js',
-                    to: 'js/[name].[ext]',
-                    transform: function(content, path) {
-                        return Terser.minify(content.toString()).code;
-                    },
-                },
+        // copy and minify inlineJs
+        {
+            from: './src/inlineJs/service-worker.js',
+            to: 'js/[name].[ext]',
+            transform: function(content, path) {
+                return Terser.minify(content.toString()).code;
+            },
+        },
         // copy and minify webfonts css
         {
             from: './src/css/components/webfonts.pcss',
@@ -162,13 +162,22 @@ module.exports = {
             /\.(png|jpe?g|gif|svg|webp)$/i,
             /\.map$/,
             /^manifest.*\\.js(?:on)?$/,
-           // /\/admin/,
+            // /\/admin/,
         ],
         // globDirectory: './web/',
         // globPatterns: ['offline.html', 'offline.svg'],
         offlineGoogleAnalytics: true,
-        // navigateFallbackBlacklist: [/admin/], //new
         runtimeCaching: [
+            {
+                urlPattern: new RegExp('https://drissy-stag.wewereyoung.de/'),
+                handler: 'NetworkOnly',
+            },
+            {
+                urlPattern: new RegExp(
+                    'https://drissy-stag.wewereyoung.de/admin/',
+                ),
+                handler: 'NetworkOnly',
+            },
             {
                 urlPattern: /\.(?:png|jpg|jpeg|svg|webp)$/,
                 handler: 'CacheFirst',
