@@ -157,7 +157,7 @@ module.exports = {
         clientsClaim: true, //new
         skipWaiting: true, //new
         precacheManifestFilename: 'js/precache-manifest.[manifestHash].js',
-        importScripts: ['/dist/workbox-catch-handler.js'],
+        // importScripts: ['/dist/workbox-catch-handler.js'],
         exclude: [
             /\.(png|jpe?g|gif|svg|webp)$/i,
             /\.map$/,
