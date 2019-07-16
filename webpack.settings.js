@@ -168,10 +168,6 @@ module.exports = {
         offlineGoogleAnalytics: true,
         runtimeCaching: [
             {
-                urlPattern: /\./,
-                handler: 'StaleWhileRevalidate',
-            },
-            {
                 urlPattern: /^(.*(api|admin).*)/,
                 handler: 'NetworkOnly',
             },
