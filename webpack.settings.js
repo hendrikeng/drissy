@@ -154,6 +154,8 @@ module.exports = {
     },
     workboxConfig: {
         swDest: '../sw.js',
+        clientsClaim: true, //new
+        skipWaiting: true, //new
         precacheManifestFilename: 'js/precache-manifest.[manifestHash].js',
         importScripts: ['/dist/workbox-catch-handler.js'],
         exclude: [
@@ -161,9 +163,10 @@ module.exports = {
             /\.map$/,
             /^manifest.*\\.js(?:on)?$/,
         ],
-        globDirectory: './web/',
-        globPatterns: ['offline.html', 'offline.svg'],
+        // globDirectory: './web/',
+        // globPatterns: ['offline.html', 'offline.svg'],
         offlineGoogleAnalytics: true,
+        navigateFallbackBlacklist: [/admin/], //new
         runtimeCaching: [
             {
                 urlPattern: /\.(?:png|jpg|jpeg|svg|webp)$/,
@@ -174,6 +177,14 @@ module.exports = {
                         maxEntries: 20,
                     },
                 },
+            },
+            { // new
+                urlPattern: '/',
+                handler: 'staleWhileRevalidate',
+            },
+            { //new
+                urlPattern: '/offline',
+                handler: 'staleWhileRevalidate',
             },
         ],
     },
