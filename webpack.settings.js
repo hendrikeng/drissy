@@ -162,6 +162,7 @@ module.exports = {
             /\.(png|jpe?g|gif|svg|webp)$/i,
             /\.map$/,
             /^manifest.*\\.js(?:on)?$/,
+           // /\/admin/,
         ],
         // globDirectory: './web/',
         // globPatterns: ['offline.html', 'offline.svg'],
@@ -177,6 +178,10 @@ module.exports = {
                         maxEntries: 20,
                     },
                 },
+            },
+            {
+                urlPattern: /\/admin/,
+                handler: 'NetworkOnly',
             },
         ],
     },
