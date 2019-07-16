@@ -168,7 +168,11 @@ module.exports = {
         offlineGoogleAnalytics: true,
         runtimeCaching: [
             {
-                urlPattern: /^(.*(api|admin).*)/,
+                urlPattern: /^(?!.*(api|admin)).*$/,
+                handler: 'CacheFirst',
+            },
+            {
+                urlPattern: /^(.*(api|admin)).*$/,
                 handler: 'NetworkOnly',
             },
             {
