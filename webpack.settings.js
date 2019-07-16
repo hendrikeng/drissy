@@ -170,7 +170,7 @@ module.exports = {
         runtimeCaching: [
             {
                 urlPattern: /\.(?:png|jpg|jpeg|svg|webp)$/,
-                handler: 'cacheFirst',
+                handler: 'CacheFirst',
                 options: {
                     cacheName: 'images',
                     expiration: {
@@ -180,11 +180,11 @@ module.exports = {
             },
             { // new
                 urlPattern: '/',
-                handler: 'staleWhileRevalidate',
+                handler: 'StaleWhileRevalidate',
             },
             { //new
                 urlPattern: '/offline',
-                handler: 'staleWhileRevalidate',
+                handler: 'StaleWhileRevalidate',
             },
         ],
     },
