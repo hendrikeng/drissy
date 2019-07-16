@@ -167,18 +167,8 @@ module.exports = {
         // globPatterns: ['offline.html', 'offline.svg'],
         offlineGoogleAnalytics: true,
         runtimeCaching: [
-            //     {
-            //         urlPattern: new RegExp('https://drissy-stag.wewereyoung.de/'),
-            //         handler: 'NetworkOnly',
-            //    },
-            //     {
-            //         urlPattern: new RegExp(
-            //             'https://drissy-stag.wewereyoung.de/admin/',
-            //         ),
-            //         handler: 'NetworkOnly',
-            //     },
             {
-                urlPattern: /\/admin/,
+                urlPattern: /^(.*(api|robots|utm_source).*)/,
                 handler: 'NetworkOnly',
             },
             {
