@@ -42,7 +42,7 @@ module.exports = {
     copyWebpackConfig: [
         {
             from: './src/js/workbox-catch-handler.js',
-            to: 'js/[name].[ext]',
+            to: '[name].[ext]',
         },
         // copy fontfaceobsever from node modules
         {
