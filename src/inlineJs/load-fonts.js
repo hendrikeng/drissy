@@ -1,3 +1,5 @@
+"use strict";
+
 var FontA = new FontFaceObserver("Roboto Condensed");
 var FontB = new FontFaceObserver("Cabin");
 

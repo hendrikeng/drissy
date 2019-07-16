@@ -89,8 +89,9 @@ Layout: Default
     {% endif %}
     <% } %>
 
-    {# -- Tab Handler -- #}
+    {# -- inlineJs-- #}
     <script>
+        {{ craft.twigpack.includeFile("@webroot/dist/js/service-worker.js") }}
         {{ craft.twigpack.includeFile("@webroot/dist/js/tab-handler.js") }}
     </script>
 

@@ -68,6 +68,14 @@ module.exports = {
                 return Terser.minify(content.toString()).code;
             },
         },
+                // copy and minify inlineJs
+                {
+                    from: './src/inlineJs/service-worker.js',
+                    to: 'js/[name].[ext]',
+                    transform: function(content, path) {
+                        return Terser.minify(content.toString()).code;
+                    },
+                },
         // copy and minify webfonts css
         {
             from: './src/css/components/webfonts.pcss',
@@ -154,10 +162,7 @@ module.exports = {
             /^manifest.*\\.js(?:on)?$/,
         ],
         globDirectory: './web/',
-        globPatterns: [
-            'offline.twig',
-            // "offline.svg"
-        ],
+        globPatterns: ['offline.html', 'offline.svg'],
         offlineGoogleAnalytics: true,
         runtimeCaching: [
             {

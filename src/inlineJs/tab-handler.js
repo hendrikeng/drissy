@@ -1,3 +1,5 @@
+"use strict";
+
 // Handle tabs gracefully as per https://hackernoon.com/removing-that-ugly-focus-ring-and-keeping-it-too-6c8727fefcd2
 function handleFirstTab(e) {
   if (e.keyCode === 9) {
