@@ -24,8 +24,8 @@ module.exports = {
         templates: './templates/',
     },
     urls: {
-        live: 'https://example.com/',
-        staging: 'http://example.test/',
+        live: 'https://drissy-prod.wewereyoung.de/',
+        staging: 'https://drissy-stag.wewereyoung.de/',
         local: 'http://drissy.test/',
         critical: 'http://drissy.test/',
         publicPath: () => process.env.PUBLIC_PATH || '/dist/',
@@ -132,7 +132,7 @@ module.exports = {
     },
     purgeCssConfig: {
         paths: ['./templates/**/*.{twig,html}', './src/vue/**/*.{vue,html}'],
-        whitelist: ['./src/css/components/**/*.{css}'],
+        whitelist: ['./src/css/components/**/*.{css,pcss}'],
         whitelistPatterns: [],
         extensions: ['html', 'js', 'twig', 'vue'],
     },
