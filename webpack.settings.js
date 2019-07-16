@@ -154,8 +154,8 @@ module.exports = {
     },
     workboxConfig: {
         swDest: '../sw.js',
-        clientsClaim: true, //new
-        skipWaiting: true, //new
+        // clientsClaim: true, //new
+        // skipWaiting: true, //new
         precacheManifestFilename: 'js/precache-manifest.[manifestHash].js',
         // importScripts: ['/dist/workbox-catch-handler.js'],
         exclude: [
