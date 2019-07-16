@@ -27,7 +27,7 @@ module.exports = {
         live: 'https://drissy-prod.wewereyoung.de/',
         staging: 'https://drissy-stag.wewereyoung.de/',
         local: 'http://drissy.test/',
-        critical: 'http://drissy.test/',
+        critical: 'https://drissy-stag.wewereyoung.de/',
         publicPath: () => process.env.PUBLIC_PATH || '/dist/',
     },
     vars: {
