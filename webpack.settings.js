@@ -157,7 +157,7 @@ module.exports = {
         clientsClaim: true, //new
         skipWaiting: true, //new
         precacheManifestFilename: 'js/precache-manifest.[manifestHash].js',
-        // importScripts: ['/dist/workbox-catch-handler.js'], breaks
+        // importScripts: ['/dist/workbox-catch-handler.js'],
         exclude: [
             /\.(png|jpe?g|gif|svg|webp)$/i,
             /\.map$/,
@@ -168,15 +168,11 @@ module.exports = {
         offlineGoogleAnalytics: true,
         runtimeCaching: [
             {
-                urlPattern: new RegExp('/'),
-                handler: 'StaleWhileRevalidate',
-            },
-            {
-                urlPattern: new RegExp('^(.*(api|admin).*)'),
+                urlPattern: /^(.*(api|admin).*)/,
                 handler: 'NetworkOnly',
             },
             {
-                urlPattern: new RegExp('\.(?:png|jpg|jpeg|svg|webp)$'),
+                urlPattern: /\.(?:png|jpg|jpeg|svg|webp)$/,
                 handler: 'CacheFirst',
                 options: {
                     cacheName: 'images',
