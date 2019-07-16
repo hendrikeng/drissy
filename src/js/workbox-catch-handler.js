@@ -24,6 +24,11 @@ workbox.routing.setCatchHandler(({event, request, url}) => {
     }
 });
 
+workbox.routing.registerRoute(
+    /\/admin/,
+    workbox.strategies.networkOnly()
+ );
+
 // Use a stale-while-revalidate strategy for all other requests.
 workbox.routing.setDefaultHandler(
     workbox.strategies.staleWhileRevalidate()

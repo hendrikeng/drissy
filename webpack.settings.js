@@ -179,10 +179,6 @@ module.exports = {
                     },
                 },
             },
-            {
-                urlPattern: /\/admin/,
-                handler: 'NetworkOnly',
-            },
         ],
     },
 };
