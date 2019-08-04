@@ -51,6 +51,15 @@
     "scripts": {
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "@php craft setup/welcome"
+        ],
+        "post-update-cmd": [
+            "@php craft clear-caches/all"
+        ],
+        "post-install-cmd": [
+            "@php craft clear-caches/all"
         ]
       }
     }

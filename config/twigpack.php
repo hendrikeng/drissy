@@ -58,8 +58,8 @@ return [
     // Staging (pre-production) environment
     'staging' => [
     ],
-    // Local (development) environment
-    'local' => [
+    // Dev (development) environment
+    'dev' => [
         // If `devMode` is on, use webpack-dev-server to all for HMR (hot module reloading)
         'useDevServer' => true,
     ],
