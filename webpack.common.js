@@ -6,7 +6,6 @@ const MODERN_CONFIG = 'modern';
 const path = require('path');
 const merge = require('webpack-merge');
 
-
 // webpack plugins
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
@@ -17,7 +16,7 @@ const pkg = require('./package.json');
 const settings = require('./webpack.settings.js');
 
 // Configure Babel loader
-const configureBabelLoader = (browserList) => {
+const configureBabelLoader = browserList => {
     return {
         test: /\.js$/,
         exclude: settings.babelLoaderConfig.exclude,
@@ -27,17 +26,18 @@ const configureBabelLoader = (browserList) => {
                 cacheDirectory: true,
                 presets: [
                     [
-                        '@babel/preset-env', {
+                        '@babel/preset-env',
+                        {
                             modules: false,
-                            corejs:  {
+                            corejs: {
                                 version: 3,
-                                proposals: true
+                                proposals: true,
                             },
                             useBuiltIns: 'usage',
                             targets: {
                                 browsers: browserList,
                             },
-                        }
+                        },
                     ],
                 ],
                 plugins: [

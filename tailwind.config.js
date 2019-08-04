@@ -10,9 +10,8 @@ module.exports = {
         },
     },
     variants: {
-      aspectRatio: ['responsive'],
+        aspectRatio: ['responsive'],
     },
-    plugins: [
-      require('tailwindcss-aspect-ratio')(),
-    ],
+    // eslint-disable-next-line global-require
+    plugins: [require('tailwindcss-aspect-ratio')()],
 };

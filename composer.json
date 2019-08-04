@@ -12,10 +12,10 @@
         "source": "https://github.com/hendrikeng/drissy",
         "docs": "https://github.com/hendrikeng/drissy"
     },
-    "minimum-stability": "RC",
+    "minimum-stability": "stable",
     "require": {
         "aelvan/imager": "^2.0",
-        "craftcms/cms": "^3.0.0-RC7",
+        "craftcms/cms": "^3.0.0",
         "craftcms/redactor": "^2.0.0.1",
         "doublesecretagency/craft-cpcss": "^2.1.0",
         "mmikkel/child-me": "^1.0",
@@ -28,13 +28,18 @@
         "nystudio107/craft-seomatic": "^3.0",
         "nystudio107/craft-twigpack": "^1.1",
         "nystudio107/craft-typogrify": "^1.1.1",
-        "nystudio107/craft3-multi-environment": "^1.0.5",
         "ostark/craft-async-queue": "^1.3.0",
         "pennebaker/craft-architect": "2.2.10",
         "sebastianlenz/linkfield": "1.0.8",
         "topshelfcraft/environment-label": "^3.1",
         "verbb/expanded-singles": "^1.0",
-        "verbb/image-resizer": "2.0.3"
+        "verbb/image-resizer": "2.0.3",
+        "vlucas/phpdotenv": "^2.4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "modules\\": "modules/"
+        }
     },
     "config": {
         "optimize-autoloader": true,
@@ -44,14 +49,8 @@
         }
     },
     "scripts": {
-        "post-create-project-cmd": [
-          "@php nys-setup welcome"
-        ],
-        "post-update-cmd": [
-          "@php nys-setup update"
-        ],
-        "post-install-cmd": [
-          "@php nys-setup update"
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ]
       }
     }

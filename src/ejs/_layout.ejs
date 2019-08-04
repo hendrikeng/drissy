@@ -12,7 +12,7 @@ Layout: Default
 <% assetHash = compilation.hash.slice(0, 7) %>
 {# -- set assetHash and baseUrl -- #}
 {% set assetHash = '<%- assetHash %>' %}
-{% set baseUrl = alias('@baseUrl') %}
+{% set baseUrl = alias('@web') %}
 {% header "Link: <#{baseUrl}/>; rel=dns-prefetch;,<#{baseUrl}>; rel=preconnect; crossorigin;" %}
 <!DOCTYPE html>
 <!-- Fonts Cookie -->
@@ -103,7 +103,7 @@ Layout: Default
 {%- minify -%}
     <% } %>
     <body itemscope itemtype="http://schema.org/WebPage">
-   
+
 
         {% block body %}
 
