@@ -1,20 +1,5 @@
 <?php
 /**
- * Craft 3 Multi-Environment
- * Efficient and flexible multi-environment config for Craft 3 CMS
- *
- * $_ENV constants are loaded by craft3-multi-environment from .env.php via
- * ./web/index.php for web requests, and ./craft for console requests
- *
- * @author    nystudio107
- * @copyright Copyright (c) 2017 nystudio107
- * @link      https://nystudio107.com/
- * @package   craft3-multi-environment
- * @since     1.0.5
- * @license   MIT
- */
-
-/**
  * Asset Volume Configuration
  *
  * All of your system's volume configuration settings go in here.
@@ -31,20 +16,20 @@ return [
     // All environments
     '*' => [
         'siteImages' => [
-            'path' => '@basePath/uploads/images',
-            'url' => '@baseUrl/uploads/images',
+            'path' => '@webroot/uploads/images',
+            'url' => '@web/uploads/images',
         ],
         'siteMedia' => [
-            'path' => '@basePath/uploads/media',
-            'url' => '@baseUrl/uploads/media',
+            'path' => '@webroot/uploads/media',
+            'url' => '@web/uploads/media',
         ],
         'siteUsers' => [
-            'path' => '@basePath/uploads/users',
-            'url' => '@baseUrl/uploads/users',
+            'path' => '@webroot/uploads/users',
+            'url' => '@web/uploads/users',
         ],
         'siteDownloads' => [
-            'path' => '@basePath/uploads/downloads',
-            'url' => '@baseUrl/uploads/downloads',
+            'path' => '@webroot/uploads/downloads',
+            'url' => '@web/uploads/downloads',
         ],
     ],
 
@@ -56,7 +41,7 @@ return [
     'staging'  => [
     ],
 
-    // Local (development) environment
-    'local'  => [
+    // Dev (development) environment
+    'dev'  => [
     ],
 ];

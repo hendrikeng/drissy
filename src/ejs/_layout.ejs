@@ -12,7 +12,7 @@ Layout: Default
 <% assetHash = compilation.hash.slice(0, 7) %>
 {# -- set assetHash and baseUrl -- #}
 {% set assetHash = '<%- assetHash %>' %}
-{% set baseUrl = alias('@baseUrl') %}
+{% set baseUrl = alias('@web') %}
 {% header "Link: <#{baseUrl}/>; rel=dns-prefetch;,<#{baseUrl}>; rel=preconnect; crossorigin;" %}
 <!DOCTYPE html>
 <!-- Fonts Cookie -->
@@ -41,49 +41,6 @@ Layout: Default
     <meta name="viewport"
           content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <!-- FAVICONS -->
-    <% if (htmlWebpackPlugin.options.env.prod) { %>
-    <!-- Favicons -->
-    <link rel="icon" type="image/png" sizes="32x32"
-          href="{{ baseUrl }}/assets/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16"
-          href="{{ baseUrl }}/assets/favicon-16x16.png">
-    <link rel="shortcut icon" href="{{ baseUrl }}/assets/favicon.ico">
-    <!-- Apple Web App Meta -->
-    <link rel="apple-touch-icon" sizes="57x57"
-          href="{{ baseUrl }}/assets/apple-touch-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60"
-          href="{{ baseUrl }}/assets/apple-touch-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72"
-          href="{{ baseUrl }}/assets/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76"
-          href="{{ baseUrl }}/assets/apple-touch-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114"
-          href="{{ baseUrl }}/assets/apple-touch-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120"
-          href="{{ baseUrl }}/assets/apple-touch-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144"
-          href="{{ baseUrl }}/assets/apple-touch-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152"
-          href="{{ baseUrl }}/assets/apple-touch-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180"
-          href="{{ baseUrl }}/assets/apple-touch-icon-180x180.png">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style"
-          content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="drissy">
-    <!-- Windows Tiles -->
-    <meta name="msapplication-config"
-          content="{{ baseUrl }}/assets/browserconfig.xml">
-    <meta name="msapplication-TileColor" content="#fff">
-    <meta name="msapplication-TileImage"
-          content="{{ baseUrl }}/assets/mstile-144x144.png">
-    <!-- Manifest -->
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="{{ currentSite.name }}">
-    <meta name="theme-color" content="#3abad9">
-    <link rel="manifest" href="{{ baseUrl }}/assets/manifest.json">
-    <% } %>
 
     <!-- Seomatic -->
     {% if craft.plugin.Seomatic is defined %}
@@ -99,31 +56,20 @@ Layout: Default
 
     {# -- CRITICAL CSS -- #}
     <% if (htmlWebpackPlugin.options.env.prod) { %>
-    {% set criticalCss = getCookie('critical-css') %}
-    {% if criticalCss and criticalCss == assetHash %}
-        <link rel="stylesheet"
-              href="{{ baseUrl }}<%= htmlWebpackPlugin.files.css %>">
-    {% else %}
-        {{ setCookie('critical-css', assetHash, now | date_modify("+7 days").timestamp ) }}
-        {% block _inline_css %}{% endblock %}
-    <link rel="preload"
-          href="{{ baseUrl }}<%= htmlWebpackPlugin.files.css %>"
-          as="style"
-          onload="this.onload=null;this.rel='stylesheet'">
-        <noscript>
-            <link rel="stylesheet"
-                  href="{{ baseUrl }}<%= htmlWebpackPlugin.files.css %>">
-        </noscript>
-        <script>
-            {#{{ source("_inlinejs/loadCSS.min.js") }}#}
-            {{ source('_inlinejs/cssrelpreload.js') }}
-        </script>
-    {% endif %}
+        {% set criticalCss = getCookie('critical-css') %}
+        {% if criticalCss and criticalCss == assetHash %}
+            {{ craft.twigpack.includeCssModule("styles.css") }}
+        {% else %}
+            {{ setCookie('critical-css', assetHash, now | date_modify("+7 days").timestamp ) }}
+            {{ craft.twigpack.includeCriticalCssTags() }}
+            {{ craft.twigpack.includeCssModule("styles.css", true) }}
+            {{ craft.twigpack.includeCssRelPreloadPolyfill() }}
+        {% endif %}
     <% } %>
 
     {# -- Fontface Observer -- #}
     <style>
-        {% include "_inlinecss/_site_fonts.css" %}
+        {{ craft.twigpack.includeFile("@webroot/dist/css/webfonts.css") }}
     </style>
     <% if (htmlWebpackPlugin.options.env.prod) { %>
     {% if fontsLoaded and fontsLoaded == assetHash %}
@@ -135,17 +81,18 @@ Layout: Default
                     document.documentElement.className += "fonts-loaded";
                     return;
                 }
-                {{ source('_inlinejs/fontfaceobserver.js') }}
-                {{ source('_inlinejs/load-fonts.js') }}
+                {{ craft.twigpack.includeFile("@webroot/dist/js/fontfaceobserver.js") }}
+                {{ craft.twigpack.includeFile("@webroot/dist/js/load-fonts.js") }}
             })();
         </script>
         {{ setCookie('fonts-loaded', assetHash, now | date_modify("+7 days").timestamp ) }}
     {% endif %}
     <% } %>
 
-    {# -- Tab Handler -- #}
+    {# -- inlineJs-- #}
     <script>
-        {{ source("_inlinejs/tab-handler.js") }}
+        {{ craft.twigpack.includeFile("@webroot/dist/js/service-worker.js") }}
+        {{ craft.twigpack.includeFile("@webroot/dist/js/tab-handler.js") }}
     </script>
 
     {%- endminify -%}
@@ -156,54 +103,95 @@ Layout: Default
 {%- minify -%}
     <% } %>
     <body itemscope itemtype="http://schema.org/WebPage">
-    <div id="app">
+
+
         {% block body %}
 
-            {# -- Debug -- #}
-            <% if (htmlWebpackPlugin.options.env.devA) { %>
-            {% block debug %}
-                <div class="o-grid-wrap flex-col bg-red-lightest">
-                    <p class="text-sm text-red font-extrabold mb-2 -mt-2 underline">
-                        DEBUG</p>
-                    <p class="text-sm text-grey-darkest font-extrabold mb-2 -mt-2 ">
-                        entry.slug -
-                        <span
-                            class="text-red font-bold">{{ entry.slug }}</span>
-                    </p>
-                    <p class="text-sm text-grey-darkest font-extrabold mb-2 -mt-2 ">
-                        entry.title -
-                        <span
-                            class="text-red font-bold">{{ entry.title }}</span>
-                    </p>
-                    <p class="text-sm text-grey-darkest font-extrabold mb-2 -mt-2 ">
-                        entry.type -
-                        <span
-                            class="text-red font-bold">{{ entry.type }}</span>
-                    </p>
-                    <p class="text-sm text text-grey-darkest font-extrabold mb-2 -mt-2 ">
-                        section.handle -
-                        <span
-                            class="text-red font-bold">{{ entry.section.handle }}</span>
-                    </p>
-                    <p class="text-sm text-grey-darkest font-extrabold mb-2 -mt-2 ">
-                        app.request.pathInfo -
-                        <span
-                            class="text-red font-bold">{{ craft.app.request.pathInfo }}</span>
-                    </p>
-                    <p class="text-sm text-grey-darkest font-extrabold -mt-2 ">
-                        template path -
-                        <span
-                            class="text-red font-bold">./templates/entry/{{ entry.section.type == 'channel' ? '' : entry.section.handle ~ '/' }}{{ entry.type }}
-                            .twig</span>
-                    </p>
+        {# -- Debug -- #}
+        {% block debug %}
+            <% if (htmlWebpackPlugin.options.env.dev) { %>
+            {% if craft.app.config.general.devMode %}
+                <div id="debug">
+                    <div
+                            class="mb-2 ml-2 fixed bottom-0 left-0 rounded-full bg-grey px-4 py-2 font-extrabold z-50 cursor-pointer"
+                            v-on:click="openDebug()">D
+                    </div>
+                    <div
+                            class="hidden fixed z-30 opacity-100 pin-x bottom-0 bg-red-lightest p-4"
+                            ref="debugMode">
+                        <p class="text-sm text-red font-extrabold underline text-center">
+                            DEBUG</p>
+                        <div class="w-full flex container mx-auto flex-wrap">
+                            {% if craft.app.request.getSegment(1) != 'shop' %}
+                                <div class="mx-auto w-full pt-2">
+                                    <p class="text-sm text-grey-darkest font-extrabold mb-2 -mt-2 ">
+                                        entry.slug -
+                                        <span
+                                                class="text-red font-bold">{{ entry.slug }}</span>
+                                    </p>
+                                    <p class="text-sm text-grey-darkest font-extrabold mb-2 -mt-2 ">
+                                        entry.title -
+                                        <span
+                                                class="text-red font-bold">{{ entry.title }}</span>
+                                    </p>
+                                    <p class="text-sm text-grey-darkest font-extrabold mb-2 -mt-2 ">
+                                        entry.type -
+                                        <span
+                                                class="text-red font-bold">{{ entry.type }}</span>
+                                    </p>
+                                    <p class="text-sm text text-grey-darkest font-extrabold mb-2 -mt-2 ">
+                                        section.handle -
+                                        <span
+                                                class="text-red font-bold">{{ entry.section.handle }}</span>
+                                    </p>
+                                    <p class="text-sm text-grey-darkest font-extrabold mb-2 -mt-2 ">
+                                        app.request.pathInfo -
+                                        <span
+                                                class="text-red font-bold">{{ craft.app.request.pathInfo }}</span>
+                                    </p>
+                                    <p class="text-sm text-grey-darkest font-extrabold -mt-2 ">
+                                        template path -
+                                        <span
+                                                class="text-red font-bold">./templates/entry/{{ entry.section.type == 'channel' ? '' : entry.section.handle ~ '/' }}{{ entry.type }}
+                                            .twig</span>
+                                    </p>
+                                </div>
+                            {% endif %}
+                            {% if craft.app.session.hasFlash('notice') or craft.app.session.hasFlash('error') %}
+                                {% set isErrors = true %}
+                                {% set noticeFlash = craft.app.session.getFlash('notice')|join('|') %}
+                                {% set errorFlash = craft.app.session.getFlash('error')|join('|') %}
+                                <div class="w-full pt-2">
+                                    {% if noticeFlash %}
+                                        <div
+                                                class="w-1/3 mx-auto bg-green text-white my-2">
+                                            <div class="text-sm font-bold p-2">
+                                                {{ noticeFlash }}
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                    {% if errorFlash %}
+                                        <div
+                                                class="w-1/3 mx-auto bg-red text-white my-2">
+                                            <div class="text-sm font-bold p-2">
+                                                {{ errorFlash }}
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
                 </div>
-            {% endblock %}
+            {% endif %}
             <% } %>
+            {% endblock %}
 
             {% block header %}{% endblock %}
 
             <main itemscope itemprop="mainContentOfPage"
-                  itemtype="http://schema.org/mainContentOfPage">
+                  itemtype="http://schema.org/mainContentOfPage"
+                  id="app">
                 {% block content %}{% endblock %}
             </main>
 
@@ -216,17 +204,16 @@ Layout: Default
             {% endblock %}
 
         {% endblock %}
-    </div>
+
 
     {% block scripts %}
         <script>
             window.csrfTokenValue = "{{ craft.app.request.csrfToken|e('js') }}"
         </script>
-        <% if (htmlWebpackPlugin.options.env.prod) { %>
-        <script
-            src="{{ baseUrl }}<%= htmlWebpackPlugin.files.js[0] %>"></script>
-        <% } %>
     {% endblock %}
+
+    {{ craft.twigpack.includeSafariNomoduleFix() }}
+    {{ craft.twigpack.includeJsModule("app.js", true) }}
 
     </body>
     <% if (htmlWebpackPlugin.options.env.prod) { %>

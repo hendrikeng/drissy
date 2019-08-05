@@ -5,45 +5,45 @@
 #}
 
 {# TODO WURM mit autoclosing #}
+{% if matrix %}
 
-{% for block in matrix.all() %}
+
+    {% for block in matrix.all() %}
 
 
-    {% if block.type == 'headline' %}
-        <!-- Start section is headline -->
-        <section class="js-section is headline">
+        {% if block.type == 'headline' %}
+            <!-- Start section is headline -->
+            <section class="js-section is headline">
 
-        {#{% elseif block.type == 'cbSection' %}#}
-        {#<!-- Start section is cbSection -->#}
-        {#<section class="js-section is cbSection">#}
+            {#{% elseif block.type == 'cbSection' %}#}
+            {#<!-- Start section is cbSection -->#}
+            {#<section class="js-section is cbSection">#}
 
-    {% else %}
-
-    {% endif %}
-
-    {% include[
-        "matrix/" ~ block.type,
-        "matrix/default"
-        ] %}
-
-    {# Check if an other Section is opened and close the Section before #}
-
-    {% if block.getNext() %}
-
-        {% if block.getNext().type == 'headline' %}
-            </section>
-            <!-- end: section is headline -->
-            {#        {% elseif block.getNext().type == 'cbSection' %}
-                        </section>
-                        <!-- end: section is cbSection -->#}
         {% else %}
 
-
         {% endif %}
-    {% endif %}
+
+        {% include[
+            "matrix/" ~ block.type,
+            "matrix/default"
+            ] %}
+
+        {# Check if an other Section is opened and close the Section before #}
+
+        {% if block.getNext() %}
+
+            {% if block.getNext().type == 'headline' %}
+                </section>
+                <!-- end: section is headline -->
+                {#        {% elseif block.getNext().type == 'cbSection' %}
+                            </section>
+                            <!-- end: section is cbSection -->#}
+            {% else %}
 
 
+            {% endif %}
+        {% endif %}
 
+    {% endfor %}
 
-{% endfor %}
-
+{% endif %}
