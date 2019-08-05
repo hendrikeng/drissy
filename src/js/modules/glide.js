@@ -1,32 +1,26 @@
 import Glide, {
+    Autoplay,
     Controls,
     Swipe,
     Breakpoints,
+    Keyboard,
 } from '@glidejs/glide/dist/glide.modular.esm';
 
 export const slider = {
     selector: [...document.querySelectorAll('.js-slider')],
     options: {
-        type: 'slider',
-        // hoverpause: true,
-        // autoplay: 2000,
-        bound: true,
-        gap: 16,
-        perView: 3,
-        breakpoints: {
-            1024: {
-                perView: 2,
-            },
-            600: {
-                perView: 1,
-            },
-        },
+        type: 'carousel',
+        //  gap: 0,
+        //  hoverpause: false,
+        //  autoplay: 3000,
+        //  bound: false,
+        //  rewind: false,
     },
 
     init() {
         this.selector.forEach.call(this.selector, (item, i) => {
             this.slider = new Glide(item, this.options);
-            this.slider.mount({ Controls, Swipe, Breakpoints });
+            this.slider.mount({ Swipe, Autoplay, Keyboard });
             this.slider = true;
             console.log(`Slider ${i} ${this.slider}`);
         });
@@ -51,9 +45,9 @@ export const carousel = {
         // hoverpause: true,
         // autoplay: 2000,
         // focusAt: 'center',
-        bound: true,
-        gap: 16,
-        perView: 3,
+        bound: false,
+        gap: 0,
+        perView: 8,
         breakpoints: {
             1024: {
                 perView: 2,
