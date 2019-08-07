@@ -10,7 +10,7 @@ categoryGroups:
         hasUrls: true
         uriFormat: 'category/{slug}'
         template: _taxonomy
-dateModified: 1565193949
+dateModified: 1565197786
 email:
   fromEmail: $SYSTEM_EMAIL_ADDRESS
   fromName: $SENDER_NAME
@@ -1812,11 +1812,6 @@ matrixBlockTypes:
         fieldGroup: null
         contentColumnType: string
 plugins:
-  fractal:
-    settings: null
-    licenseKey: null
-    enabled: '0'
-    schemaVersion: 1.0.0
   async-queue:
     settings: null
     licenseKey: null
@@ -1844,16 +1839,6 @@ plugins:
     licenseKey: null
     enabled: '1'
     schemaVersion: 1.0.0
-  contact-form:
-    settings: null
-    licenseKey: null
-    enabled: '1'
-    schemaVersion: 1.0.0
-  craft-gonzo:
-    settings: null
-    licenseKey: null
-    enabled: '1'
-    schemaVersion: 0.0.1
   environment-label:
     settings: null
     licenseKey: null
@@ -1886,15 +1871,6 @@ plugins:
     licenseKey: null
     enabled: '1'
     schemaVersion: 2.3.0
-  splash:
-    settings:
-      volume: '1'
-      authorField: ''
-      authorUrlField: ''
-      colorField: ''
-    licenseKey: null
-    enabled: '1'
-    schemaVersion: 3.0.0
   typedlinkfield:
     settings: null
     licenseKey: null
@@ -2130,7 +2106,7 @@ siteGroups:
     name: default
 sites:
   18cc759f-911b-4dee-a438-b50790f9d6fb:
-    name: 'Main Page'
+    name: Main
     handle: default
     language: en-US
     hasUrls: true
