@@ -1861,11 +1861,6 @@ plugins:
     licenseKey: null
     enabled: '1'
     schemaVersion: 1.0.0
-  position-fieldtype:
-    settings: null
-    licenseKey: null
-    enabled: '1'
-    schemaVersion: 1.0.0
   redactor:
     settings: null
     licenseKey: null
