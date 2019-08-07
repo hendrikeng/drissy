@@ -20,6 +20,9 @@ return [
             'subLeft' => true,
             'subRight' => true,
         ),
+        'convertFilenamesToAscii' => true,
+        'limitAutoSlugsToAscii' => true,
+        'sendPoweredByHeader' => false,
         //
         'enableCsrfProtection' => true,
         //
@@ -28,7 +31,7 @@ return [
         'omitScriptNameInUrls' => true,
 
         // Control Panel trigger word
-        'cpTrigger' => 'admin',
+        'cpTrigger' => getenv('CP_TRIGGER') ?: 'admin',
 
         // The secure key Craft will use for hashing and encrypting data
         'securityKey' => getenv('SECURITY_KEY'),
@@ -38,7 +41,11 @@ return [
         'usePathInfo' => true,
         // Whether to save the project config out to config/project.yaml
         // (see https://docs.craftcms.com/v3/project-config.html)
-        'useProjectConfigFile' => false,
+        'useProjectConfigFile' => true,
+        // Aliases
+        'aliases' => [
+            '@baseUrl'    => getenv('DEFAULT_SITE_URL'),
+        ],
     ],
 
     // Dev environment settings
@@ -57,8 +64,6 @@ return [
 
     // Staging environment settings
     'staging' => [
-        // Set this to `false` to prevent administrative changes from being made on staging
-        'allowAdminChanges' => true,
         //
         'allowUpdates' => false,
         //
@@ -69,12 +74,12 @@ return [
         'enableTemplateCaching' => true,
         //
         'isSystemOn' => false,
+        // Disable project config changes on staging
+        'allowAdminChanges' => false,
     ],
 
     // Production environment settings
     'production' => [
-        // Set this to `false` to prevent administrative changes from being made on production
-        'allowAdminChanges' => true,
         //
         'allowUpdates' => false,
         //
@@ -85,5 +90,8 @@ return [
         'enableTemplateCaching' => true,
         //
         'isSystemOn' => true,
+        // Disable project config changes on production
+        'allowAdminChanges' => false,
+        'suppressTemplateErrors' => false,
     ],
 ];
