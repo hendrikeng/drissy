@@ -17,19 +17,19 @@ return [
     '*' => [
         'siteImages' => [
             'path' => '@webroot/uploads/images',
-            'url' => getenv('DEFAULT_SITE_URL') . '/uploads/images',
+            'url' => getenv('DEFAULT_SITE_URL') . '/assets/images',
         ],
         'siteMedia' => [
             'path' => '@webroot/uploads/media',
-            'url' => getenv('DEFAULT_SITE_URL') . '/uploads/media',
+            'url' => getenv('DEFAULT_SITE_URL') . '/assets/media',
         ],
         'siteUsers' => [
             'path' => '@webroot/uploads/users',
-            'url' => getenv('DEFAULT_SITE_URL') . '/uploads/users',
+            'url' => getenv('DEFAULT_SITE_URL') . '/assets/users',
         ],
         'siteDownloads' => [
             'path' => '@webroot/uploads/downloads',
-            'url' => getenv('DEFAULT_SITE_URL') . '/uploads/downloads',
+            'url' => getenv('DEFAULT_SITE_URL') . '/assets/downloads',
         ],
     ],
 
