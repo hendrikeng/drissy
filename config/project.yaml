@@ -10,7 +10,7 @@ categoryGroups:
         hasUrls: true
         uriFormat: 'category/{slug}'
         template: _taxonomy
-dateModified: 1565197786
+dateModified: 1565262800
 email:
   fromEmail: $SYSTEM_EMAIL_ADDRESS
   fromName: $SENDER_NAME
@@ -1890,6 +1890,10 @@ plugins:
     edition: standard
     enabled: true
     schemaVersion: 1.0.0
+  wheelform:
+    edition: standard
+    enabled: true
+    schemaVersion: 2.0.0
 sections:
   067c114d-4f7a-4716-b308-0dfefa1de9e5:
     name: Homepage
@@ -2101,6 +2105,7 @@ siteGroups:
     name: default
 sites:
   18cc759f-911b-4dee-a438-b50790f9d6fb:
+    siteGroup: f8d87a05-56b7-4aad-8e28-08f54307f0f7
     name: Main
     handle: default
     language: en-US
@@ -2108,7 +2113,6 @@ sites:
     baseUrl: $DEFAULT_SITE_URL
     sortOrder: 1
     primary: true
-    siteGroup: f8d87a05-56b7-4aad-8e28-08f54307f0f7
 system:
   edition: solo
   live: true

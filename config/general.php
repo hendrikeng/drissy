@@ -44,7 +44,8 @@ return [
         'useProjectConfigFile' => true,
         // Aliases
         'aliases' => [
-            '@baseUrl'    => getenv('DEFAULT_SITE_URL'),
+            '@web'    => getenv('DEFAULT_SITE_URL'),
+            '@webroot' => dirname(__DIR__) . '/web',
         ],
     ],
 
