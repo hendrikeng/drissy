@@ -1,15 +1,28 @@
 <header itemscope itemtype="http://schema.org/WPHeader">
-    {% if opt.el.nav %}
-        {% include '_elements/nav/' ~ opt.el.nav with {
-            opt : {
-                data: navigationMain.globalNavigationMain.all() ?? null
-            }
-        } only %}
-    {% endif %}
+    <div
+        class="mx-auto max-w-3xl flex items-center justify-between flex-wrap px-4 mt-4 js-nav">
+        <div class="o-wrap">
+            <a href="{{ alias('@web') }}" title="Homepage">
+                {% include '_svg/logo.svg' with {
+                    opt : {
+                        class: 'align-middle w-8',
+                    }
+                } only %}
+            </a>
+        </div>
+        {% if opt.el.nav %}
+            {% include '_elements/nav/' ~ opt.el.nav with {
+                opt : {
+                    data: navigationMain.globalNavigationMain.all() ?? null
+                }
+            } only %}
+        {% endif %}
+    </div>
     {% block headerContent %}
         <div class="o-wrap">
             {% if opt.el.image %}
-                <div class="o-wrap__item o-wrap__item--half relative w-full h-half-screen">
+                <div
+                    class="o-wrap__item o-wrap__item--half relative w-full h-half-screen">
                     {% include '_elements/img/default.twig' with {
                         opt : {
                             data: opt.el.image,
@@ -29,9 +42,10 @@
                 </div>
             {% endif %}
             {% if opt.el.title %}
-            <h1 class="o-wrap__item o-wrap__item--quad mb-8" itemprop="headline">
-                <span class="js-headline">{{ opt.el.title }}</span>
-            </h1>
+                <h1 class="o-wrap__item o-wrap__item--quad mb-8"
+                    itemprop="headline">
+                    <span class="js-headline">{{ opt.el.title }}</span>
+                </h1>
             {% endif %}
             {% if opt.el.description %}
                 <p class="o-wrap__item" itemprop="description">

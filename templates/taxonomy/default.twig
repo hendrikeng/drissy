@@ -19,31 +19,39 @@
 
 {# -- Set Query -- #}
 {% set entries = craft.entries({
-    section: ['articles'],
+    section: [],
     relatedTo: craft.categories.slug(category.slug),
-    limit: null
+    limit: 4
 }) %}
 
-{% paginate entries as pageInfo,
-    pageEntries %}
+
+{% paginate entries as pageInfo,pageEntries %}
 
     {% block head %}
-        {% if pageInfo.prevUrl %}<link rel="prev" href="{{ pageInfo.prevUrl }}">{% endif %}
-        {% if pageInfo.nextUrl %}<link rel="next" href="{{ pageInfo.nextUrl }}">{% endif %}
+        {% if pageInfo.prevUrl %}
+            <link rel="prev" href="{{ pageInfo.prevUrl }}">{% endif %}
+        {% if pageInfo.nextUrl %}
+            <link rel="next" href="{{ pageInfo.nextUrl }}">{% endif %}
     {% endblock %}
 
     {% block debug %}{% endblock %}
 
     {% block header %}
-        {{ parent() }}
-{#        {% include '_components/header/default' with {
+        {% include '_components/header/default.twig' with {
             opt : {
+                imager: {
+                    lazy: false,
+                    mediaBox: false,
+                    class: 'absolute top-0 left-0 w-full h-full',
+                },
                 el: {
-                    nav: true,
+                    nav: 'default',
+                    image: entry.entryImage.one() ?? entry.introImage.one() ?? null,
+                    title: entry.introHeadline ?? entry.title ?? null,
+                    description: entry.introText ?? null,
                 }
             }
-        }
-            only %}#}
+        } only %}
     {% endblock %}
 
 
@@ -52,7 +60,7 @@
         {# -- Cache -- #}
         {# {% cache globally using key category.group().handle ~ category ~ craft.app.request.pathInfo ~ (craft.app.request.pageNum ? '/p' ~ craft.app.request.pageNum : '') %} #}
 
-        <div class="container flex flex-wrap text-center justify-around p-4">
+        <div class="co-wrap flex-col items-center">
 
             {% for entry in pageEntries %}
                 {% include '_item' %}
@@ -60,10 +68,9 @@
 
         </div>
 
-        <div class="container text-center mb-8">
+        <div class="text-center mb-8">
             {{ macro.pagination(pageInfo, craft, {}) }}
         </div>
         {# -- Cache End -- #}
         {# {% endcache %} #}
     {% endblock %}
-

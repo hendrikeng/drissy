@@ -2,20 +2,20 @@
 
 {% block blockContent %}
 
-{#        {% macro errorList(errors) %}
-            {% if errors %}
-                <ul class="mb-2 errors">
-                    {% for error in errors %}
-                        <li class="text-red">{{ error }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        {% endmacro %}
+    {#        {% macro errorList(errors) %}
+                {% if errors %}
+                    <ul class="mb-2 errors">
+                        {% for error in errors %}
+                            <li class="text-red">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endmacro %}
 
-        {% from _self import errorList %}
+            {% from _self import errorList %}
 
 
-    {{ errors['form'] is defined ? errorList(errors['form']) }}#}
+        {{ errors['form'] is defined ? errorList(errors['form']) }}#}
 
     <form method="post"
           accept-charset="UTF-8"
@@ -30,7 +30,7 @@
         <input type="hidden" name="form_id" value="{{ block.form }}">
         <input type="hidden" name="redirect" value="{{ 'danke'|hash }}">
 
-        <div class="gridWrap mt-8 lg:mt-16 container mx-auto flex flex-wrap p-2">
+        <div class="gridWrap mt-8 lg:mt-16 mx-auto flex flex-wrap p-2">
 
             <div class="gridElement w-full lg:w-1/2 p-2">
                 <label for="from-name">Vorname</label>
@@ -126,7 +126,7 @@
                                id="form"
                                v-validate.disabled="'required'"
                                data-vv-as="Datenschutzhinweisen"
-                               >
+                        >
                         <span class="checkmark"></span>
                     </label>
 

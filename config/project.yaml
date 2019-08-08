@@ -1,16 +1,16 @@
 categoryGroups:
   54b5dcb5-c568-4319-ac77-8d72e80bd79b:
-    name: Category
-    handle: category
+    name: 'Article Topic'
+    handle: articles
     structure:
       uid: 1b6aa722-9fe9-4f99-8aa7-90ab783c7c96
       maxLevels: 2
     siteSettings:
       18cc759f-911b-4dee-a438-b50790f9d6fb:
         hasUrls: true
-        uriFormat: 'category/{slug}'
+        uriFormat: 'articles/{slug}'
         template: _taxonomy
-dateModified: 1565262800
+dateModified: 1565290074
 email:
   fromEmail: $SYSTEM_EMAIL_ADDRESS
   fromName: $SENDER_NAME
@@ -18,6 +18,8 @@ email:
   transportType: craft\mail\transportadapters\Sendmail
   transportSettings: null
 fieldGroups:
+  50c18613-1902-4c41-9199-98ff833fad1d:
+    name: SEO
   5a27fb7b-bf48-4ac9-afdc-02d559faa2fc:
     name: Globals
   91b620a7-57a0-4432-a52e-9d37d5d4c17c:
@@ -103,7 +105,7 @@ fields:
       defaultUploadLocationSource: 'volume:81513b32-d6d3-4819-9687-a5d040fc148b'
       defaultUploadLocationSubpath: ''
       singleUploadLocationSource: 'volume:81513b32-d6d3-4819-9687-a5d040fc148b'
-      singleUploadLocationSubpath: '{slug}'
+      singleUploadLocationSubpath: ''
       restrictFiles: '1'
       allowedKinds:
         - image
@@ -114,6 +116,7 @@ fields:
       limit: '1'
       selectionLabel: ''
       localizeRelations: false
+      validateRelatedElements: ''
     fieldGroup: 91b620a7-57a0-4432-a52e-9d37d5d4c17c
     contentColumnType: string
   644826a5-971d-4dec-83f4-e4bf66e888fb:
@@ -124,6 +127,7 @@ fields:
     translationMethod: none
     translationKeyFormat: null
     type: craft\fields\Url
+    settings: null
     fieldGroup: a9d55e7e-0322-4b06-8350-733ce227ad74
     contentColumnType: string(255)
   64eff2e8-6c95-48f8-a6c1-02f27622f0b2:
@@ -233,6 +237,21 @@ fields:
       removeNbsp: '1'
     fieldGroup: 91b620a7-57a0-4432-a52e-9d37d5d4c17c
     contentColumnType: text
+  94e973e5-c702-4819-9e70-ab886bd05a2c:
+    name: NavigationFooter
+    handle: globalNavigationFooter
+    instructions: ''
+    searchable: true
+    translationMethod: site
+    translationKeyFormat: null
+    type: craft\fields\Matrix
+    settings:
+      minBlocks: ''
+      maxBlocks: ''
+      contentTable: '{{%matrixcontent_globalnavigationfooter}}'
+      propagationMethod: all
+    fieldGroup: 5a27fb7b-bf48-4ac9-afdc-02d559faa2fc
+    contentColumnType: string
   951d89ff-6e8f-4a34-8a5b-b516f4c36322:
     name: 'Intro Headline'
     handle: introHeadline
@@ -329,7 +348,7 @@ fields:
       defaultUploadLocationSource: 'volume:81513b32-d6d3-4819-9687-a5d040fc148b'
       defaultUploadLocationSubpath: ''
       singleUploadLocationSource: 'volume:81513b32-d6d3-4819-9687-a5d040fc148b'
-      singleUploadLocationSubpath: '{slug}'
+      singleUploadLocationSubpath: ''
       restrictFiles: '1'
       allowedKinds:
         - image
@@ -341,8 +360,35 @@ fields:
       limit: '1'
       selectionLabel: ''
       localizeRelations: false
+      validateRelatedElements: ''
     fieldGroup: 91b620a7-57a0-4432-a52e-9d37d5d4c17c
     contentColumnType: string
+  c7a17158-3956-4560-b635-f0ee51c0a722:
+    name: Seomatic
+    handle: seomatic
+    instructions: ''
+    searchable: true
+    translationMethod: none
+    translationKeyFormat: null
+    type: nystudio107\seomatic\fields\SeoSettings
+    settings:
+      elementDisplayPreviewType: google
+      generalTabEnabled: '1'
+      generalEnabledFields:
+        - seoPreview
+        - seoTitle
+        - seoDescription
+        - seoKeywords
+        - seoImage
+      twitterTabEnabled: '1'
+      twitterEnabledFields:
+        - seoPreview
+      facebookTabEnabled: '1'
+      facebookEnabledFields:
+        - seoPreview
+      sitemapTabEnabled: ''
+    fieldGroup: 50c18613-1902-4c41-9199-98ff833fad1d
+    contentColumnType: text
   f9b5b11d-0a27-420e-81a2-0d2252de9a8d:
     name: Watermark
     handle: globalWatermark
@@ -435,6 +481,19 @@ globalSets:
             sortOrder: 1
             fields:
               8592a4e0-b651-4080-b81a-f5e10b7f5ff1:
+                required: false
+                sortOrder: 1
+  ce159bb3-e505-4644-b1cb-6d9a650b3cb1:
+    name: 'Navigation Footer'
+    handle: navigationFooter
+    fieldLayouts:
+      d9f0cf5c-c7bf-4b31-b6d9-754200a22e06:
+        tabs:
+          -
+            name: Content
+            sortOrder: 1
+            fields:
+              94e973e5-c702-4819-9e70-ab886bd05a2c:
                 required: false
                 sortOrder: 1
 matrixBlockTypes:
@@ -543,7 +602,7 @@ matrixBlockTypes:
           defaultUploadLocationSource: 'volume:81513b32-d6d3-4819-9687-a5d040fc148b'
           defaultUploadLocationSubpath: ''
           singleUploadLocationSource: 'volume:81513b32-d6d3-4819-9687-a5d040fc148b'
-          singleUploadLocationSubpath: '{owner.slug}'
+          singleUploadLocationSubpath: ''
           restrictFiles: '1'
           allowedKinds:
             - image
@@ -883,7 +942,7 @@ matrixBlockTypes:
           defaultUploadLocationSource: 'volume:81513b32-d6d3-4819-9687-a5d040fc148b'
           defaultUploadLocationSubpath: ''
           singleUploadLocationSource: 'volume:81513b32-d6d3-4819-9687-a5d040fc148b'
-          singleUploadLocationSubpath: '{owner.slug}'
+          singleUploadLocationSubpath: ''
           restrictFiles: '1'
           allowedKinds:
             - image
@@ -950,7 +1009,7 @@ matrixBlockTypes:
           defaultUploadLocationSource: 'volume:81513b32-d6d3-4819-9687-a5d040fc148b'
           defaultUploadLocationSubpath: ''
           singleUploadLocationSource: 'volume:81513b32-d6d3-4819-9687-a5d040fc148b'
-          singleUploadLocationSubpath: '{slug}'
+          singleUploadLocationSubpath: ''
           restrictFiles: '1'
           allowedKinds:
             - image
@@ -1461,6 +1520,7 @@ matrixBlockTypes:
         translationMethod: none
         translationKeyFormat: null
         type: craft\fields\Email
+        settings: null
         fieldGroup: null
         contentColumnType: string
   cb4d9d77-5b02-4ac6-b3db-7ab56d8b2dc8:
@@ -1546,7 +1606,7 @@ matrixBlockTypes:
           defaultUploadLocationSource: 'volume:81513b32-d6d3-4819-9687-a5d040fc148b'
           defaultUploadLocationSubpath: ''
           singleUploadLocationSource: 'volume:81513b32-d6d3-4819-9687-a5d040fc148b'
-          singleUploadLocationSubpath: '{owner.slug}'
+          singleUploadLocationSubpath: ''
           restrictFiles: '1'
           allowedKinds:
             - image
@@ -1737,6 +1797,114 @@ matrixBlockTypes:
           size: null
         fieldGroup: null
         contentColumnType: integer(10)
+  e287dde4-14bf-4af5-9ce1-e95151e42034:
+    name: 'Menu Item'
+    handle: menuItem
+    sortOrder: 1
+    field: 94e973e5-c702-4819-9e70-ab886bd05a2c
+    fieldLayouts:
+      e8385ad2-f9d1-4c27-96f2-89ee3faffe5b:
+        tabs:
+          -
+            name: Content
+            sortOrder: 1
+            fields:
+              24b4ef1e-9704-4e51-b09a-7c269517816e:
+                required: false
+                sortOrder: 2
+              280ef415-92a7-470d-b68e-32f5f32b9e26:
+                required: false
+                sortOrder: 1
+              9c156993-3688-4898-a2f6-07374d650863:
+                required: false
+                sortOrder: 4
+              eaca5dc0-eb3e-4064-b7db-010597921776:
+                required: false
+                sortOrder: 3
+    fields:
+      24b4ef1e-9704-4e51-b09a-7c269517816e:
+        name: 'Is Active'
+        handle: isActive
+        instructions: ''
+        searchable: true
+        translationMethod: none
+        translationKeyFormat: null
+        type: craft\fields\Lightswitch
+        settings:
+          default: ''
+        fieldGroup: null
+        contentColumnType: boolean
+      280ef415-92a7-470d-b68e-32f5f32b9e26:
+        name: 'Menu Item'
+        handle: menuItem
+        instructions: ''
+        searchable: true
+        translationMethod: none
+        translationKeyFormat: null
+        type: typedlinkfield\fields\LinkField
+        settings:
+          allowCustomText: '1'
+          allowedLinkNames:
+            - url
+            - email
+            - tel
+            - category
+            - entry
+          allowTarget: '1'
+          defaultLinkName: url
+          defaultText: ''
+          typeSettings:
+            url:
+              disableValidation: ''
+            email:
+              disableValidation: ''
+            tel:
+              disableValidation: ''
+            asset:
+              sources: '*'
+            category:
+              sources: '*'
+            entry:
+              sources: '*'
+            globalset:
+              sources: '*'
+        fieldGroup: null
+        contentColumnType: text
+      9c156993-3688-4898-a2f6-07374d650863:
+        name: 'Segment Position'
+        handle: segmentPosition
+        instructions: ''
+        searchable: true
+        translationMethod: none
+        translationKeyFormat: null
+        type: craft\fields\Number
+        settings:
+          defaultValue: null
+          min: '0'
+          max: null
+          decimals: 0
+          size: null
+          prefix: ''
+          suffix: ''
+        fieldGroup: null
+        contentColumnType: integer(10)
+      eaca5dc0-eb3e-4064-b7db-010597921776:
+        name: 'Highlight Triggers'
+        handle: highlightTriggers
+        instructions: 'Do not edit!'
+        searchable: true
+        translationMethod: none
+        translationKeyFormat: null
+        type: craft\fields\PlainText
+        settings:
+          placeholder: ''
+          code: ''
+          multiline: ''
+          initialRows: '4'
+          charLimit: ''
+          columnType: text
+        fieldGroup: null
+        contentColumnType: text
   e92372ca-c8d8-4ac1-9a5e-36b40f90c8fc:
     name: Entry
     handle: entry
@@ -1906,7 +2074,7 @@ sections:
         name: Homepage
         handle: homepage
         hasTitleField: false
-        titleLabel: null
+        titleLabel: ''
         titleFormat: Homepage
         sortOrder: 1
         fieldLayouts:
@@ -1941,6 +2109,13 @@ sections:
                   c2812dbe-ddd6-4c95-b547-c2749900f9a3:
                     required: false
                     sortOrder: 1
+              -
+                name: SEO
+                sortOrder: 3
+                fields:
+                  c7a17158-3956-4560-b635-f0ee51c0a722:
+                    required: false
+                    sortOrder: 1
     siteSettings:
       18cc759f-911b-4dee-a438-b50790f9d6fb:
         enabledByDefault: true
@@ -1962,7 +2137,7 @@ sections:
         handle: articles
         hasTitleField: true
         titleLabel: Title
-        titleFormat: null
+        titleFormat: ''
         sortOrder: 2
         fieldLayouts:
           732ade89-5eb9-4d3c-a95e-2be38f66de79:
@@ -1996,12 +2171,19 @@ sections:
                   c2812dbe-ddd6-4c95-b547-c2749900f9a3:
                     required: false
                     sortOrder: 1
+              -
+                name: SEO
+                sortOrder: 3
+                fields:
+                  c7a17158-3956-4560-b635-f0ee51c0a722:
+                    required: false
+                    sortOrder: 1
       87eeb922-1785-442e-8c0d-ec406dd3dade:
         name: Default
         handle: default
         hasTitleField: true
         titleLabel: Title
-        titleFormat: null
+        titleFormat: ''
         sortOrder: 1
         fieldLayouts:
           0895b6db-1f83-4db7-8cca-fcdbf0e8bd01:
@@ -2035,6 +2217,13 @@ sections:
                   c2812dbe-ddd6-4c95-b547-c2749900f9a3:
                     required: false
                     sortOrder: 1
+              -
+                name: SEO
+                sortOrder: 3
+                fields:
+                  c7a17158-3956-4560-b635-f0ee51c0a722:
+                    required: false
+                    sortOrder: 1
     siteSettings:
       18cc759f-911b-4dee-a438-b50790f9d6fb:
         enabledByDefault: true
@@ -2053,7 +2242,7 @@ sections:
         handle: default
         hasTitleField: true
         titleLabel: Title
-        titleFormat: null
+        titleFormat: ''
         sortOrder: 1
         fieldLayouts:
           05d96a5e-1221-47da-802e-94cda60e2879:
@@ -2094,6 +2283,13 @@ sections:
                   9569203b-3f8d-40f7-a744-466455616cb5:
                     required: false
                     sortOrder: 1
+              -
+                name: SEO
+                sortOrder: 4
+                fields:
+                  c7a17158-3956-4560-b635-f0ee51c0a722:
+                    required: false
+                    sortOrder: 1
     siteSettings:
       18cc759f-911b-4dee-a438-b50790f9d6fb:
         enabledByDefault: true
@@ -2105,14 +2301,14 @@ siteGroups:
     name: default
 sites:
   18cc759f-911b-4dee-a438-b50790f9d6fb:
-    siteGroup: f8d87a05-56b7-4aad-8e28-08f54307f0f7
     name: Main
     handle: default
     language: en-US
     hasUrls: true
-    baseUrl: $DEFAULT_SITE_URL
+    baseUrl: '@web'
     sortOrder: 1
     primary: true
+    siteGroup: f8d87a05-56b7-4aad-8e28-08f54307f0f7
 system:
   edition: solo
   live: true

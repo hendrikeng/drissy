@@ -10,6 +10,7 @@
     {% switch block.layout %}
 
     {% default %}
+
         {% include "_elements/article/default" with {
             opt : {
                 imager: {
@@ -18,7 +19,7 @@
                     class: 'w-full h-full',
                 },
                 data: entry,
-                cta: 'mehr',
+                cta: entry.introCtaText ?? 'more',
                 el: {
                     gridElement: true,
                     articleHeaderLink: false,
@@ -27,17 +28,17 @@
                     articleLink: true,
                 },
                 cn: {
-                    gridElement: 'o-wrap__item o-wrap__item--grid w-full md:w-1/2',
+                    gridElement: 'o-wrap__item o-wrap__item--grid w-full',
                     article: 'h-64 c-link relative w-full overflow-hidden',
-                    articleWrap: 'articleWrap h-64 sm:h-96 absolute pint-t bottom-0 right-0 left-0 bg-brand-85 w-full c-link-hover:transform-up transform-layoutA hover:transform-up',
+                    articleWrap: 'articleWrap h-64 sm:h-96 absolute pint-t bottom-0 right-0 left-0 bg-red w-full c-link-hover:transform-up transform-layoutA hover:transform-up',
                     articleContainer: 'articleContainer w-full',
-                    articleInner: 'articleInner absolute top-0 flex flex-col text-center overflow-hidden h-full py-3 px-8 text-white c-link-hover:justify-center w-full',
-                    articleHeader: 'mt-4  uppercase',
+                    articleInner: 'articleInner absolute top-0 flex flex-col text-center overflow-hidden h-full py-3 px-8 text-black c-link-hover:justify-center w-full',
+                    articleHeader: 'mt-4 uppercase',
                     articleHeaderSpan: '',
                     articleHeaderLink: 'link-absolute',
                     articleBody: 'articleBody',
                     articleBodyParagraph: 'mt-8',
-                    articleLink: 'mx-auto font-serif no-underline text-brand bg-white px-4 py-2 text-lg link-absolute',
+                    articleLink: 'mx-auto no-underline text-black px-4 py-2 text-lg link-absolute hover:undeline',
                 },
             }
         } %}

@@ -20,7 +20,7 @@ export const slider = {
     init() {
         this.selector.forEach.call(this.selector, (item, i) => {
             this.slider = new Glide(item, this.options);
-            this.slider.mount({ Swipe, Autoplay, Keyboard });
+            this.slider.mount({ Swipe, Autoplay, Keyboard, Controls });
             this.slider = true;
             console.log(`Slider ${i} ${this.slider}`);
         });

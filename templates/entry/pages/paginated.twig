@@ -33,7 +33,7 @@
             {{ parent() }}
         {% endblock %}
         {# -- Cache -- #}
-        {% cache globally using key 'articles-archive-' ~ craft.app.request.pathInfo ~ (craft.app.request.pageNum ? '/p' ~ craft.app.request.pageNum : '') %}
+        {% cache globally using key 'paginated-archive-' ~ craft.app.request.pathInfo ~ (craft.app.request.pageNum ? '/p' ~ craft.app.request.pageNum : '') %}
 
             <div class="o-wrap o-wrap--grid">
                 {% for entry in pageEntries %}

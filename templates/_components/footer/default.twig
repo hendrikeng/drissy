@@ -1,35 +1,48 @@
+{% import "_macros/_macros.twig" as macro %}
 
 {% for block in opt.data %}
-    <footer itemscope="itemscope" itemtype="http://schema.org/WPFooter" class="o-wrap">
-        <div class="o-wrap__item o-wrap__item--quad flex flex-col items-center flex-wrap text-center">
+    <footer itemscope="itemscope" itemtype="http://schema.org/WPFooter"
+            class="o-wrap">
+        <div
+            class="o-wrap__item o-wrap__item--quad flex flex-col items-center flex-wrap text-center">
             <p class="copyright">&copy;
                 <span itemprop="copyrightYear">{{ now|date('Y') }}</span>
-                <span itemprop="copyrightHolder" itemscope="itemscope" itemtype="http://schema.org/Organization">
+                <span itemprop="copyrightHolder" itemscope="itemscope"
+                      itemtype="http://schema.org/Organization">
                 <span itemprop="name">{{ block.company }}</span>
-                -
-                <span itemprop="address" itemscope="itemscope" itemtype="http://schema.org/PostalAddress">
+                <span itemprop="address" itemscope="itemscope"
+                      itemtype="http://schema.org/PostalAddress">
                     <span itemprop="streetAddress">{{ block.street }}</span>
-                    -
                     <span itemprop="postalCode">{{ block.postalCode }}</span>
                     <span itemprop="addressLocality">{{ block.city }}</span>
                     <span itemprop="addressCountry">{{ block.country }}</span>
-                    -
                 </span>
                 <span itemprop="telephone">
-                    <a class="text-text no-underline hover:text-brand" href="tel:{{ block.phone|replace({' ':''})|replace({'/':''}) }}" title="contact phone" rel="nofollow">{{ block.phone }}</a>
+                    <a class="text-text no-underline hover:text-brand"
+                       href="tel:{{ block.phone|replace({' ':''})|replace({'/':''}) }}"
+                       title="contact phone"
+                       rel="nofollow">{{ block.phone }}</a>
                 </span>
                 <span class="text-text no-underline" itemprop="email">
-                    <a href="mailto:{{ block.mail }}" title="contact email" rel="nofollow">{{ block.mail }}</a>
+                    <a href="mailto:{{ block.mail }}" title="contact email"
+                       rel="nofollow">{{ block.mail }}</a>
                 </span>
             </span>
-                -
-                <a class="text-text no-underline hover:text-brand" href="imprint">Impressum</a>
-                -
-                <a class="text-text no-underline hover:text-brand" href="data-protection">Datenschutz</a>
-
             </p>
-            <p class="o-wrap__item text-xs text-grey-darker">Made with Love and Caffeine by
-                <span> <a rel="nofollow" title="wewereyoung.de" href="https://wewereyoung.de">{% include '_svg/wwy.svg' %}</a></span></p>
+
+            {% if opt.el.nav %}
+                {% include '_elements/nav/' ~ opt.el.nav with {
+                    opt : {
+                        data: navigationFooter.globalNavigationFooter.all() ?? null
+                    }
+                } only %}
+            {% endif %}
+
+            <p class="o-wrap__item text-xs text-grey-darker">
+
+                <span> <a rel="nofollow" title="Homepage"
+                          href="{{ alias('@web') }}">{% include '_svg/logo.svg' %}</a></span>
+            </p>
         </div>
 
     </footer>
