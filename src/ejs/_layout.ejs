@@ -32,7 +32,7 @@ Layout: Default
 
 <head>
     <link rel="dns-prefetch" href="{{ baseUrl }}/">
-    <link rel="preconnect" href="{{ baseUrl }}(" crossorigin>
+    <link rel="preconnect" href="{{ baseUrl }}/" crossorigin>
     <!-- Any <link> tags that should be included in the header -->
     {% block head %}{% endblock %}
     <!-- Set character encoding for the document -->
@@ -44,26 +44,26 @@ Layout: Default
 
     <!-- Seomatic -->
     {% if craft.plugin.Seomatic is defined %}
-    {% hook 'seomaticRender' %}
+        {% hook 'seomaticRender' %}
     {% else %}
-    {% block metadata %}
-    <title>{{ currentSite.name }}</title>
-    <!-- Meta Description -->
-    <meta name="description"
-          content="Description of the page less than 150 characters">
-    {% endblock %}
+        {% block metadata %}
+            <title>{{ currentSite.name }}</title>
+            <!-- Meta Description -->
+            <meta name="description"
+                  content="Description of the page less than 150 characters">
+        {% endblock %}
     {% endif %}
 
     {# -- CRITICAL CSS -- #}
     <% if (htmlWebpackPlugin.options.env.prod) { %>
         {% set criticalCss = getCookie('critical-css') %}
         {% if criticalCss and criticalCss == assetHash %}
-        {{ craft.twigpack.includeCssModule("styles.css") }}
+            {{ craft.twigpack.includeCssModule("styles.css") }}
         {% else %}
-        {{ setCookie('critical-css', assetHash, now | date_modify("+7 days").timestamp ) }}
-        {{ craft.twigpack.includeCriticalCssTags() }}
-        {{ craft.twigpack.includeCssModule("styles.css", true) }}
-        {{ craft.twigpack.includeCssRelPreloadPolyfill() }}
+            {{ setCookie('critical-css', assetHash, now | date_modify("+7 days").timestamp ) }}
+            {{ craft.twigpack.includeCriticalCssTags() }}
+            {{ craft.twigpack.includeCssModule("styles.css", true) }}
+            {{ craft.twigpack.includeCssRelPreloadPolyfill() }}
         {% endif %}
     <% } %>
 
@@ -196,13 +196,13 @@ Layout: Default
 </main>
 
 {% block footer %}
-{% include '_components/footer/default' with {
-opt : {
-data: contact.globalContact.all(),
-el: {
-nav: 'default',
-},
-},
+    {% include '_components/footer/default' with {
+        opt : {
+            data: contact.globalContact.all(),
+        el: {
+            nav: 'default',
+        },
+    },
 } only %}
 {% endblock %}
 
