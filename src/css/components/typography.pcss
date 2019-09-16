@@ -1,13 +1,15 @@
 /**
  * components/typography.css
- * 
+ *
  * Typography rules.
  *
  */
 
 body,
-p {
-    @apply .font-sans .leading-normal .text-black .text-xl;
+p,
+button,
+a {
+    @apply .font-sans .leading-normal .text-black .text-base .font-normal;
 }
 
 h1,
@@ -16,7 +18,7 @@ h3,
 h4,
 h5,
 h6 {
-    @apply .font-serif .leading-tight .text-black;
+    @apply .font-serif .leading-tight .text-black .font-normal;
 }
 
 h1 {
@@ -44,7 +46,9 @@ h6 {
 }
 
 .fonts-loaded body,
-.fonts-loaded p {
+.fonts-loaded p,
+.fonts-loaded a,
+.fonts-loaded button {
     font-family: Cabin, Arial, Helvetica, sans-serif;
 }
 

@@ -1,28 +1,32 @@
 {% extends "matrix/default" %}
 
 {% block blockContent %}
-<div class="o-wrap">
-        {% set image = block.image.one() %}
-        {% if image %}
-            <figure
-                class="o-wrap__item w-full"
-                itemprop="associatedMedia" itemscope
-                itemtype="http://schema.org/ImageObject">
-                        {% include '_elements/img/default' with {
-                            opt : {
-                                data: image,
-                                imager: {
-                                    blurUp: true,
-                                    objectFit: true,
-                                    ratio: block.ratio,
-                                }
-                            }
-                        } only %}
-                {% if block.caption %}
-                    <figcaption class="text-sm mt-2"
-                        itemprop="caption description">{{ image.caption }}</figcaption>
-                {% endif %}
-            </figure>
-        {% endif %}
-    </div>
+    {% set image = block.image.one() %}
+
+    {% if image %}
+        <figure
+            class="w-full lg:{{ block.columns ?? 'w-full'}}"
+            itemprop="associatedMedia" itemscope
+            itemtype="http://schema.org/ImageObject">
+            {% include '_elements/img/default' with {
+                opt : {
+                    data: {
+                        imageLandscape: image,
+                    },
+                    imager: {
+                        objectFit: true,
+                        wrapper: 'h-auto w-full',
+                        mediaBox: false,
+                        objectFitValue: 'cover',
+                        class: 'w-full h-full',
+                        svg: 'max-w-2xl md:mx-12'
+                    },
+                }
+            } only %}
+            {% if block.caption %}
+                <figcaption class="text-sm mt-2"
+                            itemprop="caption description">{{ image.caption }}</figcaption>
+            {% endif %}
+        </figure>
+    {% endif %}
 {% endblock %}

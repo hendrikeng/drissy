@@ -68,11 +68,10 @@
     "/storage/**",
     "/vendor/**",
     "/src/fonts/**",
-    "/src/vendor/**",
-    "/src/js/inline/**",
-    "/templates/_inlinejs/**",
+    "/src/inlineJs/**",
     "/web/**",
-    "./tailwind.config.js"
+    "./tailwind.config.js",
+      "/src/js/workbox-catch-handler.js"
   ],
   "stylelint": {
     "extends": [

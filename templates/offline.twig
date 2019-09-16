@@ -1,9 +1,11 @@
 {# @var craft \craft\web\twig\variables\CraftVariable #}
 {% extends "_layouts/_layout.twig" %}
 
+{# -- inline css -- #}
 {% block _inline_css %}
+    <!-- critical "offline.twig" -->
     <style>
-        {{ source ("offline_critical.min.css", ignore_missing = true) }}
+        {{ craft.twigpack.includeFile('@webroot/dist/criticalcss/' ~ _self | split('.')[0] ~  '_critical.min.css') }}
     </style>
 {% endblock %}
 

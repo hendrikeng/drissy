@@ -9,29 +9,27 @@ import Glide, {
 export const slider = {
     selector: [...document.querySelectorAll('.js-slider')],
     options: {
+        animationTimingFunc: 'ease',
+        animationDuration: 400,
         type: 'carousel',
-        //  gap: 0,
-        //  hoverpause: false,
-        //  autoplay: 3000,
+        gap: 0,
+        hoverpause: false,
+        autoplay: 4000,
         //  bound: false,
         //  rewind: false,
     },
 
     init() {
-        this.selector.forEach.call(this.selector, (item, i) => {
+        this.selector.forEach.call(this.selector, item => {
             this.slider = new Glide(item, this.options);
             this.slider.mount({ Swipe, Autoplay, Keyboard, Controls });
-            this.slider = true;
-            console.log(`Slider ${i} ${this.slider}`);
         });
     },
 
     destroy() {
-        if (typeof this.slider === 'undefined' || !this.slider) return;
-        this.selector.forEach.call(this.selector, (item, i) => {
+        this.selector.forEach.call(this.selector, () => {
+            if (typeof this.slider === 'undefined') return;
             this.slider.destroy();
-            this.slider = false;
-            console.log(`Slider ${i} ${this.slider}`);
         });
     },
 };
@@ -59,20 +57,18 @@ export const carousel = {
     },
 
     init() {
-        this.selector.forEach.call(this.selector, (item, i) => {
+        this.selector.forEach.call(this.selector, item => {
             this.carousel = new Glide(item, this.options);
             this.carousel.mount({ Controls, Swipe, Breakpoints });
             this.carousel = true;
-            console.log(`Carousel ${i} ${this.carousel}`);
         });
     },
 
     destroy() {
         if (typeof this.carousel === 'undefined' || !this.carousel) return;
-        this.selector.forEach.call(this.selector, (item, i) => {
+        this.selector.forEach.call(this.selector, () => {
             this.carousel.destroy();
             this.carousel = false;
-            console.log(`Carousel ${i} ${this.carousel}`);
         });
     },
 };

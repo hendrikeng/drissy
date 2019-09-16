@@ -10,10 +10,10 @@
 
 {# -- inline css -- #}
 {% block _inline_css %}
+    <!-- critical "index.twig" -->
     <style>
-        {{ source ('index_critical.min.css', ignore_missing=true) }}
+        {{ craft.twigpack.includeFile('@webroot/dist/criticalcss/' ~ _self | split('.')[0] ~  '_critical.min.css') }}
     </style>
-    {# -- end inline css -- #}
 {% endblock %}
 
 {# -- cache -- #}
@@ -24,16 +24,20 @@
         {% include '_components/header/default.twig' with {
             opt : {
                 imager: {
-                    lazy: false,
-                    mediaBox: false,
-                    class: 'absolute top-0 left-0 w-full h-full',
+                    template: entry.contentImageMobile ? 'artDirection' : 'default',
+                    preload: true,
+                    class: 'relative w-full h-auto',
                 },
                 el: {
                     nav: 'default',
-                    image: entry.entryImage.one() ?? entry.introImage.one() ?? null,
-                    title: entry.introHeadline ?? entry.title ?? null,
-                    description: entry.introText ?? null,
-                }
+                    image: {
+                        caption: false,
+                        imageLandscape:  entry.contentImage.one() ?? null,
+                        imagePortrait: entry.contentImageMobile.one() ?? null,
+                    },
+                    title: entry.title ?? null,
+                    description: null,
+                },
             }
         } only %}
     {% endblock %}

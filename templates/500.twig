@@ -2,9 +2,11 @@
 
 {% extends "_layouts/_layout.twig" %}
 
+{# -- inline css -- #}
 {% block _inline_css %}
+    <!-- critical "500.twig" -->
     <style>
-        {{ source ("500_critical.min.css", ignore_missing = true) }}
+        {{ craft.twigpack.includeFile('@webroot/dist/criticalcss/' ~ _self | split('.')[0] ~  '_critical.min.css') }}
     </style>
 {% endblock %}
 

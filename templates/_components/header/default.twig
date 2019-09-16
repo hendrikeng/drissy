@@ -5,7 +5,7 @@
             <a href="{{ alias('@web') }}" title="Homepage">
                 {% include '_svg/logo.svg' with {
                     opt : {
-                        class: 'align-middle w-8',
+                        class: 'w-8',
                     }
                 } only %}
             </a>
@@ -19,11 +19,11 @@
         {% endif %}
     </div>
     {% block headerContent %}
-        <div class="o-wrap">
+        <div>
             {% if opt.el.image %}
                 <div
-                    class="o-wrap__item o-wrap__item--half relative w-full h-half-screen">
-                    {% include '_elements/img/default.twig' with {
+                    class=" relative w-full h-half-screen">
+                    {% include '_elements/img/' ~ opt.imager.template ~ '.twig' with {
                         opt : {
                             data: opt.el.image,
                             imager: opt.imager,

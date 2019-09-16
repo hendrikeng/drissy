@@ -15,6 +15,7 @@
     "minimum-stability": "stable",
     "require": {
         "aelvan/imager": "^2.0",
+        "carlcs/craft-redactorcustomstyles": "^3.0",
         "craftcms/cms": "^3.0.0",
         "craftcms/redactor": "^2.0.0.1",
         "doublesecretagency/craft-cpcss": "^2.1.0",

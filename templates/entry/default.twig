@@ -18,9 +18,13 @@
             },
             el: {
                 nav: 'default',
-                image: entry.entryImage.one() ?? entry.introImage.one() ?? null,
-                title: entry.introHeadline ?? entry.title,
-                description: entry.introText,
+                image: {
+                    caption: false,
+                    imageLandscape:  entry.contentImage.one() ?? null,
+                    imagePortrait: entry.contentImageMobile.one() ?? null,
+                },
+                title: entry.teaserHeadline ?? entry.title ?? null,
+                description: entry.teaserText ?? null,
             }
         }
     } only %}

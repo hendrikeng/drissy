@@ -7,4 +7,3 @@ Promise.all([FontA.load(), FontB.load()]).then(function () {
     document.documentElement.className += "fonts-loaded";
     sessionStorage.foftFontsLoaded = true;
 });
-

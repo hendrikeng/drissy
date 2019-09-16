@@ -1,10 +1,8 @@
 {% import "_macros/_macros.twig" as macro %}
 
 {% for block in opt.data %}
-    <footer itemscope="itemscope" itemtype="http://schema.org/WPFooter"
-            class="o-wrap">
-        <div
-            class="o-wrap__item o-wrap__item--quad flex flex-col items-center flex-wrap text-center">
+    <footer itemscope="itemscope" itemtype="http://schema.org/WPFooter">
+        <div>
             <p class="copyright">&copy;
                 <span itemprop="copyrightYear">{{ now|date('Y') }}</span>
                 <span itemprop="copyrightHolder" itemscope="itemscope"
@@ -41,7 +39,11 @@
             <p class="o-wrap__item text-xs text-grey-darker">
 
                 <span> <a rel="nofollow" title="Homepage"
-                          href="{{ alias('@web') }}">{% include '_svg/logo.svg' %}</a></span>
+                          href="{{ alias('@web') }}">{% include '_svg/logo.svg' with {
+                            opt : {
+                                class: 'w-8',
+                            }
+                        } only %}</a></span>
             </p>
         </div>
 

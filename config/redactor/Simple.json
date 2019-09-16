@@ -2,9 +2,34 @@
     "buttons": [
         "bold",
         "italic",
-        "link"
+        "link",
+        "html"
     ],
     "toolbarFixed": true,
     "linkNewTab": true,
-    "linkTitle": true
+    "linkTitle": true,
+    "plugins": ["customstyles"],
+    "customStyles": {
+        "headline": {
+            "dropdown": {
+                "white": {
+                    "args": {
+                        "tag": "h3",
+                        "class": "text-white",
+                        "type": "toggle"
+                    }
+                },
+                "black": {
+                    "args": {
+                        "tag": "h3",
+                        "class": "text-black",
+                        "type": "toggle"
+                    }
+                }
+            }
+        },
+        "clearStyles": {
+            "api": "module.inline.clearformat"
+        }
+    }
 }

@@ -18,7 +18,11 @@
             },
             el: {
                 nav: 'default',
-                image: entry.entryImage.one() ?? entry.introImage.one() ?? null,
+                image: {
+                    caption: false,
+                    imageLandscape:  entry.entryImage.one() ?? entry.introImage.one() ?? null,
+                    imagePortrait: entry.entryImageMobile.one() ??  entry.entryImage.one() ?? entry.introImage.one() ?? null,
+                },
                 title: false,
                 description: false,
             }
@@ -28,6 +32,7 @@
 {% endblock %}
 
 {% block content %}
+sadasd
 <div class="o-wrap flex-col items-center">
     <h1 class="o-wrap__item o-wrap__item--quad">{{ entry.title }}</h1>
     <time class="o-wrap__item o-wrap__item--half"

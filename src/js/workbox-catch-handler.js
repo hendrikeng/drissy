@@ -25,4 +25,6 @@ workbox.routing.setCatchHandler(({event, request, url}) => {
 });
 
 // Use a stale-while-revalidate strategy for all other requests.
-workbox.routing.setDefaultHandler(workbox.strategies.staleWhileRevalidate());
+workbox.routing.setDefaultHandler(
+    workbox.strategies.staleWhileRevalidate()
+);

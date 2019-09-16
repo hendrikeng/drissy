@@ -6,14 +6,15 @@
   ------------------------------------------------------------
 #}
 
-{% extends "_layouts/_layout" %}
+{% extends "_layouts/_layout.twig" %}
 {% import "_macros/_macros.twig" as macro %}
 {#{% set seomaticMeta = seomaticMeta | merge({'seoTitle': category.group().name ~ ': ' ~ category }) %}#}
 
 {# -- inline css -- #}
 {% block _inline_css %}
+    <!-- critical "taxonomy/default.twig" -->
     <style>
-        {{source (_self ~ '_critical.min.css', ignore_missing = true)}}
+        {{ craft.twigpack.includeFile('@webroot/dist/criticalcss/' ~ _self | split('.')[0] ~  '_critical.min.css') }}
     </style>
 {% endblock %}
 
@@ -63,7 +64,7 @@
         <div class="co-wrap flex-col items-center">
 
             {% for entry in pageEntries %}
-                {% include '_item' %}
+                {% include '_item.twig' %}
             {% endfor %}
 
         </div>
