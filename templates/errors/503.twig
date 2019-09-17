@@ -1,0 +1,10 @@
+{% extends "_layouts/_layout.twig" %}
+
+{% set entry = craft.entries.section('errors').slug('error503').one() %}
+
+{% block content %}
+    <section>
+        <h1>{{ entry.errorHeadline ?? 'Error' }}</h1>
+        <p>{{ (entry.errorText ?? 'An error has occurred.') |nl2br }}</p>
+    </section>
+{% endblock %}

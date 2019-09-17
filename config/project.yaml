@@ -10,7 +10,7 @@ categoryGroups:
         hasUrls: true
         uriFormat: 'articles/{slug}'
         template: _taxonomy
-dateModified: 1568734478
+dateModified: 1568737179
 email:
   fromEmail: $SYSTEM_EMAIL_ADDRESS
   fromName: $SENDER_NAME
@@ -22,6 +22,8 @@ fieldGroups:
     name: SEO
   5a27fb7b-bf48-4ac9-afdc-02d559faa2fc:
     name: Globals
+  893e35ef-633b-4c00-87b3-9bdec31379e0:
+    name: Errors
   91b620a7-57a0-4432-a52e-9d37d5d4c17c:
     name: Teaser
   93579e2a-99e9-40a4-9f50-ab6541c766d3:
@@ -48,6 +50,23 @@ fields:
       contentTable: '{{%matrixcontent_globalcontact}}'
     fieldGroup: 5a27fb7b-bf48-4ac9-afdc-02d559faa2fc
     contentColumnType: string
+  1253b2dd-7991-4643-b2f8-1c45c508cd2e:
+    name: 'Error Headline'
+    handle: errorHeadline
+    instructions: ''
+    searchable: true
+    translationMethod: none
+    translationKeyFormat: null
+    type: craft\fields\PlainText
+    settings:
+      placeholder: ''
+      code: ''
+      multiline: ''
+      initialRows: '4'
+      charLimit: ''
+      columnType: text
+    contentColumnType: text
+    fieldGroup: 893e35ef-633b-4c00-87b3-9bdec31379e0
   1765bba8-7755-4fd7-8a4c-4f3244b92ebb:
     name: 'Content Mobile Image'
     handle: contentImageMobile
@@ -260,6 +279,23 @@ fields:
       availableTransforms: '*'
     fieldGroup: 91b620a7-57a0-4432-a52e-9d37d5d4c17c
     contentColumnType: text
+  8e9b0a35-3728-4881-b12c-8e7e1beeb44b:
+    name: 'Error Text'
+    handle: errorText
+    instructions: ''
+    searchable: true
+    translationMethod: none
+    translationKeyFormat: null
+    type: craft\fields\PlainText
+    settings:
+      placeholder: ''
+      code: ''
+      multiline: ''
+      initialRows: '4'
+      charLimit: ''
+      columnType: text
+    contentColumnType: text
+    fieldGroup: 893e35ef-633b-4c00-87b3-9bdec31379e0
   94e973e5-c702-4819-9e70-ab886bd05a2c:
     name: NavigationFooter
     handle: globalNavigationFooter
@@ -275,6 +311,34 @@ fields:
       propagationMethod: all
     fieldGroup: 5a27fb7b-bf48-4ac9-afdc-02d559faa2fc
     contentColumnType: string
+  954fa326-e92e-42d8-9069-15528818f3f1:
+    name: 'Error Image'
+    handle: errorImage
+    instructions: ''
+    searchable: true
+    translationMethod: site
+    translationKeyFormat: null
+    type: craft\fields\Assets
+    settings:
+      useSingleFolder: ''
+      defaultUploadLocationSource: 'volume:81513b32-d6d3-4819-9687-a5d040fc148b'
+      defaultUploadLocationSubpath: ''
+      singleUploadLocationSource: 'volume:81513b32-d6d3-4819-9687-a5d040fc148b'
+      singleUploadLocationSubpath: ''
+      restrictFiles: '1'
+      allowedKinds:
+        - image
+      sources:
+        - 'volume:81513b32-d6d3-4819-9687-a5d040fc148b'
+      source: null
+      targetSiteId: null
+      viewMode: large
+      limit: '1'
+      selectionLabel: ''
+      localizeRelations: false
+      validateRelatedElements: ''
+    contentColumnType: string
+    fieldGroup: 893e35ef-633b-4c00-87b3-9bdec31379e0
   9569203b-3f8d-40f7-a744-466455616cb5:
     name: Category
     handle: category
@@ -2311,19 +2375,55 @@ sections:
         hasUrls: true
         uriFormat: 'articles/{slug}'
         template: _entry
+  73f32732-d93f-438a-97f5-8b62bb26c83b:
+    name: Errors
+    handle: errors
+    type: channel
+    enableVersioning: false
+    propagationMethod: all
+    siteSettings:
+      18cc759f-911b-4dee-a438-b50790f9d6fb:
+        enabledByDefault: true
+        hasUrls: false
+        uriFormat: ''
+        template: null
+    entryTypes:
+      6691f116-f98b-435c-aa4a-a44f507ac076:
+        name: Errors
+        handle: errors
+        hasTitleField: true
+        titleLabel: Title
+        titleFormat: ''
+        sortOrder: 1
+        fieldLayouts:
+          a9e3f97c-20e3-4dde-a6b2-4b3cedc17a24:
+            tabs:
+              -
+                name: Errors
+                sortOrder: 1
+                fields:
+                  1253b2dd-7991-4643-b2f8-1c45c508cd2e:
+                    required: false
+                    sortOrder: 1
+                  8e9b0a35-3728-4881-b12c-8e7e1beeb44b:
+                    required: false
+                    sortOrder: 3
+                  954fa326-e92e-42d8-9069-15528818f3f1:
+                    required: false
+                    sortOrder: 2
 siteGroups:
   f8d87a05-56b7-4aad-8e28-08f54307f0f7:
     name: default
 sites:
   18cc759f-911b-4dee-a438-b50790f9d6fb:
-    name: Main
+    siteGroup: f8d87a05-56b7-4aad-8e28-08f54307f0f7
+    name: $SITE_NAME
     handle: default
     language: en-US
     hasUrls: true
-    baseUrl: '@web'
+    baseUrl: $SITE_URL
     sortOrder: 1
     primary: true
-    siteGroup: f8d87a05-56b7-4aad-8e28-08f54307f0f7
 system:
   edition: solo
   live: true

@@ -61,6 +61,11 @@ Layout: Default
             {{ craft.twigpack.includeCssModule("styles.css") }}
         {% else %}
             {{ setCookie('critical-css', assetHash, now | date_modify("+7 days").timestamp ) }}
+            {% block _inline_css %}
+                <style>
+                    {{ craft.twigpack.includeFile('@webroot/dist/criticalcss/' ~ _self | split('.')[0] ~  '_critical.min.css') }}
+                </style>
+            {% endblock %}
             {{ craft.twigpack.includeCriticalCssTags() }}
             {{ craft.twigpack.includeCssModule("styles.css", true) }}
             {{ craft.twigpack.includeCssRelPreloadPolyfill() }}
