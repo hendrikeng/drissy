@@ -1,15 +1,15 @@
 <header itemscope itemtype="http://schema.org/WPHeader">
     <div
-        class="mx-auto max-w-3xl flex items-center justify-between flex-wrap px-4 mt-4 js-nav">
-        <div class="o-wrap">
-            <a href="{{ alias('@web') }}" title="Homepage">
-                {% include '_svg/logo.svg' with {
-                    opt : {
-                        class: 'w-8',
-                    }
-                } only %}
-            </a>
-        </div>
+        class="mx-auto flex justify-between js-nav bg-red-400 p-4">
+        {# Logo #}
+        <a href="{{ alias('@web') }}" title="Homepage">
+            {% include '_svg/logo.svg' with {
+                opt : {
+                    class: 'w-8',
+                }
+            } only %}
+        </a>
+        {# Nav #}
         {% if opt.el.nav %}
             {% include '_elements/nav/' ~ opt.el.nav with {
                 opt : {
@@ -19,10 +19,11 @@
         {% endif %}
     </div>
     {% block headerContent %}
-        <div>
+        <div
+            class="relative">
             {% if opt.el.image %}
                 <div
-                    class=" relative w-full h-half-screen">
+                    class="relative">
                     {% include '_elements/img/' ~ opt.imager.template ~ '.twig' with {
                         opt : {
                             data: opt.el.image,
@@ -30,27 +31,33 @@
                         }
                     } only %}
                     {% if opt.el.image.caption %}
-                        <div class="absolute bottom-0 text-white text-sm">
+                        <div class="absolute">
                             {{ opt.el.image.caption }}
                             {% if opt.el.image.source %}
                                 /
-                                <a class="text-white hover:underline"
-                                   href="{{ opt.el.image.sourceUrl }}">{{ opt.el.image.source }}</a>
+                                <a href="{{ opt.el.image.sourceUrl }}">{{ opt.el.image.source }}</a>
                             {% endif %}
                         </div>
                     {% endif %}
                 </div>
             {% endif %}
-            {% if opt.el.title %}
-                <h1 class="o-wrap__item o-wrap__item--quad mb-8"
-                    itemprop="headline">
-                    <span class="js-headline">{{ opt.el.title }}</span>
-                </h1>
-            {% endif %}
-            {% if opt.el.description %}
-                <p class="o-wrap__item" itemprop="description">
-                    {{ opt.el.description|striptags }}
-                </p>
+            {% if opt.el.title or opt.el.description %}
+                <div
+                    class="absolute inset-y-0 inset-x-0 flex flex-col w-full h-full items-center justify-center">
+                    {% if opt.el.title %}
+                        <h1 class="text-white"
+                            itemprop="headline">
+                                <span
+                                    class="js-headline">{{ opt.el.title }}</span>
+                        </h1>
+                    {% endif %}
+                    {% if opt.el.description %}
+                        <p class="text-white"
+                           itemprop="description">
+                            {{ opt.el.description|striptags }}
+                        </p>
+                    {% endif %}
+                </div>
             {% endif %}
         </div>
     {% endblock %}

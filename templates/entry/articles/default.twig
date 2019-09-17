@@ -12,6 +12,7 @@
     {% include '_components/header/default.twig' with {
         opt : {
             imager: {
+                template: entry.contentImageMobile.one() ? 'artDirection' : 'default',
                 lazy: false,
                 mediaBox: false,
                 class: 'absolute top-0 left-0 w-full h-full',

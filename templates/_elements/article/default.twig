@@ -79,7 +79,7 @@
                             <h3 class="{{ opt.cn.articleHeader }}">
                                         <span
                                             class="{{ opt.cn.articleHeaderSpan }}">
-                                            {{ entry.teaserHeadline ?? entry.title }}
+                                            {{ entry.title }}
                                         </span>
                             </h3>
                             {% set categories = entry.category %}
@@ -98,7 +98,7 @@
                     {% if opt.el.articleBody %}
                         <div class="{{ opt.cn.articleBody }}">
                             <div class="{{ opt.cn.articleBodyParagraph }}">
-                                {% set bodyParagraph = entry.teaser %}
+                                {% set bodyParagraph = entry.teaserText %}
                                 {{ bodyParagraph|length > 115 ? bodyParagraph|slice(0, 115) ~ '...' : bodyParagraph }}
                             </div>
                             {% if craft.app.request.segment(1) == 'partner' %}

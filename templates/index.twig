@@ -24,7 +24,8 @@
         {% include '_components/header/default.twig' with {
             opt : {
                 imager: {
-                    template: entry.contentImageMobile ? 'artDirection' : 'default',
+                    objectFit: false,
+                    template: entry.contentImageMobile.one() ? 'artDirection' : 'default',
                     preload: true,
                     class: 'relative w-full h-auto',
                 },
@@ -36,7 +37,7 @@
                         imagePortrait: entry.contentImageMobile.one() ?? null,
                     },
                     title: entry.title ?? null,
-                    description: null,
+                    description: entry.teaserText ?? null,
                 },
             }
         } only %}

@@ -1,8 +1,8 @@
 {% import "_macros/_macros.twig" as macro %}
 
 {% for block in opt.data %}
-    <footer itemscope="itemscope" itemtype="http://schema.org/WPFooter">
-        <div>
+    <footer class="mx-auto" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
+        <div class="flex">
             <p class="copyright">&copy;
                 <span itemprop="copyrightYear">{{ now|date('Y') }}</span>
                 <span itemprop="copyrightHolder" itemscope="itemscope"
@@ -16,12 +16,11 @@
                     <span itemprop="addressCountry">{{ block.country }}</span>
                 </span>
                 <span itemprop="telephone">
-                    <a class="text-text no-underline hover:text-brand"
-                       href="tel:{{ block.phone|replace({' ':''})|replace({'/':''}) }}"
+                    <a href="tel:{{ block.phone|replace({' ':''})|replace({'/':''}) }}"
                        title="contact phone"
                        rel="nofollow">{{ block.phone }}</a>
                 </span>
-                <span class="text-text no-underline" itemprop="email">
+                <span itemprop="email">
                     <a href="mailto:{{ block.mail }}" title="contact email"
                        rel="nofollow">{{ block.mail }}</a>
                 </span>
@@ -36,15 +35,13 @@
                 } only %}
             {% endif %}
 
-            <p class="o-wrap__item text-xs text-grey-darker">
+            <span> <a rel="nofollow" title="Homepage"
+                      href="{{ alias('@web') }}">{% include '_svg/logo.svg' with {
+                        opt : {
+                            class: 'w-8',
+                        }
+                    } only %}</a></span>
 
-                <span> <a rel="nofollow" title="Homepage"
-                          href="{{ alias('@web') }}">{% include '_svg/logo.svg' with {
-                            opt : {
-                                class: 'w-8',
-                            }
-                        } only %}</a></span>
-            </p>
         </div>
 
     </footer>
