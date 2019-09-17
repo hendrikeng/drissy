@@ -10,7 +10,9 @@
                         {% if image %}
                             {% include '_elements/img/default' with {
                                 opt : {
-                                    data: image,
+                                    data: {
+                                        imageLandscape: image,
+                                    },
                                     imager: {
                                         mediaBox: false,
                                         ratio: block.ratio,

@@ -71,7 +71,7 @@
     "/src/inlineJs/**",
     "/web/**",
     "./tailwind.config.js",
-      "/src/js/workbox-catch-handler.js"
+    "/src/js/workbox-catch-handler.js"
   ],
   "stylelint": {
     "extends": [
@@ -202,6 +202,7 @@
     "tailwindcss-aspect-ratio": "^2.0.0",
     "tailwindcss-fluid": "^0.2.0",
     "tailwindcss-grid": "^1.2.1",
+    "tailwindcss-transforms": "^2.2.0",
     "typeface-cabin": "^0.0.72",
     "typeface-roboto-condensed": "^0.0.54",
     "vue": "^2.6.10",
