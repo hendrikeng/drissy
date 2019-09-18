@@ -7,7 +7,7 @@ Layout: Default
 
 #}
 
-{% set assetHash = craft.twigpack.getModuleUri("app.js") | split('/')[4] %}
+{% set assetHash = craft.twigpack.getModuleUri("app.js") %}
 
 {% set baseUrl = alias('@web') %}
     {%- minify -%}
