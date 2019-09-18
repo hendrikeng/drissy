@@ -10,6 +10,9 @@ const main = async () => {
         /* webpackChunkName: "LazySizes" */ 'lazysizes'
     );
     await import(
+        /* webpackChunkName: "LazySizes" */ 'lazysizes/plugins/native-loading/ls.native-loading'
+    );
+    await import(
         /* webpackChunkName: "LazySizes" */ 'lazysizes/plugins/respimg/ls.respimg.js'
     );
     await import(
