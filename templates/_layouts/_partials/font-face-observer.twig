@@ -7,7 +7,7 @@
         <script>
             (function() {
                 if (sessionStorage.foftFontsLoaded) {
-                    document.documentElement.className += 'fonts-loaded';
+                    document.documentElement.className += ' fonts-loadedtest ';
                 }
                 {{ craft.twigpack.includeFile("@webroot/dist/js/fontfaceobserver.js") }}
                 {{ craft.twigpack.includeFile("@webroot/dist/js/load-fonts.js") }}
