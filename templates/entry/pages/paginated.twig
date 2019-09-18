@@ -12,7 +12,7 @@
 {% block inlineCriticalCss %}
     wewewewewe
     {{ _self }}
-    {{ craft.twigpack.includeCriticalCssTags("@webroot/dist/criticalcss/entry/pages/paginated_critical.min.css") }}
+    {{ craft.twigpack.includeCriticalCssTags("/dist/criticalcss/entry/pages/paginated_critical.min.css") }}
 {% endblock %}
 
 {% set entries = craft.entries({
