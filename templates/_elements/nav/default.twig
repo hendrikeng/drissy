@@ -4,7 +4,8 @@
      itemscope="itemscope"
      itemtype="http://schema.org/SiteNavigationElement">
     <ul class="flex-grow flex w-auto">
-        {% for block in opt.data %}
+
+        {% for block in data.nav.entry %}
             {% if block.isActive %}
                 {# -- Get Position -- #}
                 {% set segments = block.highlightTriggers | default('notSet') | replace({'home': ''}) | split(',') %}

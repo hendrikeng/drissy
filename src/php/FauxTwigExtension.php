@@ -51,7 +51,7 @@
      * @property \craft\commerce\web\twig\CraftVariableBehavior $commerce
      * @property \putyourlightson\blitz\variables\BlitzVariable $blitz
      * @property \nystudio107\twigpack\variables\ManifestVariable $twigpack
-     * @property \modules\sitemodule\SiteModule $site
+     * @property \modules\Module $site
      *
      * @author    nystudio107
      * @package   nystudio107\craft

@@ -58,23 +58,25 @@
             </header>
 
             <main>
-                <div
-                    id="app">
+                <div class="px-4 max-w-3xl mx-auto"
+                     id="app">
                     {% block content %}{% endblock %}
                 </div>
             </main>
 
             <footer>
-                {% block footer %}
-                    {% include '_components/footer/default' with {
-                        opt : {
-                            data: contact.globalContact.all(),
-                            el: {
-                                nav: 'default',
+                <div class="px-4 max-w-3xl mx-auto">
+                    {% block footer %}
+                        {% include '_components/footer/default' with {
+                            opt : {
+                                data: contact.globalContact.all(),
+                                el: {
+                                    nav: 'default',
+                                },
                             },
-                        },
-                    } only %}
-                {% endblock %}
+                        } only %}
+                    {% endblock %}
+                </div>
             </footer>
 
         {% endblock %}

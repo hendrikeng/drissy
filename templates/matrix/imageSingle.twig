@@ -1,30 +1,28 @@
 {% extends "matrix/default" %}
 
 {% block blockContent %}
-    {% set image = block.image.one() %}
-
-    {% if image %}
-        <figure
-            class="w-full lg:{{ block.columns ?? 'w-full'}}"
-            itemprop="associatedMedia" itemscope
-            itemtype="http://schema.org/ImageObject">
-            {% include '_elements/img/default' with {
-                opt : {
-                    data: {
-                        imageLandscape: image,
-                    },
-                    imager: {
+    <figure
+        class="w-full lg:{{ block.columns ?? 'w-full' }}"
+        itemprop="associatedMedia" itemscope
+        itemtype="http://schema.org/ImageObject">
+        {% include '_elements/img/default' with {
+            data : {
+                imager: {
+                    options: {
                         objectFit: false,
                         mediaBox: false,
                         class: 'w-full h-full',
                         svg: 'max-w-2xl md:mx-12'
                     },
-                }
-            } only %}
-            {% if block.caption %}
-                <figcaption class="text-sm mt-2"
-                            itemprop="caption description">{{ image.caption }}</figcaption>
-            {% endif %}
-        </figure>
-    {% endif %}
+                    images: {
+                        imageLandscape: block.image.one() ?? null,
+                    }
+                },
+            }
+        } only %}
+        {% if block.caption %}
+            <figcaption class="text-sm mt-2"
+                        itemprop="caption description">{{ image.caption }}</figcaption>
+        {% endif %}
+    </figure>
 {% endblock %}

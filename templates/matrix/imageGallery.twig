@@ -1,7 +1,6 @@
 {% extends "matrix/default" %}
 
 {% block blockContent %}
-
     <div
         class="flex flex-wrap -mb-4 -mx-2 js-gallery"
         itemscope itemtype="http://schema.org/ImageGallery">
@@ -12,20 +11,22 @@
                 itemtype="http://schema.org/ImageObject">
                 <a href="{{ image.url() }}" itemprop="contentUrl"
                    data-size="{{ image.getWidth }}x{{ image.getHeight }}">
-                        {% include '_elements/img/default' with {
-                            opt : {
-                                data: {
-                                    imageLandscape: image,
-                                },
-                                imager: {
+                    {% include '_elements/img/default' with {
+                        data : {
+                            imager: {
+                                options: {
                                     wrapper: 'h-full',
                                     mediaBox: true,
                                     blurUp: false,
                                     objectFit: true,
                                     ratio: block.ratio,
-                                }
-                            }
-                        } only %}
+                                },
+                                images: {
+                                    imageLandscape: image,
+                                },
+                            },
+                        }
+                    } only %}
                 </a>
                 {% if block.caption %}
                     <figcaption

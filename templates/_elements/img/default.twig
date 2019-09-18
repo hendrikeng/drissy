@@ -1,8 +1,5 @@
-{# @var craft \craft\web\twig\variables\CraftVariable #}
-{# @var entry \craft\elements\Entry #}
-
-{% set image = opt.data.imageLandscape %}
-{% set options = opt.imager %}
+{% set image = data.imager.images.imageLandscape %}
+{% set options = data.imager.options %}
 
 {% set defaults = {
     sizes: [
@@ -124,7 +121,6 @@
                     data-srcset="{{ craft.imager.srcset(images) }}"
                 {% endif %}
                 class="{{- options.class -}} {% if options.lazy %} lazyload {% endif %} {% if options.preload %} lazypreload {% endif %} {% if options.mediaBox %} mediabox-img{% endif %}"
-                {% if options.lazy %} data- {% endif %}
                 {{ options.lazy ? 'data-'}}sizes="{{ options.dataSizes }}"
                 {% if options.blurUp and options.lazy %}
                     data-lowsrc="{{ images|last.url }}"

@@ -19,8 +19,10 @@
 
         {% if opt.el.nav %}
             {% include '_elements/nav/' ~ opt.el.nav with {
-                opt : {
-                    data: navigationFooter.globalNavigationFooter.all() ?? null
+                data : {
+                    nav: {
+                        entry: navigationFooter.globalNavigationFooter.all() ?? null,
+                    }
                 }
             } only %}
         {% endif %}
@@ -29,8 +31,10 @@
             <a rel="nofollow" title="Homepage"
                aria-label="navigate to homepage"
                href="{{ alias('@web') }}">{% include '_svg/logo.svg' with {
-                    opt : {
-                        class: 'w-8',
+                    data : {
+                        svg: {
+                            class: 'w-8',
+                        }
                     }
                 } only %}</a>
         </span>

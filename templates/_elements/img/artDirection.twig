@@ -1,9 +1,6 @@
-{# @var craft \craft\web\twig\variables\CraftVariable #}
-{# @var entry \craft\elements\Entry #}
-
-{% set imagePortrait = opt.data.imagePortrait %}
-{% set imageLandscape = opt.data.imageLandscape %}
-{% set options = opt.imager %}
+{% set imagePortrait = data.imager.images.imagePortrait %}
+{% set imageLandscape = data.imager.images.imageLandscape %}
+{% set options = data.imager.options %}
 
 {% set defaults = {
     artDirection: false,
@@ -17,9 +14,9 @@
         { width: 900 },
     ],
     mediaPortrait: 'max-Width',
-    valuePortrait: '899px',
+    valuePortrait: '767px',
     mediaLandscape: 'min-Width',
-    valueLandscape: '900px',
+    valueLandscape: '768px',
     ratioPortrait: 'auto',
     ratioLandscape: 'auto',
     positionPortrait: false,
