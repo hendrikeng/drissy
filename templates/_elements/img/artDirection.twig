@@ -176,7 +176,6 @@
                 type="image/jpeg"
             >
             <img
-                {{ options.lazy ? 'loading="lazy"'}}
                 src="{{ craft.imager.placeholder() }}"
                 {{ options.lazy ? 'data-'}}srcset="{{ craft.imager.srcset(imagesLandscape) }}"
                 class="{{- options.class -}} {% if options.lazy %} lazyload {% endif %} {% if options.preload %} lazypreload {% endif %} {% if options.mediaBox %} mediabox-img{% endif %}"

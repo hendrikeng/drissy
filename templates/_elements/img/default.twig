@@ -119,7 +119,6 @@
                 type="image/jpeg"
             >
             <img
-                {{ options.lazy ? 'loading="lazy"'}}
                 src="{{ craft.imager.placeholder() }}"
                 {% if options.lazy %}
                     data-srcset="{{ craft.imager.srcset(images) }}"
