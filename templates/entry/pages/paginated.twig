@@ -7,14 +7,25 @@
 #}
 
 {% extends "entry/default.twig" %}
-{% import "_macros/_macros.twig" as macro %}
 
-{% set entries = craft.entries({
-    section: entry.title,
-    relatedTo: null,
-    limit: 4,
-    offset: null
-}) %}
+{# -- cache -- #}
+{% cache globally using key 'entry/pages/paginated-' ~ (craft.imager.clientSupportsWebp ? "with-webp") ~ craft.app.request.pathInfo ~ (craft.app.request.pageNum ? '/p' ~ craft.app.request.pageNum : '') %}
+
+    {% block inlineCriticalCss %}
+        {{ _self }}
+        <style>
+            {{ craft.twigpack.includeFile('@webroot/dist/criticalcss/' ~ _self | split('.')[0] ~  '_critical.min.css') }}
+        </style>
+    {% endblock %}
+
+    {% import "_macros/_macros.twig" as macro %}
+
+    {% set entries = craft.entries({
+        section: entry.title,
+        relatedTo: null,
+        limit: 4,
+        offset: null
+    }) %}
 
 
 {% paginate entries as pageInfo, pageEntries %}
@@ -28,15 +39,12 @@
         {% endif %}
     {% endblock %}
 
-
     {% block content %}
 
-<div class="bg-teal-200">
-        {% block itemContent %}
-            {{ parent() }}
-        {% endblock %}
-        {# -- Cache -- #}
-        {% cache globally using key 'paginated-archive-' ~ craft.app.request.pathInfo ~ (craft.app.request.pageNum ? '/p' ~ craft.app.request.pageNum : '') %}
+        <div class="bg-teal-200">
+            {% block itemContent %}
+                {{ parent() }}
+            {% endblock %}
 
             <div>
                 {% for entry in pageEntries %}
@@ -47,7 +55,10 @@
             <div>
                 {{ macro.pagination(pageInfo, craft, {}) }}
             </div>
-            {# -- Cache End -- #}
-        {% endcache %}
-</div>
+
+        </div>
+
     {% endblock %}
+
+    {# -- Cache End -- #}
+{% endcache %}

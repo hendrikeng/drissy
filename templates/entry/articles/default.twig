@@ -1,58 +1,48 @@
 {% extends "entry/default.twig" %}
 
+{# -- cache -- #}
+{% cache globally using key 'entry/articles/default-' ~ (craft.imager.clientSupportsWebp ? "with-webp") ~ craft.app.request.pathInfo ~ (craft.app.request.pageNum ? '/p' ~ craft.app.request.pageNum : '') %}
 
-{% block header %}
-
-    {% include '_components/header/default.twig' with {
-        opt : {
-            imager: {
-                template: entry.contentImageMobile.one() ? 'artDirection' : 'default',
-                lazy: false,
-                mediaBox: false,
-                class: 'absolute top-0 left-0 w-full h-full',
-            },
-            el: {
-                nav: 'default',
-                image: {
-                    caption: false,
-                    imageLandscape:  entry.entryImage.one() ?? entry.introImage.one() ?? null,
-                    imagePortrait: entry.entryImageMobile.one() ??  entry.entryImage.one() ?? entry.introImage.one() ?? null,
-                },
-                title: false,
-                description: false,
-            }
-        }
-    } only %}
-
-{% endblock %}
-
-{% block content %}
-
-<div class="flex-col items-center">
-    <h1>{{ entry.title }}</h1>
-    <time datetime="{{ entry.postDate | date('M d, Y') }}">
-        {{ entry.postDate | date('M d, Y') }}</time>
-
-    {# show categories/breadcrumps #}
-    {% if entry.category %}
-        <div>
-            {% set categories = entry.category %}
-            {% for entry in categories.all() %}
-                <a href="{{ entry.url }}">
-                    {{ entry }}
-                </a>
-            {% endfor %}
-        </div>
-    {% endif %}
-</div>
-<div class="bg-yellow-400">
-    {% block itemContent %}
-        {% if entry.contentBuilder %}
-            {% include '_matrix' with {
-                matrix : entry.contentBuilder,
-            } only %}
-        {% endif %}
+    {% block inlineCriticalCss %}
+        {{ _self }}
+        <style>
+            {{ craft.twigpack.includeFile('@webroot/dist/criticalcss/' ~ _self | split('.')[0] ~  '_critical.min.css') }}
+        </style>
     {% endblock %}
-</div>
 
-{% endblock %}
+    {% block content %}
+
+
+        <div class="flex-col items-center">
+            <h1>{{ entry.title }}</h1>
+            <time datetime="{{ entry.postDate | date('M d, Y') }}">
+                {{ entry.postDate | date('M d, Y') }}</time>
+
+            {# show categories/breadcrumps #}
+            {% if entry.category %}
+                <div>
+                    {% set categories = entry.category %}
+                    {% for entry in categories.all() %}
+                        <a href="{{ entry.url }}">
+                            {{ entry }}
+                        </a>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="bg-yellow-400">
+            {% block itemContent %}
+                {% if entry.contentBuilder %}
+                    {% include '_matrix' with {
+                        matrix : entry.contentBuilder,
+                    } only %}
+                {% endif %}
+            {% endblock %}
+        </div>
+
+    {% endblock %}
+
+
+    {# -- !Cache -- #}
+{% endcache %}

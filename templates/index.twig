@@ -9,7 +9,7 @@
 {% extends '_layouts/_layout.twig' %}
 
 {# -- cache -- #}
-{% cache globally using key 'homepage' ~ (craft.imager.clientSupportsWebp ? "-with-webp") ~ craft.app.request.pathInfo ~ (craft.app.request.pageNum ? '/p' ~ craft.app.request.pageNum : '') %}
+{% cache globally using key 'homepage-' ~ (craft.imager.clientSupportsWebp ? "with-webp") ~ craft.app.request.pathInfo ~ (craft.app.request.pageNum ? '/p' ~ craft.app.request.pageNum : '') %}
 
     {# -- header -- #}
     {% block header %}
