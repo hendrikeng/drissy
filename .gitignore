@@ -1,6 +1,5 @@
 # COMPOSER
 vendor
-composer.lock
 
 #Serviceworker
 web/\workbox*
