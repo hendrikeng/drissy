@@ -27,6 +27,10 @@
         {% endif %}
     {% endblock %}
 
+{% block inlineCriticalCss %}
+    {{ craft.twigpack.includeCriticalCssTags("@webroot/dist/criticalcss/entry/pages/paginated_critical.min.css") }}
+{% endblock %}
+
     {% block content %}
 <div class="bg-teal-200">
         {% block itemContent %}

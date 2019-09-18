@@ -4,7 +4,9 @@
         {{ craft.twigpack.includeCssModule("styles.css") }}
     {% else %}
         {{ setCookie('critical-css', assetHash, now | date_modify("+7 days").timestamp ) }}
-        {{ craft.twigpack.includeCriticalCssTags() }}
+        {% block inlineCriticalCss %}
+            {{ craft.twigpack.includeCriticalCssTags() }}
+        {% endblock %}
         {{ craft.twigpack.includeCssModule("styles.css", true) }}
         {{ craft.twigpack.includeCssRelPreloadPolyfill() }}
     {% endif %}
