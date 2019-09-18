@@ -1,5 +1,11 @@
 {% extends '_layouts/_layout.twig' %}
 
+{% block inlineCriticalCss %}
+    {{ _self }}
+    <style>
+        {{ craft.twigpack.includeFile('@webroot/dist/criticalcss/' ~ _self | split('.')[0] ~  '_critical.min.css') }}
+    </style>
+{% endblock %}
 
 {% block header %}
 
