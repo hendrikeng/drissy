@@ -11,11 +11,6 @@ const moment = require('moment');
 const path = require('path');
 const webpack = require('webpack');
 
-// resolve function
-function resolve(dir) {
-    return path.join(__dirname, './', dir);
-}
-
 // webpack plugins
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
@@ -147,17 +142,9 @@ const configureCleanWebpack = () => {
 // Configure Html webpack
 const configureHtml = () => {
     return {
-        template: './src/ejs/_layout.ejs',
-        filename: `${resolve('./templates/_layouts/')}_layout.twig`,
-        title: pkg.name,
+        templateContent: '',
+        filename: 'webapp.html',
         inject: false,
-        // minifying html won't work with critical css
-        minify: false,
-        env: {
-            dev: false,
-            prod: true,
-            debug: false,
-        },
     };
 };
 
@@ -262,6 +249,13 @@ const configureOptimization = buildType => {
 
 // Configure Postcss loader
 const configurePostcssLoader = buildType => {
+    // Don't generate CSS for the modern config in production
+    if (buildType === MODERN_CONFIG) {
+        return {
+            test: /\.(pcss|css)$/,
+            loader: 'ignore-loader',
+        };
+    }
     if (buildType === LEGACY_CONFIG) {
         return {
             test: /\.(pcss|css)$/,
@@ -286,13 +280,7 @@ const configurePostcssLoader = buildType => {
             ],
         };
     }
-    // Don't generate CSS for the modern config in production
-    if (buildType === MODERN_CONFIG) {
-        return {
-            test: /\.(pcss|css)$/,
-            loader: 'ignore-loader',
-        };
-    }
+
     return {};
 };
 

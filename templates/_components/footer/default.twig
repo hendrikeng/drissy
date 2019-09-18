@@ -1,12 +1,11 @@
 {% import "_macros/_macros.twig" as macro %}
 
 {% for block in opt.data %}
-    <footer class="mx-auto" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
-        <div class="flex">
-            <p class="copyright">&copy;
-                <span itemprop="copyrightYear">{{ now|date('Y') }}</span>
-                <span itemprop="copyrightHolder" itemscope="itemscope"
-                      itemtype="http://schema.org/Organization">
+    <div class="flex">
+        <p class="copyright">&copy;
+            <span itemprop="copyrightYear">{{ now|date('Y') }}</span>
+            <span itemprop="copyrightHolder" itemscope="itemscope"
+                  itemtype="http://schema.org/Organization">
                 <span itemprop="name">{{ block.company }}</span>
                 <span itemprop="address" itemscope="itemscope"
                       itemtype="http://schema.org/PostalAddress">
@@ -25,24 +24,22 @@
                        rel="nofollow">{{ block.mail }}</a>
                 </span>
             </span>
-            </p>
+        </p>
 
-            {% if opt.el.nav %}
-                {% include '_elements/nav/' ~ opt.el.nav with {
+        {% if opt.el.nav %}
+            {% include '_elements/nav/' ~ opt.el.nav with {
+                opt : {
+                    data: navigationFooter.globalNavigationFooter.all() ?? null
+                }
+            } only %}
+        {% endif %}
+
+        <span> <a rel="nofollow" title="Homepage"
+                  href="{{ alias('@web') }}">{% include '_svg/logo.svg' with {
                     opt : {
-                        data: navigationFooter.globalNavigationFooter.all() ?? null
+                        class: 'w-8',
                     }
-                } only %}
-            {% endif %}
+                } only %}</a></span>
 
-            <span> <a rel="nofollow" title="Homepage"
-                      href="{{ alias('@web') }}">{% include '_svg/logo.svg' with {
-                        opt : {
-                            class: 'w-8',
-                        }
-                    } only %}</a></span>
-
-        </div>
-
-    </footer>
+    </div>
 {% endfor %}

@@ -1,0 +1,97 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{# @var entry \craft\elements\Entry #}
+
+{#
+Layout: Default
+------------------------------------------------------------
+
+#}
+
+
+{% set assetHash = craft.twigpack.getModuleUri("app.js") | split('.')[2] %}
+
+{%- minify -%}
+{% set baseUrl = alias('@web') %}
+
+    <!DOCTYPE html>
+
+    {# -- Html Tag -- #}
+{% include '_layouts/_partials/html-tag.twig' %}
+
+<head>
+
+    <!-- Seomatic -->
+    {% hook 'seomaticRender' %}
+
+    {# -- Head meta -- #}
+    {% include '_layouts/_partials/head-meta.twig' %}
+
+    {# -- CRITICAL CSS -- #}
+    {% include '_layouts/_partials/critical-css.twig' %}
+
+    {# -- Fontface Observer -- #}
+    {% include '_layouts/_partials/font-face-observer.twig' %}
+
+    {# -- inlineJs-- #}
+    {% include '_layouts/_partials/inline-js.twig' %}
+
+
+
+    {%- endminify -%}
+
+</head>
+
+
+{%- minify -%}
+
+    <body itemscope itemtype="http://schema.org/WebPage">
+
+
+    {% block body %}
+
+        {# -- Debug -- #}
+        {% block debug %}
+            {% include '_layouts/_partials/debug.twig' %}
+        {% endblock %}
+
+        {% block header %}{% endblock %}
+
+        <main itemscope itemprop="mainContentOfPage"
+              itemtype="http://schema.org/mainContentOfPage"
+              class="px-4 max-w-3xl mx-auto"
+              id="app">
+            {% block content %}{% endblock %}
+        </main>
+
+        <footer class="mx-auto" itemscope="itemscope"
+                itemtype="http://schema.org/WPFooter">
+            {% block footer %}
+                {% include '_components/footer/default' with {
+                    opt : {
+                        data: contact.globalContact.all(),
+                        el: {
+                            nav: 'default',
+                        },
+                    },
+                } only %}
+            {% endblock %}
+        </footer>
+
+    {% endblock %}
+
+
+    {% block scripts %}
+        <script>
+            window.csrfTokenValue = "{{ craft.app.request.csrfToken|e('js') }}";
+        </script>
+    {% endblock %}
+
+    {{ craft.twigpack.includeSafariNomoduleFix() }}
+    {{ craft.twigpack.includeJsModule("app.js", true) }}
+
+    </body>
+
+{%- endminify -%}
+
+
+</html>

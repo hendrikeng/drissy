@@ -13,8 +13,6 @@ function resolve(dir) {
 }
 
 // webpack plugins
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const WriteFilePlugin = require('write-file-webpack-plugin');
 const DashboardPlugin = require('webpack-dashboard/plugin');
 
 // config files
@@ -45,22 +43,6 @@ const configureDevServer = buildType => {
     };
 };
 
-// Configure Html webpack
-const configureHtml = () => {
-    return {
-        template: './src/ejs/_layout.ejs',
-        filename: `${resolve('./templates/_layouts/')}_layout.twig`,
-        title: pkg.name,
-        inject: false,
-        // minifying html won't work with critical css
-        minify: false,
-        env: {
-            dev: true,
-            prod: false,
-            debug: false,
-        },
-    };
-};
 
 // Configure Image loader
 const configureImageLoader = buildType => {
@@ -150,15 +132,7 @@ module.exports = [
                 configureImageLoader(LEGACY_CONFIG),
             ],
         },
-        plugins: [
-            new HtmlWebpackPlugin(configureHtml()),
-            new WriteFilePlugin({
-                // write ejs template from memory to twig
-                test: /\.twig$/,
-                useHashIndex: false,
-            }),
-            new webpack.HotModuleReplacementPlugin(),
-        ],
+        plugins: [new webpack.HotModuleReplacementPlugin()],
     }),
     merge(common.modernConfig, {
         output: {

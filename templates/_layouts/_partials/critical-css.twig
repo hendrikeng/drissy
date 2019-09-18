@@ -1,0 +1,11 @@
+{% if not craft.app.config.general.devMode %}
+    {% set criticalCss = getCookie('critical-css') %}
+    {% if criticalCss and criticalCss == assetHash %}
+        {{ craft.twigpack.includeCssModule("styles.css") }}
+    {% else %}
+        {{ setCookie('critical-css', assetHash, now | date_modify("+7 days").timestamp ) }}
+        {{ craft.twigpack.includeCriticalCssTags() }}
+        {{ craft.twigpack.includeCssModule("styles.css", true) }}
+        {{ craft.twigpack.includeCssRelPreloadPolyfill() }}
+    {% endif %}
+{% endif %}

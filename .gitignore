@@ -18,7 +18,6 @@ config/license.key
 
 # generated
 templates/_inlinejs/*.js
-templates/_layouts/*
 templates/*.min.css
 compilation-stats.json
 compilationHashes.json
