@@ -2,8 +2,8 @@
 
 {% block blockContent %}
 
-    <blockquote class="o-wrap">
-        <figure class="o-wrap__item text-center">
+    <blockquote>
+        <figure class="text-center">
             {% set image = block.image.one() %}
             {% if image %}
                 {% include '_elements/img/default.twig' with {
