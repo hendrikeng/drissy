@@ -14,7 +14,7 @@
             '@assetsUrl' => getenv('ASSETS_URL'),
             '@cloudfrontUrl' => getenv('CLOUDFRONT_URL'),
             '@web' => getenv('SITE_URL'),
-            '@webroot' => getenv('WEB_ROOT_PATH'),
+            '@webroot' => dirname(__DIR__) . '/web',
         ],
         'allowUpdates' => (bool)getenv('ALLOW_UPDATES'),
         'allowAdminChanges' => (bool)getenv('ALLOW_ADMIN_CHANGES'),
@@ -23,7 +23,7 @@
         'devMode' => (bool)getenv('DEV_MODE'),
         'enableTemplateCaching' => (bool)getenv('ENABLE_TEMPLATE_CACHING'),
         'isSystemLive' => (bool)getenv('IS_SYSTEM_LIVE'),
-        'resourceBasePath' => getenv('WEB_ROOT_PATH').'/cpresources',
+        'resourceBasePath' => dirname(__DIR__) . '/web/cpresources',
         'runQueueAutomatically' => (bool)getenv('RUN_QUEUE_AUTOMATICALLY'),
         'securityKey' => getenv('SECURITY_KEY'),
         // Craft config settings from constants
