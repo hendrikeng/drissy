@@ -1,17 +1,17 @@
 {% extends "entry/default.twig" %}
 
-{# -- cache -- #}
-{% cache globally using key 'entry/articles/default-' ~ (craft.imager.clientSupportsWebp ? "with-webp") ~ craft.app.request.pathInfo ~ (craft.app.request.pageNum ? '/p' ~ craft.app.request.pageNum : '') %}
 
     {% block inlineCriticalCss %}
-        {{ _self }}
         <style>
-            {{ craft.twigpack.includeFile('@webroot/dist/criticalcss/' ~ _self | split('.')[0] ~  '_critical.min.css') }}
+            {{ craft.twigpack.includeFile('@webroot/dist/criticalcss/' ~ _self ~  '_critical.min.css') }}
         </style>
     {% endblock %}
 
-    {% block content %}
+{# -- cache -- #}
+{% cache globally using key 'entry/articles/default-' ~ (craft.imager.clientSupportsWebp ? "with-webp") ~ craft.app.request.pathInfo ~ (craft.app.request.pageNum ? '/p' ~ craft.app.request.pageNum : '') %}
 
+
+    {% block content %}
 
         <div class="flex-col items-center">
             <h1>{{ entry.title }}</h1>

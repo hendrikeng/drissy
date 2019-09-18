@@ -9,15 +9,16 @@
 
 {% extends "entry/default.twig" %}
 
-{# -- cache -- #}
-{% cache globally using key 'entry/pages/default-' ~ (craft.imager.clientSupportsWebp ? "with-webp") ~ craft.app.request.pathInfo ~ (craft.app.request.pageNum ? '/p' ~ craft.app.request.pageNum : '') %}
+
 
     {% block inlineCriticalCss %}
-        {{ _self }}
         <style>
-            {{ craft.twigpack.includeFile('@webroot/dist/criticalcss/' ~ _self | split('.')[0] ~  '_critical.min.css') }}
+            {{ craft.twigpack.includeFile('@webroot/dist/criticalcss/' ~ _self ~  '_critical.min.css') }}
         </style>
     {% endblock %}
+
+{# -- cache -- #}
+{% cache globally using key 'entry/pages/default-' ~ (craft.imager.clientSupportsWebp ? "with-webp") ~ craft.app.request.pathInfo ~ (craft.app.request.pageNum ? '/p' ~ craft.app.request.pageNum : '') %}
 
     {% block content %}
 
