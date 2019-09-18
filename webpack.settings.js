@@ -35,6 +35,7 @@ module.exports = {
     },
     entries: {
         app: 'app.js',
+        styles: 'styles.js',
     },
     babelLoaderConfig: {
         exclude: [/(node_modules|bower_components)/],

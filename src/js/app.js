@@ -1,11 +1,6 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
-import '../css/app.pcss';
-
-import 'typeface-roboto-condensed';
-import 'typeface-cabin';
-
 // App main
 const main = async () => {
     // Async load the vue module

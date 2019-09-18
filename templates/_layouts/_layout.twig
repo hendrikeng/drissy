@@ -7,7 +7,7 @@ Layout: Default
 
 #}
 
-{% set assetHash = craft.twigpack.getModuleUri("app.js") %}
+{% set assetHash = craft.twigpack.getModuleUri("styles.js") %}
 
 {% set baseUrl = alias('@web') %}
     {%- minify -%}
@@ -59,6 +59,9 @@ Layout: Default
                 window.csrfTokenValue = "{{ craft.app.request.csrfToken|e('js') }}";
             </script>
         {% endblock %}
+        {% if craft.app.config.general.devMode %}
+        {{ craft.twigpack.includeJsModule("styles.js", true) }}
+        {% endif %}
         {{ craft.twigpack.includeSafariNomoduleFix() }}
         {{ craft.twigpack.includeJsModule("app.js", true) }}
         </body>
