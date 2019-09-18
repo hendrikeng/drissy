@@ -1,6 +1,7 @@
 {% extends "matrix/default" %}
 
 {% block blockContent %}
+    {# TODO: für ratio muss wrapper und mediabox an sein, object fit hat keine wirkung mehr #}
     <figure
         class="w-full lg:{{ block.columns ?? 'w-full' }}"
         itemprop="associatedMedia" itemscope
@@ -10,7 +11,8 @@
                 imager: {
                     options: {
                         objectFit: false,
-                        mediaBox: false,
+                        mediaBox: true,
+                        wrapper: true,
                         class: 'w-full h-full',
                         svg: 'max-w-2xl md:mx-12'
                     },

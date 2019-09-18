@@ -1,34 +1,44 @@
-{% extends "matrix/default" %}
+{% extends "matrix/default.twig" %}
 
+{# TODO: für ratio muss wrapper, mediabox und objectFit aktiv sein  #}
+{% set isGallery = false %}
 {% block blockContent %}
-   <div class="o-wrap o-wrap--grid">
-      {% for image in block.images.all() %}
-        {% if image %}
+    <div
+        class="flex flex-wrap -mb-4 -mx-2 {% if isGallery %}js-gallery{% endif %}">
+        {% for image in block.images.all() %}
             <figure
-                class="o-wrap__item o-wrap__item--grid w-full md:w-1/2 lg:{{- block.columns -}}"
-                itemprop="associatedMedia" itemscope
-                itemtype="http://schema.org/ImageObject">
-                    {% include '_elements/img/default' with {
+                class="mb-4 px-2 w-full md:w-1/2 lg:{{- block.columns -}}">
+                {% if isGallery %}
+                <a href="{{ image.url() }}" itemprop="contentUrl"
+                   data-size="{{ image.getWidth }}x{{ image.getHeight }}">
+                    {% endif %}
+
+                    {% include '_elements/img/default.twig' with {
                         data : {
                             imager: {
                                 options: {
-                                    blurUp: true,
-                                    objectFit: true,
+                                    wrapper: false,
+                                    mediaBox: false,
+                                    blurUp: false,
+                                    objectFit: false,
                                     ratio: block.ratio,
-                                    alt: image.title,
                                 },
                                 images: {
                                     imageLandscape: image,
-                                }
+                                },
                             },
                         }
                     } only %}
+                    {% if isGallery %}
+                </a>
+                {% endif %}
                 {% if block.caption %}
                     <figcaption
-                        itemprop="caption description" class="mt-2 text-sm">{{ image.caption }}</figcaption>
+                        itemprop="caption description">{{ image.caption }}</figcaption>
                 {% endif %}
             </figure>
-        {% endif %}
         {% endfor %}
-   </div>
+
+    </div>
+
 {% endblock %}

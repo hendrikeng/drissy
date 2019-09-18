@@ -34,7 +34,7 @@
         <div class="bg-yellow-400">
             {% block itemContent %}
                 {% if entry.contentBuilder %}
-                    {% include '_matrix' with {
+                    {% include '_matrix.twig' with {
                         matrix : entry.contentBuilder,
                     } only %}
                 {% endif %}

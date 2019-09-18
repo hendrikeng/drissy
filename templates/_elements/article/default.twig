@@ -50,9 +50,11 @@
     <article class="{{ opt.cn.article }}">
         {% if opt.image %}
             {% include '_elements/img/default.twig' with {
-                opt : {
-                    data: opt.image,
-                    imager: opt.imager,
+                data : {
+                    imager: {
+                        images:opt.image,
+                        options: opt.imager,
+                    }
                 }
             } only %}
         {% endif %}

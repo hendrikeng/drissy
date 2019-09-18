@@ -10,7 +10,7 @@ categoryGroups:
         hasUrls: true
         uriFormat: 'articles/{slug}'
         template: _taxonomy
-dateModified: 1568804251
+dateModified: 1568844807
 email:
   fromEmail: $SYSTEM_EMAIL_ADDRESS
   fromName: $SENDER_NAME
@@ -597,7 +597,7 @@ matrixBlockTypes:
   0ec642de-17ed-490c-b6fc-4ce96b815047:
     name: Separator
     handle: separator
-    sortOrder: 11
+    sortOrder: 10
     field: ad07ce47-69f0-490c-bbee-94d51799129b
     fieldLayouts:
       2dbb15ac-c314-4e49-bc7f-ee71d8f9c75d:
@@ -757,7 +757,7 @@ matrixBlockTypes:
   4cbc55c5-4e8a-4c6f-9f7f-3c5bc021dac8:
     name: 'Entry Slider'
     handle: entrySlider
-    sortOrder: 8
+    sortOrder: 7
     field: ad07ce47-69f0-490c-bbee-94d51799129b
     fieldLayouts:
       9ee9b6b2-2db9-4411-8078-5420febf206c:
@@ -831,7 +831,7 @@ matrixBlockTypes:
   58ea7266-fbde-43c0-99ac-e6768822372f:
     name: Category
     handle: category
-    sortOrder: 9
+    sortOrder: 8
     field: ad07ce47-69f0-490c-bbee-94d51799129b
     fieldLayouts:
       5310e2eb-2143-459b-ad7c-3646c8259fe5:
@@ -905,121 +905,10 @@ matrixBlockTypes:
               default: ''
         fieldGroup: null
         contentColumnType: string
-  7a933b3c-2941-4569-a4ad-274e4adc3c1c:
-    name: 'Image Gallery'
-    handle: imageGallery
-    sortOrder: 5
-    field: ad07ce47-69f0-490c-bbee-94d51799129b
-    fieldLayouts:
-      4d43c205-7aaa-47fd-9ffa-21259949d046:
-        tabs:
-          -
-            name: Content
-            sortOrder: 1
-            fields:
-              692f4d96-0746-410a-95b9-3da268d68cd8:
-                required: false
-                sortOrder: 2
-              86f4211e-1bc3-4b1e-a2ef-545a30aee8d8:
-                required: false
-                sortOrder: 3
-              caa1bec7-3f30-412c-a74e-ba8015772526:
-                required: true
-                sortOrder: 1
-    fields:
-      692f4d96-0746-410a-95b9-3da268d68cd8:
-        name: Columns
-        handle: columns
-        instructions: ''
-        searchable: true
-        translationMethod: none
-        translationKeyFormat: null
-        type: craft\fields\Dropdown
-        settings:
-          optgroups: true
-          options:
-            -
-              label: '4'
-              value: w-1/4
-              default: '1'
-            -
-              label: '3'
-              value: w-1/3
-              default: ''
-            -
-              label: '2'
-              value: w-1/2
-              default: ''
-            -
-              label: '1'
-              value: w-full
-              default: ''
-        fieldGroup: null
-        contentColumnType: string
-      86f4211e-1bc3-4b1e-a2ef-545a30aee8d8:
-        name: Ratio
-        handle: ratio
-        instructions: ''
-        searchable: true
-        translationMethod: none
-        translationKeyFormat: null
-        type: craft\fields\Dropdown
-        settings:
-          optgroups: true
-          options:
-            -
-              label: 1/1
-              value: 1/1
-              default: '1'
-            -
-              label: 4/3
-              value: 4/3
-              default: ''
-            -
-              label: 4/5
-              value: 4/5
-              default: ''
-            -
-              label: 16/9
-              value: 16/9
-              default: ''
-            -
-              label: 21/9
-              value: 21/9
-              default: ''
-        fieldGroup: null
-        contentColumnType: string
-      caa1bec7-3f30-412c-a74e-ba8015772526:
-        name: Images
-        handle: images
-        instructions: ''
-        searchable: true
-        translationMethod: site
-        translationKeyFormat: null
-        type: craft\fields\Assets
-        settings:
-          useSingleFolder: '1'
-          defaultUploadLocationSource: 'volume:81513b32-d6d3-4819-9687-a5d040fc148b'
-          defaultUploadLocationSubpath: ''
-          singleUploadLocationSource: 'volume:81513b32-d6d3-4819-9687-a5d040fc148b'
-          singleUploadLocationSubpath: ''
-          restrictFiles: '1'
-          allowedKinds:
-            - image
-          sources: '*'
-          source: null
-          targetSiteId: null
-          viewMode: large
-          limit: ''
-          selectionLabel: ''
-          localizeRelations: false
-          validateRelatedElements: ''
-        fieldGroup: null
-        contentColumnType: string
   7b880758-6e48-480b-bd31-1ebbab08850c:
     name: 'Image Slider'
     handle: imageSlider
-    sortOrder: 6
+    sortOrder: 5
     field: ad07ce47-69f0-490c-bbee-94d51799129b
     fieldLayouts:
       de7cc21d-f262-4067-9b98-d589983657f6:
@@ -1189,7 +1078,7 @@ matrixBlockTypes:
   849f0828-f723-4466-8b8e-8f46e6b05f87:
     name: Quote
     handle: quote
-    sortOrder: 12
+    sortOrder: 11
     field: ad07ce47-69f0-490c-bbee-94d51799129b
     fieldLayouts:
       1400c1b0-8cb5-4c2b-8e14-d5bf0cf6e439:
@@ -1288,7 +1177,7 @@ matrixBlockTypes:
   98e0355e-3e62-4997-ab01-57377aeb7f18:
     name: 'Category Slider'
     handle: categorySlider
-    sortOrder: 10
+    sortOrder: 9
     field: ad07ce47-69f0-490c-bbee-94d51799129b
     fieldLayouts:
       b23fb2fe-22a3-4586-bf8f-12ac60c6e418:
@@ -1386,7 +1275,7 @@ matrixBlockTypes:
   998df292-0d4c-450b-b777-e764584e2ed4:
     name: Embedded
     handle: embedded
-    sortOrder: 13
+    sortOrder: 12
     field: ad07ce47-69f0-490c-bbee-94d51799129b
     fieldLayouts:
       31aa9df8-5f36-42a0-8b90-1ed85ed80203:
@@ -1983,7 +1872,7 @@ matrixBlockTypes:
   e92372ca-c8d8-4ac1-9a5e-36b40f90c8fc:
     name: Entry
     handle: entry
-    sortOrder: 7
+    sortOrder: 6
     field: ad07ce47-69f0-490c-bbee-94d51799129b
     fieldLayouts:
       e6865ccd-aa2f-4501-81cc-355215c5ddc5:

@@ -29,7 +29,8 @@
 {% block headerContent %}
 
     <div class="relative">
-        {% if data.imager.images %}
+
+        {% if data.imager.images.imageLandscape is not null  %}
             <div
                 class="relative">
                 {% include '_elements/img/' ~ data.imager.template ~ '.twig' with {
