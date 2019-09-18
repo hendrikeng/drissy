@@ -1,19 +1,17 @@
-{# @var craft \craft\web\twig\variables\CraftVariable #}
-{# @var entry \craft\elements\Entry #}
-
 {#
-Layout: Default
-------------------------------------------------------------
-
+    Layout: Default
+    ------------------------------------------------------------
 #}
 
 {% set assetHash = craft.twigpack.getModuleUri("styles.js") %}
 
-{% set baseUrl = alias('@web') %}
     {%- minify -%}
+
         <!DOCTYPE html>
+
         {# -- Html Tag -- #}
         {% include '_layouts/_partials/html-tag.twig' %}
+
         <head>
 
             {# -- Seomatic -- #}
@@ -43,22 +41,29 @@ Layout: Default
 
             {# -- inlineJs-- #}
             {% include '_layouts/_partials/inline-js.twig' %}
+
         </head>
+
         <body>
+
         {% block body %}
+
             {# -- Debug -- #}
             {% block debug %}
                 {% include '_layouts/_partials/debug.twig' %}
             {% endblock %}
+
             <header>
                 {% block header %}{% endblock %}
             </header>
+
             <main>
                 <div
                     id="app">
                     {% block content %}{% endblock %}
                 </div>
             </main>
+
             <footer>
                 {% block footer %}
                     {% include '_components/footer/default' with {
@@ -71,17 +76,23 @@ Layout: Default
                     } only %}
                 {% endblock %}
             </footer>
+
         {% endblock %}
+
         {% block scripts %}
             <script>
                 window.csrfTokenValue = "{{ craft.app.request.csrfToken|e('js') }}";
             </script>
         {% endblock %}
+
         {% if craft.app.config.general.devMode %}
             {{ craft.twigpack.includeJsModule("styles.js", true) }}
         {% endif %}
+
         {{ craft.twigpack.includeSafariNomoduleFix() }}
         {{ craft.twigpack.includeJsModule("app.js", true) }}
+
         </body>
+
         </html>
     {%- endminify -%}

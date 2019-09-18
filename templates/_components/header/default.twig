@@ -1,64 +1,67 @@
+<div
+    class="mx-auto flex justify-between js-nav bg-red-400 p-4">
 
+    <a href="{{ alias('@web') }}" title="Homepage"
+       aria-label="navigate to homepage">
+        {% include '_svg/logo.svg' with {
+            opt : {
+                class: 'w-8',
+            }
+        } only %}
+    </a>
+
+
+    {% if opt.el.nav %}
+        {% include '_elements/nav/' ~ opt.el.nav with {
+            opt : {
+                data: navigationMain.globalNavigationMain.all() ?? null
+            }
+        } only %}
+    {% endif %}
+
+</div>
+
+{% block headerContent %}
     <div
-        class="mx-auto flex justify-between js-nav bg-red-400 p-4">
-        {# Logo #}
-        <a href="{{ alias('@web') }}" title="Homepage" aria-label="navigate to homepage">
-            {% include '_svg/logo.svg' with {
-                opt : {
-                    class: 'w-8',
-                }
-            } only %}
-        </a>
-        {# Nav #}
-        {% if opt.el.nav %}
-            {% include '_elements/nav/' ~ opt.el.nav with {
-                opt : {
-                    data: navigationMain.globalNavigationMain.all() ?? null
-                }
-            } only %}
+        class="relative">
+        {% if opt.el.image %}
+            <div
+                class="relative">
+                {% include '_elements/img/' ~ opt.imager.template ~ '.twig' with {
+                    opt : {
+                        data: opt.el.image,
+                        imager: opt.imager,
+                    }
+                } only %}
+                {% if opt.el.image.caption %}
+                    <div class="absolute">
+                        {{ opt.el.image.caption }}
+                        {% if opt.el.image.source %}
+                            /
+                            <a href="{{ opt.el.image.sourceUrl }}">{{ opt.el.image.source }}</a>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
         {% endif %}
-    </div>
-    {% block headerContent %}
-        <div
-            class="relative">
-            {% if opt.el.image %}
-                <div
-                    class="relative">
-                    {% include '_elements/img/' ~ opt.imager.template ~ '.twig' with {
-                        opt : {
-                            data: opt.el.image,
-                            imager: opt.imager,
-                        }
-                    } only %}
-                    {% if opt.el.image.caption %}
-                        <div class="absolute">
-                            {{ opt.el.image.caption }}
-                            {% if opt.el.image.source %}
-                                /
-                                <a href="{{ opt.el.image.sourceUrl }}">{{ opt.el.image.source }}</a>
-                            {% endif %}
-                        </div>
-                    {% endif %}
-                </div>
-            {% endif %}
-            {% if opt.el.title or opt.el.description %}
-                <div
-                    class="absolute inset-y-0 inset-x-0 flex flex-col w-full h-full items-center justify-center">
-                    {% if opt.el.title %}
-                        <h1 class="text-white"
-                            itemprop="headline">
+        {% if opt.el.title or opt.el.description %}
+            <div
+                class="absolute inset-y-0 inset-x-0 flex flex-col w-full h-full items-center justify-center">
+                {% if opt.el.title %}
+                    <h1 class="text-white"
+                        itemprop="headline">
                                 <span
                                     class="js-headline">{{ opt.el.title }}</span>
-                        </h1>
-                    {% endif %}
-                    {% if opt.el.description %}
-                        <p class="text-white"
-                           itemprop="description">
-                            {{ opt.el.description|striptags }}
-                        </p>
-                    {% endif %}
-                </div>
-            {% endif %}
-        </div>
-    {% endblock %}
+                    </h1>
+                {% endif %}
+                {% if opt.el.description %}
+                    <p class="text-white"
+                       itemprop="description">
+                        {{ opt.el.description|striptags }}
+                    </p>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
 
