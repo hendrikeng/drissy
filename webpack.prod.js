@@ -105,6 +105,7 @@ const configureCompression = () => {
 const configureCriticalCss = () => {
     return settings.criticalCssConfig.pages.map(row => {
         const criticalSrc = settings.urls.critical + row.url;
+        const { criticalIgnore } = settings.criticalCssConfig;
         const criticalDest =
             settings.criticalCssConfig.base +
             row.template +
@@ -126,6 +127,7 @@ const configureCriticalCss = () => {
             minify: true,
             width: criticalWidth,
             height: criticalHeight,
+            ignore: criticalIgnore,
         });
     });
 };

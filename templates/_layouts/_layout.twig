@@ -19,6 +19,7 @@ Layout: Default
             {% hook 'seomaticRender' %}
             {# -- Head meta -- #}
             {% include '_layouts/_partials/head-meta.twig' %}
+            {% block head %} {% endblock %}
             {# -- criticalCss -- #}
             {% include '_layouts/_partials/critical-css.twig' %}
             {# -- Fontface Observer -- #}
@@ -36,7 +37,7 @@ Layout: Default
                 {% block header %}{% endblock %}
             </header>
             <main>
-                <div class="px-4 max-w-3xl mx-auto"
+                <div
                      id="app">
                     {% block content %}{% endblock %}
                 </div>

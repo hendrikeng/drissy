@@ -98,6 +98,7 @@ module.exports = {
         ampPrefix: 'amp_',
         ampCriticalHeight: 19200,
         ampCriticalWidth: 600,
+        criticalIgnore: ['@font-face'],
         pages: [
             {
                 url: '',
@@ -105,19 +106,23 @@ module.exports = {
             },
             {
                 url: 'offline',
-                template: 'offline',
+                template: 'errors/offline',
             },
             {
                 url: '404',
-                template: '404',
+                template: 'errors/404',
             },
             {
                 url: '500',
-                template: '500',
+                template: 'errors/500',
             },
             {
                 url: '503',
-                template: '503',
+                template: 'errors/503',
+            },
+            {
+                url: 'articles',
+                template: 'entry/pages/paginated',
             },
         ],
     },
