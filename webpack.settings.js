@@ -122,11 +122,11 @@ module.exports = {
             },
             {
                 url: 'articles',
-                template: 'entry/pages/paginated',
+                template: 'entry/pages/paginated.twig',
             },
             {
                 url: 'articles/article-one',
-                template: 'entry/articles/default.twig',
+                template: 'entry/articles/default',
             },
         ],
     },
