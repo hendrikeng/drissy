@@ -63,6 +63,6 @@
             "@php craft setup/welcome"
         ],
         "post-update-cmd": "@craft-update",
-        "post-install-cmd": "@post-root-package-install"
+        "post-install-cmd": "@craft-update"
       }
     }
