@@ -2,29 +2,22 @@
 
 {% for block in opt.data %}
     <div class="flex justify-center">
-        <p class="copyright">&copy;
-            <span itemprop="copyrightYear">{{ now|date('Y') }}</span>
-            <span itemprop="copyrightHolder" itemscope="itemscope"
-                  itemtype="http://schema.org/Organization">
-                <span itemprop="name">{{ block.company }}</span>
-                <span itemprop="address" itemscope="itemscope"
-                      itemtype="http://schema.org/PostalAddress">
-                    <span itemprop="streetAddress">{{ block.street }}</span>
-                    <span itemprop="postalCode">{{ block.postalCode }}</span>
-                    <span itemprop="addressLocality">{{ block.city }}</span>
-                    <span itemprop="addressCountry">{{ block.country }}</span>
-                </span>
-                <span itemprop="telephone">
-                    <a href="tel:{{ block.phone|replace({' ':''})|replace({'/':''}) }}"
-                       title="contact phone"
-                       rel="nofollow">{{ block.phone }}</a>
-                </span>
-                <span itemprop="email">
-                    <a href="mailto:{{ block.mail }}" title="contact email"
-                       rel="nofollow">{{ block.mail }}</a>
-                </span>
-            </span>
-        </p>
+        <span>{{ now|date('Y') }}</span>
+        <span itemprop="name">{{ block.company }}</span>
+        <span>{{ block.street }}</span>
+        <span>{{ block.postalCode }}</span>
+        <span>{{ block.city }}</span>
+        <span>{{ block.country }}</span>
+        <span>
+            <a href="tel:{{ block.phone|replace({' ':''})|replace({'/':''}) }}"
+               title="contact phone"
+               rel="nofollow">{{ block.phone }}</a>
+        </span>
+        <span>
+            <a href="mailto:{{ block.mail }}" title="contact email"
+               rel="nofollow">{{ block.mail }}
+            </a>
+        </span>
 
         {% if opt.el.nav %}
             {% include '_elements/nav/' ~ opt.el.nav with {
@@ -34,12 +27,15 @@
             } only %}
         {% endif %}
 
-        <span> <a rel="nofollow" title="Homepage" aria-label="navigate to homepage"
-                  href="{{ alias('@web') }}">{% include '_svg/logo.svg' with {
+        <span>
+            <a rel="nofollow" title="Homepage"
+               aria-label="navigate to homepage"
+               href="{{ alias('@web') }}">{% include '_svg/logo.svg' with {
                     opt : {
                         class: 'w-8',
                     }
-                } only %}</a></span>
+                } only %}</a>
+        </span>
 
     </div>
 {% endfor %}
