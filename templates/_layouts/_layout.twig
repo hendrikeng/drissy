@@ -29,7 +29,7 @@ Layout: Default
                 {% if criticalCss and criticalCss == assetHash %}
                     {{ craft.twigpack.includeCssModule("styles.css") }}
                 {% else %}
-                    {{ setCookie('critical-css', assetHash, now | date_modify("+7 days").timestamp ) }}
+                    {% do setCookie('critical-css', assetHash, now | date_modify("+7 days").timestamp ) %}
                     {% block inlineCriticalCss %}
                         {{ craft.twigpack.includeCriticalCssTags() }}
                     {% endblock %}

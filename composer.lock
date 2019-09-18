@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b105df8d210143d43344844b49a4611b",
+    "content-hash": "f0a2a21db071c4de58cfdc21f95f86a0",
     "packages": [
         {
             "name": "aelvan/imager",
@@ -2616,58 +2616,6 @@
             "time": "2019-09-15T07:36:45+00:00"
         },
         {
-            "name": "mmikkel/child-me",
-            "version": "1.0.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/mmikkel/ChildMe-Craft.git",
-                "reference": "d198e514b34e523c41df527930885c374b1580af"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/mmikkel/ChildMe-Craft/zipball/d198e514b34e523c41df527930885c374b1580af",
-                "reference": "d198e514b34e523c41df527930885c374b1580af",
-                "shasum": ""
-            },
-            "require": {
-                "craftcms/cms": "^3.0.0-RC1"
-            },
-            "type": "craft-plugin",
-            "extra": {
-                "name": "Child Me!",
-                "handle": "child-me",
-                "schemaVersion": "1.0.0",
-                "hasCpSettings": false,
-                "hasCpSection": false,
-                "changelogUrl": "https://raw.githubusercontent.com/mmikkel/ChildMe-Craft/master/CHANGELOG.md",
-                "class": "mmikkel\\childme\\ChildMe"
-            },
-            "autoload": {
-                "psr-4": {
-                    "mmikkel\\childme\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Mats Mikkel Rummelhoff",
-                    "homepage": "https://vaersaagod.no"
-                }
-            ],
-            "description": "Easily create child elements",
-            "keywords": [
-                "Craft",
-                "child me",
-                "cms",
-                "craft-plugin",
-                "craftcms"
-            ],
-            "time": "2018-06-05T19:14:46+00:00"
-        },
-        {
             "name": "mmikkel/cp-field-inspect",
             "version": "1.0.6",
             "source": {
@@ -3136,64 +3084,6 @@
             "time": "2018-12-07T01:04:54+00:00"
         },
         {
-            "name": "nystudio107/craft-eagerbeaver",
-            "version": "1.0.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/nystudio107/craft-eagerbeaver.git",
-                "reference": "e3b2d3e1847bfca022812a2a2aba2481636a85ea"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/nystudio107/craft-eagerbeaver/zipball/e3b2d3e1847bfca022812a2a2aba2481636a85ea",
-                "reference": "e3b2d3e1847bfca022812a2a2aba2481636a85ea",
-                "shasum": ""
-            },
-            "require": {
-                "craftcms/cms": "^3.0.0"
-            },
-            "type": "craft-plugin",
-            "extra": {
-                "name": "Eager Beaver",
-                "handle": "eager-beaver",
-                "schemaVersion": "1.0.0",
-                "hasCpSettings": false,
-                "hasCpSection": false,
-                "changelogUrl": "https://raw.githubusercontent.com/nystudio107/craft-eagerbeaver/v1/CHANGELOG.md",
-                "components": {
-                    "eagerBeaverService": "nystudio107\\eagerbeaver\\services\\EagerBeaverService"
-                },
-                "class": "nystudio107\\eagerbeaver\\EagerBeaver"
-            },
-            "autoload": {
-                "psr-4": {
-                    "nystudio107\\eagerbeaver\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "nystudio107",
-                    "homepage": "https://nystudio107.com"
-                }
-            ],
-            "description": "Allows you to eager load elements from auto-injected Entry elements on demand from your templates.",
-            "keywords": [
-                "Craft",
-                "cms",
-                "craft-plugin",
-                "craftcms",
-                "eager",
-                "eager beaver",
-                "eager loading",
-                "loading"
-            ],
-            "time": "2018-07-30T05:25:22+00:00"
-        },
-        {
             "name": "nystudio107/craft-minify",
             "version": "1.2.9",
             "source": {
@@ -3248,65 +3138,6 @@
                 "minify"
             ],
             "time": "2018-07-21T15:09:55+00:00"
-        },
-        {
-            "name": "nystudio107/craft-routemap",
-            "version": "1.1.6",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/nystudio107/craft-routemap.git",
-                "reference": "f177bf5a651e4ba9538bffc3f0d46bc8f3f32031"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/nystudio107/craft-routemap/zipball/f177bf5a651e4ba9538bffc3f0d46bc8f3f32031",
-                "reference": "f177bf5a651e4ba9538bffc3f0d46bc8f3f32031",
-                "shasum": ""
-            },
-            "require": {
-                "craftcms/cms": "^3.0.0"
-            },
-            "type": "craft-plugin",
-            "extra": {
-                "name": "Route Map",
-                "handle": "route-map",
-                "schemaVersion": "1.0.0",
-                "hasCpSettings": false,
-                "hasCpSection": false,
-                "changelogUrl": "https://raw.githubusercontent.com/nystudio107/craft-routemap/v1/CHANGELOG.md",
-                "components": {
-                    "routes": "nystudio107\\routemap\\services\\Routes"
-                },
-                "class": "nystudio107\\routemap\\RouteMap"
-            },
-            "autoload": {
-                "psr-4": {
-                    "nystudio107\\routemap\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "nystudio107",
-                    "homepage": "https://nystudio107.com/"
-                }
-            ],
-            "description": "Returns a list of Craft/Vue/React route rules and element URLs for ServiceWorkers from Craft entries",
-            "keywords": [
-                "Craft",
-                "cms",
-                "craft-plugin",
-                "craftcms",
-                "react",
-                "route map",
-                "routes",
-                "serviceworker",
-                "vue"
-            ],
-            "time": "2019-03-13T18:38:40+00:00"
         },
         {
             "name": "nystudio107/craft-scripts",
