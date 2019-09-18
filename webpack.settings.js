@@ -122,7 +122,7 @@ module.exports = {
             },
             {
                 url: 'articles',
-                template: 'entry/pages/paginated.twig',
+                template: 'entry/pages/paginated',
             },
             {
                 url: 'articles/article-one',
