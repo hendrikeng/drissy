@@ -2,6 +2,7 @@
     <style>
         {{ craft.twigpack.includeFile("@webroot/dist/css/webfonts.css") }}
     </style>
+    {% set fontsLoaded = getCookie('fonts-loaded') %}
     {% if fontsLoaded and fontsLoaded == assetHash %}
     {% else %}
         <script>
