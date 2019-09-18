@@ -60,7 +60,7 @@ Layout: Default
             </script>
         {% endblock %}
         {% if craft.app.config.general.devMode %}
-        {{ craft.twigpack.includeJsModule("styles.js", true) }}
+            {{ craft.twigpack.includeJsModule("styles.js", true) }}
         {% endif %}
         {{ craft.twigpack.includeSafariNomoduleFix() }}
         {{ craft.twigpack.includeJsModule("app.js", true) }}
