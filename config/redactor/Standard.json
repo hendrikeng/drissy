@@ -13,6 +13,24 @@
     "toolbarFixed": true,
     "plugins": ["customstyles",  "fullscreen"],
     "customStyles": {
+        "paragraph": {
+            "dropdown": {
+                "white": {
+                    "args": {
+                        "tag": "p",
+                        "class": "text-white",
+                        "type": "toggle"
+                    }
+                },
+                "gray": {
+                    "args": {
+                        "tag": "p",
+                        "class": "text-gray-900",
+                        "type": "toggle"
+                    }
+                }
+            }
+        },
         "headline": {
             "dropdown": {
                 "white": {
@@ -22,10 +40,10 @@
                         "type": "toggle"
                     }
                 },
-                "black": {
+                "gray": {
                     "args": {
                         "tag": "h3",
-                        "class": "text-black",
+                        "class": "text-gray-900",
                         "type": "toggle"
                     }
                 }

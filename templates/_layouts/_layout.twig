@@ -64,20 +64,20 @@
                 </div>
             </main>
 
-            <footer>
-                <div class="px-4 max-w-3xl mx-auto">
-                    {% block footer %}
-                        {% include '_components/footer/default' with {
-                            opt : {
-                                data: contact.globalContact.all(),
-                                el: {
-                                    nav: 'default',
-                                },
-                            },
-                        } only %}
-                    {% endblock %}
-                </div>
-            </footer>
+{#            <footer>#}
+{#                <div class="px-4 max-w-3xl mx-auto">#}
+{#                    {% block footer %}#}
+{#                        {% include '_components/footer/default' with {#}
+{#                            opt : {#}
+{#                                data: contact.globalContact.all(),#}
+{#                                el: {#}
+{#                                    nav: 'default',#}
+{#                                },#}
+{#                            },#}
+{#                        } only %}#}
+{#                    {% endblock %}#}
+{#                </div>#}
+{#            </footer>#}
 
         {% endblock %}
 
