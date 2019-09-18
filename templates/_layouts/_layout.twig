@@ -15,14 +15,32 @@ Layout: Default
         {# -- Html Tag -- #}
         {% include '_layouts/_partials/html-tag.twig' %}
         <head>
+
             {# -- Seomatic -- #}
             {% hook 'seomaticRender' %}
+
             {# -- Head meta -- #}
             {% include '_layouts/_partials/head-meta.twig' %}
+            {% block head %}{% endblock %}
+
             {# -- criticalCss -- #}
-            {% include '_layouts/_partials/critical-css.twig' %}
+            {% if not craft.app.config.general.devMode %}
+                {% set criticalCss = getCookie('critical-css') %}
+                {% if criticalCss and criticalCss == assetHash %}
+                    {{ craft.twigpack.includeCssModule("styles.css") }}
+                {% else %}
+                    {{ setCookie('critical-css', assetHash, now | date_modify("+7 days").timestamp ) }}
+                    {% block inlineCriticalCss %}
+                        {{ craft.twigpack.includeCriticalCssTags() }}
+                    {% endblock %}
+                    {{ craft.twigpack.includeCssModule("styles.css", true) }}
+                    {{ craft.twigpack.includeCssRelPreloadPolyfill() }}
+                {% endif %}
+            {% endif %}
+
             {# -- Fontface Observer -- #}
             {% include '_layouts/_partials/font-face-observer.twig' %}
+
             {# -- inlineJs-- #}
             {% include '_layouts/_partials/inline-js.twig' %}
         </head>
@@ -37,7 +55,7 @@ Layout: Default
             </header>
             <main>
                 <div
-                     id="app">
+                    id="app">
                     {% block content %}{% endblock %}
                 </div>
             </main>
