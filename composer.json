@@ -56,7 +56,9 @@
             "@php craft clear-caches/all"
         ],
         "post-root-package-install": [
-            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+            "ln -s ./vendor/nystudio107/craft-scripts/scripts ./scripts",
+            "@php -r \"file_exists('.env.sh') || copy('./scripts/craft3-example.env.sh', '.scripts/.env.sh');\""
         ],
         "post-create-project-cmd": [
             "@php craft setup/welcome"
