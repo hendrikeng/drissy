@@ -3,18 +3,15 @@
 {% block blockContent %}
     {# TODO: für ratio muss wrapper und mediabox an sein, object fit hat keine wirkung mehr #}
     <figure
-        class="w-full lg:{{ block.columns ?? 'w-full' }}"
-        itemprop="associatedMedia" itemscope
-        itemtype="http://schema.org/ImageObject">
-        {% include '_elements/img/default' with {
+        class="w-full lg:{{ block.columns ?? 'w-full' }}">
+        {% include '_elements/img/default.twig' with {
             data : {
                 imager: {
                     options: {
                         objectFit: false,
-                        mediaBox: true,
-                        wrapper: true,
-                        class: 'w-full h-full',
-                        svg: 'max-w-2xl md:mx-12'
+                        mediaBox: false,
+                        wrapper: false,
+                        class: 'w-full h-auto',
                     },
                     images: {
                         imageLandscape: block.image.one() ?? null,

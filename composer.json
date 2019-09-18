@@ -29,6 +29,7 @@
         "ostark/craft-async-queue": "^1.3.3",
         "sebastianlenz/linkfield": "^1.0.8",
         "topshelfcraft/environment-label": "^3.1.5",
+        "vaersaagod/matrixmate": "^1.2",
         "verbb/expanded-singles": "^1.0.7",
         "verbb/image-resizer": "^2.0.3",
         "vlucas/phpdotenv": "^2.6.1",

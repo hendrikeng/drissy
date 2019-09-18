@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f0a2a21db071c4de58cfdc21f95f86a0",
+    "content-hash": "a544b4ce5851551249b13bf4d2d50d5f",
     "packages": [
         {
             "name": "aelvan/imager",
@@ -5572,6 +5572,57 @@
                 "templating"
             ],
             "time": "2019-06-18T15:37:11+00:00"
+        },
+        {
+            "name": "vaersaagod/matrixmate",
+            "version": "1.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vaersaagod/matrixmate.git",
+                "reference": "0f78dbb06482bdf3942337f34fd58826ef7f77b4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vaersaagod/matrixmate/zipball/0f78dbb06482bdf3942337f34fd58826ef7f77b4",
+                "reference": "0f78dbb06482bdf3942337f34fd58826ef7f77b4",
+                "shasum": ""
+            },
+            "require": {
+                "craftcms/cms": "^3.0.0"
+            },
+            "type": "craft-plugin",
+            "extra": {
+                "name": "MatrixMate",
+                "handle": "matrixmate",
+                "hasCpSettings": false,
+                "hasCpSection": false,
+                "changelogUrl": "https://raw.githubusercontent.com/vaersaagod/matrixmate/master/CHANGELOG.md",
+                "class": "vaersaagod\\matrixmate\\MatrixMate"
+            },
+            "autoload": {
+                "psr-4": {
+                    "vaersaagod\\matrixmate\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Værsågod",
+                    "homepage": "https://vaersaagod.no"
+                }
+            ],
+            "description": "Welding Matrix into shape, mate!",
+            "keywords": [
+                "Craft",
+                "cms",
+                "craft-plugin",
+                "craftcms",
+                "matrixmate"
+            ],
+            "time": "2019-09-03T23:28:57+00:00"
         },
         {
             "name": "verbb/expanded-singles",

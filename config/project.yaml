@@ -10,7 +10,7 @@ categoryGroups:
         hasUrls: true
         uriFormat: 'articles/{slug}'
         template: _taxonomy
-dateModified: 1568844807
+dateModified: 1568847464
 email:
   fromEmail: $SYSTEM_EMAIL_ADDRESS
   fromName: $SENDER_NAME
@@ -2027,6 +2027,10 @@ plugins:
     enabled: true
     schemaVersion: 2.0.0
   redactor-custom-styles:
+    edition: standard
+    enabled: true
+    schemaVersion: 1.0.0
+  matrixmate:
     edition: standard
     enabled: true
     schemaVersion: 1.0.0
