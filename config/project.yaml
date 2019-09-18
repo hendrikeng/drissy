@@ -10,7 +10,7 @@ categoryGroups:
         hasUrls: true
         uriFormat: 'articles/{slug}'
         template: _taxonomy
-dateModified: 1568737179
+dateModified: 1568804251
 email:
   fromEmail: $SYSTEM_EMAIL_ADDRESS
   fromName: $SENDER_NAME
@@ -65,8 +65,8 @@ fields:
       initialRows: '4'
       charLimit: ''
       columnType: text
-    contentColumnType: text
     fieldGroup: 893e35ef-633b-4c00-87b3-9bdec31379e0
+    contentColumnType: text
   1765bba8-7755-4fd7-8a4c-4f3244b92ebb:
     name: 'Content Mobile Image'
     handle: contentImageMobile
@@ -294,8 +294,8 @@ fields:
       initialRows: '4'
       charLimit: ''
       columnType: text
-    contentColumnType: text
     fieldGroup: 893e35ef-633b-4c00-87b3-9bdec31379e0
+    contentColumnType: text
   94e973e5-c702-4819-9e70-ab886bd05a2c:
     name: NavigationFooter
     handle: globalNavigationFooter
@@ -337,8 +337,8 @@ fields:
       selectionLabel: ''
       localizeRelations: false
       validateRelatedElements: ''
-    contentColumnType: string
     fieldGroup: 893e35ef-633b-4c00-87b3-9bdec31379e0
+    contentColumnType: string
   9569203b-3f8d-40f7-a744-466455616cb5:
     name: Category
     handle: category
@@ -2381,12 +2381,6 @@ sections:
     type: channel
     enableVersioning: false
     propagationMethod: all
-    siteSettings:
-      18cc759f-911b-4dee-a438-b50790f9d6fb:
-        enabledByDefault: true
-        hasUrls: false
-        uriFormat: ''
-        template: null
     entryTypes:
       6691f116-f98b-435c-aa4a-a44f507ac076:
         name: Errors
@@ -2411,12 +2405,17 @@ sections:
                   954fa326-e92e-42d8-9069-15528818f3f1:
                     required: false
                     sortOrder: 2
+    siteSettings:
+      18cc759f-911b-4dee-a438-b50790f9d6fb:
+        enabledByDefault: true
+        hasUrls: false
+        uriFormat: null
+        template: null
 siteGroups:
   f8d87a05-56b7-4aad-8e28-08f54307f0f7:
     name: default
 sites:
   18cc759f-911b-4dee-a438-b50790f9d6fb:
-    siteGroup: f8d87a05-56b7-4aad-8e28-08f54307f0f7
     name: $SITE_NAME
     handle: default
     language: en-US
@@ -2424,6 +2423,7 @@ sites:
     baseUrl: $SITE_URL
     sortOrder: 1
     primary: true
+    siteGroup: f8d87a05-56b7-4aad-8e28-08f54307f0f7
 system:
   edition: solo
   live: true
