@@ -2,7 +2,7 @@
 
 {% block blockContent %}
 
-    <div class="relative glide {{ block.layout }} o-wrap px-4 mt-8">
+    <div class="relative glide {{ block.layout }}">
         <div data-glide-el="track" class="glide__track">
             <div class="glide__slides">
                 {% for image in block.images.all() %}
@@ -29,13 +29,13 @@
                 {% endfor %}
             </div>
         </div>
-        <div class="mb-14 mt-2 relative w-full h-full glide__arrows bg-green"
+        <div class="absolute inset-y-0 inset-x-0 flex flex-col w-full h-full items-center justify-center "
              data-glide-el="controls">
-            <button class="absolute left-0 glide__arrow glide__arrow--left"
+            <button class=" absolute left-0 glide__arrow glide__arrow--left"
                     data-glide-dir="<" aria-label="previous slide">
                 {% include '_svg/iconArrowLeft.svg' %}
             </button>
-            <button class="absolute right-0 glide__arrow glide__arrow--right"
+            <button class=" absolute right-0 glide__arrow glide__arrow--right"
                     data-glide-dir=">" aria-label="next slide">
                 {% include '_svg/iconArrowRight.svg' %}
             </button>

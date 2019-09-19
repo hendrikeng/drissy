@@ -169,3 +169,47 @@
     {% if opt.el.wrapper %}
 </div>
 {% endif %}
+
+
+{% block dummy %}
+    <div class="relative glide {{ block.layout }} o-wrap px-4 mt-8">
+        <div data-glide-el="track" class="glide__track">
+            <div class="glide__slides">
+                {% for image in block.images.all() %}
+                    <div class="glide__slide">
+                        {% if image %}
+                            {% include '_elements/img/default' with {
+                                data : {
+                                    imager: {
+                                        options: {
+                                            dominantColor: false,
+                                            blurUp: true,
+                                            mediaBox: block.ratio.value == 'auto' ? false : true,
+                                            objectFit: block.ratio.value == 'auto' ? false : true,
+                                            ratio: block.ratio.value,
+                                        },
+                                        images: {
+                                            imageLandscape: image,
+                                        },
+                                    },
+                                }
+                            } only %}
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="mb-14 mt-2 relative w-full h-full glide__arrows bg-green"
+             data-glide-el="controls">
+            <button class="absolute left-0 glide__arrow glide__arrow--left"
+                    data-glide-dir="<" aria-label="previous slide">
+                {% include '_svg/iconArrowLeft.svg' %}
+            </button>
+            <button class="absolute right-0 glide__arrow glide__arrow--right"
+                    data-glide-dir=">" aria-label="next slide">
+                {% include '_svg/iconArrowRight.svg' %}
+            </button>
+        </div>
+    </div>
+
+{% endblock %}
