@@ -8,10 +8,12 @@
             data : {
                 imager: {
                     options: {
-                        objectFit: false,
-                        mediaBox: false,
-                        wrapper: false,
-                        class: 'w-full h-auto',
+                        dominantColor: true,
+                        blurUp: true,
+                        wrapper: block.ratio.value == 'auto' ? false : true,
+                        mediaBox: block.ratio.value == 'auto' ? false : true,
+                        objectFit: block.ratio.value == 'auto' ? false : true,
+                        ratio: block.ratio.value,
                     },
                     images: {
                         imageLandscape: block.image.one() ?? null,
