@@ -10,7 +10,7 @@
     {% if block.embeddedUrl %}
         <div class="relative mb-12">
             <div class="embedded {{ block.ratio.value ? 'aspect-ratio-' ~ block.ratio.value : ''}}">
-            <iframe class="lazyload w-full h-full"
+            <iframe class="lazyload w-full h-full" title="embedded element"
                  data-src="{{ block.embeddedUrl }}">
             </iframe>
             </div>

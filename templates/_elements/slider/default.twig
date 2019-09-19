@@ -149,10 +149,10 @@
         {% if opt.data | length > 1 %}
             {% if opt.el.arrows %}
                 <div class="{{ opt.cn.arrows }}" data-glide-el="controls">
-                    <button class="{{ opt.cn.arrowLeft }}" data-glide-dir="<" aria-label="Pervious slide">
+                    <button class="{{ opt.cn.arrowLeft }}" data-glide-dir="<" aria-label="Previous slide" title="Previous slide">
                         {% include '_svg/iconArrowLeft.svg' %}
                     </button>
-                    <button class=" {{ opt.cn.arrowRight }} " data-glide-dir=">" aria-label="Next slide">
+                    <button class=" {{ opt.cn.arrowRight }} " data-glide-dir=">" aria-label="Next slide" title="Next slide">
                         {% include '_svg/iconArrowRight.svg' %}
                     </button>
                 </div>
@@ -160,7 +160,7 @@
             {% if opt.el.bullets %}
                 <div class="{{ opt.cn.bullets }}" data-glide-el="controls[nav]">
                     {% for entry in opt.data %}
-                        <button class="{{ opt.cn.bullet }}" data-glide-dir="={{ loop.index0 }}" aria-label="select slide"></button>
+                        <button class="{{ opt.cn.bullet }}" data-glide-dir="={{ loop.index0 }}" aria-label="Select slide" title="Select slide"></button>
                     {% endfor %}
                 </div>
             {% endif %}
