@@ -7,14 +7,14 @@
 
 {% block blockContent %}
 
-    {% if block.code %}
-
-        <div class="relative">
+    {% if block.embeddedUrl %}
+        <div class="relative mb-12">
             <div class="embedded {{ block.ratio.value ? 'aspect-ratio-' ~ block.ratio.value : ''}}">
-                {{ block.code|raw }}
+            <iframe class="lazyload w-full h-full"
+                 data-src="{{ block.embeddedUrl }}">
+            </iframe>
             </div>
         </div>
-
     {% endif %}
 
 {% endblock %}
