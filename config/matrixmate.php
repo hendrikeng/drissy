@@ -40,6 +40,20 @@
                     ]
                 ],
                 'types'  => [
+                    'embedded' => [
+                        'tabs' => [
+                            [
+                                'label'  => 'Content',
+                                'fields' => [
+                                    'code',
+                                ],
+                            ],
+                            [
+                                'label'  => 'Settings',
+                                'fields' => [ 'ratio' ],
+                            ],
+                        ],
+                    ],
                     'imageSingle' => [
                         'tabs' => [
                             [
