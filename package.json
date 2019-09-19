@@ -194,6 +194,7 @@
     "gsap": "^2.1.3",
     "headroom.js": "^0.9.4",
     "lazysizes": "^5.1.0",
+    "photoswipe": "^4.1.3",
     "qs": "^6.7.0",
     "regenerator-runtime": "^0.13.2",
     "scrollama": "^2.0.0",

@@ -1,5 +1,5 @@
-import 'core-js/stable';
-import 'regenerator-runtime/runtime';
+// import 'core-js/stable';
+// import 'regenerator-runtime/runtime';
 
 // App main
 const main = async () => {
@@ -22,6 +22,7 @@ const main = async () => {
         /* webpackChunkName: "LazySizes" */ 'lazysizes/plugins/blur-up/ls.blur-up.min.js'
     );
     LazySizes.init();
+
     // Create our vue instance
     new Vue({
         el: '#app',
@@ -64,6 +65,15 @@ const main = async () => {
     if (document.getElementsByClassName('js-carousel').length) {
         await import(/* webpackChunkName: "glide" */ './modules/glide.js')
             .then(glide => glide.carousel.init())
+            .catch(e => console.error(`${e.name} : ${e.message}`));
+    }
+
+    // load gallery async
+    if (document.getElementsByClassName('js-gallery').length) {
+        await import(
+            /* webpackChunkName: "photoswipe" */ './modules/photoswipe.js'
+        )
+            .then(photoswipe => photoswipe.default.init('.js-gallery'))
             .catch(e => console.error(`${e.name} : ${e.message}`));
     }
 };

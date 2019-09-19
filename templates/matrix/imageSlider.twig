@@ -33,11 +33,23 @@
              data-glide-el="controls">
             <button class=" absolute left-0 glide__arrow glide__arrow--left"
                     data-glide-dir="<" aria-label="previous slide">
-                {% include '_svg/iconArrowLeft.svg' %}
+                {% include '_svg/iconArrowLeft.svg' with {
+                    data : {
+                        svg: {
+                            class: 'w-16 fill-current text-white',
+                        }
+                    }
+                } only %}
             </button>
             <button class=" absolute right-0 glide__arrow glide__arrow--right"
                     data-glide-dir=">" aria-label="next slide">
-                {% include '_svg/iconArrowRight.svg' %}
+                {% include '_svg/iconArrowRight.svg' with {
+                    data : {
+                        svg: {
+                            class: 'w-16 fill-current text-white',
+                        }
+                    }
+                } only %}
             </button>
         </div>
     </div>
