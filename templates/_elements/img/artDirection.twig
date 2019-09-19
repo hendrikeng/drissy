@@ -172,7 +172,9 @@
                 type="image/jpeg"
             >
             <img
-                src="{{ craft.imager.placeholder() }}"
+                {% if not options.blurUp %}
+                    src="{{ craft.imager.placeholder() }}"
+                {% endif %}
                 {{ options.lazy ? 'data-'}}srcset="{{ craft.imager.srcset(imagesLandscape) }}"
                 class="{{- options.class -}} {% if options.lazy %} lazyload {% endif %} {% if options.preload %} lazypreload {% endif %} {% if options.mediaBox %} mediabox-img{% endif %}"
                 {{ options.lazy ? 'data-'}}sizes="{{ options.dataSizes }}"
