@@ -13,7 +13,13 @@ const main = async () => {
         /* webpackChunkName: "LazySizes" */ 'lazysizes/plugins/respimg/ls.respimg.js'
     );
     await import(
-        /* webpackChunkName: "LazySizes" */ 'lazysizes/plugins/object-fit/ls.object-fit.js'
+        /* webpackChunkName: "LazySizes" */ 'lazysizes/plugins/parent-fit/ls.parent-fit.min.js'
+    );
+    await import(
+        /* webpackChunkName: "LazySizes" */ 'lazysizes/plugins/parent-fit/ls.parent-fit.min.js'
+    );
+    await import(
+        /* webpackChunkName: "LazySizes" */ 'lazysizes/plugins/blur-up/ls.blur-up.min.js'
     );
     LazySizes.init();
     // Create our vue instance
