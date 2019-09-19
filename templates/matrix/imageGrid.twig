@@ -11,16 +11,14 @@
         hi
     {% endif %}
     <div
-        class="flex flex-wrap -mb-4 -mx-2 {% if isGallery %}js-gallery{% endif %}">
+        class="flex flex-wrap -mb-4 -mx-2 {% if block.gallery %}js-gallery{% endif %}">
         {% for image in block.images.all() %}
             <figure
                 class="mb-4 px-2 w-full md:w-1/2 lg:{{- block.columns -}}">
-                {% if isGallery %}
+                {% if block.gallery %}
                 <a href="{{ image.url() }}" itemprop="contentUrl"
                    data-size="{{ image.getWidth }}x{{ image.getHeight }}">
                     {% endif %}
-
-
                     {% include '_elements/img/default.twig' with {
                         data : {
                             imager: {
@@ -37,7 +35,7 @@
                             },
                         }
                     } only %}
-                    {% if isGallery %}
+                    {% if block.gallery %}
                 </a>
                 {% endif %}
                 {% if block.caption %}

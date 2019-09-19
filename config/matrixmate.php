@@ -64,7 +64,7 @@
                             ],
                             [
                                 'label'  => 'Settings',
-                                'fields' => [ 'ratio', 'columns', 'caption' ],
+                                'fields' => [ 'ratio', 'columns', 'caption', 'gallery' ],
                             ],
                         ],
                     ],
