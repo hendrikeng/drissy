@@ -78,7 +78,7 @@
                             ],
                             [
                                 'label'  => 'Settings',
-                                'fields' => [ 'layout' ],
+                                'fields' => [ 'ratio', 'layout' ],
                             ],
                         ],
                     ],

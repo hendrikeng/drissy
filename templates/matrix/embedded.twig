@@ -8,14 +8,9 @@
 {% block blockContent %}
 
     {% if block.code %}
-        {% if 'youtube.com' in block.code or 'vimeo.com' in block.code %}
-            {% set video = true %}
-        {% else %}
-            {% set video = false %}
-        {% endif %}
 
         <div class="relative">
-            <div class="embedded {{ video ? 'aspect-ratio-16/9' : '' }} ">
+            <div class="embedded {{ block.ratio.value ? 'aspect-ratio-' ~ block.ratio.value : ''}}">
                 {{ block.code|raw }}
             </div>
         </div>

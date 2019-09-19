@@ -7,14 +7,19 @@
             {% set image = block.image.one() %}
             {% if image %}
                 {% include '_elements/img/default.twig' with {
-                    opt : {
-                        data: image,
+                    data : {
                         imager: {
-                            class: 'w-64 h-auto',
-                            mediaBox: false,
-                            objectFit: true,
-                            objectFitValue: 'cover',
-                        }
+                            options: {
+                                class: 'w-64 h-auto',
+                                dominantColor: false,
+                                blurUp: true,
+                                mediaBox: false,
+                                objectFit: true,
+                            },
+                            images: {
+                                imageLandscape: image,
+                            },
+                        },
                     }
                 } only %}
             {% endif %}

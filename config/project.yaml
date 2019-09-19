@@ -10,7 +10,7 @@ categoryGroups:
         hasUrls: true
         uriFormat: 'articles/{slug}'
         template: _taxonomy
-dateModified: 1568907513
+dateModified: 1568911721
 email:
   fromEmail: $SYSTEM_EMAIL_ADDRESS
   fromName: $SENDER_NAME
@@ -1157,7 +1157,7 @@ matrixBlockTypes:
           defaultUploadLocationSource: 'volume:81513b32-d6d3-4819-9687-a5d040fc148b'
           defaultUploadLocationSubpath: '{slug}'
           singleUploadLocationSource: 'volume:81513b32-d6d3-4819-9687-a5d040fc148b'
-          singleUploadLocationSubpath: '{slug}'
+          singleUploadLocationSubpath: ''
           restrictFiles: '1'
           allowedKinds:
             - image
@@ -1328,10 +1328,46 @@ matrixBlockTypes:
             name: Content
             sortOrder: 1
             fields:
+              16322893-4646-42e4-9d6c-84dcbcc28960:
+                required: false
+                sortOrder: 2
               8bd06625-ad17-4e77-86ea-1ad0695c9fc8:
                 required: true
                 sortOrder: 1
     fields:
+      16322893-4646-42e4-9d6c-84dcbcc28960:
+        name: Ratio
+        handle: ratio
+        instructions: ''
+        searchable: true
+        translationMethod: none
+        translationKeyFormat: null
+        type: craft\fields\Dropdown
+        settings:
+          optgroups: true
+          options:
+            -
+              label: 1/1
+              value: 1/1
+              default: ''
+            -
+              label: 4/3
+              value: 4/3
+              default: ''
+            -
+              label: 4/5
+              value: 4/5
+              default: ''
+            -
+              label: 16/9
+              value: 16/9
+              default: ''
+            -
+              label: 21/9
+              value: 21/9
+              default: ''
+        fieldGroup: null
+        contentColumnType: string
       8bd06625-ad17-4e77-86ea-1ad0695c9fc8:
         name: Code
         handle: code
