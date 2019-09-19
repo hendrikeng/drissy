@@ -10,7 +10,7 @@ categoryGroups:
         hasUrls: true
         uriFormat: 'articles/{slug}'
         template: _taxonomy
-dateModified: 1568911721
+dateModified: 1568915345
 email:
   fromEmail: $SYSTEM_EMAIL_ADDRESS
   fromName: $SENDER_NAME
@@ -1369,22 +1369,18 @@ matrixBlockTypes:
         fieldGroup: null
         contentColumnType: string
       8bd06625-ad17-4e77-86ea-1ad0695c9fc8:
-        name: Code
-        handle: code
+        name: Url
+        handle: embeddedUrl
         instructions: ''
         searchable: true
         translationMethod: none
         translationKeyFormat: null
-        type: craft\fields\PlainText
+        type: craft\fields\Url
         settings:
           placeholder: ''
-          code: ''
-          multiline: '1'
-          initialRows: '8'
-          charLimit: ''
-          columnType: text
+          maxLength: '255'
         fieldGroup: null
-        contentColumnType: text
+        contentColumnType: string(255)
   b1236d9c-9004-48dd-a586-d69c689727d7:
     name: Contact
     handle: contact
