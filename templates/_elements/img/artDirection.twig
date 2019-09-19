@@ -37,7 +37,6 @@
     preload: false,
     quality: 80,
     watermark: false,
-    wrapper: false,
     svg: false,
     noscript: false,
 } %}
@@ -143,8 +142,8 @@
         {% endif %}
 
 
-        {% if options.wrapper %}
-            <div class="{{ options.mediaBox ? 'mediabox aspect-ratio-' ~ options.ratio : '' }}" style="{{ options.dominantColor ? 'background-color:' ~ dominantColor ~ ';' }}">
+        {% if options.mediaBox %}
+            <div class="{{ options.mediaBox ? 'mediabox aspect-ratio-' ~ options.ratio : '' }} {{ options.mediaBox }}" style="{{ options.dominantColor ? 'background-color:' ~ dominantColor ~ ';' }}">
         {% endif %}
 
         <picture>
@@ -193,7 +192,7 @@
                      alt="{{ options.alt }}">
             </noscript>
         {% endif %}
-        {% if options.wrapper %}
+        {% if options.mediaBox %}
             </div>
         {% endif %}
 
