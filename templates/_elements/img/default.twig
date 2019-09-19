@@ -115,7 +115,9 @@
                 type="image/jpeg"
             >
             <img
+                {% if not options.blurUp %}
                 src="{{ craft.imager.placeholder() }}"
+                {% endif %}
                 {% if options.lazy %}
                     data-srcset="{{ craft.imager.srcset(images) }}"
                 {% endif %}
