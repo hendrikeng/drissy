@@ -7,17 +7,11 @@ const merge = require('webpack-merge');
 const path = require('path');
 const webpack = require('webpack');
 
-// resolve function
-function resolve(dir) {
-    return path.join(__dirname, './', dir);
-}
-
 // webpack plugins
 const DashboardPlugin = require('webpack-dashboard/plugin');
 
 // config files
 const common = require('./webpack.common.js');
-const pkg = require('./package.json');
 const settings = require('./webpack.settings.js');
 
 // Configure the webpack-dev-server
@@ -42,7 +36,6 @@ const configureDevServer = buildType => {
         },
     };
 };
-
 
 // Configure Image loader
 const configureImageLoader = buildType => {
