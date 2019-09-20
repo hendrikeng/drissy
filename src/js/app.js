@@ -1,6 +1,10 @@
 // import 'core-js/stable';
 // import 'regenerator-runtime/runtime';
 // https://github.com/zloirock/core-js/blob/master/docs/2019-03-19-core-js-3-babel-and-a-look-into-the-future.md
+// src/main.js
+import 'core-js/modules/es.promise';
+import 'core-js/modules/es.array.iterator';
+// https://babeljs.io/docs/en/babel-plugin-syntax-dynamic-import#working-with-webpack-and-babel-preset-env
 
 // App main
 const main = async () => {
