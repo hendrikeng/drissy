@@ -115,7 +115,6 @@
     "@babel/plugin-transform-runtime": "^7.5.0",
     "@babel/preset-env": "^7.5.4",
     "@babel/register": "^7.4.4",
-    "@babel/runtime": "^7.5.4",
     "@babel/runtime-corejs3": "^7.6.0",
     "@gfx/zopfli": "^1.0.14",
     "babel-eslint": "^10.0.2",
