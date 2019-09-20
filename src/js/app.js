@@ -3,11 +3,6 @@
 import 'core-js/modules/es.promise';
 import 'core-js/modules/es.array.iterator';
 
-import '../css/app.pcss';
-
-import 'typeface-roboto-condensed';
-import 'typeface-cabin';
-
 // App main
 const main = async () => {
     // Async load the vue module
