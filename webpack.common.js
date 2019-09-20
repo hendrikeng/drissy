@@ -25,11 +25,11 @@ const configureBabelLoader = browserList => {
                         '@babel/preset-env',
                         {
                             modules: false,
+                            useBuiltIns: 'usage',
                             corejs: {
                                 version: 3,
                                 proposals: true,
                             },
-                            useBuiltIns: 'usage',
                             targets: {
                                 browsers: browserList,
                             },
@@ -38,7 +38,12 @@ const configureBabelLoader = browserList => {
                 ],
                 plugins: [
                     '@babel/plugin-syntax-dynamic-import',
-                    '@babel/plugin-transform-runtime',
+                    [
+                        '@babel/transform-runtime',
+                        {
+                            corejs: 3,
+                        },
+                    ],
                 ],
             },
         },

@@ -5,6 +5,7 @@ require('dotenv').config();
 const Terser = require('terser');
 const Postcss = require('postcss');
 const Cssnano = require('cssnano');
+const path = require('path');
 
 // Webpack settings exports
 // noinspection WebpackConfigHighlighting

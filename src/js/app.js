@@ -1,6 +1,3 @@
-// import 'core-js/stable';
-// import 'regenerator-runtime/runtime';
-
 // App main
 const main = async () => {
     // Async load the vue module

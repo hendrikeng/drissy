@@ -116,6 +116,7 @@
     "@babel/preset-env": "^7.5.4",
     "@babel/register": "^7.4.4",
     "@babel/runtime": "^7.5.4",
+    "@babel/runtime-corejs3": "^7.6.0",
     "@gfx/zopfli": "^1.0.14",
     "babel-eslint": "^10.0.2",
     "babel-loader": "^8.0.6",
