@@ -30,12 +30,6 @@ const configureBabelLoader = browserList => {
                                 version: '3.1',
                                 proposals: true,
                             },
-                            include: [
-                                // We need to include ie11 polyfills used by webpack dynamic import
-                                // because webpack generated code does not go through babel
-                                'es.promise',
-                                'es.array.iterator',
-                            ],
                             targets: {
                                 browsers: browserList,
                             },

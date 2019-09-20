@@ -1,10 +1,7 @@
-// import 'core-js/stable';
-// import 'regenerator-runtime/runtime';
-// https://github.com/zloirock/core-js/blob/master/docs/2019-03-19-core-js-3-babel-and-a-look-into-the-future.md
-// src/main.js
+// We need to include ie11 polyfills used by webpack dynamic import
+// because webpack generated code does not go through babel
 import 'core-js/modules/es.promise';
 import 'core-js/modules/es.array.iterator';
-// https://babeljs.io/docs/en/babel-plugin-syntax-dynamic-import#working-with-webpack-and-babel-preset-env
 
 // App main
 const main = async () => {
