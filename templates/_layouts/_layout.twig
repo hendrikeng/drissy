@@ -55,6 +55,11 @@
     {# -- inlineJs-- #}
     {% include '_layouts/_partials/inline-js.twig' %}
 
+    {# -- Goole analytics -- #}
+    {% if not craft.app.config.general.devMode %}
+        {{ craft.twigpack.includeJsModule("analytics.js", true) }}
+    {% endif %}
+
 </head>
 
 <body>
