@@ -7,7 +7,7 @@
     {% else %}
         <script>
             {{ craft.twigpack.includeFileFromManifest("fontfaceobserver.js") }}
-            {{ craft.twigpack.includeFileFromManifest("load-fonts.js.js") }}
+            {{ craft.twigpack.includeFileFromManifest("load-fonts.js") }}
         </script>
         {% do setCookie('fonts-loaded', assetHash, now | date_modify("+7 days").timestamp ) %}
     {% endif %}
