@@ -43,12 +43,12 @@ module.exports = {
     copyWebpackConfig: [
         {
             from: './src/js/workbox-catch-handler.js',
-            to: 'js/[name].[hash].[ext]',
+            to: 'js/[name].[ext]',
         },
         // copy fontfaceobsever from node modules
         {
             from: './node_modules/fontfaceobserver/fontfaceobserver.js',
-            to: 'js/[name].[hash].[ext]',
+            to: 'js/[name].[ext]',
             transform(content) {
                 return content;
             },
@@ -56,7 +56,7 @@ module.exports = {
         // copy and minify inlineJs
         {
             from: './src/inlineJs/load-fonts.js',
-            to: 'js/[name].[hash].[ext]',
+            to: 'js/[name].[ext]',
             transform(content) {
                 return Terser.minify(content.toString()).code;
             },
@@ -64,7 +64,7 @@ module.exports = {
         // copy and minify inlineJs
         {
             from: './src/inlineJs/tab-handler.js',
-            to: 'js/[name].[hash].[ext]',
+            to: 'js/[name].[ext]',
             transform(content) {
                 return Terser.minify(content.toString()).code;
             },
@@ -72,7 +72,7 @@ module.exports = {
         // copy and minify inlineJs
         {
             from: './src/inlineJs/service-worker.js',
-            to: 'js/[name].[hash].[ext]',
+            to: 'js/[name].[ext]',
             transform(content) {
                 return Terser.minify(content.toString()).code;
             },
@@ -80,7 +80,7 @@ module.exports = {
         // copy and minify webfonts css
         {
             from: './src/css/components/webfonts.pcss',
-            to: 'css/[name].[hash].css',
+            to: 'css/[name].css',
             transform(content) {
                 return Postcss([Cssnano])
                     .process(content.toString())
