@@ -1,3 +1,8 @@
+import '../css/app.pcss';
+
+import 'typeface-roboto-condensed';
+import 'typeface-cabin';
+
 // We need to include ie11 polyfills used by webpack dynamic import
 // because webpack generated code does not go through babel
 import 'core-js/modules/es.promise';

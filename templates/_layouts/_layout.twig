@@ -3,7 +3,7 @@
     ------------------------------------------------------------
 #}
 
-{% set assetHash = craft.twigpack.getModuleUri("styles.js") %}
+{% set assetHash = craft.twigpack.getModuleUri("app.js") %}
 {#{% set assetHash = craft.twigpack.getModuleHash("styles.css", "legacy") %}#}
 
     {%- minify -%}
@@ -105,9 +105,6 @@
     </script>
 {% endblock %}
 
-{% if craft.app.config.general.devMode %}
-    {{ craft.twigpack.includeJsModule("styles.js", true) }}
-{% endif %}
 
 {{ craft.twigpack.includeSafariNomoduleFix() }}
 {{ craft.twigpack.includeJsModule("app.js", true) }}
