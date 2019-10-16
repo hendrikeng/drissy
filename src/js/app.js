@@ -1,8 +1,3 @@
-import '../css/app.pcss';
-
-import 'typeface-roboto-condensed';
-import 'typeface-cabin';
-
 // We need to include ie11 polyfills used by webpack dynamic import
 // because webpack generated code does not go through babel
 import 'core-js/modules/es.promise';
@@ -23,7 +18,7 @@ const main = async () => {
         /* webpackChunkName: "LazySizes" */ 'lazysizes/plugins/parent-fit/ls.parent-fit.min.js'
     );
     await import(
-        /* webpackChunkName: "LazySizes" */ 'lazysizes/plugins/parent-fit/ls.parent-fit.min.js'
+        /* webpackChunkName: "LazySizes" */ 'lazysizes/plugins/object-fit/ls.object-fit.js'
     );
     await import(
         /* webpackChunkName: "LazySizes" */ 'lazysizes/plugins/blur-up/ls.blur-up.min.js'

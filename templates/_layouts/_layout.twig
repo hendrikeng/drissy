@@ -3,8 +3,7 @@
     ------------------------------------------------------------
 #}
 
-{% set assetHash = craft.twigpack.getModuleUri("styles.js") %}
-{#{% set assetHash = craft.twigpack.getModuleHash("styles.css", "legacy") %}#}
+{% set assetHash = craft.twigpack.getModuleHash("styles.css", "legacy") %}
 
     {%- minify -%}
 

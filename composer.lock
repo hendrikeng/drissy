@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "aelvan/imager",
-            "version": "v2.2.0",
+            "version": "v2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aelvan/Imager-Craft.git",
-                "reference": "de6267d7b971a809c59ae6483c9b21e097cafcd0"
+                "reference": "b9f01d7bfb6e05a6688c676d7bbfcc50a68f5d29"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aelvan/Imager-Craft/zipball/de6267d7b971a809c59ae6483c9b21e097cafcd0",
-                "reference": "de6267d7b971a809c59ae6483c9b21e097cafcd0",
+                "url": "https://api.github.com/repos/aelvan/Imager-Craft/zipball/b9f01d7bfb6e05a6688c676d7bbfcc50a68f5d29",
+                "reference": "b9f01d7bfb6e05a6688c676d7bbfcc50a68f5d29",
                 "shasum": ""
             },
             "require": {
@@ -70,20 +70,20 @@
                 "srcset",
                 "transform"
             ],
-            "time": "2019-09-16T20:28:38+00:00"
+            "time": "2019-09-21T14:25:19+00:00"
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.112.3",
+            "version": "3.112.23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "c27c64904dcf3f3131a927b09b0036273a22a0ae"
+                "reference": "11f8ebab922a8875f8a5b3927f946341eeae8ec2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/c27c64904dcf3f3131a927b09b0036273a22a0ae",
-                "reference": "c27c64904dcf3f3131a927b09b0036273a22a0ae",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/11f8ebab922a8875f8a5b3927f946341eeae8ec2",
+                "reference": "11f8ebab922a8875f8a5b3927f946341eeae8ec2",
                 "shasum": ""
             },
             "require": {
@@ -153,7 +153,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2019-09-18T18:09:31+00:00"
+            "time": "2019-10-16T18:13:31+00:00"
         },
         {
             "name": "carlcs/craft-redactorcustomstyles",
@@ -552,16 +552,16 @@
         },
         {
             "name": "craftcms/cms",
-            "version": "3.3.4.1",
+            "version": "3.3.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/craftcms/cms.git",
-                "reference": "411852758f009292eb203c89e24dc83e0445c44c"
+                "reference": "6b3b38a271d1ee3b74041efc1c291b3f8724171c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/craftcms/cms/zipball/411852758f009292eb203c89e24dc83e0445c44c",
-                "reference": "411852758f009292eb203c89e24dc83e0445c44c",
+                "url": "https://api.github.com/repos/craftcms/cms/zipball/6b3b38a271d1ee3b74041efc1c291b3f8724171c",
+                "reference": "6b3b38a271d1ee3b74041efc1c291b3f8724171c",
                 "shasum": ""
             },
             "require": {
@@ -589,7 +589,7 @@
                 "seld/cli-prompt": "^1.0.3",
                 "symfony/yaml": "^3.2|^4.0",
                 "true/punycode": "^2.1.0",
-                "twig/twig": "~2.11.0",
+                "twig/twig": "~2.12.0",
                 "voku/stringy": "~5.1.0",
                 "webonyx/graphql-php": "^0.12.0",
                 "yii2tech/ar-softdelete": "^1.0.2",
@@ -642,7 +642,7 @@
                 "craftcms",
                 "yii2"
             ],
-            "time": "2019-09-17T22:35:58+00:00"
+            "time": "2019-10-16T11:28:22+00:00"
         },
         {
             "name": "craftcms/oauth2-craftid",
@@ -1248,16 +1248,16 @@
         },
         {
             "name": "google/auth",
-            "version": "v1.5.2",
+            "version": "v1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/googleapis/google-auth-library-php.git",
-                "reference": "2ee962e5df3e9427fda859f1b0515d6d62c4afa5"
+                "reference": "6d5455b4c0f4a58b1f1b4bdf2ba49221123698b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/googleapis/google-auth-library-php/zipball/2ee962e5df3e9427fda859f1b0515d6d62c4afa5",
-                "reference": "2ee962e5df3e9427fda859f1b0515d6d62c4afa5",
+                "url": "https://api.github.com/repos/googleapis/google-auth-library-php/zipball/6d5455b4c0f4a58b1f1b4bdf2ba49221123698b3",
+                "reference": "6d5455b4c0f4a58b1f1b4bdf2ba49221123698b3",
                 "shasum": ""
             },
             "require": {
@@ -1276,7 +1276,7 @@
                 "sebastian/comparator": ">=1.2.3"
             },
             "suggest": {
-                "phpseclib/phpseclib": "May be used in place of OpenSSL for signing strings. Please require version ^2."
+                "phpseclib/phpseclib": "May be used in place of OpenSSL for signing strings or for token management. Please require version ^2."
             },
             "type": "library",
             "autoload": {
@@ -1295,24 +1295,24 @@
                 "google",
                 "oauth2"
             ],
-            "time": "2019-07-22T21:01:31+00:00"
+            "time": "2019-10-01T18:35:05+00:00"
         },
         {
             "name": "google/cloud",
-            "version": "v0.112.0",
+            "version": "v0.115.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/googleapis/google-cloud-php.git",
-                "reference": "68fc365039a0dd702a4b28ca77cbab1b4ecc9327"
+                "reference": "36040d9c5f6803023929f2226ccb448dc3f2e2ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/googleapis/google-cloud-php/zipball/68fc365039a0dd702a4b28ca77cbab1b4ecc9327",
-                "reference": "68fc365039a0dd702a4b28ca77cbab1b4ecc9327",
+                "url": "https://api.github.com/repos/googleapis/google-cloud-php/zipball/36040d9c5f6803023929f2226ccb448dc3f2e2ab",
+                "reference": "36040d9c5f6803023929f2226ccb448dc3f2e2ab",
                 "shasum": ""
             },
             "require": {
-                "google/auth": "^1.5.1",
+                "google/auth": "^1.6",
                 "google/common-protos": "^1.0",
                 "google/crc32": "^0.1.0",
                 "google/gax": "^1.1",
@@ -1326,40 +1326,40 @@
             },
             "replace": {
                 "google/cloud-asset": "0.4.0",
-                "google/cloud-automl": "0.5.0",
-                "google/cloud-bigquery": "1.12.0",
+                "google/cloud-automl": "0.7.1",
+                "google/cloud-bigquery": "1.12.1",
                 "google/cloud-bigquerydatatransfer": "0.14.0",
                 "google/cloud-bigtable": "1.1.0",
                 "google/cloud-common-protos": "0.2.0",
                 "google/cloud-container": "0.11.0",
-                "google/cloud-core": "1.33.0",
-                "google/cloud-dataproc": "0.13.0",
+                "google/cloud-core": "1.33.1",
+                "google/cloud-dataproc": "0.15.0",
                 "google/cloud-datastore": "1.10.0",
                 "google/cloud-debugger": "0.19.1",
                 "google/cloud-dialogflow": "0.10.0",
                 "google/cloud-dlp": "0.22.0",
                 "google/cloud-error-reporting": "0.15.0",
-                "google/cloud-firestore": "1.8.0",
+                "google/cloud-firestore": "1.9.0",
                 "google/cloud-iot": "0.9.0",
                 "google/cloud-kms": "1.7.0",
-                "google/cloud-language": "0.20.0",
+                "google/cloud-language": "0.21.0",
                 "google/cloud-logging": "1.18.0",
                 "google/cloud-monitoring": "0.18.0",
                 "google/cloud-oslogin": "0.10.0",
-                "google/cloud-pubsub": "1.17.0",
+                "google/cloud-pubsub": "1.18.0",
                 "google/cloud-redis": "0.10.0",
                 "google/cloud-scheduler": "1.1.0",
                 "google/cloud-security-center": "0.2.0",
-                "google/cloud-spanner": "1.18.0",
+                "google/cloud-spanner": "1.20.0",
                 "google/cloud-speech": "0.27.0",
                 "google/cloud-storage": "1.14.0",
                 "google/cloud-talent": "0.6.0",
                 "google/cloud-tasks": "1.3.0",
                 "google/cloud-text-to-speech": "0.5.0",
                 "google/cloud-trace": "0.15.0",
-                "google/cloud-translate": "1.4.1",
+                "google/cloud-translate": "1.5.0",
                 "google/cloud-videointelligence": "1.7.0",
-                "google/cloud-vision": "0.23.0",
+                "google/cloud-vision": "0.24.0",
                 "google/cloud-web-risk": "0.3.0",
                 "google/cloud-web-security-scanner": "0.2.0"
             },
@@ -1457,6 +1457,7 @@
                     "GPBMetadata\\Google\\Cloud\\Talent\\": "Talent/metadata",
                     "GPBMetadata\\Google\\Cloud\\Tasks\\": "Tasks/metadata",
                     "GPBMetadata\\Google\\Cloud\\Texttospeech\\": "TextToSpeech/metadata",
+                    "GPBMetadata\\Google\\Cloud\\Translate\\": "Translate/metadata",
                     "GPBMetadata\\Google\\Cloud\\Videointelligence\\": "VideoIntelligence/metadata",
                     "GPBMetadata\\Google\\Cloud\\Vision\\": "Vision/metadata",
                     "GPBMetadata\\Google\\Cloud\\Webrisk\\": "WebRisk/metadata",
@@ -1517,7 +1518,7 @@
                 "translation",
                 "vision"
             ],
-            "time": "2019-09-16T21:17:30+00:00"
+            "time": "2019-10-07T20:57:40+00:00"
         },
         {
             "name": "google/common-protos",
@@ -1691,16 +1692,16 @@
         },
         {
             "name": "google/protobuf",
-            "version": "v3.9.1",
+            "version": "v3.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/protocolbuffers/protobuf-php.git",
-                "reference": "4bb1a332b47f618a0a21ad3cc9a43f1c4aaa5b62"
+                "reference": "5dffdd2c84112e6c91fd84f92e3df96649426881"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/protocolbuffers/protobuf-php/zipball/4bb1a332b47f618a0a21ad3cc9a43f1c4aaa5b62",
-                "reference": "4bb1a332b47f618a0a21ad3cc9a43f1c4aaa5b62",
+                "url": "https://api.github.com/repos/protocolbuffers/protobuf-php/zipball/5dffdd2c84112e6c91fd84f92e3df96649426881",
+                "reference": "5dffdd2c84112e6c91fd84f92e3df96649426881",
                 "shasum": ""
             },
             "require": {
@@ -1728,7 +1729,7 @@
             "keywords": [
                 "proto"
             ],
-            "time": "2019-08-06T17:47:34+00:00"
+            "time": "2019-10-03T20:08:37+00:00"
         },
         {
             "name": "grpc/grpc",
@@ -2099,23 +2100,23 @@
         },
         {
             "name": "justinrainbow/json-schema",
-            "version": "5.2.8",
+            "version": "5.2.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/justinrainbow/json-schema.git",
-                "reference": "dcb6e1006bb5fd1e392b4daa68932880f37550d4"
+                "reference": "44c6787311242a979fa15c704327c20e7221a0e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/justinrainbow/json-schema/zipball/dcb6e1006bb5fd1e392b4daa68932880f37550d4",
-                "reference": "dcb6e1006bb5fd1e392b4daa68932880f37550d4",
+                "url": "https://api.github.com/repos/justinrainbow/json-schema/zipball/44c6787311242a979fa15c704327c20e7221a0e4",
+                "reference": "44c6787311242a979fa15c704327c20e7221a0e4",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "~2.2.20",
+                "friendsofphp/php-cs-fixer": "~2.2.20||~2.15.1",
                 "json-schema/json-schema-test-suite": "1.2.0",
                 "phpunit/phpunit": "^4.8.35"
             },
@@ -2161,7 +2162,7 @@
                 "json",
                 "schema"
             ],
-            "time": "2019-01-14T23:55:14+00:00"
+            "time": "2019-09-25T14:49:45+00:00"
         },
         {
             "name": "kraken-io/kraken-php",
@@ -2255,16 +2256,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "1.0.55",
+            "version": "1.0.56",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "33c91155537c6dc899eacdc54a13ac6303f156e6"
+                "reference": "90e3f83cb10ef6b058d70f95267030e7a6236518"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/33c91155537c6dc899eacdc54a13ac6303f156e6",
-                "reference": "33c91155537c6dc899eacdc54a13ac6303f156e6",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/90e3f83cb10ef6b058d70f95267030e7a6236518",
+                "reference": "90e3f83cb10ef6b058d70f95267030e7a6236518",
                 "shasum": ""
             },
             "require": {
@@ -2335,7 +2336,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2019-08-24T11:17:19+00:00"
+            "time": "2019-10-12T13:05:59+00:00"
         },
         {
             "name": "league/oauth2-client",
@@ -2458,6 +2459,58 @@
                 "image"
             ],
             "time": "2017-02-03T11:58:58+00:00"
+        },
+        {
+            "name": "marcusschwarz/lesserphp",
+            "version": "v0.5.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/MarcusSchwarz/lesserphp.git",
+                "reference": "b02ee973ee1fff3237f7feaf44885596fb5ee323"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/MarcusSchwarz/lesserphp/zipball/b02ee973ee1fff3237f7feaf44885596fb5ee323",
+                "reference": "b02ee973ee1fff3237f7feaf44885596fb5ee323",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.3"
+            },
+            "bin": [
+                "plessc"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.5.1-dev"
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "lessc.inc.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT",
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Leaf Corcoran",
+                    "email": "leafot@gmail.com",
+                    "homepage": "http://leafo.net"
+                },
+                {
+                    "name": "Marcus Schwarz",
+                    "email": "github@maswaba.de",
+                    "homepage": "https://www.maswaba.de"
+                }
+            ],
+            "description": "lesserphp is a compiler for LESS written in PHP based on leafo's lessphp.",
+            "homepage": "http://leafo.net/lessphp/",
+            "time": "2018-05-28T12:54:01+00:00"
         },
         {
             "name": "masterminds/html5",
@@ -2799,22 +2852,23 @@
         },
         {
             "name": "mrclay/minify",
-            "version": "3.0.3",
+            "version": "3.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mrclay/minify.git",
-                "reference": "404664509c3d2b3a745e091c86c968a13cba3efc"
+                "reference": "266ddd7d541cf20b89ec5d7a0b217b48abc02d82"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mrclay/minify/zipball/404664509c3d2b3a745e091c86c968a13cba3efc",
-                "reference": "404664509c3d2b3a745e091c86c968a13cba3efc",
+                "url": "https://api.github.com/repos/mrclay/minify/zipball/266ddd7d541cf20b89ec5d7a0b217b48abc02d82",
+                "reference": "266ddd7d541cf20b89ec5d7a0b217b48abc02d82",
                 "shasum": ""
             },
             "require": {
                 "ext-pcre": "*",
                 "intervention/httpauth": "~2.0",
-                "monolog/monolog": "~1.1",
+                "marcusschwarz/lesserphp": "~0.5.1",
+                "monolog/monolog": "~1.1|~2.0",
                 "mrclay/jsmin-php": "~2",
                 "mrclay/props-dic": "^2.2",
                 "php": "^5.3.0 || ^7.0",
@@ -2822,15 +2876,13 @@
             },
             "require-dev": {
                 "firephp/firephp-core": "~0.4.0",
-                "leafo/scssphp": "~0.6.6",
-                "marcusschwarz/lesserphp": "~0.5.1",
+                "leafo/scssphp": "^0.3 || ^0.6 || ^0.7",
                 "meenie/javascript-packer": "~1.1",
-                "phpunit/phpunit": "4.8.*",
+                "phpunit/phpunit": "^4.8.36",
                 "tedivm/jshrink": "~1.1.0"
             },
             "suggest": {
                 "firephp/firephp-core": "Use FirePHP for Log messages",
-                "marcusschwarz/lesserphp": "LESS support",
                 "meenie/javascript-packer": "Keep track of the Packer PHP port using Composer"
             },
             "type": "library",
@@ -2857,7 +2909,7 @@
             ],
             "description": "Minify is a PHP5 app that helps you follow several rules for client-side performance. It combines multiple CSS or Javascript files, removes unnecessary whitespace and comments, and serves them with gzip encoding and optimal client-side cache headers",
             "homepage": "https://github.com/mrclay/minify",
-            "time": "2017-11-03T21:00:15+00:00"
+            "time": "2019-10-01T10:04:39+00:00"
         },
         {
             "name": "mrclay/props-dic",
@@ -3181,16 +3233,16 @@
         },
         {
             "name": "nystudio107/craft-seomatic",
-            "version": "3.2.25",
+            "version": "3.2.28",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nystudio107/craft-seomatic.git",
-                "reference": "bc5babb49f9dfaa984ac74788495e300fd65a994"
+                "reference": "084ffbe06b117d1f91ed06390055733638571797"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nystudio107/craft-seomatic/zipball/bc5babb49f9dfaa984ac74788495e300fd65a994",
-                "reference": "bc5babb49f9dfaa984ac74788495e300fd65a994",
+                "url": "https://api.github.com/repos/nystudio107/craft-seomatic/zipball/084ffbe06b117d1f91ed06390055733638571797",
+                "reference": "084ffbe06b117d1f91ed06390055733638571797",
                 "shasum": ""
             },
             "require": {
@@ -3251,20 +3303,20 @@
                 "tags",
                 "twitter"
             ],
-            "time": "2019-09-18T20:20:58+00:00"
+            "time": "2019-10-08T20:56:57+00:00"
         },
         {
             "name": "nystudio107/craft-twigpack",
-            "version": "1.1.8",
+            "version": "1.1.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nystudio107/craft-twigpack.git",
-                "reference": "c9413e4ea3aaf58e383a42ce663cb6d05490d73b"
+                "reference": "57e41cbcd8339d2871c43736f8932c763bc1d521"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nystudio107/craft-twigpack/zipball/c9413e4ea3aaf58e383a42ce663cb6d05490d73b",
-                "reference": "c9413e4ea3aaf58e383a42ce663cb6d05490d73b",
+                "url": "https://api.github.com/repos/nystudio107/craft-twigpack/zipball/57e41cbcd8339d2871c43736f8932c763bc1d521",
+                "reference": "57e41cbcd8339d2871c43736f8932c763bc1d521",
                 "shasum": ""
             },
             "require": {
@@ -3307,7 +3359,7 @@
                 "webpack",
                 "webpack-dev-server"
             ],
-            "time": "2019-08-06T01:14:07+00:00"
+            "time": "2019-10-15T15:26:51+00:00"
         },
         {
             "name": "nystudio107/craft-typogrify",
@@ -5508,16 +5560,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v2.11.3",
+            "version": "v2.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "699ed2342557c88789a15402de5eb834dedd6792"
+                "reference": "c7a85fd08348ca04b4d8f234f49583d9910906aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/699ed2342557c88789a15402de5eb834dedd6792",
-                "reference": "699ed2342557c88789a15402de5eb834dedd6792",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/c7a85fd08348ca04b4d8f234f49583d9910906aa",
+                "reference": "c7a85fd08348ca04b4d8f234f49583d9910906aa",
                 "shasum": ""
             },
             "require": {
@@ -5527,13 +5579,13 @@
             },
             "require-dev": {
                 "psr/container": "^1.0",
-                "symfony/debug": "^2.7",
-                "symfony/phpunit-bridge": "^3.4.19|^4.1.8|^5.0"
+                "symfony/debug": "^3.4|^4.2",
+                "symfony/phpunit-bridge": "^4.4@dev|^5.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.11-dev"
+                    "dev-master": "2.12-dev"
                 }
             },
             "autoload": {
@@ -5556,14 +5608,14 @@
                     "role": "Lead Developer"
                 },
                 {
-                    "name": "Armin Ronacher",
-                    "email": "armin.ronacher@active-4.com",
-                    "role": "Project Founder"
-                },
-                {
                     "name": "Twig Team",
                     "homepage": "https://twig.symfony.com/contributors",
                     "role": "Contributors"
+                },
+                {
+                    "name": "Armin Ronacher",
+                    "email": "armin.ronacher@active-4.com",
+                    "role": "Project Founder"
                 }
             ],
             "description": "Twig, the flexible, fast, and secure template language for PHP",
@@ -5571,20 +5623,20 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2019-06-18T15:37:11+00:00"
+            "time": "2019-10-05T16:42:38+00:00"
         },
         {
             "name": "vaersaagod/matrixmate",
-            "version": "1.2.1",
+            "version": "1.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vaersaagod/matrixmate.git",
-                "reference": "0f78dbb06482bdf3942337f34fd58826ef7f77b4"
+                "reference": "176a55728ae7925e152bb75e8613bf9035a95295"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vaersaagod/matrixmate/zipball/0f78dbb06482bdf3942337f34fd58826ef7f77b4",
-                "reference": "0f78dbb06482bdf3942337f34fd58826ef7f77b4",
+                "url": "https://api.github.com/repos/vaersaagod/matrixmate/zipball/176a55728ae7925e152bb75e8613bf9035a95295",
+                "reference": "176a55728ae7925e152bb75e8613bf9035a95295",
                 "shasum": ""
             },
             "require": {
@@ -5622,7 +5674,7 @@
                 "craftcms",
                 "matrixmate"
             ],
-            "time": "2019-09-03T23:28:57+00:00"
+            "time": "2019-09-29T10:46:41+00:00"
         },
         {
             "name": "verbb/expanded-singles",
@@ -5786,21 +5838,21 @@
         },
         {
             "name": "voku/anti-xss",
-            "version": "4.1.14",
+            "version": "4.1.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/voku/anti-xss.git",
-                "reference": "53c5da8039cf2ed226e3249b86a2be700c415f88"
+                "reference": "14ff3982d58af104f5f38a438d99b9600705151e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/voku/anti-xss/zipball/53c5da8039cf2ed226e3249b86a2be700c415f88",
-                "reference": "53c5da8039cf2ed226e3249b86a2be700c415f88",
+                "url": "https://api.github.com/repos/voku/anti-xss/zipball/14ff3982d58af104f5f38a438d99b9600705151e",
+                "reference": "14ff3982d58af104f5f38a438d99b9600705151e",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.0.0",
-                "voku/portable-utf8": "~5.4.1"
+                "voku/portable-utf8": "~5.4.21"
             },
             "require-dev": {
                 "phpunit/phpunit": "~6.0 || ~7.0"
@@ -5839,20 +5891,20 @@
                 "security",
                 "xss"
             ],
-            "time": "2019-06-27T21:40:28+00:00"
+            "time": "2019-09-25T22:40:48+00:00"
         },
         {
             "name": "voku/arrayy",
-            "version": "5.14.1",
+            "version": "5.14.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/voku/Arrayy.git",
-                "reference": "2a76c1f5b40ef78d757a137fc7d992a80783d229"
+                "reference": "6fe80d46f515d8d96db244d36e6099ef6659c04a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/voku/Arrayy/zipball/2a76c1f5b40ef78d757a137fc7d992a80783d229",
-                "reference": "2a76c1f5b40ef78d757a137fc7d992a80783d229",
+                "url": "https://api.github.com/repos/voku/Arrayy/zipball/6fe80d46f515d8d96db244d36e6099ef6659c04a",
+                "reference": "6fe80d46f515d8d96db244d36e6099ef6659c04a",
                 "shasum": ""
             },
             "require": {
@@ -5895,7 +5947,7 @@
                 "utility",
                 "utils"
             ],
-            "time": "2019-09-16T21:25:09+00:00"
+            "time": "2019-10-06T17:56:40+00:00"
         },
         {
             "name": "voku/email-check",
@@ -5953,16 +6005,16 @@
         },
         {
             "name": "voku/portable-ascii",
-            "version": "1.2.3",
+            "version": "1.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/voku/portable-ascii.git",
-                "reference": "d29f78e8ead9cfef6a09208c27716737c1ac56be"
+                "reference": "d3553af811794c377ea2afff5494b343bcef5b76"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/voku/portable-ascii/zipball/d29f78e8ead9cfef6a09208c27716737c1ac56be",
-                "reference": "d29f78e8ead9cfef6a09208c27716737c1ac56be",
+                "url": "https://api.github.com/repos/voku/portable-ascii/zipball/d3553af811794c377ea2afff5494b343bcef5b76",
+                "reference": "d3553af811794c377ea2afff5494b343bcef5b76",
                 "shasum": ""
             },
             "require": {
@@ -5998,20 +6050,20 @@
                 "clean",
                 "php"
             ],
-            "time": "2019-09-10T13:53:07+00:00"
+            "time": "2019-10-14T09:49:39+00:00"
         },
         {
             "name": "voku/portable-utf8",
-            "version": "5.4.21",
+            "version": "5.4.25",
             "source": {
                 "type": "git",
                 "url": "https://github.com/voku/portable-utf8.git",
-                "reference": "df543931d92b8403e9b5b38e56abdd24851d8cff"
+                "reference": "aed1b955d5d43e4104d72dce4158db5de3cecce6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/voku/portable-utf8/zipball/df543931d92b8403e9b5b38e56abdd24851d8cff",
-                "reference": "df543931d92b8403e9b5b38e56abdd24851d8cff",
+                "url": "https://api.github.com/repos/voku/portable-utf8/zipball/aed1b955d5d43e4104d72dce4158db5de3cecce6",
+                "reference": "aed1b955d5d43e4104d72dce4158db5de3cecce6",
                 "shasum": ""
             },
             "require": {
@@ -6021,7 +6073,7 @@
                 "symfony/polyfill-intl-normalizer": "~1.0",
                 "symfony/polyfill-mbstring": "~1.0",
                 "symfony/polyfill-php72": "~1.0",
-                "voku/portable-ascii": "~1.2"
+                "voku/portable-ascii": "~1.3"
             },
             "require-dev": {
                 "phpunit/phpunit": "~6.0 || ~7.0"
@@ -6072,7 +6124,7 @@
                 "utf-8",
                 "utf8"
             ],
-            "time": "2019-09-17T14:53:36+00:00"
+            "time": "2019-10-14T06:46:29+00:00"
         },
         {
             "name": "voku/stop-words",

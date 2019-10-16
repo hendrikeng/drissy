@@ -38,12 +38,12 @@
             // Public server config
             'server' => [
                 'manifestPath' => '@webroot/dist',
-                'publicPath' => '/',
+                'publicPath' => getenv('PUBLIC_PATH'),
             ],
             // webpack-dev-server config
             'devServer' => [
-                'manifestPath' => getenv('TWIGPACK_DEV_SERVER_MANIFEST_PATH'),
-                'publicPath' => getenv('TWIGPACK_DEV_SERVER_PUBLIC_PATH'),
+                'manifestPath' =>  getenv('DEVSERVER_PUBLIC'),
+                'publicPath' => getenv('DEVSERVER_PUBLIC'),
             ],
             // Local files config
             'localFiles' => [
