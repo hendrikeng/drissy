@@ -27,7 +27,7 @@ const configureBabelLoader = (browserList, legacy) => {
                             modules: legacy ? 'auto' : false,
                             useBuiltIns: 'usage',
                             corejs: {
-                                version: '3.1',
+                                version: '3.3',
                                 proposals: true,
                             },
                             targets: {
