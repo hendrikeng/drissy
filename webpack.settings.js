@@ -164,7 +164,7 @@ module.exports = {
     },
     workboxConfig: {
         swDest: '../sw.js',
-        precacheManifestFilename: 'dist/js/precache-manifest.[manifestHash].js',
+        precacheManifestFilename: 'js/precache-manifest.[manifestHash].js',
         importScripts: ['/dist/workbox-catch-handler.js'],
         exclude: [
             /\.(png|jpe?g|gif|svg|webp)$/i,

@@ -7,4 +7,4 @@
 <link rel="preconnect" href="{{ alias('@web') }}/" crossorigin>
 
 {# -- Favicons, webapp manifests, etc. -- #}
-    {{ craft.twigpack.includeFileFromManifest("favicons.html") }}
+{{ craft.twigpack.includeFile("@webroot/dist/favicons.html") }}
