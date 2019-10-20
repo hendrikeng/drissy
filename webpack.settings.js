@@ -43,7 +43,7 @@ module.exports = {
     copyWebpackConfig: [
         {
             from: './src/js/workbox-catch-handler.js',
-            to: 'js/[name].[ext]',
+            to: '[name].[ext]',
         },
         // copy fontfaceobsever from node modules
         {
@@ -165,7 +165,7 @@ module.exports = {
     workboxConfig: {
         swDest: '../sw.js',
         precacheManifestFilename: 'js/precache-manifest.[manifestHash].js',
-        importScripts: ['/dist/js/workbox-catch-handler.js'],
+        importScripts: ['/dist/workbox-catch-handler.js'],
         exclude: [
             /\.(png|jpe?g|gif|svg|webp)$/i,
             /\.map$/,
