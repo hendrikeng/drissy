@@ -24,7 +24,7 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const PurgecssPlugin = require('purgecss-webpack-plugin');
 const SaveRemoteFilePlugin = require('save-remote-file-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
-const WebappWebpackPlugin = require('webapp-webpack-plugin');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const WhitelisterPlugin = require('purgecss-whitelister');
 const WorkboxPlugin = require('workbox-webpack-plugin');
 const zopfli = require('@gfx/zopfli');
@@ -145,7 +145,7 @@ const configureCleanWebpack = () => {
 const configureHtml = () => {
     return {
         templateContent: '',
-        filename: 'webapp.html',
+        filename: 'favicons.html',
         inject: false,
     };
 };
@@ -308,11 +308,11 @@ const configurePurgeCss = () => {
     };
 };
 
-// Configure Webapp webpack
-const configureWebapp = () => {
+// Configure Favicons webpack
+const configureFavicons = () => {
     return {
-        logo: settings.webappConfig.logo,
-        prefix: settings.webappConfig.prefix,
+        logo: settings.faviconsConfig.logo,
+        prefix: settings.faviconsConfig.prefix,
         cache: false,
         inject: 'force',
         favicons: {
@@ -353,7 +353,7 @@ module.exports = [
             new PurgecssPlugin(configurePurgeCss()),
             new webpack.BannerPlugin(configureBanner()),
             new HtmlWebpackPlugin(configureHtml()),
-            new WebappWebpackPlugin(configureWebapp()),
+            new FaviconsWebpackPlugin(configureFavicons()),
             new CreateSymlinkPlugin(settings.createSymlinkConfig, true),
             new SaveRemoteFilePlugin(settings.saveRemoteFileConfig),
             new CompressionPlugin(configureCompression()),

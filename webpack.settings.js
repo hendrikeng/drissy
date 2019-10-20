@@ -158,7 +158,7 @@ module.exports = {
             symlink: '../favicon.ico',
         },
     ],
-    webappConfig: {
+    faviconsConfig: {
         logo: './src/img/favicon-src.png',
         prefix: 'img/favicons/',
     },
