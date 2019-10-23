@@ -41,6 +41,7 @@ module.exports = {
         exclude: [/(node_modules|bower_components)/],
     },
     copyWebpackConfig: [
+        // service worker
         {
             from: './src/js/workbox-catch-handler.js',
             to: '[name].[ext]',
