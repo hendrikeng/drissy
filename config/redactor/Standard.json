@@ -1,22 +1,56 @@
 {
     "buttons": [
-        "formatting",
         "bold",
         "italic",
         "unorderedlist",
         "orderedlist",
         "link",
-        "file"
-    ],
-    "plugins": [
-        "fullscreen"
-    ],
-    "formatting": [
-        "h3"
+        "file",
+        "html"
     ],
     "linkNewTab": true,
     "linkTitle": true,
-    "formattingAdd": {
-    },
-    "toolbarFixed": true
+    "toolbarFixed": true,
+    "plugins": ["customstyles",  "fullscreen"],
+    "customStyles": {
+        "paragraph": {
+            "dropdown": {
+                "white": {
+                    "args": {
+                        "tag": "p",
+                        "class": "text-white",
+                        "type": "toggle"
+                    }
+                },
+                "gray": {
+                    "args": {
+                        "tag": "p",
+                        "class": "text-gray-900",
+                        "type": "toggle"
+                    }
+                }
+            }
+        },
+        "headline": {
+            "dropdown": {
+                "white": {
+                    "args": {
+                        "tag": "h3",
+                        "class": "text-white",
+                        "type": "toggle"
+                    }
+                },
+                "gray": {
+                    "args": {
+                        "tag": "h3",
+                        "class": "text-gray-900",
+                        "type": "toggle"
+                    }
+                }
+            }
+        },
+        "clearStyles": {
+            "api": "module.inline.clearformat"
+        }
+    }
 }

@@ -6,36 +6,41 @@
   ------------------------------------------------------------
 #}
 
-{% extends '_layouts/_layout' %}
-
-{# -- inline css -- #}
-{% block _inline_css %}
-    <style>
-        {{ source ('index_critical.min.css', ignore_missing=true) }}
-    </style>
-    {# -- end inline css -- #}
-{% endblock %}
+{% extends '_layouts/_layout.twig' %}
 
 {# -- cache -- #}
-{% cache globally using key 'homepage' ~ (craft.imager.clientSupportsWebp ? "-with-webp") ~ craft.app.request.pathInfo ~ (craft.app.request.pageNum ? '/p' ~ craft.app.request.pageNum : '') %}
+{% cache globally using key 'homepage-' ~ (craft.imager.clientSupportsWebp ? "with-webp") ~ craft.app.request.pathInfo ~ (craft.app.request.pageNum ? '/p' ~ craft.app.request.pageNum : '') %}
 
     {# -- header -- #}
     {% block header %}
         {% include '_components/header/default.twig' with {
-            opt : {
-                imager: {
-                    lazy: false,
-                    mediaBox: false,
-                    class: 'absolute top-0 left-0 w-full h-full',
+            data : {
+                header: {
+                    title: {
+                        entry: entry.title ?? null,
+                    },
+                    description: {
+                        entry: entry.teaserText ?? null,
+                    },
                 },
-                el: {
-                    nav: 'default',
-                    image: entry.entryImage.one() ?? entry.introImage.one() ?? null,
-                    title: entry.introHeadline ?? entry.title ?? null,
-                    description: entry.introText ?? null,
+                imager: {
+                    options: {
+                        preload: true,
+                        objectFit: false,
+                        class: 'relative w-full h-auto',
+                    },
+                    images: {
+                        imageLandscape: entry.contentImage.one() ?? null,
+                        imagePortrait: entry.contentImageMobile.one() ?? null,
+                    },
+                    template: entry.contentImageMobile.one() ? 'artDirection' : 'default',
+                },
+                nav: {
+                    template: 'default',
+                    entry: navigationMain.globalNavigationMain.all() ?? null
                 }
             }
-        } only %}
+        } %}
     {% endblock %}
     {# -- header end -- #}
 

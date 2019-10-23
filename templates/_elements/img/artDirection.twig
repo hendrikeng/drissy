@@ -1,0 +1,201 @@
+{% set imagePortrait = data.imager.images.imagePortrait %}
+{% set imageLandscape = data.imager.images.imageLandscape %}
+{% set options = data.imager.options %}
+
+{% set defaults = {
+    artDirection: false,
+    sizesPortrait: [
+        { width: 600 },
+        { width: 400 },
+    ],
+    sizesLandscape: [
+        { width: 1920 },
+        { width: 1440 },
+        { width: 900 },
+    ],
+    mediaPortrait: 'max-Width',
+    valuePortrait: '767px',
+    mediaLandscape: 'min-Width',
+    valueLandscape: '768px',
+    ratioPortrait: 'auto',
+    ratioLandscape: 'auto',
+    positionPortrait: false,
+    positionLandscape: false,
+    allowUpscale: false,
+    alt: imageLandscape.title ?? null,
+    objectFitValue: 'cover',
+    blurUp: false,
+    class: false,
+    dataSizes: 'auto',
+    dominantColor: false,
+    format: null,
+    interlace: true,
+    lazy: true,
+    mediaBox: false,
+    mode: 'crop',
+    objectFit: true,
+    preload: false,
+    quality: 80,
+    watermark: false,
+    svg: false,
+    noscript: false,
+} %}
+
+{# Merge Attr with Defaults #}
+{% set options = options ? defaults | merge(options): defaults %}
+
+
+    {% if imagePortrait and imageLandscape %}
+
+        {# Set Ratio #}
+        {% if options.ratioPortrait != 'auto' %}
+            {% set ratioPortrait = options.ratioPortrait %}
+        {% elseif options.ratioPortrait %}
+            {% set ratioPortrait = imagePortrait.getWidth() ~ '/' ~ imagePortrait.getHeight() %}
+        {% endif %}
+
+        {% if options.ratioLandscape != 'auto' %}
+            {% set ratioLandscape = options.ratioLandscape %}
+        {% elseif options.ratioLandscape %}
+            {% set ratioLandscape = imageLandscape.getWidth() ~ '/' ~ imageLandscape.getHeight() %}
+        {% endif %}
+
+        {# Set Position #}
+        {% if imagePortrait.hasFocalPoint %}
+            {% set positionPortrait = imagePortrait.getFocalPoint() %}
+            {% set positionPortrait = positionPortrait|merge({
+                x: positionPortrait.x * 100 ~ '%',
+                y: positionPortrait.y * 100 ~ '%',
+            }) %}
+            {% set positionPortrait = positionPortrait|join(" ") %}
+        {% else %}
+            {% set positionPortrait = '50% 50%' %}
+        {% endif %}
+
+        {% if imageLandscape.hasFocalPoint %}
+            {% set positionLandscape = imageLandscape.getFocalPoint() %}
+            {% set positionLandscape = positionLandscape|merge({
+                x: positionLandscape.x * 100 ~ '%',
+                y: positionLandscape.y * 100 ~ '%',
+            }) %}
+            {% set positionLandscape = positionLandscape|join(" ") %}
+        {% else %}
+            {% set positionLandscape = '50% 50%' %}
+        {% endif %}
+
+        {# Define global variables #}
+        {% set imageSettingsPortrait = {
+            allowUpscale: options.allowUpscale,
+            format: options.format,
+            interlace: options.interlace,
+            jpegQuality: options.quality,
+            mode: options.mode,
+            position: positionPortrait,
+            ratio: ratioPortrait,
+        } %}
+
+        {% set imageSettingsLandscape = {
+            allowUpscale: options.allowUpscale,
+            format: options.format,
+            interlace: options.interlace,
+            jpegQuality: options.quality,
+            mode: options.mode,
+            position: positionLandscape,
+            ratio: ratioLandscape,
+        } %}
+
+        {% set imageSettingsPortraitWebp = {
+            allowUpscale: options.allowUpscale,
+            format: 'webp',
+            interlace: options.interlace,
+            webpQuality: options.quality,
+            mode: options.mode,
+            position: positionPortrait,
+            ratio: ratioPortrait,
+        } %}
+
+        {% set imageSettingsLandscapeWebp = {
+            allowUpscale: options.allowUpscale,
+            format: 'webp',
+            interlace: options.interlace,
+            webpQuality: options.quality,
+            mode: options.mode,
+            position: positionLandscape,
+            ratio: ratioLandscape,
+        } %}
+
+        {# Get Dominant Color #}
+        {% if options.dominantColor and not craft.app.config.general.devMode %}
+            {% set dominantColor = craft.imager.getDominantColor(image) %}
+        {% else %}
+            {% set dominantColor = '#e0e0e026' %}
+        {% endif %}
+
+        {# Setup Image Transforms #}
+        {% set imagesPortrait = craft.imager.transformImage(imagePortrait, options.sizesPortrait, imageSettingsPortrait) %}
+        {% set imagesLandscape = craft.imager.transformImage(imageLandscape, options.sizesLandscape, imageSettingsLandscape) %}
+
+        {# If the server has support for WebP, create transforms #}
+        {% if craft.imager.serverSupportsWebp() %}
+            {% set imagesPortraitWebp = craft.imager.transformImage(imagePortrait, options.sizesPortrait, imageSettingsPortraitWebp) %}
+            {% set imagesLandscapeWebp = craft.imager.transformImage(imageLandscape, options.sizesLandscape, imageSettingsLandscapeWebp) %}
+        {% endif %}
+
+
+        {% if options.mediaBox %}
+            <div class="{{ options.mediaBox ? 'mediabox aspect-ratio-' ~ options.ratio : '' }} {{ options.mediaBox }}" style="{{ options.dominantColor ? 'background-color:' ~ dominantColor ~ ';' }}">
+        {% endif %}
+
+        <picture>
+            {% if craft.imager.serverSupportsWebp() %}
+                <source
+                    {{ options.lazy ? 'data-'}}srcset="{{ craft.imager.srcset(imagesPortraitWebp) }}"
+                    media="({{ options.mediaPortrait }}: {{ options.valuePortrait }})"
+                    type="image/webp"
+                >
+            {% endif %}
+            <source
+                {{ options.lazy ? 'data-'}}srcset="{{ craft.imager.srcset(imagesPortrait) }}"
+                media="({{ options.mediaPortrait }}: {{ options.valuePortrait }})"
+                type="image/jpeg"
+            >
+            {% if craft.imager.serverSupportsWebp() %}
+                <source
+                    {{ options.lazy ? 'data-'}}srcset="{{ craft.imager.srcset(imagesLandscapeWebp) }}"
+                    media="({{ options.mediaLandscape }}: {{ options.valueLandscape }})"
+                    type="image/webp"
+                >
+            {% endif %}
+            <source
+                {{ options.lazy ? 'data-'}}srcset="{{ craft.imager.srcset(imagesLandscape) }}"
+                media="({{ options.mediaLandscape }}: {{ options.valueLandscape }})"
+                type="image/jpeg"
+            >
+            <img
+                {% if not options.blurUp %}
+                    src="{{ craft.imager.placeholder() }}"
+                {% endif %}
+                {{ options.lazy ? 'data-'}}srcset="{{ craft.imager.srcset(imagesLandscape) }}"
+                class="{{- options.class -}} {% if options.lazy %} lazyload {% endif %} {% if options.preload %} lazypreload {% endif %} {% if options.mediaBox %} mediabox-img{% endif %}"
+                {{ options.lazy ? 'data-'}}sizes="{{ options.dataSizes }}"
+                alt="{{ options.alt }}"
+                {% if options.blurUp and options.lazy %}
+                    data-lowsrc="{{ images|last.url }}"
+                {% endif %}
+                {% if options.objectFit %} style="
+                object-fit:{{ options.objectFitValue }};
+                object-position:{{ positionLandscape }};
+                font-family:'{{ 'object-fit:' ~ options.objectFitValue }};{{ 'object-position:' ~ positionLandscape }};';
+                " {% endif %}/>
+        </picture>
+        {% if options.noscript %}
+            <noscript>
+                <img src="{{ imagesLandscape|last.url }}"
+                     alt="{{ options.alt }}">
+            </noscript>
+        {% endif %}
+        {% if options.mediaBox %}
+            </div>
+        {% endif %}
+
+    {% endif %}

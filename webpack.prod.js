@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 // webpack.prod.js - production builds
 const LEGACY_CONFIG = 'legacy';
 const MODERN_CONFIG = 'modern';
@@ -10,14 +11,8 @@ const moment = require('moment');
 const path = require('path');
 const webpack = require('webpack');
 
-// resolve function
-function resolve(dir) {
-    return path.join(__dirname, './', dir);
-}
-
 // webpack plugins
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
-    .BundleAnalyzerPlugin;
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const CreateSymlinkPlugin = require('create-symlink-webpack-plugin');
@@ -29,7 +24,7 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const PurgecssPlugin = require('purgecss-webpack-plugin');
 const SaveRemoteFilePlugin = require('save-remote-file-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
-const WebappWebpackPlugin = require('webapp-webpack-plugin');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const WhitelisterPlugin = require('purgecss-whitelister');
 const WorkboxPlugin = require('workbox-webpack-plugin');
 const zopfli = require('@gfx/zopfli');
@@ -45,6 +40,7 @@ const settings = require('./webpack.settings.js');
 // https://github.com/FullHuman/purgecss#extractor
 class TailwindExtractor {
     static extract(content) {
+        // eslint-disable-next-line no-useless-escape
         return content.match(/[A-Za-z0-9-_:\/]+/g) || [];
     }
 }
@@ -54,15 +50,14 @@ const configureBanner = () => {
     return {
         banner: [
             '/*!',
-            ' * @project        ' + settings.name,
-            ' * @name           ' + '[filebase]',
-            ' * @author         ' + pkg.author.name,
-            ' * @build          ' + moment().format('llll') + ' ET',
-            ' * @release        ' + git.long() + ' [' + git.branch() + ']',
-            ' * @copyright      Copyright (c) ' +
-                moment().format('YYYY') +
-                ' ' +
-                settings.copyright,
+            ` * @project        ${settings.name}`,
+            ' * @name           [filebase]',
+            ` * @author         ${pkg.author.name}`,
+            ` * @build          ${moment().format('llll')} ET`,
+            ` * @release        ${git.long()} [${git.branch()}]`,
+            ` * @copyright      Copyright (c) ${moment().format('YYYY')} ${
+                settings.copyright
+            }`,
             ' *',
             ' */',
             '',
@@ -85,6 +80,7 @@ const configureBundleAnalyzer = buildType => {
             reportFilename: 'report-modern.html',
         };
     }
+    return {};
 };
 
 // Configure Compression webpack plugin
@@ -109,18 +105,19 @@ const configureCompression = () => {
 const configureCriticalCss = () => {
     return settings.criticalCssConfig.pages.map(row => {
         const criticalSrc = settings.urls.critical + row.url;
+        const { criticalIgnore } = settings.criticalCssConfig;
         const criticalDest =
             settings.criticalCssConfig.base +
             row.template +
             settings.criticalCssConfig.suffix;
-        let criticalWidth = settings.criticalCssConfig.criticalWidth;
-        let criticalHeight = settings.criticalCssConfig.criticalHeight;
+        let { criticalWidth } = settings.criticalCssConfig;
+        let { criticalHeight } = settings.criticalCssConfig;
         // Handle Google AMP templates
         if (row.template.indexOf(settings.criticalCssConfig.ampPrefix) !== -1) {
             criticalWidth = settings.criticalCssConfig.ampCriticalWidth;
             criticalHeight = settings.criticalCssConfig.ampCriticalHeight;
         }
-        console.log('source: ' + criticalSrc + ' dest: ' + criticalDest);
+        console.log(`source: ${criticalSrc} dest: ${criticalDest}`);
         return new CriticalCssPlugin({
             base: './',
             src: criticalSrc,
@@ -130,6 +127,7 @@ const configureCriticalCss = () => {
             minify: true,
             width: criticalWidth,
             height: criticalHeight,
+            ignore: criticalIgnore,
         });
     });
 };
@@ -146,17 +144,9 @@ const configureCleanWebpack = () => {
 // Configure Html webpack
 const configureHtml = () => {
     return {
-        template: './src/ejs/_layout.ejs',
-        filename: `${resolve('./templates/_layouts/')}_layout.twig`,
-        title: pkg.name,
+        templateContent: '',
+        filename: 'favicons.html',
         inject: false,
-        // minifying html won't work with critical css
-        minify: false,
-        env: {
-            dev: false,
-            prod: true,
-            debug: false,
-        },
     };
 };
 
@@ -208,6 +198,16 @@ const configureImageLoader = buildType => {
             ],
         };
     }
+    return {};
+};
+
+// Configure terser
+const configureTerser = () => {
+    return {
+        cache: true,
+        parallel: true,
+        sourceMap: true,
+    };
 };
 
 // Configure optimization
@@ -246,10 +246,18 @@ const configureOptimization = buildType => {
             minimizer: [new TerserPlugin(configureTerser())],
         };
     }
+    return {};
 };
 
 // Configure Postcss loader
 const configurePostcssLoader = buildType => {
+    // Don't generate CSS for the modern config in production
+    if (buildType === MODERN_CONFIG) {
+        return {
+            test: /\.(pcss|css)$/,
+            loader: 'ignore-loader',
+        };
+    }
     if (buildType === LEGACY_CONFIG) {
         return {
             test: /\.(pcss|css)$/,
@@ -274,19 +282,15 @@ const configurePostcssLoader = buildType => {
             ],
         };
     }
-    // Don't generate CSS for the modern config in production
-    if (buildType === MODERN_CONFIG) {
-        return {
-            test: /\.(pcss|css)$/,
-            loader: 'ignore-loader',
-        };
-    }
+
+    return {};
 };
 
 // Configure PurgeCSS
 const configurePurgeCss = () => {
-    let paths = [];
+    const paths = [];
     // Configure whitelist paths
+    // eslint-disable-next-line no-restricted-syntax,no-unused-vars
     for (const [key, value] of Object.entries(settings.purgeCssConfig.paths)) {
         paths.push(path.join(__dirname, value));
     }
@@ -304,20 +308,11 @@ const configurePurgeCss = () => {
     };
 };
 
-// Configure terser
-const configureTerser = () => {
+// Configure Favicons webpack
+const configureFavicons = () => {
     return {
-        cache: true,
-        parallel: true,
-        sourceMap: true,
-    };
-};
-
-// Configure Webapp webpack
-const configureWebapp = () => {
-    return {
-        logo: settings.webappConfig.logo,
-        prefix: settings.webappConfig.prefix,
+        logo: settings.faviconsConfig.logo,
+        prefix: settings.faviconsConfig.prefix,
         cache: false,
         inject: 'force',
         favicons: {
@@ -332,9 +327,7 @@ const configureWebapp = () => {
 
 // Configure Workbox service worker
 const configureWorkbox = () => {
-    let config = settings.workboxConfig;
-
-    return config;
+    return settings.workboxConfig;
 };
 
 // Production module exports
@@ -360,7 +353,7 @@ module.exports = [
             new PurgecssPlugin(configurePurgeCss()),
             new webpack.BannerPlugin(configureBanner()),
             new HtmlWebpackPlugin(configureHtml()),
-            new WebappWebpackPlugin(configureWebapp()),
+            new FaviconsWebpackPlugin(configureFavicons()),
             new CreateSymlinkPlugin(settings.createSymlinkConfig, true),
             new SaveRemoteFilePlugin(settings.saveRemoteFileConfig),
             new CompressionPlugin(configureCompression()),

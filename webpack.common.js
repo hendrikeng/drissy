@@ -1,7 +1,3 @@
-// webpack.common.js - common webpack config
-const LEGACY_CONFIG = 'legacy';
-const MODERN_CONFIG = 'modern';
-
 // node modules
 const path = require('path');
 const merge = require('webpack-merge');
@@ -16,7 +12,7 @@ const pkg = require('./package.json');
 const settings = require('./webpack.settings.js');
 
 // Configure Babel loader
-const configureBabelLoader = browserList => {
+const configureBabelLoader = (browserList, legacy) => {
     return {
         test: /\.js$/,
         exclude: settings.babelLoaderConfig.exclude,
@@ -28,12 +24,12 @@ const configureBabelLoader = browserList => {
                     [
                         '@babel/preset-env',
                         {
-                            modules: false,
+                            modules: legacy ? 'auto' : false,
+                            useBuiltIns: 'usage',
                             corejs: {
-                                version: 3,
+                                version: '3.3',
                                 proposals: true,
                             },
-                            useBuiltIns: 'usage',
                             targets: {
                                 browsers: browserList,
                             },
@@ -42,7 +38,12 @@ const configureBabelLoader = browserList => {
                 ],
                 plugins: [
                     '@babel/plugin-syntax-dynamic-import',
-                    '@babel/plugin-transform-runtime',
+                    [
+                        '@babel/transform-runtime',
+                        {
+                            corejs: 3,
+                        },
+                    ],
                 ],
             },
         },
@@ -51,7 +52,8 @@ const configureBabelLoader = browserList => {
 
 // Configure Entries
 const configureEntries = () => {
-    let entries = {};
+    const entries = {};
+    // eslint-disable-next-line no-restricted-syntax
     for (const [key, value] of Object.entries(settings.entries)) {
         entries[key] = path.resolve(__dirname, settings.paths.src.js + value);
     }
@@ -67,19 +69,20 @@ const configureFontLoader = () => {
             {
                 loader: 'file-loader',
                 options: {
-                    name: 'fonts/[name].[ext]'
-                }
-            }
-        ]
+                    name: 'fonts/[name].[ext]',
+                },
+            },
+        ],
     };
 };
 
 // Configure Manifest
-const configureManifest = (fileName) => {
+const configureManifest = fileName => {
     return {
-        fileName: fileName,
+        fileName,
         basePath: settings.manifestConfig.basePath,
-        map: (file) => {
+        map: file => {
+            // eslint-disable-next-line no-param-reassign
             file.name = file.name.replace(/(\.[a-f0-9]{32})(\..*)$/, '$2');
             return file;
         },
@@ -90,7 +93,7 @@ const configureManifest = (fileName) => {
 const configureVueLoader = () => {
     return {
         test: /\.vue$/,
-        loader: 'vue-loader'
+        loader: 'vue-loader',
     };
 };
 
@@ -100,70 +103,56 @@ const baseConfig = {
     entry: configureEntries(),
     output: {
         path: path.resolve(__dirname, settings.paths.dist.base),
-        publicPath: settings.urls.publicPath()
+        publicPath: settings.urls.publicPath(),
     },
     resolve: {
         alias: {
-            'vue$': 'vue/dist/vue.esm.js'
-        }
+            vue$: 'vue/dist/vue.esm.js',
+        },
     },
     module: {
-        rules: [
-            configureFontLoader(),
-            configureVueLoader(),
-        ],
+        rules: [configureFontLoader(), configureVueLoader()],
     },
-    plugins: [
-        new VueLoaderPlugin(),
-    ]
+    plugins: [new VueLoaderPlugin()],
 };
 
 // Legacy webpack config
 const legacyConfig = {
     module: {
         rules: [
-            configureBabelLoader(Object.values(pkg.browserslist.legacyBrowsers)),
+            configureBabelLoader(
+                Object.values(pkg.browserslist.legacyBrowsers),
+            ),
         ],
     },
     plugins: [
-        new CopyWebpackPlugin(
-            settings.copyWebpackConfig
-        ),
-        new ManifestPlugin(
-            configureManifest('manifest-legacy.json')
-        ),
-    ]
+        new CopyWebpackPlugin(settings.copyWebpackConfig),
+
+        new ManifestPlugin(configureManifest('manifest-legacy.json')),
+    ],
 };
 
 // Modern webpack config
 const modernConfig = {
     module: {
         rules: [
-            configureBabelLoader(Object.values(pkg.browserslist.modernBrowsers)),
+            configureBabelLoader(
+                Object.values(pkg.browserslist.modernBrowsers),
+            ),
         ],
     },
-    plugins: [
-        new ManifestPlugin(
-            configureManifest('manifest.json')
-        ),
-    ]
+    plugins: [new ManifestPlugin(configureManifest('manifest.json'))],
 };
 
 // Common module exports
 // noinspection WebpackConfigHighlighting
 module.exports = {
-    'legacyConfig': merge.strategy({
+    legacyConfig: merge.strategy({
         module: 'prepend',
         plugins: 'prepend',
-    })(
-        baseConfig,
-        legacyConfig,
-    ),
-    'modernConfig': merge.strategy({
+    })(baseConfig, legacyConfig),
+    modernConfig: merge.strategy({
         module: 'prepend',
         plugins: 'prepend',
-    })(
-        baseConfig,
-        modernConfig,
-    ),
+    })(baseConfig, modernConfig),
 };

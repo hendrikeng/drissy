@@ -1,43 +1,68 @@
-<header itemscope itemtype="http://schema.org/WPHeader">
-    {% if opt.el.nav %}
-        {% include '_elements/nav/' ~ opt.el.nav with {
-            opt : {
-                data: navigationMain.globalNavigationMain.all() ?? null
+{# Logo and Nav #}
+<div
+    class="mx-auto flex justify-between js-nav p-4">
+
+    <a href="{{ alias('@web') }}" title="Homepage"
+       aria-label="navigate to homepage">
+        {% include '_svg/logo.svg' with {
+            data : {
+                svg: {
+                    class: 'w-8',
+                }
+            }
+        } only %}
+    </a>
+
+    {% if data.nav %}
+        {% include '_elements/nav/' ~ data.nav.template with {
+            data: {
+                nav: {
+                    entry: data.nav.entry
+                }
             }
         } only %}
     {% endif %}
-    {% block headerContent %}
-        <div class="o-wrap">
-            {% if opt.el.image %}
-                <div class="o-wrap__item o-wrap__item--half relative w-full h-half-screen">
-                    {% include '_elements/img/default.twig' with {
-                        opt : {
-                            data: opt.el.image,
-                            imager: opt.imager,
+
+</div>
+
+{# Header Content #}
+{% block headerContent %}
+
+    <div class="relative">
+
+        {% if data.imager.images.imageLandscape is not null  %}
+            <div
+                class="relative">
+                {% include '_elements/img/' ~ data.imager.template ~ '.twig' with {
+                    data : {
+                        imager: {
+                            images: data.imager.images,
+                            options: data.imager.options,
                         }
-                    } only %}
-                    {% if opt.el.image.caption %}
-                        <div class="absolute bottom-0 text-white text-sm">
-                            {{ opt.el.image.caption }}
-                            {% if opt.el.image.source %}
-                                /
-                                <a class="text-white hover:underline"
-                                   href="{{ opt.el.image.sourceUrl }}">{{ opt.el.image.source }}</a>
-                            {% endif %}
-                        </div>
-                    {% endif %}
-                </div>
-            {% endif %}
-            {% if opt.el.title %}
-            <h1 class="o-wrap__item o-wrap__item--quad mb-8" itemprop="headline">
-                <span class="js-headline">{{ opt.el.title }}</span>
-            </h1>
-            {% endif %}
-            {% if opt.el.description %}
-                <p class="o-wrap__item" itemprop="description">
-                    {{ opt.el.description|striptags }}
-                </p>
-            {% endif %}
-        </div>
-    {% endblock %}
-</header>
+                    }
+                } only %}
+                {% if data.imager.images.imageLandscape.caption %}
+                    <div class="absolute">
+                        {{ data.imager.images.imageLandscape.caption }}
+                        {% if data.imager.images.imageLandscape.source %}
+                            /
+                            <a href="{{ data.imager.images.imageLandscape.sourceUrl }}">{{ data.imager.images.imageLandscape.source }}</a>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+        {% if data.header.title.entry or data.header.description.entry %}
+            <div
+                class="richText absolute inset-y-0 inset-x-0 flex flex-col w-full h-full items-center justify-center">
+                {% if data.header.title.entry %}
+                    <h1 class="text-white">{{ data.header.title.entry }}</h1>
+                {% endif %}
+                {% if data.header.description.entry %}
+                    {{ data.header.description.entry }}
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
+

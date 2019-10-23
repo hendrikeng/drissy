@@ -1,14 +1,10 @@
 # COMPOSER
 vendor
-composer.lock
 
 #Serviceworker
-public/\workbox*
 web/\workbox*
-public/\precache-manifest*
 web/\precache-manifest*
 web/\sw*
-public/\sw*
 
 # CRAFT
 storage/*
@@ -21,26 +17,11 @@ config/license.key
 
 # generated
 templates/_inlinejs/*.js
-templates/_layouts/*
-templates/_inlinejs/*.js
 templates/*.min.css
 compilation-stats.json
 compilationHashes.json
 
 # Build ASSETS
-public/assets/*
-public/appcache/*
-public/cpresources/*
-public/uploads/*
-!public/uploads/.gitkeep
-public/uploads/images/*
-!public/uploads/images/.gitkeep
-public/uploads/media/*
-!public/uploads/media/.gitkeep
-public/uploads/users/*
-!public/uploads/users/.gitkeep
-public/uploads/downloads/*
-!public/uploads/downloads/.gitkeep
 web/dist/*
 web/assets/*
 web/appcache/*
@@ -56,8 +37,6 @@ web/uploads/downloads/*
 
 
 # IMAGER TRANSFORMS
-public/imager/*
-!public/imager/.gitkeep
 web/imager/*
 !web/imager/.gitkeep
 
@@ -86,12 +65,9 @@ web/imager/*
 .vscode/*
 config.codekit3
 prepros-6.config
-.DS_Store
 .env
 .env.sh
 .env.php
-.idea
-vendor
 scripts
 
 web/favicon.ico

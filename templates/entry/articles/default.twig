@@ -1,63 +1,48 @@
-{% extends '_layouts/_layout.twig' %}
+{% extends "entry/default.twig" %}
 
-{# -- inline css -- #}
-{% block _inline_css %}
-    <style>
-        {{source (_self ~ '_critical.min.css', ignore_missing=true)}}
-    </style>
-{% endblock %}
 
-{% block header %}
+    {% block inlineCriticalCss %}
+        <style>
+            {{ craft.twigpack.includeFile('@webroot/dist/criticalcss/' ~ _self ~  '_critical.min.css') }}
+        </style>
+    {% endblock %}
 
-    {% include '_components/header/default.twig' with {
-        opt : {
-            imager: {
-                lazy: false,
-                mediaBox: false,
-                class: 'absolute top-0 left-0 w-full h-full',
-            },
-            el: {
-                nav: 'default',
-                image: entry.entryImage.one() ?? entry.introImage.one() ?? null,
-                title: false,
-                description: false,
-            }
-        }
-    } only %}
+{# -- cache -- #}
+{% cache globally using key 'entry/articles/default-' ~ (craft.imager.clientSupportsWebp ? "with-webp") ~ craft.app.request.pathInfo ~ (craft.app.request.pageNum ? '/p' ~ craft.app.request.pageNum : '') %}
 
-{% endblock %}
 
-{% block content %}
-<div class="o-wrap flex-col items-center">
-    <h1 class="o-wrap__item o-wrap__item--quad">{{ entry.title }}</h1>
-    <time class="o-wrap__item o-wrap__item--half"
-          itemprop="datePublished"
-          itemtype="http://schema.org/datePublished"
-          datetime="{{ entry.postDate | date('M d, Y') }}">
-        {{ entry.postDate | date('M d, Y') }}</time>
+    {% block content %}
 
-    {# show categories/breadcrumps #}
-    {% if entry.category %}
-        <div class="o-wrap__item o-wrap__item--half">
-            {% set categories = entry.category %}
-            {% for entry in categories.all() %}
-                <a href="{{ entry.url }}" class="hover:bg-red-light hover:text-font text-white align-middle bg-font no-underline rounded py-1 px-4 mx-2">
-                    {{ entry }}
-                </a>
-            {% endfor %}
+        <div class="flex-col items-center">
+            <h1>{{ entry.title }}</h1>
+            <time datetime="{{ entry.postDate | date('M d, Y') }}">
+                {{ entry.postDate | date('M d, Y') }}</time>
+
+            {# show categories/breadcrumps #}
+            {% if entry.category %}
+                <div>
+                    {% set categories = entry.category %}
+                    {% for entry in categories.all() %}
+                        <a href="{{ entry.url }}">
+                            {{ entry }}
+                        </a>
+                    {% endfor %}
+                </div>
+            {% endif %}
         </div>
-    {% endif %}
-</div>
 
-    {% block itemContent %}
-        {% if entry.contentBuilder %}
-            {% include '_matrix' with {
-                matrix : entry.contentBuilder,
-            } only %}
-        {% endif %}
+        <div class="bg-yellow-400">
+            {% block itemContent %}
+                {% if entry.contentBuilder %}
+                    {% include '_matrix.twig' with {
+                        matrix : entry.contentBuilder,
+                    } only %}
+                {% endif %}
+            {% endblock %}
+        </div>
+
     {% endblock %}
 
 
-
-
-{% endblock %}
+    {# -- !Cache -- #}
+{% endcache %}

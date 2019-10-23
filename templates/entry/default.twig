@@ -1,40 +1,61 @@
 {% extends '_layouts/_layout.twig' %}
 
-{# -- inline css -- #}
-{% block _inline_css %}
-    <style>
-        {{source (_self ~ '_critical.min.css', ignore_missing=true)}}
-    </style>
-{% endblock %}
 
-{% block header %}
-
-    {% include '_components/header/default.twig' with {
-        opt : {
-            imager: {
-                lazy: false,
-                mediaBox: false,
-                class: 'absolute top-0 left-0 w-full h-full',
-            },
-            el: {
-                nav: 'default',
-                image: entry.entryImage.one() ?? entry.introImage.one() ?? null,
-                title: entry.introHeadline ?? entry.title,
-                description: entry.introText,
-            }
-        }
-    } only %}
-
-{% endblock %}
-
-{% block content %}
-
-    {% block itemContent %}
-        {% if entry.contentBuilder %}
-            {% include '_matrix.twig' with {
-                matrix : entry.contentBuilder,
-            } only %}
-        {% endif %}
+    {% block inlineCriticalCss %}
+        <style>
+            {{ craft.twigpack.includeFile('@webroot/dist/criticalcss/' ~ _self ~  '_critical.min.css') }}
+        </style>
     {% endblock %}
 
-{% endblock %}
+
+{# -- cache -- #}
+{% cache globally using key 'entry/default-' ~ (craft.imager.clientSupportsWebp ? "with-webp") ~ craft.app.request.pathInfo ~ (craft.app.request.pageNum ? '/p' ~ craft.app.request.pageNum : '') %}
+
+    {# -- header -- #}
+    {% block header %}
+        {% include '_components/header/default.twig' with {
+            data : {
+                header: {
+                    title: {
+                        entry: entry.title ?? null,
+                    },
+                    description: {
+                        entry: entry.teaserText ?? null,
+                    },
+                },
+                imager: {
+                    options: {
+                        preload: true,
+                        objectFit: false,
+                        class: 'relative w-full h-auto',
+                    },
+                    images: {
+                        imageLandscape: entry.contentImage.one() ?? null,
+                        imagePortrait: entry.contentImageMobile.one() ?? null,
+                    },
+                    template: entry.contentImageMobile.one() ? 'artDirection' : 'default',
+                },
+                nav: {
+                    template: 'default',
+                    entry: navigationMain.globalNavigationMain.all() ?? null
+                }
+            }
+        } only %}
+    {% endblock %}
+    {# -- header end -- #}
+
+    {% block content %}
+
+        {% block itemContent %}
+            {% if entry.contentBuilder %}
+                {% include '_matrix.twig' with {
+                    matrix : entry.contentBuilder,
+                } only %}
+            {% endif %}
+        {% endblock %}
+
+    {% endblock %}
+
+
+    {# -- Cache End -- #}
+{% endcache %}

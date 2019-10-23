@@ -17,31 +17,19 @@ return [
     '*' => [
         'siteImages' => [
             'path' => '@webroot/uploads/images',
-            'url' => '@web/assets/images',
+            'url' => '@web/uploads/images',
         ],
         'siteMedia' => [
             'path' => '@webroot/uploads/media',
-            'url' => '@web/assets/media',
+            'url' => '@web/uploads/media',
         ],
         'siteUsers' => [
             'path' => '@webroot/uploads/users',
-            'url' => '@web/assets/users',
+            'url' => '@web/uploads/users',
         ],
         'siteDownloads' => [
             'path' => '@webroot/uploads/downloads',
-            'url' => '@web/assets/downloads',
+            'url' => '@web/uploads/downloads',
         ],
-    ],
-
-    // Live (production) environment
-    'live'  => [
-    ],
-
-    // Staging (pre-production) environment
-    'staging'  => [
-    ],
-
-    // Dev (development) environment
-    'dev'  => [
     ],
 ];

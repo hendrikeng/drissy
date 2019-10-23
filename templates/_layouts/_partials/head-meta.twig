@@ -1,0 +1,10 @@
+{# -- Basic meta tags -- #}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+
+{# -- Prefetch & preconnect headers and links -- #}
+<link rel="dns-prefetch" href="{{ alias('@web') }}/">
+<link rel="preconnect" href="{{ alias('@web') }}/" crossorigin>
+
+{# -- Favicons, webapp manifests, etc. -- #}
+{{ craft.twigpack.includeFile("@webroot/dist/favicons.html") }}

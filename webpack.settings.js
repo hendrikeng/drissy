@@ -35,11 +35,13 @@ module.exports = {
     },
     entries: {
         app: 'app.js',
+        styles: 'styles.js',
     },
     babelLoaderConfig: {
         exclude: [/(node_modules|bower_components)/],
     },
     copyWebpackConfig: [
+        // service worker
         {
             from: './src/js/workbox-catch-handler.js',
             to: '[name].[ext]',
@@ -48,7 +50,7 @@ module.exports = {
         {
             from: './node_modules/fontfaceobserver/fontfaceobserver.js',
             to: 'js/[name].[ext]',
-            transform: function(content, path) {
+            transform(content) {
                 return content;
             },
         },
@@ -56,7 +58,7 @@ module.exports = {
         {
             from: './src/inlineJs/load-fonts.js',
             to: 'js/[name].[ext]',
-            transform: function(content, path) {
+            transform(content) {
                 return Terser.minify(content.toString()).code;
             },
         },
@@ -64,7 +66,7 @@ module.exports = {
         {
             from: './src/inlineJs/tab-handler.js',
             to: 'js/[name].[ext]',
-            transform: function(content, path) {
+            transform(content) {
                 return Terser.minify(content.toString()).code;
             },
         },
@@ -72,7 +74,7 @@ module.exports = {
         {
             from: './src/inlineJs/service-worker.js',
             to: 'js/[name].[ext]',
-            transform: function(content, path) {
+            transform(content) {
                 return Terser.minify(content.toString()).code;
             },
         },
@@ -80,7 +82,7 @@ module.exports = {
         {
             from: './src/css/components/webfonts.pcss',
             to: 'css/[name].css',
-            transform: function(content, path) {
+            transform(content) {
                 return Postcss([Cssnano])
                     .process(content.toString())
                     .then(result => {
@@ -97,6 +99,7 @@ module.exports = {
         ampPrefix: 'amp_',
         ampCriticalHeight: 19200,
         ampCriticalWidth: 600,
+        criticalIgnore: ['@font-face'],
         pages: [
             {
                 url: '',
@@ -104,19 +107,27 @@ module.exports = {
             },
             {
                 url: 'offline',
-                template: 'offline',
+                template: 'errors/offline',
             },
             {
                 url: '404',
-                template: '404',
+                template: 'errors/404',
             },
             {
                 url: '500',
-                template: '500',
+                template: 'errors/500',
             },
             {
                 url: '503',
-                template: '503',
+                template: 'errors/503',
+            },
+            {
+                url: 'articles',
+                template: 'entry/pages/paginated',
+            },
+            {
+                url: 'articles/article-one',
+                template: 'entry/articles/default',
             },
         ],
     },
@@ -148,31 +159,33 @@ module.exports = {
             symlink: '../favicon.ico',
         },
     ],
-    webappConfig: {
+    faviconsConfig: {
         logo: './src/img/favicon-src.png',
         prefix: 'img/favicons/',
     },
     workboxConfig: {
         swDest: '../sw.js',
-        // clientsClaim: true, //new
-        // skipWaiting: true, //new
         precacheManifestFilename: 'js/precache-manifest.[manifestHash].js',
-        // importScripts: ['/dist/workbox-catch-handler.js'],
+        importScripts: ['/dist/workbox-catch-handler.js'],
         exclude: [
             /\.(png|jpe?g|gif|svg|webp)$/i,
             /\.map$/,
             /^manifest.*\\.js(?:on)?$/,
         ],
-        // globDirectory: './web/', //deprecated v4
-        // globPatterns: ['offline.html', 'offline.svg'], //deprecated v4
+        globDirectory: './web/',
+        globPatterns: ['offline.html', 'offline.svg'],
         offlineGoogleAnalytics: true,
         runtimeCaching: [
             {
-                urlPattern: /^(?!.*(api|admin)).*$/,
-                handler: 'CacheFirst',
+                urlPattern: /\/admin.*$/,
+                handler: 'NetworkOnly',
             },
             {
-                urlPattern: /^(.*(api|admin)).*$/,
+                urlPattern: /\/api.*$/,
+                handler: 'NetworkOnly',
+            },
+            {
+                urlPattern: /\.php$/,
                 handler: 'NetworkOnly',
             },
             {

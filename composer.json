@@ -1,7 +1,7 @@
 {
     "name": "hendrikeng/drissy",
     "description": "WeWereYoung - Craft 3 CMS - Webpack 4 - Tailwind - Vue - scaffolding project",
-    "version": "2.0.5",
+    "version": "3.0.0",
     "keywords": ["craft", "cms", "craftcms", "project", "webpack", "tailwind", "vue"],
     "license": "MIT",
     "homepage": "https://craftcms.com/",
@@ -14,27 +14,26 @@
     },
     "minimum-stability": "stable",
     "require": {
-        "aelvan/imager": "^2.0",
-        "craftcms/cms": "^3.0.0",
-        "craftcms/redactor": "^2.0.0.1",
-        "doublesecretagency/craft-cpcss": "^2.1.0",
-        "mmikkel/child-me": "^1.0",
-        "mmikkel/cp-field-inspect": "^1.0",
-        "nystudio107/craft-cookies": "^1.1",
-        "nystudio107/craft-eagerbeaver": "^1.0.0",
-        "nystudio107/craft-minify": "^1.2.5",
-        "nystudio107/craft-routemap": "^1.0.0",
-        "nystudio107/craft-scripts": "^1.2.4",
-        "nystudio107/craft-seomatic": "^3.0",
-        "nystudio107/craft-twigpack": "^1.1",
-        "nystudio107/craft-typogrify": "^1.1.1",
-        "ostark/craft-async-queue": "^1.3.0",
-        "sebastianlenz/linkfield": "1.0.8",
-        "topshelfcraft/environment-label": "^3.1",
-        "verbb/expanded-singles": "^1.0",
-        "verbb/image-resizer": "2.0.3",
-        "vlucas/phpdotenv": "^2.4.0",
-        "xpertbot/craft-wheelform": "^2.2"
+        "aelvan/imager": "^2.3.0",
+        "carlcs/craft-redactorcustomstyles": "^3.0.2",
+        "craftcms/cms": "^3.3.4.1",
+        "craftcms/redactor": "^2.4.0",
+        "doublesecretagency/craft-cpcss": "^2.2.0",
+        "mmikkel/cp-field-inspect": "^1.0.6",
+        "nystudio107/craft-cookies": "^1.1.11",
+        "nystudio107/craft-minify": "^1.2.9",
+        "nystudio107/craft-scripts": "^1.2.10",
+        "nystudio107/craft-seomatic": "^3.2.24",
+        "nystudio107/craft-twigpack": "^1.1.8",
+        "nystudio107/craft-typogrify": "^1.1.18",
+        "ostark/craft-async-queue": "^2.0.0",
+        "sebastianlenz/linkfield": "^1.0.8",
+        "topshelfcraft/environment-label": "^3.1.5",
+        "vaersaagod/matrixmate": "^1.2",
+        "verbb/expanded-singles": "^1.0.7",
+        "verbb/image-resizer": "^2.0.6",
+        "vlucas/phpdotenv": "^2.6.1",
+        "xpertbot/craft-wheelform": "^2.3.4"
     },
     "autoload": {
         "psr-4": {
@@ -45,21 +44,25 @@
         "optimize-autoloader": true,
         "sort-packages": true,
         "platform": {
-            "php": "7.0"
+            "php": "7.3"
         }
     },
     "scripts": {
+        "craft-update": [
+            "@php craft migrate/all",
+            "@php craft project-config/sync",
+            "@php craft clear-caches/all"
+        ],
         "post-root-package-install": [
-            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+            "ln -s ./vendor/nystudio107/craft-scripts/scripts ./scripts",
+            "@php -r \"file_exists('./scripts/.env.sh') || copy('./scripts/craft3-example.env.sh', './scripts/.env.sh');\"",
+            "mkdir storage"
         ],
         "post-create-project-cmd": [
             "@php craft setup/welcome"
         ],
-        "post-update-cmd": [
-            "@php craft clear-caches/all"
-        ],
-        "post-install-cmd": [
-            "@php craft clear-caches/all"
-        ]
+        "post-update-cmd": "@craft-update",
+        "post-install-cmd": ""
       }
     }

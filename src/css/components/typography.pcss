@@ -1,13 +1,23 @@
 /**
  * components/typography.css
- * 
+ *
  * Typography rules.
  *
  */
 
 body,
+p,
+button,
+a {
+    @apply .font-sans .leading-normal .text-gray-900 .text-lg .font-normal;
+}
+
 p {
-    @apply .font-sans .leading-normal .text-black .text-xl;
+    @apply mb-4;
+}
+
+p:last-of-type {
+    @apply mb-0;
 }
 
 h1,
@@ -16,7 +26,7 @@ h3,
 h4,
 h5,
 h6 {
-    @apply .font-serif .leading-tight .text-black;
+    @apply .font-serif .leading-tight .text-gray-900 .font-normal;
 }
 
 h1 {
@@ -44,7 +54,9 @@ h6 {
 }
 
 .fonts-loaded body,
-.fonts-loaded p {
+.fonts-loaded p,
+.fonts-loaded a,
+.fonts-loaded button {
     font-family: Cabin, Arial, Helvetica, sans-serif;
 }
 
@@ -57,3 +69,4 @@ h6 {
 .fonts-loaded {
     font-family: 'Roboto Condensed', Arial, Helvetica, sans-serif;
 }
+

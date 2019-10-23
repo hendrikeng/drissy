@@ -1,12 +1,9 @@
-{# @var craft \craft\web\twig\variables\CraftVariable #}
-{# @var entry \craft\elements\Entry #}
-
 {#
   Matrix: Category Slider (templates/matrix/categorySlider.twig)
   ------------------------------------------------------------
-  Categories function as Tags, if a category is a child of a parent
+  Categories function as Tags, if a category has a parent
   (parents/top-level-categories should be equal to section handles!)
-  we can get the matching tag using category[category|length-1] on relatedTo.
+  we will get the matching tag/partent-category using category[category|length-1] on relatedTo.
 #}
 
 {% extends "matrix/default.twig" %}
@@ -46,7 +43,7 @@
         slides: 'h-64 md:h-192',
         articleImageCaption: '',
         container: 'absolute top-0 bottom-0 w-full h-full',
-        containerInner: 'container w-full h-full relative flex',
+        containerInner: 'w-full h-full relative flex',
         body: 'ml-auto flex my-auto text-center overflow-hidden w-full  justify-center',
         introHeadline: 'mx-auto text-fluid text-white cursor-pointer word-break',
         introHeadlineSpan: 'c-link-hover:bg-shadow',

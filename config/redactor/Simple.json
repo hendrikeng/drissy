@@ -2,9 +2,52 @@
     "buttons": [
         "bold",
         "italic",
-        "link"
+        "link",
+        "html"
     ],
     "toolbarFixed": true,
     "linkNewTab": true,
-    "linkTitle": true
+    "linkTitle": true,
+    "plugins": ["customstyles"],
+    "customStyles": {
+        "paragraph": {
+            "dropdown": {
+                "white": {
+                    "args": {
+                        "tag": "p",
+                        "class": "text-white",
+                        "type": "toggle"
+                    }
+                },
+                "gray": {
+                    "args": {
+                        "tag": "p",
+                        "class": "text-gray-900",
+                        "type": "toggle"
+                    }
+                }
+            }
+        },
+        "headline": {
+            "dropdown": {
+                "white": {
+                    "args": {
+                        "tag": "h3",
+                        "class": "text-white",
+                        "type": "toggle"
+                    }
+                },
+                "gray": {
+                    "args": {
+                        "tag": "h3",
+                        "class": "text-gray-900",
+                        "type": "toggle"
+                    }
+                }
+            }
+        },
+        "clearStyles": {
+            "api": "module.inline.clearformat"
+        }
+    }
 }
