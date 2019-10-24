@@ -54,9 +54,9 @@
         {% endif %}
         {% if data.header.title.entry or data.header.description.entry %}
             <div
-                class="richText absolute inset-y-0 inset-x-0 flex flex-col w-full h-full items-center justify-center">
+                class="my-8 relative flex flex-col w-full h-full items-center justify-center">
                 {% if data.header.title.entry %}
-                    <h1 class="text-white">{{ data.header.title.entry }}</h1>
+                    <h1 class="text-grey-darkest">{{ data.header.title.entry }}</h1>
                 {% endif %}
                 {% if data.header.description.entry %}
                     {{ data.header.description.entry }}
@@ -65,4 +65,3 @@
         {% endif %}
     </div>
 {% endblock %}
-

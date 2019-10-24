@@ -2,7 +2,7 @@
 {# @var entry \craft\elements\Entry #}
 
 {#
-  Pages: News
+  Pages: Paginated
   ------------------------------------------------------------
 #}
 
@@ -20,10 +20,9 @@
     {% set entries = craft.entries({
         section: entry.title,
         relatedTo: null,
-        limit: 4,
+        limit: null,
         offset: null
     }) %}
-
 
 {% paginate entries as pageInfo, pageEntries %}
 
@@ -42,21 +41,17 @@
 
     {% block content %}
 
-        <div class="bg-teal-200">
-            {% block itemContent %}
-                {{ parent() }}
-            {% endblock %}
 
-            <div>
-                {% for entry in pageEntries %}
-                    {% include '_item.twig' %}
-                {% endfor %}
-            </div>
+        {% block itemContent %}
+            {{ parent() }}
+        {% endblock %}
 
-            <div>
-                {{ macro.pagination(pageInfo, craft, {}) }}
-            </div>
+        {% for entry in pageEntries %}
+            {% include '_item.twig' %}
+        {% endfor %}
 
+        <div>
+            {{ macro.pagination(pageInfo, craft, {}) }}
         </div>
 
     {% endblock %}

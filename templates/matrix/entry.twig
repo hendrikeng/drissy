@@ -7,10 +7,8 @@
 
 {% block blockContent %}
 
-    <div>
-        {% for entry in block.entry.all() %}
-            {% include '_item.twig' %}
-        {% endfor %}
-    </div>
+    {% for entry in block.entry.all() %}
+        {% include '_item.twig' %}
+    {% endfor %}
 
 {% endblock %}

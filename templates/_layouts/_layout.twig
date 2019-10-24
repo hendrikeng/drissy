@@ -7,111 +7,111 @@
 
     {%- minify -%}
 
-<!DOCTYPE html>
+    <!DOCTYPE html>
 
-{% if not craft.app.config.general.devMode %}
-    {% set fontsLoaded = getCookie('fonts-loaded') %}
-    {% if fontsLoaded and fontsLoaded == assetHash %}
-<html class="fonts-loaded" lang="{{ craft.app.language |slice(0,2) }}"
-      prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
-{% else %}
-<html lang="{{ craft.app.language |slice(0,2) }}"
-      prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
-{% endif %}
-{% else %}
-<html class="fonts-loaded" lang="{{ craft.app.language |slice(0,2) }}"
-      prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
-{% endif %}
-
-
-<head>
-
-    {# -- Seomatic -- #}
-    {% hook 'seomaticRender' %}
-
-    {# -- Head meta -- #}
-    {% include '_layouts/_partials/head-meta.twig' %}
-    {% block head %}{% endblock %}
-
-    {# -- criticalCss -- #}
-    {% if not craft.app.config.general.devMode %}
-        {% set criticalCss = getCookie('critical-css') %}
-        {% if criticalCss and criticalCss == assetHash %}
-            {{ craft.twigpack.includeCssModule("styles.css") }}
+        {% if not craft.app.config.general.devMode %}
+            {% set fontsLoaded = getCookie('fonts-loaded') %}
+            {% if fontsLoaded and fontsLoaded == assetHash %}
+                <html class="fonts-loaded" lang="{{ craft.app.language |slice(0,2) }}"
+                prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+            {% else %}
+                <html lang="{{ craft.app.language |slice(0,2) }}"
+                prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+            {% endif %}
         {% else %}
-            {% do setCookie('critical-css', assetHash, now | date_modify("+7 days").timestamp ) %}
-            {% block inlineCriticalCss %}
-                {{ craft.twigpack.includeCriticalCssTags() }}
-            {% endblock %}
-            {{ craft.twigpack.includeCssModule("styles.css", true) }}
-            {{ craft.twigpack.includeCssRelPreloadPolyfill() }}
+            <html class="fonts-loaded" lang="{{ craft.app.language |slice(0,2) }}"
+            prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
         {% endif %}
-    {% endif %}
 
-    {# -- Fontface Observer -- #}
-    {% include '_layouts/_partials/font-face-observer.twig' %}
 
-    {# -- inlineJs-- #}
-    {% include '_layouts/_partials/inline-js.twig' %}
+        <head>
 
-    {# -- Goole analytics -- #}
-    {% if not craft.app.config.general.devMode %}
-        {{ craft.twigpack.includeJsModule("analytics.js", true) }}
-    {% endif %}
+            {# -- Seomatic -- #}
+            {% hook 'seomaticRender' %}
 
-</head>
+            {# -- Head meta -- #}
+            {% include '_layouts/_partials/head-meta.twig' %}
+            {% block head %}{% endblock %}
 
-<body>
+            {# -- criticalCss -- #}
+            {% if not craft.app.config.general.devMode %}
+                {% set criticalCss = getCookie('critical-css') %}
+                {% if criticalCss and criticalCss == assetHash %}
+                    {{ craft.twigpack.includeCssModule("styles.css") }}
+                {% else %}
+                    {% do setCookie('critical-css', assetHash, now | date_modify("+7 days").timestamp ) %}
+                    {% block inlineCriticalCss %}
+                        {{ craft.twigpack.includeCriticalCssTags() }}
+                    {% endblock %}
+                    {{ craft.twigpack.includeCssModule("styles.css", true) }}
+                    {{ craft.twigpack.includeCssRelPreloadPolyfill() }}
+                {% endif %}
+            {% endif %}
 
-{% block body %}
+            {# -- Fontface Observer -- #}
+            {% include '_layouts/_partials/font-face-observer.twig' %}
 
-    {# -- Debug -- #}
-    {% block debug %}
-        {% include '_layouts/_partials/debug.twig' %}
-    {% endblock %}
+            {# -- inlineJs-- #}
+            {% include '_layouts/_partials/inline-js.twig' %}
 
-    <header>
-        {% block header %}{% endblock %}
-    </header>
+            {# -- Goole analytics -- #}
+            {% if not craft.app.config.general.devMode %}
+                {{ craft.twigpack.includeJsModule("analytics.js", true) }}
+            {% endif %}
 
-    <main>
-        <div class="px-4 max-w-3xl mx-auto"
-             id="app">
-            {% block content %}{% endblock %}
-        </div>
-    </main>
+        </head>
 
-    {#            <footer>#}
-    {#                <div class="px-4 max-w-3xl mx-auto">#}
-    {#                    {% block footer %}#}
-    {#                        {% include '_components/footer/default' with {#}
-    {#                            opt : {#}
-    {#                                data: contact.globalContact.all(),#}
-    {#                                el: {#}
-    {#                                    nav: 'default',#}
-    {#                                },#}
-    {#                            },#}
-    {#                        } only %}#}
-    {#                    {% endblock %}#}
-    {#                </div>#}
-    {#            </footer>#}
+        <body>
 
-{% endblock %}
+        {% block body %}
 
-{% block scripts %}
-    <script>
-        window.csrfTokenValue = "{{ craft.app.request.csrfToken|e('js') }}";
-    </script>
-{% endblock %}
+            {# -- Debug -- #}
+            {% block debug %}
+                {% include '_layouts/_partials/debug.twig' %}
+            {% endblock %}
 
-{% if craft.app.config.general.devMode %}
-    {{ craft.twigpack.includeJsModule("styles.js", true) }}
-{% endif %}
+            <header>
+                {% block header %}{% endblock %}
+            </header>
 
-{{ craft.twigpack.includeSafariNomoduleFix() }}
-{{ craft.twigpack.includeJsModule("app.js", true) }}
+            <main>
+                <div class="max-w-5xl mx-auto"
+                     id="app">
+                    {% block content %}{% endblock %}
+                </div>
+            </main>
 
-</body>
+            {#            <footer>#}
+            {#                <div class="px-4 max-w-3xl mx-auto">#}
+            {#                    {% block footer %}#}
+            {#                        {% include '_components/footer/default' with {#}
+            {#                            opt : {#}
+            {#                                data: contact.globalContact.all(),#}
+            {#                                el: {#}
+            {#                                    nav: 'default',#}
+            {#                                },#}
+            {#                            },#}
+            {#                        } only %}#}
+            {#                    {% endblock %}#}
+            {#                </div>#}
+            {#            </footer>#}
 
-</html>
-{%- endminify -%}
+        {% endblock %}
+
+        {% block scripts %}
+            <script>
+                window.csrfTokenValue = "{{ craft.app.request.csrfToken|e('js') }}";
+            </script>
+        {% endblock %}
+
+        {% if craft.app.config.general.devMode %}
+            {{ craft.twigpack.includeJsModule("styles.js", true) }}
+        {% endif %}
+
+        {{ craft.twigpack.includeSafariNomoduleFix() }}
+        {{ craft.twigpack.includeJsModule("app.js", true) }}
+
+        </body>
+
+    </html>
+    {%- endminify -%}

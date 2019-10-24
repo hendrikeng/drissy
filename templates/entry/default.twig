@@ -20,14 +20,14 @@
                         entry: entry.title ?? null,
                     },
                     description: {
-                        entry: entry.teaserText ?? null,
+                        entry: null,
                     },
                 },
                 imager: {
                     options: {
                         preload: true,
-                        objectFit: false,
-                        class: 'relative w-full h-auto',
+                        objectFit: true,
+                        class: 'relative w-full h-128',
                     },
                     images: {
                         imageLandscape: entry.contentImage.one() ?? null,
