@@ -17,23 +17,23 @@
             data : {
                 header: {
                     title: {
-                        entry: entry.title ?? null,
+                        entry: siteName,
                     },
                     description: {
-                        entry: entry.teaserText ?? null,
+                        entry: null,
                     },
                 },
                 imager: {
                     options: {
                         preload: true,
-                        objectFit: false,
-                        class: 'relative w-full h-auto',
+                        objectFit: true,
+                        class: 'relative w-full h-128',
                     },
                     images: {
-                        imageLandscape: entry.contentImage.one() ?? null,
-                        imagePortrait: entry.contentImageMobile.one() ?? null,
+                        imageLandscape: entry.headerImage.one() ?? null,
+                        imagePortrait: entry.headerImageMobile.one() ?? null,
                     },
-                    template: entry.contentImageMobile.one() ? 'artDirection' : 'default',
+                    template: entry.headerImageMobile.one() ? 'artDirection' : 'default',
                 },
                 nav: {
                     template: 'default',

@@ -1,57 +1,183 @@
 {% extends "matrix/default.twig" %}
 
-{% block blockContent %}
 
-    <div class="relative glide {{ block.layout }}">
+   {# set defaults #}
+{% set slider = {
+    imager: {
+        options: {
+            dominantColor: false,
+            blurUp: true,
+            mediaBox: block.ratio.value == 'auto' ? false : true,
+            objectFit: block.ratio.value == 'auto' ? false : true,
+            ratio: block.ratio.value,
+        },
+        template: 'default',
+    },
+    data: block.images.all(),
+    class: {
+        slider: 'js-slider relative glide p-4 mb-8 w-full',
+        linkWrap: false,
+        articleImageCaption: false,
+        container: false,
+        body: false,
+        introTitle: false,
+        introTeaser: false,
+        introCta: false,
+        arrows: 'absolute inset-y-0 inset-x-0 flex flex-col w-full h-full items-center justify-center glide__arrows',
+        arrowLeft: 'absolute left-0 glide__arrow glide__arrow--left',
+        arrowRight: 'absolute right-0 glide__arrow glide__arrow--right',
+        arrowLeftSvg: 'w-16 fill-current text-white ml-4',
+        arrowRightSvg: 'w-16 fill-current text-white mr-4',
+        bullets: false,
+        bullet: 'glide__bullet',
+    },
+} %}
+
+{% set carousel = {
+    imager: {
+        options: {
+            dominantColor: false,
+            blurUp: true,
+            mediaBox: block.ratio.value == 'auto' ? false : true,
+            objectFit: block.ratio.value == 'auto' ? false : true,
+            ratio: block.ratio.value,
+        },
+        template: 'default',
+    },
+    data: block.images.all(),
+    class: {
+        slider: 'js-carousel relative glide p-4 mb-8 w-full',
+        linkWrap: false,
+        articleImageCaption: false,
+        container: false,
+        body: false,
+        introTitle: false,
+        introTeaser: false,
+        introCta: false,
+        arrows: 'absolute inset-y-0 inset-x-0 flex flex-col w-full h-full items-center justify-center glide__arrows',
+        arrowLeft: 'absolute left-0 glide__arrow glide__arrow--left',
+        arrowRight: 'absolute right-0 glide__arrow glide__arrow--right',
+        arrowLeftSvg: 'w-16 fill-current text-white ml-4',
+        arrowRightSvg: 'w-16 fill-current text-white mr-4',
+        bullets: false,
+        bullet: 'glide__bullet',
+    },
+} %}
+
+{# check slider layout #}
+{% if block.layout == 'js-carousel' %}
+    {% set defaults = carousel %}
+{% else %}
+    {% set defaults = slider %}
+{% endif %}
+
+{# -- Merge Default with Options -- #}
+{% set opt = opt is defined ? defaults|merge(opt) : defaults %}
+
+{% block blockContent %}
+    <div class="glide {{ opt.class.slider }}">
         <div data-glide-el="track" class="glide__track">
             <div class="glide__slides">
-                {% for image in block.images.all() %}
-                    <div class="glide__slide">
-                        {% if image %}
+                {% for image in opt.data %}
+                    <div class="relative glide__slide">
+                        {% if opt.imager %}
                             {% include '_elements/img/default' with {
                                 data : {
                                     imager: {
-                                        options: {
-                                            dominantColor: false,
-                                            blurUp: true,
-                                            mediaBox: block.ratio.value == 'auto' ? false : true,
-                                            objectFit: block.ratio.value == 'auto' ? false : true,
-                                            ratio: block.ratio.value,
-                                        },
+                                        options: opt.imager.options,
                                         images: {
-                                            imageLandscape: image,
-                                        },
+                                            imageLandscape: image ?? null,
+                                        }
                                     },
                                 }
                             } only %}
+                        {% endif %}
+                        {% if opt.class.linkWrap %}
+                        <a href="{{ entry.url ?? null }}" class="{{ opt.class.linkWrap }}">
+                            {% endif %}
+                            {% if opt.class.container %}
+                            <div class="{{ opt.class.container }}">
+                                {% endif %}
+                                {% if opt.class.articleImageCaption %}
+                                    {% if image.caption|length %}
+                                        <div
+                                            class="{{ opt.class.articleImageCaption }}">
+                                            {% if image.caption|length %}
+                                                {{ image.caption ?? null }}
+                                            {% endif %}
+                                            {% if image.source|length %}
+                                                /
+                                                <a class="text-white hover:underline"
+                                                   href="{{ image.sourceUrl }}">{{ image.source }}</a>
+                                            {% endif %}
+                                        </div>
+                                    {% endif %}
+                                {% endif %}
+                                {% if opt.class.body %}
+                                    <div class="{{ opt.class.body }}">
+                                        {% if opt.class.introTitle %}
+                                            <h3 class="{{ opt.class.introTitle }}">
+                                                {% set title = entry.title ?? null %}
+                                                {{ title | upper }}
+                                            </h3>
+                                        {% endif %}
+                                        {% if opt.class.introTeaser %}
+                                            {% set text = entry.teaserText ?? null %}
+                                            {{ text|striptags }}
+                                        {% endif %}
+                                        {% if opt.class.introCta and entry.entry|length %}
+                                            <a href="{{ entry.entry.one().getUrl() }}"
+                                               class="{{ opt.class.introCta }}">
+                                                {{ entry.cta ?? entry.entry.title }}
+                                            </a>
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+                                {% if opt.class.container %}
+                            </div>
+                            {% endif %}
+                            {% if opt.class.linkWrap %}
+                        </a>
                         {% endif %}
                     </div>
                 {% endfor %}
             </div>
         </div>
-        <div class="absolute inset-y-0 inset-x-0 flex flex-col w-full h-full items-center justify-center "
-             data-glide-el="controls">
-            <button class=" absolute left-0 glide__arrow glide__arrow--left"
-                    data-glide-dir="<" aria-label="previous slide">
-                {% include '_svg/iconArrowLeft.svg' with {
-                    data : {
-                        svg: {
-                            class: 'w-16 fill-current text-white',
-                        }
-                    }
-                } only %}
-            </button>
-            <button class=" absolute right-0 glide__arrow glide__arrow--right"
-                    data-glide-dir=">" aria-label="next slide">
-                {% include '_svg/iconArrowRight.svg' with {
-                    data : {
-                        svg: {
-                            class: 'w-16 fill-current text-white',
-                        }
-                    }
-                } only %}
-            </button>
-        </div>
+        {% if opt.data | length > 1 %}
+            {% if opt.class.arrowLeft %}
+                <div class="{{ opt.class.arrows }}"
+                     data-glide-el="controls">
+                    <button class="{{ opt.class.arrowLeft }}"
+                            data-glide-dir="<" aria-label="previous slide">
+                        {% include '_svg/iconArrowLeft.svg' with {
+                            data : {
+                                svg: {
+                                    class: opt.class.arrowLeftSvg,
+                                }
+                            }
+                        } only %}
+                    </button>
+                    <button class="{{ opt.class.arrowRight }}"
+                            data-glide-dir=">" aria-label="next slide">
+                        {% include '_svg/iconArrowRight.svg' with {
+                            data : {
+                                svg: {
+                                    class: opt.class.arrowRightSvg,
+                                }
+                            }
+                        } only %}
+                    </button>
+                </div>
+            {% endif %}
+            {% if opt.class.bullets %}
+                <div class="{{ opt.class.bullets }}" data-glide-el="controls[nav]">
+                    {% for entry in opt.data %}
+                        <button class="{{ opt.class.bullet }}"
+                                data-glide-dir="={{ loop.index0 }}"
+                                aria-label="select slide"></button>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endif %}
     </div>
-
 {% endblock %}

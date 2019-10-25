@@ -8,15 +8,15 @@
 
 {% extends "_layouts/_layout.twig" %}
 {% import "_macros/_macros.twig" as macro %}
-{#{% set seomaticMeta = seomaticMeta | merge({'seoTitle': category.group().name ~ ': ' ~ category }) %}#}
 
-{# -- inline css -- #}
-{% block _inline_css %}
-    <!-- critical "taxonomy/default.twig" -->
-    <style>
-        {{ craft.twigpack.includeFile('@webroot/dist/criticalcss/' ~ _self | split('.')[0] ~  '_critical.min.css') }}
-    </style>
-{% endblock %}
+
+    {% block inlineCriticalCss %}
+        <style>
+            {{ craft.twigpack.includeFile('@webroot/dist/criticalcss/' ~ _self ~  '_critical.min.css') }}
+        </style>
+    {% endblock %}
+
+
 
 {# -- Set Query -- #}
 {% set entries = craft.entries({
@@ -25,53 +25,35 @@
     limit: 4
 }) %}
 
-
-{% paginate entries as pageInfo,pageEntries %}
+{% paginate entries as pageInfo, pageEntries %}
 
     {% block head %}
         {% if pageInfo.prevUrl %}
-            <link rel="prev" href="{{ pageInfo.prevUrl }}">{% endif %}
+            <link rel="prev" href="{{ pageInfo.prevUrl }}">
+        {% endif %}
         {% if pageInfo.nextUrl %}
-            <link rel="next" href="{{ pageInfo.nextUrl }}">{% endif %}
+            <link rel="next" href="{{ pageInfo.nextUrl }}">
+        {% endif %}
     {% endblock %}
+
+{# -- cache -- #}
+{% cache globally using key 'taxonomy/default-' ~ (craft.imager.clientSupportsWebp ? "with-webp") ~ craft.app.request.pathInfo ~ (craft.app.request.pageNum ? '/p' ~ craft.app.request.pageNum : '') %}
 
     {% block debug %}{% endblock %}
 
-    {% block header %}
-        {% include '_components/header/default.twig' with {
-            opt : {
-                imager: {
-                    lazy: false,
-                    mediaBox: false,
-                    class: 'absolute top-0 left-0 w-full h-full',
-                },
-                el: {
-                    nav: 'default',
-                    image: entry.entryImage.one() ?? entry.introImage.one() ?? null,
-                    title: entry.introHeadline ?? entry.title ?? null,
-                    description: entry.introText ?? null,
-                }
-            }
-        } only %}
-    {% endblock %}
-
-
     {% block content %}
 
-        {# -- Cache -- #}
-        {# {% cache globally using key category.group().handle ~ category ~ craft.app.request.pathInfo ~ (craft.app.request.pageNum ? '/p' ~ craft.app.request.pageNum : '') %} #}
 
-        <div class="co-wrap flex-col items-center">
+        {% for entry in pageEntries %}
+            {% include '_item.twig' %}
+        {% endfor %}
 
-            {% for entry in pageEntries %}
-                {% include '_item.twig' %}
-            {% endfor %}
-
-        </div>
-
-        <div class="text-center mb-8">
+        <div>
             {{ macro.pagination(pageInfo, craft, {}) }}
         </div>
-        {# -- Cache End -- #}
-        {# {% endcache %} #}
+
     {% endblock %}
+
+
+    {# -- Cache End -- #}
+{% endcache %}

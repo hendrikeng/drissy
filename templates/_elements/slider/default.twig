@@ -1,35 +1,31 @@
 {# set defaults #}
 {% set slider = {
     imager: {
-        class: 'w-full h-full',
+        options: {
+            dominantColor: false,
+            blurUp: true,
+            mediaBox: block.ratio.value == 'auto' ? false : true,
+            objectFit: block.ratio.value == 'auto' ? false : true,
+            ratio: block.ratio.value,
+            class: 'w-full h-full',
+        },
+        template: 'default',
     },
     data: opt.data,
-    el: {
-        wrapper: true,
-        image: true,
-        introHeadline: true,
-        introTeaser: false,
-        articleImageCaption: false,
-        linkWrap: true,
-        arrows: true,
-        bullets: false,
-    },
-    cn: {
-        wrapper: 'py-4',
-        slider: 'js-slider',
-        track: 'glide__track',
-        slides: 'h-64 md:h-192',
-        articleImageCaption: '',
+    class: {
+        slider: 'js-slider relative glide p-4 mb-8 w-full',
+        linkWrap: 'linkWrap',
+        articleImageCaption: 'articleImageCaption',
         container: 'relative md:absolute top-0 bottom-0 w-full h-full',
-        containerInner: 'container w-full h-full relative flex',
-        body: 'ml-auto flex my-auto text-center overflow-hidden w-full  justify-center',
-        introHeadline: 'mx-auto text-fluid font-serif text-white cursor-pointer word-break',
-        introTeaser: 'mx-auto text-fluid font-serif text-white cursor-pointer word-break',
-        introHeadlineSpan: 'c-link-hover:bg-shadow',
-        linkWrap: 'c-link',
-        arrows: 'w-full h-full glide__arrows',
-        arrowLeft: 'hidden md:flex ml-8 h-full absolute left-0 top-0 bottom-0 glide__arrow glide__arrow--left',
-        arrowRight: 'hidden md:flex mr-8 h-full absolute right-0 top-0 bottom-0 glide__arrow glide__arrow--right',
+        body: 'ml-auto flex flex-col h-full my-auto text-center overflow-hidden w-full  justify-center',
+        introTitle: 'mx-auto text-white word-break',
+        introTeaser: 'mx-auto text-white word-break',
+        introCta: 'mx-auto text-white',
+        arrows: 'absolute inset-y-0 inset-x-0 flex flex-col w-full h-full items-center justify-center glide__arrows',
+        arrowLeft: 'absolute left-0 glide__arrow glide__arrow--left',
+        arrowRight: 'absolute right-0 glide__arrow glide__arrow--right',
+        arrowLeftSvg: 'w-16 fill-current text-white ml-4',
+        arrowRightSvg: 'w-16 fill-current text-white mr-4',
         bullets: 'h-8 mb-0 mb:mb-8 w-full absolute bottom-0 slider__bullets glide__bullets flex justify-center',
         bullet: 'glide__bullet',
     },
@@ -37,34 +33,27 @@
 
 {% set carousel = {
     imager: {
-        class: 'w-full h-64',
+        options: {
+            class: 'w-full h-64',
+        },
+        template: 'default',
     },
     data: opt.data,
-    el: {
-        wrapper: true,
-        articleImageCaption: false,
-        image: true,
-        introHeadline: true,
-        introTeaser: false,
-        linkWrap: true,
-        arrows: true,
-        bullets: false,
-    },
-    cn: {
-        wrapper: 'bg-brand max-w-4xl mx-auto py-4',
-        slider: 'js-carousel',
-        track: 'glide__track',
-        slides: 'h-80 w-full',
-        linkWrap: 'c-link',
+    class: {
+        slider: 'js-slider relative glide p-4 mb-8 w-full',
+        linkWrap: 'linkWrap',
+        articleImageCaption: 'articleImageCaption',
         container: 'relative md:absolute top-0 bottom-0 w-full h-full',
-        containerInner: 'w-full h-full relative flex',
-        body: 'absolute bottom-0 flex flex-col text-center overflow-hidden h-16 w-full',
-        introHeadline: 'mx-auto mb-auto mt-4 text-xl font-serif text-white cursor-pointer word-break',
-        introHeadlineSpan: 'c-link-hover:bg-shadow',
-        arrows: 'w-full h-full glide__arrows',
-        arrowLeft: '-ml-16 h-full absolute left-0 top-0 bottom-0 glide__arrow glide__arrow--left',
-        arrowRight: '-mr-16 h-full absolute right-0 top-0 bottom-0 glide__arrow glide__arrow--right',
-        bullets: 'h-8 mb-8 w-full absolute bottom-0 slider__bullets glide__bullets flex justify-center',
+        body: 'ml-auto flex my-auto text-center overflow-hidden w-full  justify-center',
+        introTitle: 'mx-auto text-white word-break',
+        introTeaser: 'mx-auto text-white word-break',
+        introCta: 'mx-auto text-white',
+        arrows: 'absolute inset-y-0 inset-x-0 flex flex-col w-full h-full items-center justify-center glide__arrows',
+        arrowLeft: 'absolute left-0 glide__arrow glide__arrow--left',
+        arrowRight: 'absolute right-0 glide__arrow glide__arrow--right',
+        arrowLeftSvg: 'w-16 fill-current text-white ml-4',
+        arrowRightSvg: 'w-16 fill-current text-white mr-4',
+        bullets: 'h-8 mb-0 mb:mb-8 w-full absolute bottom-0 slider__bullets glide__bullets flex justify-center',
         bullet: 'glide__bullet',
     },
 } %}
@@ -79,137 +68,111 @@
 {# -- Merge Default with Options -- #}
 {% set opt = opt is defined ? defaults|merge(opt) : defaults %}
 
-{% if opt.el.wrapper %}
-<div class="{{ opt.cn.wrapper }}">
-    {% endif %}
-    <div class="glide {{ opt.cn.slider }}">
-        <div data-glide-el="track" class="{{ opt.cn.track }}">
-            <div class="glide__slides {{ opt.cn.slides }}">
-                {% for entry in opt.data %}
-                    {% set image = entry.introImage.one() ?? entry.images.one() ?? entry.image.one() ?? null%}
-                    <div class="relative glide__slide">
-                        {% if opt.el.image %}
-                            {% include '_elements/img/default' with {
-                                opt : {
-                                    data: image,
-                                    imager: opt.imager,
-                                }
-                            } only %}
+
+<div class="glide {{ opt.class.slider }}">
+    <div data-glide-el="track" class="glide__track">
+        <div class="glide__slides">
+            {% for entry in opt.data %}
+                {% set image = entry.teaserImage.one() ?? entry.headerImage.one() ?? null %}
+                <div class="relative glide__slide">
+                    {% if opt.imager %}
+                        {% include '_elements/img/default' with {
+                            data : {
+                                imager: {
+                                    options: opt.imager.options,
+                                    images: {
+                                        imageLandscape: image ?? null,
+                                    }
+                                },
+                            }
+                        } only %}
+                    {% endif %}
+                    {% if opt.class.linkWrap %}
+                    <a href="{{ entry.url ?? null }}" class="{{ opt.class.linkWrap }}">
                         {% endif %}
-                        {% if opt.el.linkWrap %}
-                        <a href="{{ entry.url }}" class="{{ opt.cn.linkWrap }}">
+                        {% if opt.class.container %}
+                        <div class="{{ opt.class.container }}">
                             {% endif %}
-                            <div class="{{ opt.cn.container }}">
-                                {% if opt.el.articleImageCaption|length %}
-                                    {% if image.caption|length %}
-                                        <div class="{{ opt.cn.articleImageCaption }}">
-                                            {% if image.caption %}
-                                                {{ image.caption ?? null }}
-                                            {% endif %}
-                                            {% if image.source %}
-                                                /
-                                                <a class="text-white hover:underline"
-                                                   href="{{ image.sourceUrl }}">{{ image.source }}</a>
-                                            {% endif %}
-                                        </div>
-                                    {% endif %}
-                                {% endif %}
-                                <div class="{{ opt.cn.containerInner }}">
-                                    <div class="{{ opt.cn.body }}">
-                                        {% if opt.el.introHeadline %}
-                                            <h3 class="{{ opt.cn.introHeadline }}">
-                                                {% set title = entry.introHeadline ?? entry.title ?? entry.headline %}
-                                                <span class="{{ opt.cn.introHeadlineSpan }}">
-                                                    {{ title | upper }}
-                                                </span>
-                                            </h3>
+                            {% if opt.class.articleImageCaption %}
+                                {% if image.caption|length %}
+                                    <div
+                                        class="{{ opt.class.articleImageCaption }}">
+                                        {% if image.caption|length %}
+                                            {{ image.caption ?? null }}
                                         {% endif %}
-                                        {% if opt.el.introTeaser %}
-                                            <p class="{{ opt.cn.introTeaser }}">
-                                                {% set text = entry.introTeaser ?? entry.text %}
-                                                {{ text|striptags }}</p>
-                                        {% endif %}
-                                        {# prüfen ob link vorhanden und entfernen #}
-                                        {% if entry.entry|length %}
-                                            <a href="{{ entry.entry.one().getUrl() }}"
-                                               class="mx-auto font-serif no-underline text-white bg-brand px-4 py-2 hover:bg-brand-85 hover:underline text-lg c-link">
-                                                {{ entry.cta ?? entry.entry.title }}
-                                            </a>
+                                        {% if image.source|length %}
+                                            /
+                                            <a class="text-white hover:underline"
+                                               href="{{ image.sourceUrl }}">{{ image.source }}</a>
                                         {% endif %}
                                     </div>
+                                {% endif %}
+                            {% endif %}
+                            {% if opt.class.body %}
+                                <div class="{{ opt.class.body }}">
+                                    {% if opt.class.introTitle %}
+                                        <h3 class="{{ opt.class.introTitle }}">
+                                            {% set title = entry.title ?? null %}
+                                            {{ title | upper }}
+                                        </h3>
+                                    {% endif %}
+                                    {% if opt.class.introTeaser %}
+                                        {% set text = entry.teaserText ?? null %}
+                                        {{ text|striptags }}
+                                    {% endif %}
+                                    {% if opt.class.introCta and entry.entry|length %}
+                                        <a href="{{ entry.entry.one().getUrl() }}"
+                                           class="{{ opt.class.introCta }}">
+                                            {{ entry.cta ?? entry.entry.title }}
+                                        </a>
+                                    {% endif %}
                                 </div>
-                            </div>
-                            {% if opt.el.linkWrap %}
-                        </a>
+                            {% endif %}
+                            {% if opt.class.container %}
+                        </div>
                         {% endif %}
-                    </div>
-                {% endfor %}
-            </div>
+                        {% if opt.class.linkWrap %}
+                    </a>
+                    {% endif %}
+                </div>
+            {% endfor %}
         </div>
-        {% if opt.data | length > 1 %}
-            {% if opt.el.arrows %}
-                <div class="{{ opt.cn.arrows }}" data-glide-el="controls">
-                    <button class="{{ opt.cn.arrowLeft }}" data-glide-dir="<" aria-label="previous slide">
-                        {% include '_svg/iconArrowLeft.svg' %}
-                    </button>
-                    <button class=" {{ opt.cn.arrowRight }} " data-glide-dir=">" aria-label="Next slide">
-                        {% include '_svg/iconArrowRight.svg' %}
-                    </button>
-                </div>
-            {% endif %}
-            {% if opt.el.bullets %}
-                <div class="{{ opt.cn.bullets }}" data-glide-el="controls[nav]">
-                    {% for entry in opt.data %}
-                        <button class="{{ opt.cn.bullet }}" data-glide-dir="={{ loop.index0 }}" aria-label="select slide"></button>
-                    {% endfor %}
-                </div>
-            {% endif %}
+    </div>
+    {% if opt.data | length > 1 %}
+        {% if opt.class.arrowLeft %}
+            <div class="{{ opt.class.arrows }}"
+                 data-glide-el="controls">
+                <button class="{{ opt.class.arrowLeft }}"
+                        data-glide-dir="<" aria-label="previous slide">
+                    {% include '_svg/iconArrowLeft.svg' with {
+                        data : {
+                            svg: {
+                                class: opt.class.arrowLeftSvg,
+                            }
+                        }
+                    } only %}
+                </button>
+                <button class="{{ opt.class.arrowRight }}"
+                        data-glide-dir=">" aria-label="next slide">
+                    {% include '_svg/iconArrowRight.svg' with {
+                        data : {
+                            svg: {
+                                class: opt.class.arrowRightSvg,
+                            }
+                        }
+                    } only %}
+                </button>
+            </div>
         {% endif %}
-    </div>
-    {% if opt.el.wrapper %}
-</div>
-{% endif %}
-
-
-{% block dummy %}
-    <div class="relative glide {{ block.layout }} o-wrap px-4 mt-8">
-        <div data-glide-el="track" class="glide__track">
-            <div class="glide__slides">
-                {% for image in block.images.all() %}
-                    <div class="glide__slide">
-                        {% if image %}
-                            {% include '_elements/img/default' with {
-                                data : {
-                                    imager: {
-                                        options: {
-                                            dominantColor: false,
-                                            blurUp: true,
-                                            mediaBox: block.ratio.value == 'auto' ? false : true,
-                                            objectFit: block.ratio.value == 'auto' ? false : true,
-                                            ratio: block.ratio.value,
-                                        },
-                                        images: {
-                                            imageLandscape: image,
-                                        },
-                                    },
-                                }
-                            } only %}
-                        {% endif %}
-                    </div>
+        {% if opt.class.bullets %}
+            <div class="{{ opt.class.bullets }}" data-glide-el="controls[nav]">
+                {% for entry in opt.data %}
+                    <button class="{{ opt.class.bullet }}"
+                            data-glide-dir="={{ loop.index0 }}"
+                            aria-label="select slide"></button>
                 {% endfor %}
             </div>
-        </div>
-        <div class="mb-14 mt-2 relative w-full h-full glide__arrows bg-green"
-             data-glide-el="controls">
-            <button class="absolute left-0 glide__arrow glide__arrow--left"
-                    data-glide-dir="<" aria-label="previous slide">
-                {% include '_svg/iconArrowLeft.svg' %}
-            </button>
-            <button class="absolute right-0 glide__arrow glide__arrow--right"
-                    data-glide-dir=">" aria-label="next slide">
-                {% include '_svg/iconArrowRight.svg' %}
-            </button>
-        </div>
-    </div>
+        {% endif %}
+    {% endif %}
+</div>
 
-{% endblock %}

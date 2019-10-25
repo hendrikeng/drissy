@@ -1,4 +1,4 @@
-{% extends '_layouts/_layout.twig' %}
+{% extends "entry/default.twig" %}
 
 
     {% block inlineCriticalCss %}
@@ -7,9 +7,8 @@
         </style>
     {% endblock %}
 
-
 {# -- cache -- #}
-{% cache globally using key 'entry/default-' ~ (craft.imager.clientSupportsWebp ? "with-webp") ~ craft.app.request.pathInfo ~ (craft.app.request.pageNum ? '/p' ~ craft.app.request.pageNum : '') %}
+{% cache globally using key 'entry/blog/default-' ~ (craft.imager.clientSupportsWebp ? "with-webp") ~ craft.app.request.pathInfo ~ (craft.app.request.pageNum ? '/p' ~ craft.app.request.pageNum : '') %}
 
     {# -- header -- #}
     {% block header %}
@@ -17,10 +16,10 @@
             data : {
                 header: {
                     title: {
-                        entry: entry.title ?? null,
+                        entry: false,
                     },
                     description: {
-                        entry: null,
+                        entry: false,
                     },
                 },
                 imager: {
@@ -44,18 +43,38 @@
     {% endblock %}
     {# -- header end -- #}
 
+
     {% block content %}
 
-        {% block itemContent %}
-            {% if entry.contentBuilder %}
-                {% include '_matrix.twig' with {
-                    matrix : entry.contentBuilder,
-                } only %}
+        <div class="flex-col items-center">
+            <h1>{{ entry.title }}</h1>
+            <time datetime="{{ entry.postDate | date('M d, Y') }}">
+                {{ entry.postDate | date('M d, Y') }}</time>
+
+            {# show categories/breadcrumps #}
+            {% if entry.category %}
+                <div>
+                    {% set categories = entry.category %}
+                    {% for entry in categories.all() %}
+                        <a href="{{ entry.url }}">
+                            {{ entry }}
+                        </a>
+                    {% endfor %}
+                </div>
             {% endif %}
-        {% endblock %}
+        </div>
+
+            {% block itemContent %}
+                {% if entry.contentBuilder %}
+                    {% include '_matrix.twig' with {
+                        matrix : entry.contentBuilder,
+                    } only %}
+                {% endif %}
+            {% endblock %}
+
 
     {% endblock %}
 
 
-    {# -- Cache End -- #}
+    {# -- !Cache -- #}
 {% endcache %}

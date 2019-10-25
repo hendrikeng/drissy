@@ -1,49 +1,68 @@
-{# @var craft \craft\web\twig\variables\CraftVariable #}
-{# @var entry \craft\elements\Entry #}
-
 {% block itemContent %}
-
-    {% if block.layout is not defined or null %}
-        {% set block = entry %}
-    {% endif %}
-
-    {% switch block.layout %}
-
-    {% default %}
-
+    {% switch entry.section.handle %}
+    {% case "blog" or "partner" %}
         {% include "_elements/article/default.twig" with {
             opt : {
                 imager: {
-                    objectFit: true,
-                    objectFitValue: 'cover',
-                    class: 'w-full h-full',
+                    options: {
+                        dominantColor: false,
+                        blurUp: false,
+                        mediaBox: false,
+                        objectFit: false,
+                    },
+                    images: {
+                        imageLandscape: entry.teaserImage.one() ?? null,
+                        imagePortrait: entry.teaserImageMobile.one() ?? null,
+                    },
+                    template: entry.headerImageMobile.one() ? 'artDirection' : 'default',
                 },
-                data: entry,
-                cta: entry.teaserCtaText ?? 'more',
-                el: {
-                    gridElement: true,
-                    articleHeaderLink: false,
-                    articleImageCaption: false,
-                    articleBody: true,
-                    articleLink: true,
+                data: {
+                    articleHeader: entry.title ?? false,
+                    articleParagraph: entry.teaserText ?? false,
+                    articleCta: entry.teaserCtaText ?? false,
                 },
-                cn: {
-                    gridElement: 'o-wrap__item o-wrap__item--grid w-full',
-                    article: 'h-64 c-link relative w-full overflow-hidden',
-                    articleWrap: 'articleWrap h-64 sm:h-96 absolute pint-t bottom-0 right-0 left-0 bg-red w-full c-link-hover:transform-up transform-layoutA hover:transform-up',
-                    articleContainer: 'articleContainer w-full',
-                    articleInner: 'articleInner absolute top-0 flex flex-col text-center overflow-hidden h-full py-3 px-8 text-black c-link-hover:justify-center w-full',
-                    articleHeader: 'mt-4 uppercase',
-                    articleHeaderSpan: '',
-                    articleHeaderLink: 'link-absolute',
-                    articleBody: 'articleBody',
-                    articleBodyParagraph: 'mt-8',
-                    articleLink: 'mx-auto no-underline text-black px-4 py-2 text-lg link-absolute hover:undeline',
+                class: {
+                    articleWrap: 'articleWrap px-4 mb-8',
+                    article: 'article flex flex-wrap -mx-4',
+                    articleImageWrap: 'articleImageWrap w-full md:w-1/2  p-4',
+                    articleImageCaption: 'articleImageCaption',
+                    articleContentWrap: 'articleContentWrap w-full md:w-1/2 p-4',
+                    articleHeader: 'articleHeader mb-4',
+                    articleCta: 'articleCta mt-4 block',
                 },
             }
         } %}
-
+    {% default %}
+        {% include "_elements/article/default.twig" with {
+            opt : {
+                imager: {
+                    options: {
+                        dominantColor: false,
+                        blurUp: false,
+                        mediaBox: false,
+                        objectFit: false,
+                    },
+                    images: {
+                        imageLandscape: entry.teaserImage.one() ?? null,
+                        imagePortrait: entry.teaserImageMobile.one() ?? null,
+                    },
+                    template: entry.headerImageMobile.one() ? 'artDirection' : 'default',
+                },
+                data: {
+                    articleHeader: entry.title ?? false,
+                    articleParagraph: entry.teaserText ?? false,
+                    articleCta: entry.teaserCtaText ?? false,
+                },
+                class: {
+                    articleWrap: 'articleWrap p-4 mb-8',
+                    article: 'article flex flex-wrap -mx-4',
+                    articleImageWrap: 'articleImageWrap w-full md:w-1/2 px-4 pb-4 md:pb-0',
+                    articleImageCaption: 'articleImageCaption',
+                    articleContentWrap: 'articleContentWrap w-full md:w-1/2 px-4',
+                    articleHeader: 'articleHeader mb-4',
+                    articleCta: 'articleCta mt-4 block',
+                },
+            }
+        } %}
     {% endswitch %}
-
-
 {% endblock %}

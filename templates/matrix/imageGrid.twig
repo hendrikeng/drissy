@@ -1,50 +1,47 @@
 {% extends "matrix/default.twig" %}
 
-{# TODO: für ratio muss wrapper, mediabox und objectFit aktiv sein  #}
+{# TODO: für ratio muss wrapper, mediabox und objectFit aktiv sein, phoyoswipe einbinden  #}
 
   {# purgecss: sm:w-1/2 sm:w-1/3 sm:w-1/4 sm:w-full md:w-1/2 md:w-1/3 md:w-1/4 md:w-full lg:w-1/2 lg:w-1/3 lg:w-1/4 lg:w-full xl:w-1/2 xl:w-1/3 xl:w-1/4 xl:w-full  #}
     {# purgecss: aspect-ratio-auto aspect-ratio-1/1 aspect-ratio-4/3 aspect-ratio-4/5 aspect-ratio-16/9 aspect-ratio-21/9 #}
 
 {% set isGallery = false %}
 {% block blockContent %}
-    {% if block.ratio.value == 'false' %}
-        hi
-    {% endif %}
-    <div
-        class="flex flex-wrap -mb-4 -mx-2 {% if block.gallery %}js-gallery{% endif %}">
-        {% for image in block.images.all() %}
-            <figure
-                class="mb-4 px-2 w-full md:w-1/2 lg:{{- block.columns -}}">
-                {% if block.gallery %}
-                <a href="{{ image.url() }}" itemprop="contentUrl"
-                   data-size="{{ image.getWidth }}x{{ image.getHeight }}">
-                    {% endif %}
-                    {% include '_elements/img/default.twig' with {
-                        data : {
-                            imager: {
-                                options: {
-                                    dominantColor: false,
-                                    blurUp: true,
-                                    mediaBox: block.ratio.value == 'auto' ? false : true,
-                                    objectFit: block.ratio.value == 'auto' ? false : true,
-                                    ratio: block.ratio.value,
-                                },
-                                images: {
-                                    imageLandscape: image,
-                                },
-                            },
-                        }
-                    } only %}
-                    {% if block.gallery %}
-                </a>
-                {% endif %}
-                {% if block.caption %}
-                    <figcaption
-                        itemprop="caption description">{{ image.caption }}</figcaption>
-                {% endif %}
-            </figure>
-        {% endfor %}
 
+    <div class="px-4 mb-8">
+        <div
+            class="flex flex-wrap -mx-4 {% if block.gallery %}js-gallery{% endif %} ">
+            {% for image in block.images.all() %}
+                <figure
+                    class="p-4 w-full md:{{- block.columns -}}">
+                    {% if block.gallery %}
+                    <a href="{{ image.url() }}" data-size="{{ image.getWidth }}x{{ image.getHeight }}">
+                        {% endif %}
+                        {% include '_elements/img/default.twig' with {
+                            data : {
+                                imager: {
+                                    options: {
+                                        dominantColor: false,
+                                        blurUp: true,
+                                        mediaBox: block.ratio.value == 'auto' ? false : true,
+                                        objectFit: block.ratio.value == 'auto' ? false : true,
+                                        ratio: block.ratio.value,
+                                    },
+                                    images: {
+                                        imageLandscape: image,
+                                    },
+                                },
+                            }
+                        } only %}
+                        {% if block.gallery %}
+                    </a>
+                    {% endif %}
+                    {% if block.caption %}
+                        <figcaption>{{ image.caption }}</figcaption>
+                    {% endif %}
+                </figure>
+            {% endfor %}
+        </div>
     </div>
 
 {% endblock %}
