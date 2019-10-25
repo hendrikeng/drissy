@@ -3,7 +3,7 @@
 {% block blockContent %}
 
     <blockquote>
-        <figure class="p-4 mb-8 bg-green-200">
+        <figure class="p-4 mb-8">
             {% set image = block.image.one() %}
             {% if image %}
                 {% include '_elements/img/default.twig' with {
