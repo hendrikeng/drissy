@@ -1,16 +1,16 @@
 categoryGroups:
   54b5dcb5-c568-4319-ac77-8d72e80bd79b:
-    name: 'Blog Topic'
-    handle: blog
+    name: Categories
+    handle: categories
     structure:
       uid: 1b6aa722-9fe9-4f99-8aa7-90ab783c7c96
       maxLevels: 2
     siteSettings:
       18cc759f-911b-4dee-a438-b50790f9d6fb:
         hasUrls: true
-        uriFormat: 'blog/{slug}'
+        uriFormat: 'categories/{slug}'
         template: _taxonomy
-dateModified: 1572033348
+dateModified: 1572034794
 email:
   fromEmail: $SYSTEM_EMAIL_ADDRESS
   fromName: $SENDER_NAME

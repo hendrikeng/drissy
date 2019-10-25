@@ -4,6 +4,8 @@
   Categories function as Tags, if a category has a parent
   (parents/top-level-categories should be equal to section handles!)
   we will get the matching tag/partent-category using category[category|length-1] on relatedTo.
+
+  TODO: Broken
 #}
 
 {% extends "matrix/default.twig" %}
@@ -28,7 +30,7 @@
         },
         template: 'default',
     },
-    data: entries.all(),
+    data: entries,
     el: {
         wrapper: true,
         image: true,
@@ -63,7 +65,7 @@
         },
         template: 'default',
     },
-    data: entries.all(),
+    data: entries,
     el: {
         image: true,
         articleImageCaption: false,

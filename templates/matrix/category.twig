@@ -25,11 +25,10 @@
 
     {% if category %}
 
-        <div>
-            {% for entry in entries.all() %}
-                {% include '_item.twig' %}
-            {% endfor %}
-        </div>
+        {% for entry in entries.all() %}
+            {% include '_item.twig' %}
+        {% endfor %}
+
 
     {% endif %}
 
