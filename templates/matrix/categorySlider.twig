@@ -23,9 +23,12 @@
 
 {% set slider = {
     imager: {
-        class: 'w-full h-full',
+        options: {
+            class: 'w-full h-full',
+        },
+        template: 'default',
     },
-    data: entries,
+    data: entries.all(),
     el: {
         wrapper: true,
         image: true,
@@ -36,10 +39,8 @@
         arrows: true,
         bullets: true,
     },
-    cn: {
-        wrapper: 'o-wrap',
+    class: {
         slider: 'o-wrap--item js-slider',
-        track: 'glide__track',
         slides: 'h-64 md:h-192',
         articleImageCaption: '',
         container: 'absolute top-0 bottom-0 w-full h-full',
@@ -58,13 +59,12 @@
 
 {% set carousel = {
     imager: {
-        objectFit: true,
-        mediaBox: true,
-        blurUp: false,
+        options: {
+        },
+        template: 'default',
     },
-    data: entries,
+    data: entries.all(),
     el: {
-        wrapper: false,
         image: true,
         articleImageCaption: false,
         introHeadline: true,
@@ -74,9 +74,7 @@
         bullets: false,
     },
     cn: {
-        wrapper: '',
-        slider: 'o-wrap js-carousel',
-        track: 'glide__track',
+        slider: 'js-carousel',
         slides: 'o-wrap--item h-full w-auto',
         articleImageCaption: '',
         container: 'absolute top-0 bottom-0 w-full h-full',

@@ -120,7 +120,7 @@
                             ],
                             [
                                 'label'  => 'Settings',
-                                'fields' => [ 'layout', 'linkToEntry', 'limit' ],
+                                'fields' => [ 'ratio', 'layout', 'linkToEntry', 'limit' ],
                             ],
                         ],
                     ],
@@ -148,7 +148,7 @@
                             ],
                             [
                                 'label'  => 'Settings',
-                                'fields' => [ 'layout', 'linkToEntry' ],
+                                'fields' => [ 'ratio', 'layout', 'linkToEntry' ],
                             ],
                         ],
                     ],

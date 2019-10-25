@@ -10,7 +10,7 @@ categoryGroups:
         hasUrls: true
         uriFormat: 'blog/{slug}'
         template: _taxonomy
-dateModified: 1572020514
+dateModified: 1572033348
 email:
   fromEmail: $SYSTEM_EMAIL_ADDRESS
   fromName: $SENDER_NAME
@@ -795,6 +795,43 @@ matrixBlockTypes:
           validateRelatedElements: ''
         contentColumnType: string
         fieldGroup: null
+      c3363f8d-23b7-48aa-826e-7012171ef6e9:
+        name: Ratio
+        handle: ratio
+        instructions: ''
+        searchable: true
+        translationMethod: none
+        translationKeyFormat: null
+        type: craft\fields\Dropdown
+        settings:
+          optgroups: true
+          options:
+            -
+              label: auto
+              value: auto
+              default: '1'
+            -
+              label: 1/1
+              value: 1/1
+              default: ''
+            -
+              label: 4/3
+              value: 4/3
+              default: ''
+            -
+              label: 4/5
+              value: 4/5
+              default: ''
+            -
+              label: 16/9
+              value: 16/9
+              default: ''
+            -
+              label: 21/9
+              value: 21/9
+              default: ''
+        contentColumnType: string
+        fieldGroup: null
       decae10a-4196-4392-919b-d21c475c5bd3:
         name: Layout
         handle: layout
@@ -829,6 +866,9 @@ matrixBlockTypes:
               af991e1b-a01f-42a9-9a8c-80d1eb408131:
                 required: true
                 sortOrder: 1
+              c3363f8d-23b7-48aa-826e-7012171ef6e9:
+                required: false
+                sortOrder: 4
               decae10a-4196-4392-919b-d21c475c5bd3:
                 required: false
                 sortOrder: 2
@@ -1233,6 +1273,43 @@ matrixBlockTypes:
           default: ''
         contentColumnType: boolean
         fieldGroup: null
+      5cbed6c8-9ed2-474f-a15a-22a03df94a9a:
+        name: Ratio
+        handle: ratio
+        instructions: ''
+        searchable: true
+        translationMethod: none
+        translationKeyFormat: null
+        type: craft\fields\Dropdown
+        settings:
+          optgroups: true
+          options:
+            -
+              label: auto
+              value: auto
+              default: '1'
+            -
+              label: 1/1
+              value: 1/1
+              default: ''
+            -
+              label: 4/3
+              value: 4/3
+              default: ''
+            -
+              label: 4/5
+              value: 4/5
+              default: ''
+            -
+              label: 16/9
+              value: 16/9
+              default: ''
+            -
+              label: 21/9
+              value: 21/9
+              default: ''
+        contentColumnType: string
+        fieldGroup: null
       9220835a-29b7-4579-b7b1-68d050b97cdb:
         name: Limit
         handle: limit
@@ -1286,6 +1363,9 @@ matrixBlockTypes:
               4103bbed-3195-41a1-a6a5-2a75dc3c908d:
                 required: false
                 sortOrder: 3
+              5cbed6c8-9ed2-474f-a15a-22a03df94a9a:
+                required: false
+                sortOrder: 5
               9220835a-29b7-4579-b7b1-68d050b97cdb:
                 required: false
                 sortOrder: 4
