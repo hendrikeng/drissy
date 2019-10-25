@@ -2,26 +2,29 @@
 
 {% set defaults = {
     imager: {
-        dominantColor: false,
-        blurUp: true,
-        mediaBox: false,
-        objectFit: false,
-    },
-    el: {
-        images: {
-            imageLandscape:  entry.contentImage.one() ?? null,
-            imagePortrait: entry.contentImageMobile.one() ?? null,
+        options: {
+            dominantColor: false,
+            blurUp: true,
+            mediaBox: false,
+            objectFit: false,
         },
+        images: {
+            imageLandscape: entry.teaserImage.one() ?? null,
+            imagePortrait: entry.teaserImageMobile.one() ?? null,
+        },
+        template: entry.headerImageMobile.one() ? 'artDirection' : 'default',
+    },
+    data: {
         articleHeader: entry.title ?? false,
         articleParagraph: entry.teaserText ?? false,
         articleCta: entry.teaserCtaText ?? false,
     },
-    cn: {
-        articleWrap: 'articleWrap',
-        article: 'article training w-full flex -mx-2 p-2',
-        articleImageWrap: 'articleImageWrap w-1/2 px-2',
+    class: {
+        articleWrap: 'articleWrap p-4 mb-8',
+        article: 'article flex flex-wrap -mx-4',
+        articleImageWrap: 'articleImageWrap w-full md:w-1/2 px-4 pb-4 md:pb-0',
         articleImageCaption: 'articleImageCaption',
-        articleContentWrap: 'articleContentWrap w-1/2 px-2',
+        articleContentWrap: 'articleContentWrap w-full md:w-1/2 px-4',
         articleHeader: 'articleHeader mb-4',
         articleCta: 'articleCta mt-4 block',
     },
@@ -30,41 +33,41 @@
 {# -- Merge Default with Options -- #}
 {% set opt = opt is defined ? defaults | merge(opt): defaults %}
 
-{% if opt.cn.articleWrap %}
-<div class="{{ opt.cn.articleWrap }}">
+{% if opt.class.articleWrap %}
+<div class="{{ opt.class.articleWrap }}">
     {% endif %}
-    <article class="{{ opt.cn.article }}">
-        {% if opt.el.images %}
-            <div class="{{ opt.cn.articleImageWrap }}">
-                {% include '_elements/img/default.twig' with {
+    <article class="{{ opt.class.article }}">
+        {% if opt.imager.images %}
+            <div class="{{ opt.class.articleImageWrap }}">
+                {% include '_elements/img/' ~ opt.imager.template ~ '.twig' with {
                     data : {
                         imager: {
-                            images: opt.el.images,
-                            options: opt.imager,
+                            images: opt.imager.images,
+                            options: opt.imager.options,
                         }
                     }
                 } only %}
-                {% if opt.cn.articleImageCaption|length %}
-                    <div class="{{ opt.cn.articleImageCaption }}">
-                        {% if opt.el.images.imageLandscape.caption %}
-                            &#9400 {{ opt.el.images.imageLandscape.caption ?? null }}
+                {% if opt.class.articleImageCaption|length %}
+                    <div class="{{ opt.class.articleImageCaption }}">
+                        {% if opt.imager.images.imageLandscape.caption|length %}
+                            &#9400 {{ opt.imager.images.imageLandscape.caption ?? null }}
                             /
                         {% endif %}
-                        {% if opt.el.images.imageLandscape.source %}
+                        {% if opt.imager.images.imageLandscape.source|length %}
                             <a class="text-white hover:underline"
-                               href="{{ opt.el.images.imageLandscape.sourceUrl }}">{{ opt.el.images.imageLandscape.source }}</a>
+                               href="{{ opt.imager.images.imageLandscape.sourceUrl }}">{{ opt.imager.images.imageLandscape.source }}</a>
                         {% endif %}
                     </div>
                 {% endif %}
             </div>
         {% endif %}
-        {% if opt.cn.articleContentWrap %}
-        <div class="{{ opt.cn.articleContentWrap }}">
+        {% if opt.class.articleContentWrap %}
+        <div class="{{ opt.class.articleContentWrap }}">
             {% endif %}
-            {% if opt.cn.articleHeader %}
+            {% if opt.class.articleHeader %}
                 <header>
-                    <h3 class="{{ opt.cn.articleHeader }}">
-                        {{ opt.el.articleHeader }}
+                    <h3 class="{{ opt.class.articleHeader }}">
+                        {{ opt.data.articleHeader }}
                     </h3>
                     {% set categories = entry.category %}
                     {% if categories %}
@@ -77,19 +80,19 @@
                     {% endif %}
                 </header>
             {% endif %}
-            {% if opt.el.articleParagraph %}
-                {{ opt.el.articleParagraph }}
+            {% if opt.data.articleParagraph %}
+                {{ opt.data.articleParagraph }}
             {% endif %}
-            {% if opt.el.articleCta or entry.linkToEntry %}
+            {% if opt.data.articleCta or entry.linkToEntry %}
                 <a href="{{ entry.url }}"
-                   class="{{ opt.cn.articleCta }}">
-                    {{ opt.el.articleCta }}
+                   class="{{ opt.class.articleCta }}">
+                    {{ opt.data.articleCta }}
                 </a>
             {% endif %}
-            {% if opt.cn.articleContentWrap %}
+            {% if opt.class.articleContentWrap %}
         </div>
         {% endif %}
     </article>
-    {% if opt.cn.articleWrap %}
+    {% if opt.class.articleWrap %}
 </div>
 {% endif %}

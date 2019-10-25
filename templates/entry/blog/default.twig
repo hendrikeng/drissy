@@ -8,7 +8,40 @@
     {% endblock %}
 
 {# -- cache -- #}
-{% cache globally using key 'entry/articles/default-' ~ (craft.imager.clientSupportsWebp ? "with-webp") ~ craft.app.request.pathInfo ~ (craft.app.request.pageNum ? '/p' ~ craft.app.request.pageNum : '') %}
+{% cache globally using key 'entry/blog/default-' ~ (craft.imager.clientSupportsWebp ? "with-webp") ~ craft.app.request.pathInfo ~ (craft.app.request.pageNum ? '/p' ~ craft.app.request.pageNum : '') %}
+
+    {# -- header -- #}
+    {% block header %}
+        {% include '_components/header/default.twig' with {
+            data : {
+                header: {
+                    title: {
+                        entry: false,
+                    },
+                    description: {
+                        entry: false,
+                    },
+                },
+                imager: {
+                    options: {
+                        preload: true,
+                        objectFit: true,
+                        class: 'relative w-full h-128',
+                    },
+                    images: {
+                        imageLandscape: entry.headerImage.one() ?? null,
+                        imagePortrait: entry.headerImageMobile.one() ?? null,
+                    },
+                    template: entry.headerImageMobile.one() ? 'artDirection' : 'default',
+                },
+                nav: {
+                    template: 'default',
+                    entry: navigationMain.globalNavigationMain.all() ?? null
+                }
+            }
+        } only %}
+    {% endblock %}
+    {# -- header end -- #}
 
 
     {% block content %}
@@ -31,7 +64,6 @@
             {% endif %}
         </div>
 
-        <div class="bg-yellow-400">
             {% block itemContent %}
                 {% if entry.contentBuilder %}
                     {% include '_matrix.twig' with {
@@ -39,7 +71,7 @@
                     } only %}
                 {% endif %}
             {% endblock %}
-        </div>
+
 
     {% endblock %}
 

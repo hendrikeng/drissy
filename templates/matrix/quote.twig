@@ -3,16 +3,16 @@
 {% block blockContent %}
 
     <blockquote>
-        <figure class="text-center">
+        <figure class="p-4 mb-8 bg-green-200">
             {% set image = block.image.one() %}
             {% if image %}
                 {% include '_elements/img/default.twig' with {
                     data : {
                         imager: {
                             options: {
-                                class: 'w-64 h-auto',
+                                class: 'w-auto h-auto',
                                 dominantColor: false,
-                                blurUp: true,
+                                blurUp: false,
                                 mediaBox: false,
                                 objectFit: true,
                             },
@@ -24,11 +24,10 @@
                 } only %}
             {% endif %}
             <figcaption class="mt-4 flex flex-col text-left">
-                <p class="mt-4">"{{ block.quote }}"</p>
-                <cite class="mt-2">{{ block.source }}</cite>
+                <p>"{{ block.quote }}"</p>
+                <cite>{{ block.source }}</cite>
             </figcaption>
         </figure>
     </blockquote>
 
 {% endblock %}
-

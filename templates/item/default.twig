@@ -1,24 +1,59 @@
 {% block itemContent %}
     {% switch entry.section.handle %}
-    {% default %}
+    {% case "blog" or "partner" %}
         {% include "_elements/article/default.twig" with {
             opt : {
                 imager: {
-                    dominantColor: false,
-                    blurUp: true,
-                    mediaBox: false,
-                    objectFit: false,
-                },
-                el: {
-                    images: {
-                        imageLandscape:  entry.contentImage.one() ?? null,
-                        imagePortrait: entry.contentImageMobile.one() ?? null,
+                    options: {
+                        dominantColor: false,
+                        blurUp: false,
+                        mediaBox: false,
+                        objectFit: false,
                     },
+                    images: {
+                        imageLandscape: entry.teaserImage.one() ?? null,
+                        imagePortrait: entry.teaserImageMobile.one() ?? null,
+                    },
+                    template: entry.headerImageMobile.one() ? 'artDirection' : 'default',
+                },
+                data: {
                     articleHeader: entry.title ?? false,
                     articleParagraph: entry.teaserText ?? false,
                     articleCta: entry.teaserCtaText ?? false,
                 },
-                cn: {
+                class: {
+                    articleWrap: 'articleWrap px-4 mb-8 bg-green-200',
+                    article: 'article flex flex-wrap -mx-4',
+                    articleImageWrap: 'articleImageWrap w-full md:w-1/2  p-4',
+                    articleImageCaption: 'articleImageCaption',
+                    articleContentWrap: 'articleContentWrap w-full md:w-1/2 p-4',
+                    articleHeader: 'articleHeader mb-4',
+                    articleCta: 'articleCta mt-4 block',
+                },
+            }
+        } %}
+    {% default %}
+        {% include "_elements/article/default.twig" with {
+            opt : {
+                imager: {
+                    options: {
+                        dominantColor: false,
+                        blurUp: false,
+                        mediaBox: false,
+                        objectFit: false,
+                    },
+                    images: {
+                        imageLandscape: entry.teaserImage.one() ?? null,
+                        imagePortrait: entry.teaserImageMobile.one() ?? null,
+                    },
+                    template: entry.headerImageMobile.one() ? 'artDirection' : 'default',
+                },
+                data: {
+                    articleHeader: entry.title ?? false,
+                    articleParagraph: entry.teaserText ?? false,
+                    articleCta: entry.teaserCtaText ?? false,
+                },
+                class: {
                     articleWrap: 'articleWrap p-4 mb-8 bg-green-200',
                     article: 'article flex flex-wrap -mx-4',
                     articleImageWrap: 'articleImageWrap w-full md:w-1/2 px-4 pb-4 md:pb-0',

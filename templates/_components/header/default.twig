@@ -1,6 +1,6 @@
 {# Logo and Nav #}
 <div
-    class="mx-auto flex justify-between js-nav p-4">
+    class="mx-auto flex justify-between js-nav mb-8 bg-green-200 p-4">
 
     <a href="{{ alias('@web') }}" title="Homepage"
        aria-label="navigate to homepage">
@@ -32,7 +32,7 @@
 
         {% if data.imager.images.imageLandscape is not null  %}
             <div
-                class="relative">
+                class="relative p-4 mb-8 bg-green-200">
                 {% include '_elements/img/' ~ data.imager.template ~ '.twig' with {
                     data : {
                         imager: {
@@ -54,7 +54,7 @@
         {% endif %}
         {% if data.header.title.entry or data.header.description.entry %}
             <div
-                class="my-8 relative flex flex-col w-full h-full items-center justify-center">
+                class="max-w-5xl mx-auto items-center flex flex-col p-4 mb-8 bg-green-200">
                 {% if data.header.title.entry %}
                     <h1 class="text-grey-darkest">{{ data.header.title.entry }}</h1>
                 {% endif %}

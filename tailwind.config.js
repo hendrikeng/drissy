@@ -50,6 +50,7 @@ module.exports = {
             '48': '12rem',
             '56': '14rem',
             '64': '16rem',
+            '128': '32rem',
         },
         rotate: { // defaults to {}
             '90': '90deg',

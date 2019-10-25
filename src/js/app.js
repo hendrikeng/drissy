@@ -10,20 +10,23 @@ const main = async () => {
     // Async load LazySizes and it's plugins
     const LazySizes = await import(
         /* webpackChunkName: "LazySizes" */ 'lazysizes'
-    );
+        );
     await import(
         /* webpackChunkName: "LazySizes" */ 'lazysizes/plugins/respimg/ls.respimg.js'
-    );
+        );
     await import(
         /* webpackChunkName: "LazySizes" */ 'lazysizes/plugins/parent-fit/ls.parent-fit.min.js'
-    );
+        );
     await import(
         /* webpackChunkName: "LazySizes" */ 'lazysizes/plugins/object-fit/ls.object-fit.js'
-    );
+        );
     await import(
         /* webpackChunkName: "LazySizes" */ 'lazysizes/plugins/blur-up/ls.blur-up.min.js'
-    );
-    LazySizes.init();
+        );
+    // fix issue when image is already in viewport and content is not loaded yet
+    document.addEventListener('DOMContentLoaded', function() {
+        LazySizes.init();
+    });
 
     // Create our vue instance
     new Vue({
@@ -53,7 +56,8 @@ const main = async () => {
                 ref.parentNode.insertBefore(prerenderTag, ref);
             },
         },
-        mounted() {},
+        mounted() {
+        },
     });
 
     // load slider async
@@ -74,7 +78,7 @@ const main = async () => {
     if (document.getElementsByClassName('js-gallery').length) {
         await import(
             /* webpackChunkName: "photoswipe" */ './modules/photoswipe.js'
-        )
+            )
             .then(photoswipe => photoswipe.default.init('.js-gallery'))
             .catch(e => console.error(`${e.name} : ${e.message}`));
     }
@@ -82,7 +86,7 @@ const main = async () => {
 
 // Execute async function
 main().then(() => {
-    console.log('loaded');
+    console.log('async main executed');
 });
 
 // accept HMR in dev
