@@ -2,8 +2,7 @@
     "buttons": [
         "bold",
         "italic",
-        "unorderedlist",
-        "orderedlist",
+        "lists",
         "link",
         "file",
         "html"
