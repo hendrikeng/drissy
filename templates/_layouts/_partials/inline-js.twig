@@ -1,6 +1,6 @@
 <script>
     {% if not craft.app.config.general.devMode %}
-        {{ craft.twigpack.includeFile("@webroot/dist/js/service-worker.js") }}
+    {{ craft.twigpack.includeFile("@webroot/dist/js/service-worker.js") }}
     {% endif %}
     {{ craft.twigpack.includeFile("@webroot/dist/js/tab-handler.js") }}
 </script>
