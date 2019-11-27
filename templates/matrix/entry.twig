@@ -6,9 +6,16 @@
 {% extends "matrix/default.twig" %}
 
 {% block blockContent %}
+    {% if block.layout is defined and not null and block.layout == 'hochkant' %}
+        <div class="flex flex-wrap mb-16">
 
+    {% endif %}
     {% for entry in block.entry.all() %}
+
         {% include '_item.twig' %}
     {% endfor %}
+    {% if block.layout is defined and not null and block.layout == 'hochkant' %}
+        </div>
+    {% endif %}
 
 {% endblock %}
