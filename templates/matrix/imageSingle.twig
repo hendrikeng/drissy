@@ -1,6 +1,8 @@
 {% extends "matrix/default.twig" %}
 
 {% block blockContent %}
+
+    {% for image in block.image %}
     <figure
         class="p-4 mb-8 w-full md:{{ block.columns ?? 'w-full' }}">
         {% include '_elements/img/default.twig' with {
@@ -14,7 +16,7 @@
                         ratio: block.ratio.value,
                     },
                     images: {
-                        imageLandscape: block.image.one() ?? null,
+                        imageLandscape: image,
                     }
                 },
             }
@@ -24,4 +26,5 @@
                         itemprop="caption description">{{ image.caption }}</figcaption>
         {% endif %}
     </figure>
+    {% endfor %}
 {% endblock %}

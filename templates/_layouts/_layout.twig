@@ -3,6 +3,7 @@
     ------------------------------------------------------------
 #}
 
+
 {% set assetHash = craft.twigpack.getModuleHash("styles.css", "legacy") %}
 
     {%- minify -%}
@@ -56,7 +57,7 @@
 
             {# -- Goole analytics -- #}
             {% if not craft.app.config.general.devMode %}
-                {{ craft.twigpack.includeJsModule("analytics.js", true) }}
+                {{ craft.twigpack.includeJsModule("js/analytics.js", true) }}
             {% endif %}
 
         </head>

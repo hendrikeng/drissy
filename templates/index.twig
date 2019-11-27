@@ -12,6 +12,7 @@
 {% cache globally using key 'homepage-' ~ (craft.imager.clientSupportsWebp ? "with-webp") ~ craft.app.request.pathInfo ~ (craft.app.request.pageNum ? '/p' ~ craft.app.request.pageNum : '') %}
 
     {# -- header -- #}
+
     {% block header %}
         {% include '_components/header/default.twig' with {
             data : {
@@ -47,6 +48,7 @@
     {# -- content -- #}
     {% block content %}
         {# -- itemContent -- #}
+
         {% block itemContent %}
             {% include '_matrix.twig' with {
                 matrix: entry.contentBuilder
