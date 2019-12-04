@@ -10,7 +10,7 @@ categoryGroups:
         hasUrls: true
         uriFormat: 'categories/{slug}'
         template: _taxonomy
-dateModified: 1572034794
+dateModified: 1575494198
 email:
   fromEmail: $SYSTEM_EMAIL_ADDRESS
   fromName: $SENDER_NAME
@@ -459,6 +459,23 @@ fields:
       sitemapTabEnabled: ''
     fieldGroup: 50c18613-1902-4c41-9199-98ff833fad1d
     contentColumnType: text
+  cee8defe-bf53-436a-b982-d0638ff639bf:
+    name: test
+    handle: test
+    instructions: ''
+    searchable: true
+    translationMethod: none
+    translationKeyFormat: null
+    type: craft\fields\PlainText
+    settings:
+      placeholder: ''
+      code: ''
+      multiline: ''
+      initialRows: '4'
+      charLimit: ''
+      columnType: text
+    contentColumnType: text
+    fieldGroup: 93579e2a-99e9-40a4-9f50-ab6541c766d3
   f9b5b11d-0a27-420e-81a2-0d2252de9a8d:
     name: Watermark
     handle: globalWatermark
