@@ -3,7 +3,7 @@
     ------------------------------------------------------------
 #}
 
-{% set assetHash = craft.twigpack.getModuleHash("styles.css", "legacy") %}
+{% set assetHash = craft.twigpack.getModuleHash("main.css", "legacy") %}
 
     {%- minify -%}
 
@@ -37,13 +37,13 @@
     {% if not craft.app.config.general.devMode %}
         {% set criticalCss = getCookie('critical-css') %}
         {% if criticalCss and criticalCss == assetHash %}
-            {{ craft.twigpack.includeCssModule("styles.css") }}
+            {{ craft.twigpack.includeCssModule("main.css") }}
         {% else %}
             {% do setCookie('critical-css', assetHash, now | date_modify("+7 days").timestamp ) %}
             {% block inlineCriticalCss %}
                 {{ craft.twigpack.includeCriticalCssTags() }}
             {% endblock %}
-            {{ craft.twigpack.includeCssModule("styles.css", true) }}
+            {{ craft.twigpack.includeCssModule("main.css", true) }}
             {{ craft.twigpack.includeCssRelPreloadPolyfill() }}
         {% endif %}
     {% endif %}

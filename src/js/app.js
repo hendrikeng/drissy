@@ -58,34 +58,30 @@ const main = async () => {
         },
         mounted() {},
     });
-
-    // load slider async
-    if (document.getElementsByClassName('js-slider').length) {
-        await import(/* webpackChunkName: "glide" */ './modules/glide.js')
-            .then(glide => glide.slider.init())
-            .catch(e => console.error(`${e.name} : ${e.message}`));
-    }
-
-    // load slider async
-    if (document.getElementsByClassName('js-carousel').length) {
-        await import(/* webpackChunkName: "glide" */ './modules/glide.js')
-            .then(glide => glide.carousel.init())
-            .catch(e => console.error(`${e.name} : ${e.message}`));
-    }
-
-    // load gallery async
-    if (document.getElementsByClassName('js-gallery').length) {
-        await import(
-            /* webpackChunkName: "photoswipe" */ './modules/photoswipe.js'
-        )
-            .then(photoswipe => photoswipe.default.init('.js-gallery'))
-            .catch(e => console.error(`${e.name} : ${e.message}`));
-    }
 };
 
 // Execute async function
 main().then(() => {
-    console.log('async main executed');
+    // load slider
+    if (document.getElementsByClassName('js-slider').length) {
+        import(/* webpackChunkName: "glide" */ './modules/glide.js')
+            .then(glide => glide.slider.init())
+            .catch(e => console.error(`${e.name} : ${e.message}`));
+    }
+
+    // load slider
+    if (document.getElementsByClassName('js-carousel').length) {
+        import(/* webpackChunkName: "glide" */ './modules/glide.js')
+            .then(glide => glide.carousel.init())
+            .catch(e => console.error(`${e.name} : ${e.message}`));
+    }
+
+    // load gallery
+    if (document.getElementsByClassName('js-gallery').length) {
+        import(/* webpackChunkName: "photoswipe" */ './modules/photoswipe.js')
+            .then(photoswipe => photoswipe.default.init('.js-gallery'))
+            .catch(e => console.error(`${e.name} : ${e.message}`));
+    }
 });
 
 // accept HMR in dev
@@ -93,5 +89,6 @@ if (process.env.NODE_ENV !== 'production') {
     if (module.hot) {
         module.hot.accept();
     }
+    // eslint-disable-next-line no-unused-expressions
     import(/* webpackChunkName: "debug" */ '../vue/debug');
 }

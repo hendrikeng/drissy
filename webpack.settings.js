@@ -2,6 +2,7 @@
 
 // node modules
 require('dotenv').config();
+const path = require('path');
 const Terser = require('terser');
 const Postcss = require('postcss');
 const Cssnano = require('cssnano');
@@ -22,6 +23,10 @@ module.exports = {
             clean: ['**/*'],
         },
         templates: './templates/',
+        ignore: [
+            /node_modules/,
+            path.resolve(__dirname, './templates/_layouts'),
+        ],
     },
     urls: {
         live: 'https://drissy-prod.wewereyoung.de/',
@@ -31,7 +36,7 @@ module.exports = {
         publicPath: () => process.env.PUBLIC_PATH || '/dist/',
     },
     vars: {
-        cssName: 'styles',
+        cssName: 'main',
     },
     entries: {
         app: 'app.js',
@@ -54,25 +59,9 @@ module.exports = {
                 return content;
             },
         },
-        // copy and minify inlineJs
+        // copy and transpile inlineJs
         {
-            from: './src/inlineJs/load-fonts.js',
-            to: 'js/[name].[ext]',
-            transform(content) {
-                return Terser.minify(content.toString()).code;
-            },
-        },
-        // copy and minify inlineJs
-        {
-            from: './src/inlineJs/tab-handler.js',
-            to: 'js/[name].[ext]',
-            transform(content) {
-                return Terser.minify(content.toString()).code;
-            },
-        },
-        // copy and minify inlineJs
-        {
-            from: './src/inlineJs/service-worker.js',
+            from: './src/inlineJs/*.js',
             to: 'js/[name].[ext]',
             transform(content) {
                 return Terser.minify(content.toString()).code;
@@ -146,6 +135,7 @@ module.exports = {
         whitelist: ['./src/css/components/**/*.{css,pcss}'],
         whitelistPatterns: [],
         extensions: ['html', 'js', 'twig', 'vue'],
+        fontFace: true,
     },
     saveRemoteFileConfig: [
         {
