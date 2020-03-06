@@ -12,10 +12,11 @@ const pkg = require('./package.json');
 const settings = require('./webpack.settings.js');
 
 // Configure Babel loader
-const configureBabelLoader = (browserList, legacy) => {
+const configureBabelLoader = browserList => {
     return {
         test: /\.js$/,
         exclude: settings.babelLoaderConfig.exclude,
+        // include: settings.babelLoaderConfig.include,
         use: {
             loader: 'babel-loader',
             options: {
@@ -24,10 +25,11 @@ const configureBabelLoader = (browserList, legacy) => {
                     [
                         '@babel/preset-env',
                         {
-                            modules: legacy ? 'auto' : false,
+                            modules: false,
                             useBuiltIns: 'usage',
+                            debug: false,
                             corejs: {
-                                version: '3.3',
+                                version: 3,
                                 proposals: true,
                             },
                             targets: {
@@ -39,7 +41,7 @@ const configureBabelLoader = (browserList, legacy) => {
                 plugins: [
                     '@babel/plugin-syntax-dynamic-import',
                     [
-                        '@babel/transform-runtime',
+                        '@babel/plugin-transform-runtime',
                         {
                             corejs: 3,
                         },
@@ -127,7 +129,6 @@ const legacyConfig = {
     },
     plugins: [
         new CopyWebpackPlugin(settings.copyWebpackConfig),
-
         new ManifestPlugin(configureManifest('manifest-legacy.json')),
     ],
 };

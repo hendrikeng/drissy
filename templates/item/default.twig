@@ -1,6 +1,8 @@
 {% block itemContent %}
-    {% switch entry.section.handle %}
-    {% case "blog" or "partner" %}
+    {% set switchCase = block.layout ?? craft.app.request.pathInfo %}
+
+    {% switch switchCase %}
+    {% case "blog" or "xyz" %}
         {% include "_elements/article/default.twig" with {
             opt : {
                 imager: {
@@ -9,29 +11,70 @@
                         blurUp: false,
                         mediaBox: false,
                         objectFit: false,
+                        ratio: 'auto',
                     },
                     images: {
-                        imageLandscape: entry.teaserImage.one() ?? null,
-                        imagePortrait: entry.teaserImageMobile.one() ?? null,
+                        imageLandscape: entry.teaserImage.one() ?? entry.contentImage.one() ?? null,
+                        imagePortrait: entry.contentImageMobile.one() ?? entry.contentImageMobile.one() ?? null,
                     },
-                    template: entry.headerImageMobile.one() ? 'artDirection' : 'default',
+                    template: entry.teaserImageMobile.one() ?? entry.headerImageMobile.one()  ? 'artDirection' : 'default',
                 },
                 data: {
+                    imageCaption: false,
                     articleHeader: entry.title ?? false,
                     articleParagraph: entry.teaserText ?? false,
                     articleCta: entry.teaserCtaText ?? false,
                 },
                 class: {
-                    articleWrap: 'articleWrap px-4 mb-8',
-                    article: 'article flex flex-wrap -mx-4',
-                    articleImageWrap: 'articleImageWrap w-full md:w-1/2  p-4',
+                    articleWrap: 'articleWrap px-4 mb-8 fast-transition',
+                    article: 'article flex flex-wrap justify-center -mx-4',
+                    articleImageWrap: 'articleImageWrap w-2/3 md:w-1/3 p-4 my-auto',
                     articleImageCaption: 'articleImageCaption',
-                    articleContentWrap: 'articleContentWrap w-full md:w-1/2 p-4',
+                    articleContentWrap: 'articleContentWrap w-full md:w-2/3 p-4',
                     articleHeader: 'articleHeader mb-4',
                     articleCta: 'articleCta mt-4 block',
                 },
             }
         } %}
+    {% case "hochkant" %}
+
+        {% set background = loop.index is odd ? 'bg-wafer' : 'bg-gull-gray' %}
+
+        {% include "_elements/article/hochkant.twig" with {
+            opt : {
+                imager: {
+                    options: {
+                        dominantColor: false,
+                        blurUp: false,
+                        mediaBox: false,
+                        objectFit: false,
+                        ratio: 'auto',
+                    },
+                    images: {
+                        imageLandscape: entry.teaserImage.one() ?? entry.contentImage.one() ?? null,
+                        imagePortrait: entry.contentImageMobile.one() ?? entry.contentImageMobile.one() ?? null,
+                    },
+                    template: entry.teaserImageMobile.one() ?? entry.contentImageMobile.one()  ? 'artDirection' : 'default',
+                },
+                data: {
+                    imageCaption: false,
+                    articleHeader: entry.title ?? false,
+                    articleParagraph: entry.teaserText ?? false,
+                    articleCta: entry.teaserCtaText ?? false,
+                },
+                class: {
+                    articleWrap: 'articleWrap px-4 mb-8 w-full h-full fast-transition ',
+                    article: 'article flex flex-col flex-wrap justify-center -mx-4',
+                    articleImageWrap: 'articleImageWrap w-full p-4 my-auto',
+                    articleImageCaption: 'articleImageCaption',
+                    articleContentWrap: 'articleContentWrap w-full p-4',
+                    articleHeader: 'articleHeader mb-4',
+                    articleCta: 'articleCta mt-4 block',
+                },
+            }
+        } %}
+
+
     {% default %}
         {% include "_elements/article/default.twig" with {
             opt : {
@@ -43,22 +86,23 @@
                         objectFit: false,
                     },
                     images: {
-                        imageLandscape: entry.teaserImage.one() ?? null,
-                        imagePortrait: entry.teaserImageMobile.one() ?? null,
+                        imageLandscape: entry.teaserImage.one() ?? entry.headerImage.one() ?? null,
+                        imagePortrait: entry.teaserImageMobile.one() ?? entry.headerImageMobile.one() ?? null,
                     },
-                    template: entry.headerImageMobile.one() ? 'artDirection' : 'default',
+                    template: entry.teaserImageMobile.one() ?? entry.headerImageMobile.one()  ? 'artDirection' : 'default',
                 },
                 data: {
+                    imageCaption: false,
                     articleHeader: entry.title ?? false,
                     articleParagraph: entry.teaserText ?? false,
                     articleCta: entry.teaserCtaText ?? false,
                 },
                 class: {
-                    articleWrap: 'articleWrap p-4 mb-8',
+                    articleWrap: 'articleWrap p-4 mb-16 fast-transition',
                     article: 'article flex flex-wrap -mx-4',
-                    articleImageWrap: 'articleImageWrap w-full md:w-1/2 px-4 pb-4 md:pb-0',
+                    articleImageWrap: 'articleImageWrap w-full md:w-1/3 px-4 pb-4 md:pb-0',
                     articleImageCaption: 'articleImageCaption',
-                    articleContentWrap: 'articleContentWrap w-full md:w-1/2 px-4',
+                    articleContentWrap: 'articleContentWrap w-full md:w-2/3 px-4',
                     articleHeader: 'articleHeader mb-4',
                     articleCta: 'articleCta mt-4 block',
                 },
@@ -66,3 +110,4 @@
         } %}
     {% endswitch %}
 {% endblock %}
+

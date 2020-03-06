@@ -1,6 +1,5 @@
 {% extends "matrix/default.twig" %}
-
-{# set defaults #}
+   {# set defaults #}
 {% set slider = {
     imager: {
         options: {
@@ -17,18 +16,18 @@
     class: {
         slider: 'js-slider relative glide p-4 mb-8 w-full',
         linkWrap: 'linkWrap',
-        articleImageCaption: 'articleImageCaption',
-        container: 'relative md:absolute top-0 bottom-0 w-full h-full',
-        body: 'ml-auto flex flex-col h-full my-auto text-center overflow-hidden w-full  justify-center',
-        introTitle: 'mx-auto text-white word-break',
-        introTeaser: 'mx-auto text-white word-break',
-        introCta: 'mx-auto text-white',
+        articleImageCaption: false,
+        container: false,
+        body: false,
+        introTitle: false,
+        introTeaser: false,
+        introCta: false,
         arrows: 'absolute inset-y-0 inset-x-0 flex flex-col w-full h-full items-center justify-center glide__arrows',
         arrowLeft: 'absolute left-0 glide__arrow glide__arrow--left',
         arrowRight: 'absolute right-0 glide__arrow glide__arrow--right',
         arrowLeftSvg: 'w-16 fill-current text-white ml-4',
         arrowRightSvg: 'w-16 fill-current text-white mr-4',
-        bullets: 'h-8 mb-0 mb:mb-8 w-full absolute bottom-0 slider__bullets glide__bullets flex justify-center',
+        bullets: false,
         bullet: 'glide__bullet',
     },
 } %}
@@ -47,23 +46,24 @@
     },
     data: block.entry.all(),
     class: {
-        slider: 'js-slider relative glide p-4 mb-8 w-full',
-        linkWrap: 'linkWrap',
-        articleImageCaption: 'articleImageCaption',
+        slider: 'js-carousel relative glide p-4 mb-8 w-full fast-transition',
+        linkWrap: 'linkWrap pointer-events-auto',
+        articleImageCaption: false,
         container: 'relative md:absolute top-0 bottom-0 w-full h-full',
-        body: 'ml-auto flex flex-col h-full my-auto text-center overflow-hidden w-full  justify-center',
-        introTitle: 'mx-auto text-white word-break',
-        introTeaser: 'mx-auto text-white word-break',
-        introCta: 'mx-auto text-white',
-        arrows: 'absolute inset-y-0 inset-x-0 flex flex-col w-full h-full items-center justify-center glide__arrows',
-        arrowLeft: 'absolute left-0 glide__arrow glide__arrow--left',
-        arrowRight: 'absolute right-0 glide__arrow glide__arrow--right',
+        body: 'flex flex-col h-full overflow-hidden w-full group hover:bg-solid-pink justify-center',
+        introTitle: 'mx-auto text-transparent group-hover:text-white word-break',
+        introTeaser: false,
+        introCta: false,
+        arrows: 'absolute inset-y-0 inset-x-0 flex flex-col w-full h-full items-center justify-center glide__arrows pointer-events-none',
+        arrowLeft: 'absolute left-0 glide__arrow glide__arrow--left pointer-events-auto',
+        arrowRight: 'absolute right-0 glide__arrow glide__arrow--right pointer-events-auto',
         arrowLeftSvg: 'w-16 fill-current text-white ml-4',
         arrowRightSvg: 'w-16 fill-current text-white mr-4',
-        bullets: 'h-8 mb-0 mb:mb-8 w-full absolute bottom-0 slider__bullets glide__bullets flex justify-center',
+        bullets: false,
         bullet: 'glide__bullet',
     },
 } %}
+
 
 {# check slider layout #}
 {% if block.layout == 'js-carousel' %}

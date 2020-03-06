@@ -2,30 +2,32 @@
 
 {% block blockContent %}
 
-    <blockquote>
-        <figure class="p-4 mb-8">
+    <blockquote class="px-4 mb-16">
+        <figure class="flex flex-wrap -mx-4 ">
             {% set image = block.image.one() %}
             {% if image %}
-                {% include '_elements/img/default.twig' with {
-                    data : {
-                        imager: {
-                            options: {
-                                class: 'w-auto h-auto',
-                                dominantColor: false,
-                                blurUp: false,
-                                mediaBox: false,
-                                objectFit: true,
+                <div class="p-4 w-full md:w-1/3">
+                    {% include '_elements/img/default.twig' with {
+                        data : {
+                            imager: {
+                                options: {
+                                    class: 'w-full h-auto',
+                                    dominantColor: false,
+                                    blurUp: false,
+                                    mediaBox: false,
+                                    objectFit: true,
+                                },
+                                images: {
+                                    imageLandscape: image,
+                                },
                             },
-                            images: {
-                                imageLandscape: image,
-                            },
-                        },
-                    }
-                } only %}
+                        }
+                    } only %}
+                </div>
             {% endif %}
-            <figcaption class="mt-4 flex flex-col text-left">
-                <p>"{{ block.quote }}"</p>
-                <cite>{{ block.source }}</cite>
+            <figcaption class="p-4 flex flex-col {{ image ? 'w-full md:w-2/3 justify-center items-center' : 'mx-auto'}}">
+                <p class="italic">"{{ block.quote }}"</p>
+                <cite class="not-italic self-start">{{ block.source }}</cite>
             </figcaption>
         </figure>
     </blockquote>

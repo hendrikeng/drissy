@@ -10,19 +10,19 @@ const main = async () => {
     // Async load LazySizes and it's plugins
     const LazySizes = await import(
         /* webpackChunkName: "LazySizes" */ 'lazysizes'
-        );
+    );
     await import(
         /* webpackChunkName: "LazySizes" */ 'lazysizes/plugins/respimg/ls.respimg.js'
-        );
+    );
     await import(
         /* webpackChunkName: "LazySizes" */ 'lazysizes/plugins/parent-fit/ls.parent-fit.min.js'
-        );
+    );
     await import(
         /* webpackChunkName: "LazySizes" */ 'lazysizes/plugins/object-fit/ls.object-fit.js'
-        );
+    );
     await import(
         /* webpackChunkName: "LazySizes" */ 'lazysizes/plugins/blur-up/ls.blur-up.min.js'
-        );
+    );
     // fix issue when image is already in viewport and content is not loaded yet
     document.addEventListener('DOMContentLoaded', function() {
         LazySizes.init();
@@ -56,37 +56,32 @@ const main = async () => {
                 ref.parentNode.insertBefore(prerenderTag, ref);
             },
         },
-        mounted() {
-        },
+        mounted() {},
     });
-
-    // load slider async
-    if (document.getElementsByClassName('js-slider').length) {
-        await import(/* webpackChunkName: "glide" */ './modules/glide.js')
-            .then(glide => glide.slider.init())
-            .catch(e => console.error(`${e.name} : ${e.message}`));
-    }
-
-    // load slider async
-    if (document.getElementsByClassName('js-carousel').length) {
-        await import(/* webpackChunkName: "glide" */ './modules/glide.js')
-            .then(glide => glide.carousel.init())
-            .catch(e => console.error(`${e.name} : ${e.message}`));
-    }
-
-    // load gallery async
-    if (document.getElementsByClassName('js-gallery').length) {
-        await import(
-            /* webpackChunkName: "photoswipe" */ './modules/photoswipe.js'
-            )
-            .then(photoswipe => photoswipe.default.init('.js-gallery'))
-            .catch(e => console.error(`${e.name} : ${e.message}`));
-    }
 };
 
 // Execute async function
 main().then(() => {
-    console.log('async main executed');
+    // load slider
+    if (document.getElementsByClassName('js-slider').length) {
+        import(/* webpackChunkName: "glide" */ './modules/glide.js')
+            .then(glide => glide.slider.init())
+            .catch(e => console.error(`${e.name} : ${e.message}`));
+    }
+
+    // load slider
+    if (document.getElementsByClassName('js-carousel').length) {
+        import(/* webpackChunkName: "glide" */ './modules/glide.js')
+            .then(glide => glide.carousel.init())
+            .catch(e => console.error(`${e.name} : ${e.message}`));
+    }
+
+    // load gallery
+    if (document.getElementsByClassName('js-gallery').length) {
+        import(/* webpackChunkName: "photoswipe" */ './modules/photoswipe.js')
+            .then(photoswipe => photoswipe.default.init('.js-gallery'))
+            .catch(e => console.error(`${e.name} : ${e.message}`));
+    }
 });
 
 // accept HMR in dev
@@ -94,5 +89,6 @@ if (process.env.NODE_ENV !== 'production') {
     if (module.hot) {
         module.hot.accept();
     }
+    // eslint-disable-next-line no-unused-expressions
     import(/* webpackChunkName: "debug" */ '../vue/debug');
 }

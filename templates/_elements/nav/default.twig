@@ -1,19 +1,18 @@
 {% import "_macros/_macros.twig" as macro %}
 
-<nav itemscope="itemscope"
-     itemtype="http://schema.org/SiteNavigationElement">
+<nav class="hidden md:block">
     <ul class="flex-grow flex w-auto">
 
         {% for block in data.nav.entry %}
             {% if block.isActive %}
                 {# -- Get Position -- #}
-                {% set segments = block.highlightTriggers | default('notSet') | replace({'home': ''}) | split(',') %}
+                {% set segments = block.highlightTriggers | default('notSet') | replace({'homepage': ''}) | split(',') %}
                 {# -- Set Text -- #}
                 {% set text = block.menuItem.customText != '' ? block.menuItem.customText: block.menuItem.text | default(block.menuItem.url) %}
                 <li>
                     <a href="{{ block.menuItem.url }}"
                        title="{{ text | trim }}"
-                       class="inline-block text-gray-800 hover:text-red-500 {{ block.segmentPosition ? macro.isActive(segments, block.segmentPosition + 0) | trim : '' }} {% if loop.index != block|length %}mr-4{% endif %}">
+                       class="inline-block {{ block.segmentPosition ? macro.isActive(segments, block.segmentPosition + 0) | trim : '' }} {% if loop.index != loop.last %}mr-4{% endif %}">
                         {{ text | trim }}
                     </a>
                 </li>
@@ -21,3 +20,6 @@
         {% endfor %}
     </ul>
 </nav>
+
+
+

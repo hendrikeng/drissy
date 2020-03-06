@@ -1,0 +1,100 @@
+{# set defaults #}
+
+{% set defaults = {
+    imager: {
+        options: {
+            dominantColor: false,
+            blurUp: true,
+            mediaBox: true,
+            objectFit: false,
+        },
+        images: {
+            imageLandscape: entry.teaserImage.one() ?? entry.headerImage.one() ?? null,
+            imagePortrait: entry.contentImageMobile.one() ?? entry.headerImageMobile.one() ?? null,
+        },
+        template: entry.teaserImageMobile.one() ?? entry.headerImageMobile.one()  ? 'artDirection' : 'default',
+    },
+    data: {
+        imageCaption: false,
+        articleHeader: entry.title ?? false,
+        articleParagraph: entry.teaserText ?? false,
+        articleCta: entry.teaserCtaText ?? false,
+    },
+    class: {
+        articleWrap: 'articleWrap p-4 mb-8',
+        article: 'article flex flex-wrap -mx-4',
+        articleImageWrap: 'articleImageWrap w-full md:w-1/2 px-4 pb-4 md:pb-0',
+        articleImageCaption: 'articleImageCaption',
+        articleContentWrap: 'articleContentWrap w-full md:w-1/2 px-4',
+        articleHeader: 'articleHeader mb-4',
+        articleCta: 'articleCta mt-4 block',
+    },
+} %}
+
+{# -- Merge Default with Options -- #}
+{% set opt = opt is defined ? defaults | merge(opt): defaults %}
+<div class=" px-4 w-1/2">
+{% if opt.class.articleWrap %}
+<div class="{{ opt.class.articleWrap }}">
+    {% endif %}
+    <article class="{{ opt.class.article }}">
+        {% if opt.imager.images %}
+            <div class="{{ opt.class.articleImageWrap }}">
+                {% include '_elements/img/' ~ opt.imager.template ~ '.twig' with {
+                    data : {
+                        imager: {
+                            images: opt.imager.images,
+                            options: opt.imager.options,
+                        }
+                    }
+                } only %}
+                {% if opt.data.imageCaption %}
+                    <div class="{{ opt.class.articleImageCaption }}">
+                        {% if opt.imager.images.imageLandscape.caption|length %}
+                            &#9400 {{ opt.imager.images.imageLandscape.caption ?? null }}
+                            /
+                        {% endif %}
+                        {% if opt.imager.images.imageLandscape.source|length %}
+                            <a class="text-white hover:underline"
+                               href="{{ opt.imager.images.imageLandscape.sourceUrl }}">{{ opt.imager.images.imageLandscape.source }}</a>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+        {% if opt.class.articleContentWrap %}
+        <div class="{{ opt.class.articleContentWrap }}">
+            {% endif %}
+            {% if opt.class.articleHeader %}
+                <header>
+                    <h3 class="{{ opt.class.articleHeader }}">
+                        {{ opt.data.articleHeader }}
+                    </h3>
+                    {% set categories = entry.category %}
+                    {% if categories %}
+                        {% for entry in categories.all() %}
+                            <a href="{{ entry.url }}"
+                               class="">
+                                #{{ entry }}
+                            </a>
+                        {% endfor %}
+                    {% endif %}
+                </header>
+            {% endif %}
+            {% if opt.data.articleParagraph %}
+                {{ opt.data.articleParagraph }}
+            {% endif %}
+            {% if opt.data.articleCta or entry.linkToEntry %}
+                <a href="{{ entry.url }}"
+                   class="{{ opt.class.articleCta }}">
+                    {{ opt.data.articleCta }}
+                </a>
+            {% endif %}
+            {% if opt.class.articleContentWrap %}
+        </div>
+        {% endif %}
+    </article>
+    {% if opt.class.articleWrap %}
+</div>
+{% endif %}
+</div>

@@ -8,22 +8,24 @@
 {% set isGallery = false %}
 {% block blockContent %}
 
-    <div class="px-4 mb-8">
+    <div class="px-4 mb-16">
         <div
             class="flex flex-wrap -mx-4 {% if block.gallery %}js-gallery{% endif %} ">
-            {% for image in block.images.all() %}
+
+            {% for image in block.images %}
                 <figure
                     class="p-4 w-full md:{{- block.columns -}}">
                     {% if block.gallery %}
-                    <a href="{{ image.url() }}" data-size="{{ image.getWidth }}x{{ image.getHeight }}">
+                    <a href="{{ image.url() }}"
+                       data-size="{{ image.getWidth }}x{{ image.getHeight }}">
                         {% endif %}
                         {% include '_elements/img/default.twig' with {
                             data : {
                                 imager: {
                                     options: {
-                                        dominantColor: false,
+                                        dominantColor: true,
                                         blurUp: true,
-                                        mediaBox: block.ratio.value == 'auto' ? false : true,
+                                        mediaBox: true,
                                         objectFit: block.ratio.value == 'auto' ? false : true,
                                         ratio: block.ratio.value,
                                     },

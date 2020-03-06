@@ -7,9 +7,11 @@
 {# TODO WURM mit autoclosing #}
 {% if matrix %}
 
+    {% set blocks = matrix
+        .with(['imageSingle:image','imageGrid:images' ])
+        .all() %}
 
-    {% for block in matrix.all() %}
-
+    {% for block in blocks %}
 
         {% if block.type == 'headline' %}
             <!-- Start section is headline -->

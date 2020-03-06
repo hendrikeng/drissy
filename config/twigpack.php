@@ -38,7 +38,7 @@
             // Public server config
             'server' => [
                 'manifestPath' => '@webroot/dist',
-                'publicPath' => getenv('PUBLIC_PATH'),
+                'publicPath' => '/',
             ],
             // webpack-dev-server config
             'devServer' => [
