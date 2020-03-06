@@ -1,6 +1,6 @@
 {
     "name": "drissy",
-    "version": "4.0.0",
+    "version": "4.1.0",
     "description": "``` Install with: composer create-project hendrikeng/drissy PROJEKTNAME -s RC",
     "keywords": [
         "Craft CMS",
