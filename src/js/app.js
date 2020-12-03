@@ -3,6 +3,10 @@
 import 'core-js/modules/es.promise';
 import 'core-js/modules/es.array.iterator';
 
+window.addEventListener('mousemove', () => {
+    console.log('first');
+});
+
 // App main
 const main = async () => {
     // Async load the vue module
@@ -77,11 +81,11 @@ main().then(() => {
     }
 
     // load gallery
-    if (document.getElementsByClassName('js-gallery').length) {
-        import(/* webpackChunkName: "photoswipe" */ './modules/photoswipe.js')
-            .then(photoswipe => photoswipe.default.init('.js-gallery'))
-            .catch(e => console.error(`${e.name} : ${e.message}`));
-    }
+    // if (document.getElementsByClassName('js-gallery').length) {
+    //     import(/* webpackChunkName: "photoswipe" */ './modules/photoswipe.js')
+    //         .then(photoswipe => photoswipe.default.init('.js-gallery'))
+    //         .catch(e => console.error(`${e.name} : ${e.message}`));
+    // }
 });
 
 // accept HMR in dev
@@ -92,3 +96,4 @@ if (process.env.NODE_ENV !== 'production') {
     // eslint-disable-next-line no-unused-expressions
     import(/* webpackChunkName: "debug" */ '../vue/debug');
 }
+
