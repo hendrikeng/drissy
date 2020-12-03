@@ -34,7 +34,7 @@
                         imageLandscape: entry.headerImage.one() ?? null,
                         imagePortrait: entry.headerImageMobile.one() ?? null,
                     },
-                    template: 'default',
+                    template: entry.headerImageMobile.one() ? 'artDirection' : 'default',
                 },
                 nav: {
                     template: 'default',
@@ -50,9 +50,9 @@
         {# -- itemContent -- #}
 
         {% block itemContent %}
-{#            {% include '_matrix.twig' with {#}
-{#                matrix: entry.contentBuilder#}
-{#            } only %}#}
+            {% include '_matrix.twig' with {
+                matrix: entry.contentBuilder
+            } only %}
         {% endblock %}
         {# -- itemContent end -- #}
     {% endblock %}

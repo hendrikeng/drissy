@@ -67,7 +67,7 @@
 
     {# -- Debug -- #}
     {% block debug %}
-{#        {% include '_layouts/_partials/debug.twig' %}#}
+        {% include '_layouts/_partials/debug.twig' %}
     {% endblock %}
     <div id="app">
 
@@ -84,16 +84,16 @@
 
         <footer>
             <div class="px-4 max-w-5xl mx-auto relative">
-{#                {% block footer %}#}
-{#                    {% include '_components/footer/default.twig' with {#}
-{#                        opt : {#}
-{#                            data: contact.globalContact.all(),#}
-{#                            el: {#}
-{#                                nav: 'default',#}
-{#                            },#}
-{#                        },#}
-{#                    } only %}#}
-{#                {% endblock %}#}
+                {% block footer %}
+                    {% include '_components/footer/default.twig' with {
+                        opt : {
+                            data: contact.globalContact.all(),
+                            el: {
+                                nav: 'default',
+                            },
+                        },
+                    } only %}
+                {% endblock %}
             </div>
         </footer>
     </div>
