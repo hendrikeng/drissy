@@ -128,7 +128,9 @@ const legacyConfig = {
         ],
     },
     plugins: [
-        new CopyWebpackPlugin(settings.copyWebpackConfig),
+        new CopyWebpackPlugin({
+            patterns: settings.copyWebpackConfig,
+        }),
         new ManifestPlugin(configureManifest('manifest-legacy.json')),
     ],
 };
