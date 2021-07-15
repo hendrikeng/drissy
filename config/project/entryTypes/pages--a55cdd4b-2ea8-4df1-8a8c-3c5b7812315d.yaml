@@ -1,0 +1,38 @@
+fieldLayouts:
+  5cb4ca20-729f-4163-b4e7-edc136f684e6:
+    tabs:
+      -
+        elements:
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            disabled: false
+            id: null
+            instructions: null
+            label: null
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            readonly: false
+            requirable: false
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\EntryTitleField
+            warning: null
+            width: 100
+        name: Inhalt
+        sortOrder: 1
+handle: pages
+hasTitleField: true
+name: Pages
+section: a1e4f471-151e-4516-9844-e7a6fcbf99e9 # Pages
+sortOrder: 1
+titleFormat: null
+titleTranslationKeyFormat: null
+titleTranslationMethod: site

@@ -1,0 +1,9 @@
+baseUrl: '@web/en'
+enabled: true
+handle: en
+hasUrls: true
+language: en
+name: Englisch
+primary: false
+siteGroup: 87446862-3466-46e6-88aa-8786de2f0ec4 # porta mundi
+sortOrder: 2

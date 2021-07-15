@@ -1,0 +1,24 @@
+enableVersioning: true
+handle: pages
+name: Pages
+propagationMethod: all
+siteSettings:
+  6df77520-a82c-4d80-a29d-a70be27f6f82: # Deutsch
+    enabledByDefault: true
+    hasUrls: true
+    template: _entry
+    uriFormat: '{entry.last().uri}/{parent.uri}/{slug}'
+  802bb61c-7b28-4353-9748-0bb9233c4cfb: # Deutsch
+    enabledByDefault: true
+    hasUrls: true
+    template: _entry
+    uriFormat: '{entry.last().uri}/{parent.uri}/{slug}'
+  ef0b07cc-435c-4e36-9696-2f53646829f4: # Englisch
+    enabledByDefault: true
+    hasUrls: true
+    template: _entry
+    uriFormat: '{entry.last().uri}/{parent.uri}/{slug}'
+structure:
+  maxLevels: null
+  uid: e0501721-b68c-4bb6-b97a-a77aebf9561e
+type: structure

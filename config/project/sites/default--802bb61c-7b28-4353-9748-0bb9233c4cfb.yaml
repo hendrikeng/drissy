@@ -1,0 +1,8 @@
+baseUrl: $PRIMARY_SITE_URL
+handle: default
+hasUrls: true
+language: de-CH
+name: Deutsch
+primary: true
+siteGroup: 6d71eae4-aaf1-4ca1-a862-85d281d355f1 # Deutsch
+sortOrder: 1

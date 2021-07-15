@@ -1,0 +1,38 @@
+fieldLayouts:
+  45e7a82f-761f-4f16-b5ea-5f29da5b6840:
+    tabs:
+      -
+        elements:
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            disabled: false
+            id: null
+            instructions: null
+            label: null
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            readonly: false
+            requirable: false
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\EntryTitleField
+            warning: null
+            width: 100
+        name: Inhalt
+        sortOrder: 1
+handle: homepage
+hasTitleField: false
+name: Homepage
+section: 70352a49-d71c-4f1d-b0cb-fd45a10bf008 # Homepage
+sortOrder: 1
+titleFormat: '{section.name|raw}'
+titleTranslationKeyFormat: null
+titleTranslationMethod: site

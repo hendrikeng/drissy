@@ -1,0 +1,22 @@
+{% extends "matrix/default.twig" %}
+
+{% block blockContent %}
+    <a href="{{ terminplaner.hyperlink }}"
+       class="flex justify-center flex-col items-start {{ craft.app.request.getLastSegment() == 'preise' or 'fees'? 'pl-8' : '' }} pt-5" target="_blank" rel="noopener">
+        {% include '_elements/img/default.twig' with {
+            data : {
+                imager: {
+                    options: {
+                        dominantColor: true,
+                        blurUp: true,
+                        mediaBox: true,
+                        ratio: false,
+                    },
+                    images: {
+                        imageLandscape: terminplaner.image.one(),
+                    }
+                },
+            }
+        } only %}
+    </a>
+{% endblock %}

@@ -1,0 +1,68 @@
+dateModified: 1622459629
+email:
+  fromEmail: hendrik@wewereyoung.de
+  fromName: Deutsch
+  transportType: craft\mail\transportadapters\Sendmail
+plugins:
+  classmate:
+    edition: standard
+    enabled: true
+    schemaVersion: 1.0.0
+  cookies:
+    edition: standard
+    enabled: true
+    schemaVersion: 1.0.0
+  cp-css:
+    edition: standard
+    enabled: true
+    schemaVersion: 2.0.0
+  expanded-singles:
+    edition: standard
+    enabled: true
+    schemaVersion: 1.0.0
+  image-resizer:
+    edition: standard
+    enabled: true
+    schemaVersion: 2.0.0
+  imager:
+    edition: standard
+    enabled: true
+    schemaVersion: 2.0.0
+  minify:
+    edition: standard
+    enabled: true
+    schemaVersion: 1.0.0
+  navigation:
+    edition: standard
+    enabled: true
+    licenseKey: ITQMJRF5BYG8TKFLX6GZXKFK
+    schemaVersion: 1.0.21
+  redactor:
+    edition: standard
+    enabled: true
+    schemaVersion: 2.3.0
+  seomatic:
+    edition: standard
+    enabled: true
+    licenseKey: ZD8JU42SCEF9FARM6ZBBI5YJ
+    schemaVersion: 3.0.9
+  twigpack:
+    edition: standard
+    enabled: true
+    schemaVersion: 1.0.0
+  typogrify:
+    edition: standard
+    enabled: true
+    schemaVersion: 1.0.0
+system:
+  edition: solo
+  live: true
+  name: Deutsch
+  schemaVersion: 3.6.8
+  timeZone: America/Los_Angeles
+users:
+  allowPublicRegistration: false
+  defaultGroup: null
+  photoSubpath: null
+  photoVolumeUid: null
+  requireEmailVerification: true
