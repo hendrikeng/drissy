@@ -1,113 +1,115 @@
 {% block itemContent %}
-    {% set switchCase = block.layout ?? craft.app.request.pathInfo %}
+    {% set switchCase = block.category.value %}
 
     {% switch switchCase %}
-    {% case "blog" or "xyz" %}
-        {% include "_elements/article/default.twig" with {
-            opt : {
-                imager: {
-                    options: {
-                        dominantColor: false,
-                        blurUp: false,
-                        mediaBox: false,
-                        objectFit: false,
-                        ratio: 'auto',
-                    },
-                    images: {
-                        imageLandscape: entry.teaserImage.one() ?? entry.contentImage.one() ?? null,
-                        imagePortrait: entry.contentImageMobile.one() ?? entry.contentImageMobile.one() ?? null,
-                    },
-                    template: entry.teaserImageMobile.one() ?? entry.headerImageMobile.one()  ? 'artDirection' : 'default',
-                },
-                data: {
-                    imageCaption: false,
-                    articleHeader: entry.title ?? false,
-                    articleParagraph: entry.teaserText ?? false,
-                    articleCta: entry.teaserCtaText ?? false,
-                },
-                class: {
-                    articleWrap: 'articleWrap px-4 mb-8 fast-transition',
-                    article: 'article flex flex-wrap justify-center -mx-4',
-                    articleImageWrap: 'articleImageWrap w-2/3 md:w-1/3 p-4 my-auto',
-                    articleImageCaption: 'articleImageCaption',
-                    articleContentWrap: 'articleContentWrap w-full md:w-2/3 p-4',
-                    articleHeader: 'articleHeader mb-4',
-                    articleCta: 'articleCta mt-4 block',
-                },
-            }
-        } %}
-    {% case "hochkant" %}
+    {% case "team" %}
+        {% if loop.first %}
+            <div class="px-3 w-full md:w-1/3">
+                {% set image = entry.image.one() %}
+                {# aspect-ratio-3/4 #}
+                {% include '_elements/img/default.twig' with {
+                    data : {
+                        imager: {
+                            options: {
+                                dominantColor: false,
+                                blurUp: false,
+                                mediaBox: true,
+                                class: 'object-cover',
+                                ratio: 3/4,
+                                mediaBoxRatio: '3/4',
+                            },
+                            images: {
+                                imageLandscape: image,
+                            }
+                        },
+                    }
+                } only %}
+            </div>
+            <div
+                class="flex flex-col px-3 mb-10 w-full h-full md:w-2/3 md:mb-14">
+                <h3 class="">{{ entry.title|typogrify }}</h3>
+                <p class=""> {{ entry.plainText|typogrify }}</p>
+                <p class="{{ classmate.get('p-bold') }}">{{ entry.headerSubTitle|typogrify }}</p>
+                <ul class="mt-6">
+                    {% for row in entry.curriculumVitae %}
+                        <li class="flex flex-col flex-auto w-full lg:flex-row">
+                            <span
+                                class="{{ classmate.get('table-bold') }} flex-shrink-0 flex-grow-0 lg:w-4/12 w-full">{{ row.time }}</span>
+                            <span
+                                class="{{ classmate.get('table') }} flex-shrink-0 flex-grow-0 lg:w-8/12 w-full">{{ row.text }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <div
+                    class="{{ classmate.get('p') }}">{{ entry.headerParagraph|typogrify }}</div>
+            </div>
+        {% else %}
 
-        {% set background = loop.index is odd ? 'bg-wafer' : 'bg-gull-gray' %}
 
-        {% include "_elements/article/hochkant.twig" with {
-            opt : {
-                imager: {
-                    options: {
-                        dominantColor: false,
-                        blurUp: false,
-                        mediaBox: false,
-                        objectFit: false,
-                        ratio: 'auto',
-                    },
-                    images: {
-                        imageLandscape: entry.teaserImage.one() ?? entry.contentImage.one() ?? null,
-                        imagePortrait: entry.contentImageMobile.one() ?? entry.contentImageMobile.one() ?? null,
-                    },
-                    template: entry.teaserImageMobile.one() ?? entry.contentImageMobile.one()  ? 'artDirection' : 'default',
-                },
-                data: {
-                    imageCaption: false,
-                    articleHeader: entry.title ?? false,
-                    articleParagraph: entry.teaserText ?? false,
-                    articleCta: entry.teaserCtaText ?? false,
-                },
-                class: {
-                    articleWrap: 'articleWrap px-4 mb-8 w-full h-full fast-transition ',
-                    article: 'article flex flex-col flex-wrap justify-center -mx-4',
-                    articleImageWrap: 'articleImageWrap w-full p-4 my-auto',
-                    articleImageCaption: 'articleImageCaption',
-                    articleContentWrap: 'articleContentWrap w-full p-4',
-                    articleHeader: 'articleHeader mb-4',
-                    articleCta: 'articleCta mt-4 block',
-                },
-            }
-        } %}
+            <figure class="px-3 w-full md:w-1/3">
+                {% set image = entry.image.one() %}
+                {# aspect-ratio-17/10 #}
+                {% include '_elements/img/default.twig' with {
+                    data : {
+                        imager: {
+                            options: {
+                                dominantColor: false,
+                                blurUp: false,
+                                mediaBox: false,
+                                class: 'object-cover',
+                                ratio: false,
+                                mediaBoxRatio: '17/10',
+                            },
+                            images: {
+                                imageLandscape: image,
+                            }
+                        },
+                    }
+                } only %}
+                <figcaption
+                    class="flex-grow mt-5 mb-10 w-full md:mt-6">
+                    <h3 class="text-2xl md:text-lg lg:text-xl leading-snuggish md:leading-nonish font-semibold">{{ entry.title|typogrify }}</h3>
+                    <p class="text-2xl md:text-lg lg:text-xl leading-snuggish md:leading-nonish">
+                    {% set funktionen = entry.plainText|typogrify|split(' ')  %}
+                        {% for var in funktionen %}
+                        	{{ var }}<br>
+                        {% endfor %}
+                    </p>
+                </figcaption>
+            </figure>
+        {% endif %}
+    {% case "partner" %}
+        <li class="w-full pl-2.5 mt-2">
+         <a class="{{ classmate.get('link').remove('leading-relaxed md:leading-normal lg:leading-snuggish').add('leading-loose inline-block') }}" href="{{ entry.hyperlink }}" target="_blank" rel="noopener">
+             {% set image = entry.image.one() %}
+             {% if image %}
+                 <span class="fill-current text-slate-green w-20 block -mb-1" style="width: 80px">
+                 {% include '_elements/img/default.twig' with {
+                     data : {
+                         imager: {
+                             options: {
+                                 dominantColor: false,
+                                 blurUp: false,
+                                 mediaBox: false,
+                                 ratio: false,
+                             },
+                             images: {
+                                 imageLandscape: image,
+                             }
+                         },
+                     }
+                 } only %}
+                     </span>
+                 {% else %}
+                     {{ entry.title }}
+             {% endif %}
+
+         </a>
+        </li>
 
 
     {% default %}
-        {% include "_elements/article/default.twig" with {
-            opt : {
-                imager: {
-                    options: {
-                        dominantColor: false,
-                        blurUp: false,
-                        mediaBox: false,
-                        objectFit: false,
-                    },
-                    images: {
-                        imageLandscape: entry.teaserImage.one() ?? entry.headerImage.one() ?? null,
-                        imagePortrait: entry.teaserImageMobile.one() ?? entry.headerImageMobile.one() ?? null,
-                    },
-                    template: entry.teaserImageMobile.one() ?? entry.headerImageMobile.one()  ? 'artDirection' : 'default',
-                },
-                data: {
-                    imageCaption: false,
-                    articleHeader: entry.title ?? false,
-                    articleParagraph: entry.teaserText ?? false,
-                    articleCta: entry.teaserCtaText ?? false,
-                },
-                class: {
-                    articleWrap: 'articleWrap p-4 mb-16 fast-transition',
-                    article: 'article flex flex-wrap -mx-4',
-                    articleImageWrap: 'articleImageWrap w-full md:w-1/3 px-4 pb-4 md:pb-0',
-                    articleImageCaption: 'articleImageCaption',
-                    articleContentWrap: 'articleContentWrap w-full md:w-2/3 px-4',
-                    articleHeader: 'articleHeader mb-4',
-                    articleCta: 'articleCta mt-4 block',
-                },
-            }
-        } %}
+        default
     {% endswitch %}
 {% endblock %}
 

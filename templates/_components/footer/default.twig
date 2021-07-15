@@ -1,43 +1,31 @@
 {% for block in opt.data %}
-    <div class="flex justify-between">
-        <span>{{ now|date('Y') }}</span>
-        <span itemprop="name">{{ block.company }}</span>
-        <span>{{ block.street }}</span>
-        <span>{{ block.postalCode }}</span>
-        <span>{{ block.city }}</span>
-        <span>{{ block.country }}</span>
-        <span>
-            <a href="tel:{{ block.phone|replace({' ':''})|replace({'/':''}) }}"
-               title="contact phone"
-               rel="nofollow">{{ block.phone }}</a>
-        </span>
-        <span>
-            <a href="mailto:{{ block.mail }}" title="contact email"
-               rel="nofollow">{{ block.mail }}
-            </a>
-        </span>
 
-        {% if opt.el.nav %}
-            {% include '_elements/nav/' ~ opt.el.nav with {
-                data : {
-                    nav: {
-                        entry: navigationFooter.globalNavigationFooter.all() ?? null,
-                    }
-                }
-            } only %}
-        {% endif %}
-
-        <span>
-            <a rel="nofollow" title="Homepage"
-               aria-label="navigate to homepage"
-               href="{{ alias('@web') }}">{% include '_svg/logo.svg' with {
-                    data : {
-                        svg: {
-                            class: 'w-8',
-                        }
-                    }
-                } only %}</a>
-        </span>
-
-    </div>
 {% endfor %}
+{# footer nav #}
+{#<div class="mx-auto h-auto bg-marine">#}
+{#    <div class="max-w-screen-2xl mx-auto flex flex-col xl:flex-row xl:justify-between items-center px-6 md:px-12 lg:px-24 py-8  lg:py-3">#}
+{#    <ul class="flex text-white flex flex-col md:flex-row md:flex-wrap md:w-full xl:w-auto justify-center xl:justify-start items-center pb-8 md:pb-3">#}
+{#        <li class="font-semibold leading-relaxed pt-2 mr-3">{{ companyDetails.plainText }}</li>#}
+{#        <li class="pt-2 mx-3">#}
+{#            <a class="text-slate-green leading-relaxed"#}
+{#                href="{{ companyDetails.hyperlink }}">{{ companyDetails.hyperlink|trim('mailto:', 'left') }}</a>#}
+{#        </li>#}
+{#        <li class="pt-2 ml-3">#}
+{#            <a class="text-slate-green leading-relaxed" href="{{ companyDetails.hyperlink2 }}">{{ companyDetails.hyperlink2|trim('tel:', 'left')|replace({'-': ' ',}) }}</a>#}
+{#        </li>#}
+{#    </ul>#}
+{#    <nav>#}
+{#        {% set nodes = craft.navigation.nodes({ handle: 'footerMenu', level: 1 }).all() %}#}
+{#        <ul class="text-white leading-relaxed  flex flex-wrap justify-center ">#}
+{#            {% for node in nodes %}#}
+{#                <li><a href="{{ url(node.url) }}"#}
+{#                        {{ node.newWindow ? 'target="_blank" rel="noopener"' : '' }}#}
+{#                       title="{{ node.title }}">{{ node.title|typogrify }}</a> {% if not loop.last %}#}
+{#                        <span class="{{ loop.last  ? '' : 'mx-2' }} ">|</span>#}
+{#                    {% endif %}</li>#}
+{#            {% endfor %}#}
+
+{#        </ul>#}
+{#    </nav>#}
+{#    </div>#}
+{#</div>#}

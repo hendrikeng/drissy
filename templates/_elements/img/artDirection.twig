@@ -23,7 +23,6 @@
     positionLandscape: false,
     allowUpscale: false,
     alt: imageLandscape.title ?? null,
-    objectFitValue: 'cover',
     blurUp: false,
     class: false,
     dataSizes: 'auto',
@@ -32,8 +31,8 @@
     interlace: true,
     lazy: true,
     mediaBox: false,
+    mediaBoxRatio: false,
     mode: 'crop',
-    objectFit: true,
     preload: false,
     quality: 80,
     watermark: false,
@@ -143,7 +142,7 @@
 
 
         {% if options.mediaBox %}
-            <div class="{{ options.mediaBox ? 'mediabox aspect-ratio-' ~ options.ratio : '' }} {{ options.mediaBox }}" style="{{ options.dominantColor ? 'background-color:' ~ dominantColor ~ ';' }}">
+            <div class="{{ options.mediaBox ? 'mediabox aspect-ratio-' ~ options.mediaBoxRatio : '0' }} {{ options.mediaBox }}" style="{{ options.dominantColor ? 'background-color:' ~ dominantColor ~ ';' }}">
         {% endif %}
 
         <picture>
@@ -182,11 +181,9 @@
                 {% if options.blurUp and options.lazy %}
                     data-lowsrc="{{ images|last.url }}"
                 {% endif %}
-                {% if options.objectFit %} style="
-                object-fit:{{ options.objectFitValue }};
+                style="
                 object-position:{{ positionLandscape }};
-                font-family:'{{ 'object-fit:' ~ options.objectFitValue }};{{ 'object-position:' ~ positionLandscape }};';
-                " {% endif %}/>
+                "/>
         </picture>
         {% if options.noscript %}
             <noscript>

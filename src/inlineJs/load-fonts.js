@@ -1,8 +1,7 @@
 "use strict";
 
-var FontA = new FontFaceObserver("Roboto Condensed");
-var FontB = new FontFaceObserver("Cabin");
+var FontA = new FontFaceObserver("Poppins");
 
-Promise.all([FontA.load(), FontB.load()]).then(function () {
+Promise.all([FontA.load()]).then(function () {
     document.documentElement.className += "fonts-loaded";
 });

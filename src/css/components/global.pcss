@@ -5,34 +5,6 @@
  *
  */
 
-html {
-    height: 100%;
-    font-size: 100%;
-    text-rendering: optimizeLegibility;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    -webkit-font-smoothing: subpixel-antialiased;
-    -webkit-overflow-scrolling: touch;
-    -moz-osx-font-smoothing: grayscale;
-}
-
-
-body {
-    min-height: 100vh;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    @apply bg-white;
-}
-
-main {
-    flex-grow: 1;
-}
-
-footer {
-    flex-shrink: 0;
-}
-
 img {
     display: block;
     max-width: 100%;
@@ -57,9 +29,7 @@ img[data-sizes='auto'] {
     transition: opacity 875ms cubic-bezier(0.215, 0.61, 0.355, 1) 125ms;
 }
 
-.lazypreload {
-    opacity: 1;
-}
+
 
 .mediabox {
     position: relative;
@@ -102,48 +72,7 @@ img[data-sizes='auto'] {
     display: none;
 }
 
-/* -- For screen readers */
-
-.sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    border: 0;
-}
-
-/* elements */
-
-::selection {
-}
-/* -- CSS variables */
-
-:root {
-    --outlineColor: #5db7a5;
-}
-
-/* -- A subtle focus style for keyboard-input elements */
-
-.text-input:focus {
-    outline: 1px solid var(--outlineColor);
-}
-
-/* -- No outline for non-keyboard-inputs elements */
-
-button:focus,
-select:focus,
-textarea:focus,
-input:focus {
-    outline: none;
-}
-
-.user-is-tabbing *:focus {
-    outline: 2px solid var(--outlineColor) !important;
-    outline: 5px auto -webkit-focus-ring-color !important;
-}
+[x-cloak] { display: none!important; }
 
 .embedded iframe {
     position: absolute;
@@ -154,6 +83,48 @@ input:focus {
     width: 100%;
 }
 
-.is-active {
-    color: red!important;
+
+.h-hero {
+    height: calc(100vh - 138px);
 }
+
+::-moz-selection { /* Code for Firefox */
+    background: #b3b0b4;
+}
+
+::selection {
+    background: #b3b0b4;
+}
+
+.svg svg {
+    width: 83px;
+    height: 115px;
+}
+
+@screen md {
+    .svg svg {
+        width: 98px;
+        height: 136px;
+    }
+}
+
+@screen lg {
+    .svg svg {
+        width: 151px;
+        height: 210px;
+    }
+}
+
+
+
+
+.isWhite, .isOpen {
+    transition: all 300ms ease-out;
+    border-color: #ffffff!important;
+    color: #ffffff!important;
+}
+
+.isWhite span, .isOpen span {
+    background-color: #ffffff!important;
+}
+

@@ -17,9 +17,8 @@
     interlace: true,
     lazy: true,
     mediaBox: false,
+    mediaBoxRatio: false,
     mode: 'crop',
-    objectFit: true,
-    objectFitValue: 'cover',
     preload: false,
     quality: 80,
     ratio: 'auto',
@@ -100,7 +99,7 @@
         {% endif %}
 
         {% if options.mediaBox %}
-            <div class="{{ options.mediaBox ? 'mediabox aspect-ratio-' ~ options.ratio : '' }} {{ options.mediaBox }}" style="{{ options.dominantColor ? 'background-color:' ~ dominantColor ~ ';' }}">
+            <div class="{{ options.mediaBox ? 'mediabox aspect-ratio-' ~ options.mediaBoxRatio : '0' }} {{ options.mediaBox }}" style="{{ options.dominantColor ? 'background-color:' ~ dominantColor ~ ';' }}">
         {% endif %}
 
         <picture>
@@ -127,11 +126,9 @@
                     data-lowsrc="{{ images|last.url }}"
                 {% endif %}
                 alt="{{ options.alt }}"
-                {% if options.objectFit %} style="
-                object-fit:{{ options.objectFitValue }};
+                style="
                 object-position:{{ position }};
-                font-family:'{{ 'object-fit:' ~ options.objectFitValue }};{{ 'object-position:' ~ position }};';
-                " {% endif %}/>
+                "/>
         </picture>
         {% if options.noscript %}
             <noscript>

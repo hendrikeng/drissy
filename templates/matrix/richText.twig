@@ -6,7 +6,9 @@
 {% extends "matrix/default.twig" %}
 
 {% block blockContent %}
-    <div class="richText mb-16 p-4">
-        {{ block.textContent }}
-    </div>
+
+        <div class="{{ (craft.app.request.getLastSegment()  == 'konzept' or 'concept' or not craft.app.request.segments|length) and loop.index == 2 ? 'text-center' : '' }}">
+            {{ block.textContent }}
+        </div>
+
 {% endblock %}

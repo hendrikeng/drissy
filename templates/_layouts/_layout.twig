@@ -1,29 +1,15 @@
 {#
-    Layout: Default
-    ------------------------------------------------------------
+Layout: Default
+------------------------------------------------------------
 #}
 
-{% set assetHash = craft.twigpack.getModuleHash("main.css", "legacy") %}
-
-    {%- minify -%}
-
+{% if getenv('ENVIRONMENT') != 'dev' %}
+    {% set assetHash = craft.twigpack.getModuleHash("styles.css", "legacy") %}
+{% endif %}
+{%- minify -%}
 <!DOCTYPE html>
-
-{% if not craft.app.config.general.devMode %}
-    {% set fontsLoaded = getCookie('fonts-loaded') %}
-    {% if fontsLoaded and fontsLoaded == assetHash %}
-<html class="fonts-loaded" lang="{{ craft.app.language |slice(0,2) }}"
-      prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
-{% else %}
 <html lang="{{ craft.app.language |slice(0,2) }}"
       prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
-{% endif %}
-{% else %}
-<html class="fonts-loaded" lang="{{ craft.app.language |slice(0,2) }}"
-      prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
-{% endif %}
-
-
 <head>
 
     {# -- Seomatic -- #}
@@ -34,7 +20,7 @@
     {% block head %}{% endblock %}
 
     {# -- criticalCss -- #}
-    {% if not craft.app.config.general.devMode %}
+    {% if getenv('ENVIRONMENT') != 'dev' %}
         {% set criticalCss = getCookie('critical-css') %}
         {% if criticalCss and criticalCss == assetHash %}
             {{ craft.twigpack.includeCssModule("main.css") }}
@@ -44,73 +30,70 @@
                 {{ craft.twigpack.includeCriticalCssTags() }}
             {% endblock %}
             {{ craft.twigpack.includeCssModule("main.css", true) }}
-            {{ craft.twigpack.includeCssRelPreloadPolyfill() }}
         {% endif %}
     {% endif %}
 
-    {# -- Fontface Observer -- #}
-    {% include '_layouts/_partials/font-face-observer.twig' %}
+    {# -- inlineCss -- #}
+    {% include '_layouts/_partials/inline-css.twig' %}
 
     {# -- inlineJs-- #}
     {% include '_layouts/_partials/inline-js.twig' %}
 
     {# -- Goole analytics -- #}
-    {% if not craft.app.config.general.devMode %}
+    {% if getenv('ENVIRONMENT') == 'production' %}
         {{ craft.twigpack.includeJsModule("analytics.js", true) }}
     {% endif %}
-
 </head>
 
 <body>
 
 {% block body %}
+    <div class="flex flex-col min-h-screen w-full mx-auto antialiased overflow-x-hidden">
 
-    {# -- Debug -- #}
-    {% block debug %}
-        {% include '_layouts/_partials/debug.twig' %}
-    {% endblock %}
-    <div id="app">
-
-
+        {# Old browser warning
+        <div id="old-browser-warning" class="hidden text-xs text-orange lg:flex-grow">
+            <svg class="inline-block fill-current text-orange w-4 mr-1 -mt-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"></path></svg>
+            <span class="inline-block">Sicherheitswarnung: Bitte aktualisieren Sie Ihren Webbrowser. <a class="leading-xxs text-orange"  href="http://outdatedbrowser.com/de" target="_blank">Jetzt aktualisieren »</a></span>
+        </div>
+        #}
         <header>
             {% block header %}{% endblock %}
         </header>
 
-        <main>
-            <div class="max-w-5xl mx-auto relative">
-                {% block content %}{% endblock %}
-            </div>
+        <main class="flex-grow">
+            {% block content %}{% endblock %}
         </main>
 
-        <footer>
-            <div class="px-4 max-w-5xl mx-auto relative">
-                {% block footer %}
-                    {% include '_components/footer/default.twig' with {
-                        opt : {
-                            data: contact.globalContact.all(),
-                            el: {
-                                nav: 'default',
-                            },
+        <footer class="flex-shrink-0">
+            {% block footer %}
+                {% include '_components/footer/default.twig' with {
+                    opt : {
+                        data: contact.globalContact.all() ?? null,
+                        el: {
+                            nav: 'default',
                         },
-                    } only %}
-                {% endblock %}
-            </div>
+                    },
+                } only %}
+            {% endblock %}
+
         </footer>
     </div>
 {% endblock %}
 
+
+
+{{ craft.twigpack.includeSafariNomoduleFix() }}
+{{ craft.twigpack.includeJsModule("runtime.js", true) }}
+{{ craft.twigpack.includeJsModule("app.js", true) }}
+
+<!-- SCRIPTS -->
 {% block scripts %}
     <script>
+        window.csrfTokenName = "{{ craft.app.config.general.csrfTokenName|e('js') }}";
         window.csrfTokenValue = "{{ craft.app.request.csrfToken|e('js') }}";
     </script>
 {% endblock %}
 
-{% if craft.app.config.general.devMode %}
-    {{ craft.twigpack.includeJsModule("styles.js", true) }}
-{% endif %}
-
-{{ craft.twigpack.includeSafariNomoduleFix() }}
-{{ craft.twigpack.includeJsModule("app.js", true) }}
 
 </body>
 

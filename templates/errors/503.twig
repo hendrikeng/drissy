@@ -2,9 +2,49 @@
 
 {% set entry = craft.entries.section('errors').slug('error503').one() %}
 
-{% block content %}
-    <section>
-        <h1>{{ entry.errorHeadline ?? 'Error' }}</h1>
-        <p>{{ (entry.errorText ?? 'An error has occurred.') |nl2br }}</p>
-    </section>
+{% block inlineCriticalCss %}
+    <style>
+        {{ craft.twigpack.includeFile('@webroot/dist/criticalcss/' ~ _self ~  '_critical.min.css') }}
+    </style>
 {% endblock %}
+
+{# -- cache -- #}
+{% cache globally using key 'entry/error503-' ~ (craft.imager.clientSupportsWebp ? "with-webp") ~ craft.app.request.pathInfo ~ (craft.app.request.pageNum ? '/p' ~ craft.app.request.pageNum : '') %}
+
+    {# -- header -- #}
+    {% block header %}
+        {% include '_components/header/default.twig' with {
+            data : {
+                header: {
+                    title: {
+                        entry: entry.title ?? null,
+                    },
+                    subTitle: {
+                        entry: entry.headerSubTitle ?? null,
+                    },
+                    headerParagraph: {
+                        entry: entry.headerParagraph ?? null,
+                    },
+                },
+                imager: {
+                    options: {
+                        preload: true,
+                        class: 'absolute h-screen w-full z-10 inset-y-0 inset-x-0 object-cover',
+                    },
+                    images: {
+                        imageLandscape: entry.headerImage.one() ?? null,
+                        imagePortrait: entry.headerImageMobile.one() ?? null,
+                    },
+                    template: entry.headerImageMobile.one() ? 'artDirection' : 'default',
+                },
+                nav: {
+                    entry: navigationMain.globalNavigationMain.all() ?? null
+                }
+            }
+        } only %}
+    {% endblock %}
+    {# -- header end -- #}
+
+    {# -- Cache End -- #}
+{% endcache %}
+

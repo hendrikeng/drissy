@@ -17,15 +17,23 @@
      * your config/ folder, alongside this one.
      */
 
+    use craft\helpers\App;
+
     return [
-        'modules'    => [
-            'my-module' => \modules\Module::class,
+        'id' => App::env('APP_ID') ?: 'CraftCMS',
+        'modules' => [
+            'site-module' => [
+                'class' => \modules\sitemodule\SiteModule::class,
+            ],
         ],
-        'bootstrap'  => [ 'my-module' ],
+        'bootstrap' => ['site-module'],
         'components' => [
             'deprecator' => [
-                'throwExceptions' => YII_DEBUG,
+                'throwExceptions' => App::env('DEV_MODE'),
+            ],
+            'queue' => [
+                'class' => craft\queue\Queue::class,
+                'ttr' => 10 * 60,
             ],
         ],
     ];
-

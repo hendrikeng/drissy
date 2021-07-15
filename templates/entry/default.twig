@@ -19,15 +19,17 @@
                     title: {
                         entry: entry.title ?? null,
                     },
-                    description: {
-                        entry: null,
+                    subTitle: {
+                        entry: entry.headerSubTitle ?? null,
+                    },
+                    headerParagraph: {
+                        entry: entry.headerParagraph ?? null,
                     },
                 },
                 imager: {
                     options: {
                         preload: true,
-                        objectFit: true,
-                        class: 'relative w-full h-128',
+                        class: 'absolute h-screen w-full z-10 inset-y-0 inset-x-0 object-cover',
                     },
                     images: {
                         imageLandscape: entry.headerImage.one() ?? null,
@@ -36,7 +38,6 @@
                     template: entry.headerImageMobile.one() ? 'artDirection' : 'default',
                 },
                 nav: {
-                    template: 'default',
                     entry: navigationMain.globalNavigationMain.all() ?? null
                 }
             }

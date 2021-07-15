@@ -9,6 +9,8 @@
      * @copyright Copyright (c) 2018 nystudio107
      */
 
+    use craft\helpers\App;
+
     /**
      * Twigpack config.php
      *
@@ -23,31 +25,39 @@
      * you do for 'general.php'
      */
 
+
     return [
         // Global settings
         '*' => [
             // If `devMode` is on, use webpack-dev-server to all for HMR (hot module reloading)
-            'useDevServer' => getenv('DEV_MODE'),
+            'useDevServer'       => App::env( 'DEV_MODE' ),
             // The JavaScript entry from the manifest.json to inject on Twig error pages
-            'errorEntry' => 'app.js',
+            'errorEntry'         => [ 'runtime.js', 'app.js' ],
             // Manifest file names
-            'manifest' => [
+            'manifest'           => [
                 'legacy' => 'manifest-legacy.json',
                 'modern' => 'manifest.json',
             ],
             // Public server config
-            'server' => [
+            'server'             => [
                 'manifestPath' => '@webroot/dist',
-                'publicPath' => '/',
+                'publicPath'   => '/',
             ],
             // webpack-dev-server config
-            'devServer' => [
-                'manifestPath' =>  getenv('DEVSERVER_PUBLIC'),
-                'publicPath' => getenv('DEVSERVER_PUBLIC'),
+            'devServer'          => [
+                'manifestPath' => App::env( 'TWIGPACK_DEV_SERVER_MANIFEST_PATH' ),
+                'publicPath'   => App::env( 'TWIGPACK_DEV_SERVER_PUBLIC_PATH' ),
             ],
+            // Bundle to use with the webpack-dev-server
+            'devServerBuildType' => 'modern',
+            // Whether to include a Content Security Policy "nonce" for inline
+            // CSS or JavaScript. Valid values are 'header' or 'tag' for how the CSP
+            // should be included. c.f.:
+            // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/script-src#Unsafe_inline_script
+            'cspNonce'           => '',
             // Local files config
-            'localFiles' => [
-                'basePath' => '@webroot/',
+            'localFiles'         => [
+                'basePath'       => '@webroot/',
                 'criticalPrefix' => 'dist/criticalcss/',
                 'criticalSuffix' => '_critical.min.css',
             ],

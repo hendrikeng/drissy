@@ -7,25 +7,24 @@
      *
      * @see \craft\config\GeneralConfig
      */
-
+    use craft\helpers\App;
     return [
         // Craft config settings from .env variables
         'aliases' => [
-            '@assetsUrl' => getenv('ASSETS_URL'),
-            '@cloudfrontUrl' => getenv('CLOUDFRONT_URL'),
-            '@web' => getenv('SITE_URL'),
-            '@webroot' => getenv('WEB_ROOT_PATH'),
+            '@assetsUrl' => App::env('ASSETS_URL'),
+            '@cloudfrontUrl' => App::env('CLOUDFRONT_URL'),
+            '@web' => App::env('SITE_URL'),
+            '@webroot' => App::env('WEB_ROOT_PATH'),
         ],
-        'allowUpdates' => (bool)getenv('ALLOW_UPDATES'),
-        'allowAdminChanges' => (bool)getenv('ALLOW_ADMIN_CHANGES'),
-        'backupOnUpdate' => (bool)getenv('BACKUP_ON_UPDATE'),
+        'allowUpdates' => (bool)App::env('ALLOW_UPDATES'),
+        'allowAdminChanges' => (bool)App::env('ALLOW_ADMIN_CHANGES'),
+        'backupOnUpdate' => (bool)App::env('BACKUP_ON_UPDATE'),
         'cpTrigger' => getenv('CP_TRIGGER'),
-        'devMode' => (bool)getenv('DEV_MODE'),
-        'enableTemplateCaching' => (bool)getenv('ENABLE_TEMPLATE_CACHING'),
-        'isSystemLive' => (bool)getenv('IS_SYSTEM_LIVE'),
-        'resourceBasePath' => dirname(__DIR__) . '/web/cpresources',
-        'runQueueAutomatically' => (bool)getenv('RUN_QUEUE_AUTOMATICALLY'),
-        'securityKey' => getenv('SECURITY_KEY'),
+        'devMode' => (bool)App::env('DEV_MODE'),
+        'enableTemplateCaching' => (bool)App::env('ENABLE_TEMPLATE_CACHING'),
+        'resourceBasePath' => App::env('WEB_ROOT_PATH').'/cpresources',
+        'runQueueAutomatically' => (bool)App::env('RUN_QUEUE_AUTOMATICALLY'),
+        'securityKey' => App::env('SECURITY_KEY'),
         // Craft config settings from constants
         'cacheDuration' => false,
         'convertFilenamesToAscii' => true,
@@ -33,9 +32,11 @@
             'subLeft' => true,
             'subRight' => true,
         ],
+        'defaultTokenDuration' => 'P2W',
         'enableCsrfProtection' => true,
         'errorTemplatePrefix' => 'errors/',
         'generateTransformsBeforePageLoad' => true,
+        'isSystemLive' => (bool)App::env('IS_SYSTEM_LIVE'),
         'limitAutoSlugsToAscii' => true,
         'maxCachedCloudImageSize' => 3000,
         'maxUploadFileSize' => '100M',

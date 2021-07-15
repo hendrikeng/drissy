@@ -1,0 +1,5 @@
+{% if getenv('ENVIRONMENT') != 'dev' %}
+    <style>
+        {{ craft.twigpack.includeFile("@webroot/dist/css/webfonts.css") }}
+    </style>
+{% endif %}

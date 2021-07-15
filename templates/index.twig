@@ -1,10 +1,7 @@
 {# @var craft \craft\web\twig\variables\CraftVariable #}
 {# @var entry \craft\elements\Entry #}
 
-{#
-  Home
-  ------------------------------------------------------------
-#}
+
 
 {% extends '_layouts/_layout.twig' %}
 
@@ -12,49 +9,59 @@
 {% cache globally using key 'homepage-' ~ (craft.imager.clientSupportsWebp ? "with-webp") ~ craft.app.request.pathInfo ~ (craft.app.request.pageNum ? '/p' ~ craft.app.request.pageNum : '') %}
 
     {# -- header -- #}
-
     {% block header %}
-        {% include '_components/header/default.twig' with {
+        {% embed '_components/header/default.twig' with {
             data : {
                 header: {
                     title: {
-                        entry: siteName,
+                        entry: entry.title ?? null,
                     },
-                    description: {
+                    headerParagraph: {
                         entry: null,
                     },
                 },
                 imager: {
                     options: {
                         preload: true,
-                        objectFit: true,
-                        class: 'relative w-full h-128',
+                        class: 'absolute h-full w-full z-10 inset-y-0 inset-x-0 object-cover',
                     },
                     images: {
                         imageLandscape: entry.headerImage.one() ?? null,
                         imagePortrait: entry.headerImageMobile.one() ?? null,
                     },
-                    template: entry.headerImageMobile.one() ? 'artDirection' : 'default',
+                    template: 'default',
                 },
                 nav: {
-                    template: 'default',
                     entry: navigationMain.globalNavigationMain.all() ?? null
                 }
             }
-        } %}
+        } only %}
+            {% block subHeaderContent %}
+
+            {% endblock %}
+
+        {% endembed %}
     {% endblock %}
     {# -- header end -- #}
 
+
+
     {# -- content -- #}
     {% block content %}
-        {# -- itemContent -- #}
 
+        <div class="bg-green-200">
+            asdasd
+        </div>
+        {# -- itemContent -- #}
         {% block itemContent %}
-            {% include '_matrix.twig' with {
-                matrix: entry.contentBuilder
-            } only %}
+
+{#            {% include '_matrix.twig' with {#}
+{#                matrix : entry.contentBuilder,#}
+{#            } only %}#}
         {% endblock %}
         {# -- itemContent end -- #}
+
+
     {% endblock %}
     {# -- content end -- #}
 

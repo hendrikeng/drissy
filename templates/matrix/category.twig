@@ -8,15 +8,13 @@
 
 {% extends "matrix/default.twig" %}
 
-{% set category = block.category.all() %}
+{% set category = block.category %}
+
 
 {% if category %}
 
     {% set entries = craft.entries({
-        section: category[0]|lower,
-        relatedTo: category[category|length-1],
-        orderBy: 'title asc',
-        limit: block.limit
+        section: category.value,
     } ) %}
 
 {% endif %}
@@ -24,11 +22,20 @@
 {% block blockContent %}
 
     {% if category %}
+        {% if category.value != 'partner' %}
+            <div class="flex flex-wrap justify-center items-start -mx-3 mt-10">
+            {% else %}
+            <ul class="leading-loosish list-disc list-outside pl-5 mt-5 md:mt-6">
+        {% endif %}
 
         {% for entry in entries.all() %}
             {% include '_item.twig' %}
         {% endfor %}
-
+                {% if category.value != 'partner' %}
+                    </div>
+                    {% else %}
+                        </ul>
+                    {% endif %}
 
     {% endif %}
 

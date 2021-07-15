@@ -2,30 +2,24 @@
 
 {% block blockContent %}
 
-    {% for image in block.image %}
-    <figure
-        class="p-4 mb-16 w-full md:{{ block.columns ?? 'w-full' }}">
-
-        {% include '_elements/img/default.twig' with {
-            data : {
-                imager: {
-                    options: {
-                        dominantColor: true,
-                        blurUp: true,
-                        mediaBox: true,
-                        objectFit: block.ratio.value == 'auto' ? false : true,
-                        ratio: block.ratio.value,
+<div class="svg mt-12 md:mt-14">
+        {% for image in block.image %}
+            {% include '_elements/img/default.twig' with {
+                data : {
+                    imager: {
+                        options: {
+                            dominantColor: true,
+                            blurUp: true,
+                            mediaBox: true,
+                            ratio: false,
+                        },
+                        images: {
+                            imageLandscape: image,
+                        }
                     },
-                    images: {
-                        imageLandscape: image,
-                    }
-                },
-            }
-        } only %}
-        {% if block.caption %}
-            <figcaption class="text-sm mt-2"
-                        itemprop="caption description">{{ image.caption }}</figcaption>
-        {% endif %}
-    </figure>
-    {% endfor %}
+                }
+            } only %}
+        {% endfor %}
+</div>
+
 {% endblock %}

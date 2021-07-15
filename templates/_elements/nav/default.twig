@@ -1,25 +1,61 @@
-{% import "_macros/_macros.twig" as macro %}
+<div class="flex justify-center items-center ">
 
-<nav class="hidden md:block">
-    <ul class="flex-grow flex w-auto">
+    <button class="mx-6 z-30 appearance-none focus:outline-none" @click="changeLanguage()">
+        <span :class="{'isOpen': open === 'true', 'font-semibold': language === 'default' }" class="js-changeColor text-marine">D</span><span :class="{'isOpen': open === 'true' }" class="js-changeColor text-marine"> | </span><span :class="{'isOpen': open === 'true', 'font-semibold': language === 'en' }" class="js-changeColor text-marine">E</span>
+    </button>
 
-        {% for block in data.nav.entry %}
-            {% if block.isActive %}
-                {# -- Get Position -- #}
-                {% set segments = block.highlightTriggers | default('notSet') | replace({'homepage': ''}) | split(',') %}
-                {# -- Set Text -- #}
-                {% set text = block.menuItem.customText != '' ? block.menuItem.customText: block.menuItem.text | default(block.menuItem.url) %}
-                <li>
-                    <a href="{{ block.menuItem.url }}"
-                       title="{{ text | trim }}"
-                       class="inline-block {{ block.segmentPosition ? macro.isActive(segments, block.segmentPosition + 0) | trim : '' }} {% if loop.index != loop.last %}mr-4{% endif %}">
-                        {{ text | trim }}
-                    </a>
-                </li>
-            {% endif %}
-        {% endfor %}
-    </ul>
-</nav>
+    <div class="inline-block" >
+        <div class="relative  mx-auto z-30">
+            <nav>
+                <button class="w-10 h-10 relative focus:outline-none bg-transparent border rounded-full border-2 js-changeColor text-marine border-marine" :class="{'isOpen': open === 'true' }" @click="open !== 'true' ? open = 'true' : open = 'false'">
+                    <span class="sr-only">Open main menu</span>
+                    <div class="burger block w-5 absolute left-1/2 top-1/2  transform  -translate-x-1/2 -translate-y-1/2">
+                        <span aria-hidden="true" class="block absolute h-0.5 w-5 bg-current transform transition duration-300 ease-in-out" :class="{'rotate-45': open === 'true',' -translate-y-1.5': open !== 'true' }"></span>
+                        <span aria-hidden="true" class="block absolute  h-0.5 w-5 bg-current transform transition duration-300 ease-in-out" :class="{'opacity-0': open === 'true' } "></span>
+                        <span aria-hidden="true" class="block absolute  h-0.5 w-5 bg-current transform  transition duration-300 ease-in-out" :class="{'-rotate-45': open === 'true', ' translate-y-1.5': open !== 'true'}"></span>
+                    </div>
+                </button>
+            </nav>
+        </div>
 
+        <div class="fixed w-screen h-screen bg-marine z-20 inset-x-0 inset-y-0 mx-auto flex justify-center overflow-y-scroll"
+             x-show="open === 'true'"
+             x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0 transform"
+             x-transition:enter-end="opacity-100 transform"
+             x-transition:leave="transition ease-in duration-300"
+             x-transition:leave-start="opacity-100 transform "
+             x-transition:leave-end="opacity-0 transform "
+        >
+            <nav class="absolute w-full h-full flex justify-center items-center lg:items-start flex-col inset-x-0  inset-y-0 px-6 md:px-12 lg:px-36 mx-auto w-full max-w-screen-2xl lg:left-0">
+                {% set nodes = craft.navigation.nodes({ handle: 'mainMenu', level: 1 }).all() %}
+                <template  x-if="open === 'true'" x-cloak>
+                <ul class="text-center -mt-16 md:-mt-32 lg:mt-0 px-8 lg:pl-16   z-40"
+                    x-transition:enter="transition ease-out duration-300"
+                    x-transition:enter-start="opacity-0 transform scale-90"
+                    x-transition:enter-end="opacity-100 transform scale-100"
+                    x-transition:leave="transition ease-in duration-300"
+                    x-transition:leave-start="opacity-100 transform scale-100"
+                    x-transition:leave-end="opacity-0 transform scale-90">
 
+                    {% for node in nodes %}
+                        <li><a href="{{ url(node.url) }}"
+                                {{ node.newWindow ? 'target="_blank" rel="noopener"' : '' }}
+                               class="text-center text-white text-menu-fluid font-semibold leading-relaxed md:leading-normal"
+                               @click="open = 'false'"
+                               title="{{ node.title }}">{{ node.title|typogrify }}
 
+                            </a> </li>
+                    {% endfor %}
+
+                </ul>
+                </template>
+            </nav>
+            <div class="fixed bottom-0 w-64 md:w-96 lg:w-160 lg:right-0">
+                {% include '_svg/figure.svg' with {
+                } only %}
+            </div>
+        </div>
+    </div>
+
+</div>
